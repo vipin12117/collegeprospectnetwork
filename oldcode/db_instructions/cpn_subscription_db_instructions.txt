@@ -1,0 +1,29 @@
+-------------------------------------------------------------------------------
+Insert to [tbl_college_subscription]
+-------------------------------------------------------------------------------
+fldCollegeCoachId
+fldCollegeCoachFirstName
+fldCollegeCoachLastName
+fldCollegeCoachEmail
+fldTransactionId
+
+fldPaymentCardOwner
+fldPaymentType
+fldPaymentDate
+fldPaymentAmount
+
+fldSubscriptionId
+fldSubscriptionName
+fldSubscriptionCost
+fldSubscriptionPeriod
+fldSubscriptionStartDate
+fldSubscriptionEndDate
+fldSubscriptionStatus  (1=active, 0=inactive)
+
+-------------------------------------------------------------------------------
+Update to Table [tbl_college_coach_register]
+-------------------------------------------------------------------------------
+fldSubscribe = 1  (Active)
+fldLastPaymentType
+fldLastPaymentDate
+fldLastPayAmount    FLOAT 10,2

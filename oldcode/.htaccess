@@ -1,0 +1,15 @@
+## Default .htaccess file
+
+php_value upload_max_filesize 360M
+
+php_value post_max_size 370M
+
+php_value memory_limit 720M
+
+
+RewriteEngine on
+
+RewriteBase /collegeprospectnetwork/oldcode
+
+RewriteRule   ^events$	Registration-Special-Event.php
+
