@@ -39,7 +39,7 @@ class AppController extends Controller {
 	public $helpers = array('Session','Html','Form','Paginator','Js' => array('Jquery'));
 
 	public $uses = array('Admin');
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/Cake/Controller/Controller#beforeFilter()
@@ -53,12 +53,7 @@ class AppController extends Controller {
 
 		if(!$this->RequestHandler->isAjax()){
 			if($this->name == 'Pages'){
-				if(!$admin_id){
-					$this->redirect(array('controller'=>'Admin','action'=>'login'));
-				}
-				else{
-					$this->redirect(array('controller'=>'Walker','action'=>'index'));
-				}
+				$this->redirect(array('controller'=>'Home','action'=>'index'));
 			}
 
 			$this->disableCache();
