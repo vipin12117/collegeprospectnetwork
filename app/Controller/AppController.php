@@ -58,6 +58,9 @@ class AppController extends Controller {
 
 			$this->disableCache();
 		}
+		
+		$this->set("keywords_for_layout","");
+		$this->set("description_for_layout","");
 	}
 
 	/**

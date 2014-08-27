@@ -16,3 +16,390 @@ Request URL: /collegeprospectnetwork/Admin/login
 Stack Trace:
 #0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2014-08-26 19:49:25 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/bg.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:01:23 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/logo.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:01:23 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/create-acc.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:01:23 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/events.png
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:01:23 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/bg.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:01:23 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/ico-2.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:01:23 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/seprator.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:01:23 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/home-ico.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:01:23 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/TopBG.png
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:01:23 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/ico-3.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:01:23 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/footer-bg.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:01:23 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/ico-4.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:14:10 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/logo.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:14:10 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/events.png
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:14:10 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/create-acc.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:14:10 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/home-ico.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:14:10 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/ico-3.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:14:10 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/seprator.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:14:10 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/bg.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:14:10 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/ico-2.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:14:10 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/ico-4.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:14:10 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/footer-bg.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:14:10 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/TopBG.png
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:16:39 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/logo.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:16:39 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/events.png
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:16:39 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/images/create-acc.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:16:39 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/bg.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:16:39 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/seprator.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:16:39 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/TopBG.png
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:16:39 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/footer-bg.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:19:07 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/TopBG.png
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:19:08 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/footer-bg.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:19:08 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/bg.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 05:19:08 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/seprator.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 15:53:29 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/bg.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 15:53:29 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/seprator.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 15:53:29 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/TopBG.png
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 15:53:29 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/footer-bg.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 16:03:29 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/bg.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 16:03:29 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/TopBG.png
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 16:03:29 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/footer-bg.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 16:03:29 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/seprator.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-27 16:08:50 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/img/bg.jpg
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}

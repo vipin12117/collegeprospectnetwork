@@ -1,0 +1,77 @@
+<div class="header-main">
+    <div class="header-link">
+       <ul>
+			<li style="background:url(<?php echo $this->Html->webroot('img/home-ico.jpg');?>) no-repeat;">
+				<a href="<?php echo $this->Html->url(array("controller"=>"Home","action"=>"index"));?>" title="Home">Home</a><span>&nbsp;</span>
+			</li>
+
+			<li style="background:url(<?php echo $this->Html->webroot('img/ico-2.jpg');?>) no-repeat;">
+				<a href="<?php echo $this->Html->url(array("controller"=>"Home","action"=>"features"));?>" title="Features">Features</a>
+			</li>
+			<li style="background:url(<?php echo $this->Html->webroot('img/ico-2.jpg');?>) no-repeat;">
+                <a href="<?php echo $this->Html->url(array("controller"=>"Home","action"=>"aboutus"));?>" title="About Us">About Us</a>
+            </li>
+
+			<li style="background:url(<?php echo $this->Html->webroot('img/ico-3.jpg');?>) no-repeat;">
+				<a href="<?php echo $this->Html->url(array("controller"=>"Home","action"=>"contactus"));?>" title="Contact">Contact</a>
+			</li>
+			
+			<?php if(!$this->Session->read('user_id')):?>
+					<li style="background:url(<?php echo $this->Html->webroot('img/ico-4.jpg');?>) no-repeat;">
+						<a href="<?php echo $this->Html->url(array("controller"=>"Home","action"=>"login"));?>" title="Login">Login</a>
+					</li>
+			<?php else:?>		
+					<li style="background:url(<?php echo $this->Html->webroot('img/ico-4.jpg');?>) no-repeat;">
+						<a href="<?php echo $this->Html->url(array("controller"=>"User","action"=>"myaccount"));?>" title="My Account">My Account</a>
+					</li>
+		
+					<li style="background:url(<?php echo $this->Html->webroot('img/ico-4.jpg');?>) no-repeat;">
+						<a href="<?php echo $this->Html->url(array("controller"=>"Home","action"=>"logout"));?>" title="Logout">Logout</a>
+					</li>
+			<?php endif;?>		
+		</ul>	
+		
+		<div class="social">
+	        <a href="https://www.facebook.com/pages/College-Prospect-Network/232206396857124" target="_blank" title="Follow us on Facebook">
+	        	<?php echo $this->Html->image('social/facebook_24.png',array('alt'=>'Follow us on Facebook'))?>
+	        </a>
+	        <a href="https://twitter.com/cpnsports" target="_blank" title="Follow @CPNSports on Twitter">
+	        	<?php echo $this->Html->image('social/twitter_24.png',array('alt'=>'Follow @CPNSports on Twitter'))?>
+	        </a>
+	        <a href="http://www.youtube.com/user/CollegeProspectNetwk" target="_blank" title="Follow us on Youtube">
+	        	<?php echo $this->Html->image('social/youtube_24.png',array('alt'=>'Follow us on Youtube'))?>
+	        </a>
+	        <a href="https://plus.google.com/101534417841883214590/posts" target="_blank" title="Follow us on Google+">
+	        	<?php echo $this->Html->image('social/google_plus_24.png',array('alt'=>'Follow us on Google+'))?>
+	        </a>
+	    </div>
+	</div>	    
+	
+	<div class="clr"></div>
+	
+	<div>
+		<div class="logo">
+			<?php if(!$this->Session->read('user_id')):?>
+				 <a href="<?php echo $this->Html->url(array("controller"=>"Home","action"=>"index"));?>"><?php echo $this->Html->image('logo.jpg',array("width"=>"161","height"=>86))?></a>
+			<?php else:?>
+				 <a href="<?php echo $this->Html->url(array("controller"=>"User","action"=>"myaccount"));?>"><?php echo $this->Html->image('logo.jpg',array("width"=>"161","height"=>86))?></a>
+			<?php endif;?>	
+		</div>
+		
+		<div class="h-right" style="width:260px;">
+			<p class="l-text">
+				New User?
+			</p>
+
+			<p class="button">
+				<a href="<?php echo $this->Html->url(array("controller"=>"Home","action"=>"register"));?>"><?php echo $this->Html->image('create-acc.jpg')?></a>
+			</p>
+			
+			<p style="float:right;margin-top:-33px;">
+				<a href="<?php echo $this->Html->url(array("controller"=>"Event","action"=>"index"));?>"><?php echo $this->Html->image('events.png')?></a>
+			</p>
+		</div>
+
+		<div class="clr"></div>
+	</div>
+</div>					
