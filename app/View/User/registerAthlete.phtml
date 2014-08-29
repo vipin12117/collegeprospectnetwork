@@ -1,1 +1,128 @@
-<?php
+<div class="cantener">
+	<div class="register-main">
+		<?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Athlete","action"=>"registerAthlete")));?>
+		
+			<h1>Athlete Registration</h1>
+			<span class="msg"><font color="#0000ff">&nbsp;*</font> Fields are Mandatory.</span>
+			<div class="registerPage">
+				<p>
+					<label>User Name:</label>
+					<span>
+						<?php echo $this->Form->input("username",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Password:</label>
+					<span>
+						<?php echo $this->Form->input("password",array("div"=>false,"label"=>false,"required"=>"true","type"=>"password"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Confirm Password:</label>
+					<span>
+						<?php echo $this->Form->input("confirm_password",array("div"=>false,"label"=>false,"required"=>"true","type"=>"password"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<hr class="line" />
+				
+				<p>
+					<label>First Name:</label>
+					<span>
+						<?php echo $this->Form->input("firstname",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Last Name:</label>
+					<span>
+						<?php echo $this->Form->input("lastname",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Email:</label>
+					<span>
+						<?php echo $this->Form->input("email",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Height:</label>
+					<span>
+						<?php echo $this->Form->input("height",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getHeights(),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Weight:</label>
+					<span>
+						<?php echo $this->Form->input("weight",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getWeights(),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<hr class="line" />
+				
+				<p>
+				   <label>High School/AAU Team:</label>
+				   <span>
+				   		<?php echo $this->Form->input("sport_id",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getSchools(),"empty"=>"Select One"));?>
+				   </span>
+				   <font color="#0000ff">*</font>
+				</p>   
+				<p>
+					<label>Sport:</label>
+					<span>
+						<?php echo $this->Form->input("sport_id",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getSports(),"empty"=>"Select One"));?>
+					</span>
+				</p>	
+				<p>
+					<label>Jersey Number:</label>
+					<span>
+						<?php echo $this->Form->input("jersey_number",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Graduating Class:</label>
+					<span>
+						<?php echo $this->Form->input("class",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getClasses(),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Intended Major:</label>
+					<span>
+						<?php echo $this->Form->input("intended_major",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getIntendedMajor(),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				
+				<hr class="line" />
+				<p>
+				   <label>Enter your Security Question:</label>
+                   <span><?php echo $this->Form->input("question",array("div"=>false,"label"=>false,"required"=>"true"));?></span>
+                   <font color="#0000ff">&nbsp;*</font>
+			    </p>
+
+				<p>
+                   <label>Enter your Security Answer:</label>
+                   <span><?php echo $this->Form->input("answer",array("div"=>false,"label"=>false,"required"=>"true"));?></span>
+                   <font color="#0000ff">&nbsp;*</font>
+			    </p>
+				
+				<p>
+					<label>&nbsp;</label>
+					<span>
+						<?php echo $this->Form->submit("Register",array("type"=>"submit","div"=>false,"label"=>false));?>
+						
+						<?php echo $this->Form->submit("Back",array("type"=>"button","div"=>false,"label"=>false,"onclick"=>"window.location.href='".$this->Html->url(array("controller"=>"User","action"=>"register"))."'"));?>
+					</span>
+				</p>
+			</div>
+		
+		<?php echo $this->Form->end();?>
+	</div>
+</div>	

@@ -403,3 +403,204 @@ Request URL: /collegeprospectnetwork/css/img/bg.jpg
 Stack Trace:
 #0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2014-08-28 18:42:14 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[28000] [1045] Access denied for user \'user\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /collegeprospectnetwork/about-us
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Model.php(3498): ConnectionManager::getDataSource('default')
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Model.php(1136): Model->setDataSource('default')
+#4 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Model.php(3525): Model->setSource('pages')
+#5 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Model.php(2921): Model->getDataSource()
+#6 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Model.php(2893): Model->_readDataSource('first', Array)
+#7 E:\xampp2\htdocs\collegeprospectnetwork\app\Model\Page.php(15): Model->find('first', Array)
+#8 E:\xampp2\htdocs\collegeprospectnetwork\app\Controller\HomeController.php(23): Page->getPageDetails('aboutus')
+#9 [internal function]: HomeController->aboutus()
+#10 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#11 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#12 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(HomeController), Object(CakeRequest))
+#13 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
+2014-08-28 18:42:14 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/css/cake.generic.css
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-28 19:00:19 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\Home\privacy_policy.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\Home\\privacy_policy.phtml',
+)
+Request URL: /collegeprospectnetwork/privacy-policy
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(HomeController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-08-28 19:03:38 Error: [MissingActionException] Action HomeController::termConditions() could not be found.
+Exception Attributes: array (
+  'controller' => 'HomeController',
+  'action' => 'termConditions',
+)
+Request URL: /collegeprospectnetwork/terms-conditions
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(HomeController), Object(CakeRequest))
+#2 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-08-28 19:09:21 Error: [MissingActionException] Action HomeController::termConditions() could not be found.
+Exception Attributes: array (
+  'controller' => 'HomeController',
+  'action' => 'termConditions',
+)
+Request URL: /collegeprospectnetwork/Home/termConditions
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(HomeController), Object(CakeRequest))
+#2 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-08-28 19:09:21 Error: [MissingActionException] Action HomeController::css.php() could not be found.
+Exception Attributes: array (
+  'controller' => 'HomeController',
+  'action' => 'css.php',
+)
+Request URL: /collegeprospectnetwork/Home/css.php?file=style.css
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(HomeController), Object(CakeRequest))
+#2 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-08-28 19:09:21 Error: [MissingActionException] Action HomeController::js.php() could not be found.
+Exception Attributes: array (
+  'controller' => 'HomeController',
+  'action' => 'js.php',
+)
+Request URL: /collegeprospectnetwork/Home/js.php?file=jquery-1.8.2.min.js%2Cfunctions.js
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(HomeController), Object(CakeRequest))
+#2 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-08-28 19:28:53 Error: [MissingTableException] Table users for model User was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'users',
+  'class' => 'User',
+  'ds' => 'default',
+)
+Request URL: /collegeprospectnetwork/register.php
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Model.php(3525): Model->setSource('users')
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Model.php(1365): Model->getDataSource()
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('User', 'fields')
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\register.phtml(6): FormHelper->create('User', Array)
+#5 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(948): include('E:\xampp2\htdoc...')
+#6 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(910): View->_evaluate('E:\xampp2\htdoc...', Array)
+#7 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(471): View->_render('E:\xampp2\htdoc...')
+#8 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#9 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#10 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#11 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-08-28 19:34:13 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\register_college_coach.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\User\\register_college_coach.phtml',
+)
+Request URL: /collegeprospectnetwork/User/registerCollegeCoach
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-08-28 19:34:14 Error: [MissingActionException] Action UserController::css.php() could not be found.
+Exception Attributes: array (
+  'controller' => 'UserController',
+  'action' => 'css.php',
+)
+Request URL: /collegeprospectnetwork/User/css.php?file=style.css
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#2 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-08-28 19:34:14 Error: [MissingActionException] Action UserController::js.php() could not be found.
+Exception Attributes: array (
+  'controller' => 'UserController',
+  'action' => 'js.php',
+)
+Request URL: /collegeprospectnetwork/User/js.php?file=jquery-1.8.2.min.js%2Cfunctions.js
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#2 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-08-28 19:35:56 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\register_college_coach.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\User\\register_college_coach.phtml',
+)
+Request URL: /collegeprospectnetwork/User/registerCollegeCoach
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-08-28 19:43:18 Error: [MissingTableException] Table users for model User was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'users',
+  'class' => 'User',
+  'ds' => 'default',
+)
+Request URL: /collegeprospectnetwork/register-athlete.php
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Model.php(3525): Model->setSource('users')
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Model.php(1365): Model->getDataSource()
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('User', 'fields')
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\registerAthlete.phtml(3): FormHelper->create()
+#5 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(948): include('E:\xampp2\htdoc...')
+#6 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(910): View->_evaluate('E:\xampp2\htdoc...', Array)
+#7 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(471): View->_render('E:\xampp2\htdoc...')
+#8 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render('/User/registerA...', NULL)
+#9 E:\xampp2\htdocs\collegeprospectnetwork\app\Controller\UserController.php(27): Controller->render('/User/registerA...')
+#10 [internal function]: UserController->registerAthlete()
+#11 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(UserController), Array)
+#12 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#13 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#14 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2014-08-29 16:16:02 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Classes.class' in 'field list'
+Request URL: /collegeprospectnetwork/register-athlete.php
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Datasource\DboSource.php(458): PDOStatement->execute(Array)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Datasource\DboSource.php(424): DboSource->_execute('SELECT `Classes...', Array)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('SELECT `Classes...', Array, Array)
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `Classes...', false)
+#4 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Model.php(2921): DboSource->read(Object(Classes), Array)
+#5 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Model\Model.php(2893): Model->_readDataSource('list', Array)
+#6 E:\xampp2\htdocs\collegeprospectnetwork\app\View\Helper\RegisterHelper.php(56): Model->find('list', Array)
+#7 E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\registerAthlete.phtml(91): RegisterHelper->getClasses()
+#8 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(948): include('E:\xampp2\htdoc...')
+#9 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(910): View->_evaluate('E:\xampp2\htdoc...', Array)
+#10 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(471): View->_render('E:\xampp2\htdoc...')
+#11 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render('/User/registerA...', NULL)
+#12 E:\xampp2\htdocs\collegeprospectnetwork\app\Controller\UserController.php(27): Controller->render('/User/registerA...')
+#13 [internal function]: UserController->registerAthlete()
+#14 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(UserController), Array)
+#15 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#16 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#17 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}

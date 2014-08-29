@@ -10,4 +10,9 @@ class Page extends AppModel{
 		parent::__construct();
 		$this->primaryKey = 'id';
 	}
+
+	public function getPageDetails($page_key){
+		$row = $this->find("first",array("conditions"=>array("Page.page_key = '$page_key'")));
+		return $row;
+	}
 }

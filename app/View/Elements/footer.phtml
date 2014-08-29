@@ -1,10 +1,10 @@
 <div class="footer-bg">
    <div class="footer-inner">
-          <a href="/" title="Site Home">Site Home</a>&nbsp; | &nbsp;    
-          <a href="/features.php" title="Features">Features</a>&nbsp; | &nbsp;  
-          <a href="page.php?page_name=privacy_policy" title="Privacy Policy">Privacy Policy</a>&nbsp; | &nbsp; 	 
-          <a href="page.php?page_name=term_conditions" title="Terms & Conditions">Terms & Conditions</a>&nbsp; | &nbsp;   
-          <a href="page.php?page_name=refund_policy" title="Refund Policy">Refund Policy</a> 
+          <a href="<?php echo $this->Html->url(array("controller"=>"Home","action"=>"index"));?>" title="Site Home">Site Home</a>&nbsp; | &nbsp;    
+          <a href="<?php echo $this->Html->url(array("controller"=>"Home","action"=>"features"));?>" title="Features">Features</a>&nbsp; | &nbsp;  
+          <a href="<?php echo $this->Html->url(array("controller"=>"Home","action"=>"privacyPolicy"));?>">Privacy Policy</a>&nbsp; | &nbsp; 	 
+          <a href="<?php echo $this->Html->url(array("controller"=>"Home","action"=>"termsConditions"));?>" title="Terms & Conditions">Terms & Conditions</a>&nbsp; | &nbsp;   
+          <a href="<?php echo $this->Html->url(array("controller"=>"Home","action"=>"refundPolicy"));?>" title="Refund Policy">Refund Policy</a> 
           
           <span style="padding-left:80px;font-size:11px;">Copyright © 2012 - College Prospect Network, Inc. All rights reserved.</span>
     </div>

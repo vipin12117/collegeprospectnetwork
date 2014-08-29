@@ -24,20 +24,35 @@
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
-	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+Router::connect('/', array('controller' => 'Home', 'action' => 'index'));
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */
-	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+
+
+Router::connect('/features', array('controller' => 'Home', 'action' => 'features'));
+Router::connect('/about-us', array('controller' => 'Home', 'action' => 'aboutus'));
+Router::connect('/contact-us', array('controller' => 'Home', 'action' => 'contactus'));
+Router::connect('/privacy-policy', array('controller' => 'Home', 'action' => 'privacyPolicy'));
+Router::connect('/terms-conditions', array('controller' => 'Home', 'action' => 'termsConditions'));
+Router::connect('/refund-policy', array('controller' => 'Home', 'action' => 'refundPolicy'));
+Router::connect('/login.php', array('controller' => 'Home', 'action' => 'login'));
+Router::connect('/register.php', array('controller' => 'User', 'action' => 'register'));
+Router::connect('/logout.php', array('controller' => 'Home', 'action' => 'logout'));
+
+Router::connect('/register-athlete.php', array('controller' => 'User', 'action' => 'registerAthlete'));
+Router::connect('/register-hs-coach.php', array('controller' => 'User', 'action' => 'registerHSCoach'));
+Router::connect('/register-college-coach.php', array('controller' => 'User', 'action' => 'registerCollegeCoach'));
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
  */
-	CakePlugin::routes();
+CakePlugin::routes();
 
 /**
  * Load the CakePHP default routes. Only remove this if you do not want to use
  * the built-in default routes.
  */
-	require CAKE . 'Config' . DS . 'routes.php';
+require CAKE . 'Config' . DS . 'routes.php';

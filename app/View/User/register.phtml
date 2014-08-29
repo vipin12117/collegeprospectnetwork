@@ -1,1 +1,16 @@
-<?php
+<div class="cantener">
+	<div class="register-main">
+		<div class="registerPage">
+			<h1>User Registration - Select Account Type</h1>
+			
+			<?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"User","action"=>"register"),"type"=>"post"));?>
+				<p>
+					<label>Select User Type:</label>
+					<span> 
+						<?php echo $this->Form->input("user_type",array("type"=>"select","div"=>false,"label"=>false,"empty"=>"Select One","options"=>array("Athlete"=>"Athlete","HSCoach"=>"HS Coach","CollegeCoach"=>"College Coach"),"onchange"=>"this.form.submit();"));?>
+					</span>
+				</p>
+			<?php echo $this->Form->end();?>
+		</div>
+	</div>
+</div>
