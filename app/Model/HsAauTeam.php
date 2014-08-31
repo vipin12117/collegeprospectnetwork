@@ -1,8 +1,8 @@
 <?php
 
-class HaAauTeam extends AppModel{
+class HsAauTeam extends AppModel{
 
-	public $name = 'HaAauTeam';
+	public $name = 'HsAauTeam';
 
 	public $useTable = 'hs_aau_team';
 

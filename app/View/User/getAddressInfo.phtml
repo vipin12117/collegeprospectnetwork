@@ -1,0 +1,36 @@
+<?php if(!@$hsAauTeamDetail):?>
+	<p>
+		<label>HS/AAU Name:</label>
+		<span>
+			<?php echo $this->Form->input("HsAauTeam.school_name",array("div"=>false,"label"=>false,"required"=>"true"));?>
+		</span>
+	</p>
+<?php endif;?>
+
+<p>
+	<label>Address:</label>
+	<span>
+		<?php echo $this->Form->input("HsAauTeam.address",array("div"=>false,"label"=>false,"required"=>"true","value"=>@$hsAauTeamDetail['HsAauTeam']['address']));?>
+	</span>
+</p>
+
+<p>
+	<label>City:</label>
+	<span>
+		<?php echo $this->Form->input("HsAauTeam.city",array("div"=>false,"label"=>false,"required"=>"true","value"=>@$hsAauTeamDetail['HsAauTeam']['city']));?>
+	</span>
+</p>
+
+<p>
+	<label>State:</label>
+	<span>
+		<?php echo $this->Form->input("HsAauTeam.state",array("div"=>false,"label"=>false,"required"=>"true","selected"=>@$hsAauTeamDetail['HsAauTeam']['state'],"options"=>$this->Register->getStates(),"empty"=>"Select One"));?>
+	</span>
+</p>
+
+<p>
+	<label>Zip Code:</label>
+	<span>
+		<?php echo $this->Form->input("HsAauTeam.zip",array("div"=>false,"label"=>false,"required"=>"true","readonly","value"=>@$hsAauTeamDetail['HsAauTeam']['zip']));?>
+	</span>
+</p>

@@ -604,3 +604,175 @@ Stack Trace:
 #16 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
 #17 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #18 {main}
+2014-08-31 08:56:59 Error: Fatal Error (1): Class 'HaAauTeam' not found in [E:\xampp2\htdocs\collegeprospectnetwork\app\View\Helper\RegisterHelper.php, line 78]
+2014-08-31 08:56:59 Error: [FatalErrorException] Class 'HaAauTeam' not found
+Request URL: /collegeprospectnetwork/register-athlete.php
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Class 'HaAauTea...', 'E:\xampp2\htdoc...', 78)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'HaAauTea...', 'E:\xampp2\htdoc...', 78, Array)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Class 'HaAauTea...', 'E:\xampp2\htdoc...', 78, Array)
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-08-31 08:57:27 Error: Fatal Error (1): Class 'HaAauTeam' not found in [E:\xampp2\htdocs\collegeprospectnetwork\app\View\Helper\RegisterHelper.php, line 78]
+2014-08-31 08:57:28 Error: [FatalErrorException] Class 'HaAauTeam' not found
+Request URL: /collegeprospectnetwork/register-athlete.php
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Class 'HaAauTea...', 'E:\xampp2\htdoc...', 78)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'HaAauTea...', 'E:\xampp2\htdoc...', 78, Array)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Class 'HaAauTea...', 'E:\xampp2\htdoc...', 78, Array)
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-08-31 09:39:49 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\get_address_info.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\User\\get_address_info.phtml',
+)
+Request URL: /collegeprospectnetwork/User/getAddressInfo?data%5BAthlete%5D%5Bhs_aau_team_id%5D=877
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-08-31 09:40:27 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\get_address_info.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\User\\get_address_info.phtml',
+)
+Request URL: /collegeprospectnetwork/User/getAddressInfo?data%5BAthlete%5D%5Bhs_aau_team_id%5D=877
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-08-31 09:41:59 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\get_address_info.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\User\\get_address_info.phtml',
+)
+Request URL: /collegeprospectnetwork/User/getAddressInfo?data%5BAthlete%5D%5Bhs_aau_team_id%5D=671
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-08-31 09:42:10 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\get_address_info.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\User\\get_address_info.phtml',
+)
+Request URL: /collegeprospectnetwork/User/getAddressInfo?data%5BAthlete%5D%5Bhs_aau_team_id%5D=671
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-08-31 09:42:56 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\get_address_info.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\User\\get_address_info.phtml',
+)
+Request URL: /collegeprospectnetwork/User/getAddressInfo?data%5BAthlete%5D%5Bhs_aau_team_id%5D=671
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-08-31 09:43:53 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\get_address_info.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\User\\get_address_info.phtml',
+)
+Request URL: /collegeprospectnetwork/User/getAddressInfo?data%5BAthlete%5D%5Bhs_aau_team_id%5D=671
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-08-31 09:44:09 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\get_address_info.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\User\\get_address_info.phtml',
+)
+Request URL: /collegeprospectnetwork/User/getAddressInfo?data%5BAthlete%5D%5Bhs_aau_team_id%5D=671
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-08-31 09:44:32 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\get_address_info.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\User\\get_address_info.phtml',
+)
+Request URL: /collegeprospectnetwork/User/getAddressInfo?data%5BAthlete%5D%5Bhs_aau_team_id%5D=671
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-08-31 09:46:14 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\get_address_info.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\User\\get_address_info.phtml',
+)
+Request URL: /collegeprospectnetwork/User/getAddressInfo?data%5BAthlete%5D%5Bhs_aau_team_id%5D=671
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-08-31 09:47:20 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\get_address_info.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\User\\get_address_info.phtml',
+)
+Request URL: /collegeprospectnetwork/User/getAddressInfo?data%5BAthlete%5D%5Bhs_aau_team_id%5D=123
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-08-31 09:47:32 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\get_address_info.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\User\\get_address_info.phtml',
+)
+Request URL: /collegeprospectnetwork/User/getAddressInfo?data%5BAthlete%5D%5Bhs_aau_team_id%5D=123
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(UserController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-08-31 12:34:40 Error: Fatal Error (1): Class 'PHPMailer' not found in [E:\xampp2\htdocs\collegeprospectnetwork\app\Controller\Component\EmailComponent.php, line 17]
+2014-08-31 12:34:40 Error: [FatalErrorException] Class 'PHPMailer' not found
+Request URL: /collegeprospectnetwork/register.php
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Class 'PHPMaile...', 'E:\xampp2\htdoc...', 17)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'PHPMaile...', 'E:\xampp2\htdoc...', 17, Array)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Class 'PHPMaile...', 'E:\xampp2\htdoc...', 17, Array)
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-08-31 17:05:17 Error: Fatal Error (4): syntax error, unexpected T_CONSTANT_ENCAPSED_STRING, expecting ')' in [E:\xampp2\htdocs\collegeprospectnetwork\app\View\User\registerHSCoach.phtml, line 9]
+2014-08-31 17:05:17 Error: [FatalErrorException] syntax error, unexpected T_CONSTANT_ENCAPSED_STRING, expecting ')'
+Request URL: /collegeprospectnetwork/register-hs-coach.php
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'E:\xampp2\htdoc...', 9)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'E:\xampp2\htdoc...', 9, Array)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'E:\xampp2\htdoc...', 9, Array)
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

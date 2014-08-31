@@ -72,4 +72,48 @@ class RegisterHelper extends AppHelper{
 		$options = $this->Sport->find("list",array("fields"=>"id,name"));
 		return $options;
 	}
+
+	public function getHsAauSchools(){
+		App::import("Model","HsAauTeam");
+		$this->HsAauTeam = new HsAauTeam();
+
+		$options = array();
+
+		$states = $this->HsAauTeam->find("list",array("fields"=>"state,state","order"=>"state ASC","group"=>"state"));
+		foreach($states as $state){
+			$options[$state] = $this->HsAauTeam->find("list",array("conditions"=>"state='$state'","fields"=>"id,school_name","order"=>"school_name ASC"));
+		}
+
+		$options['Other'] = array("Other"=>"Add your school");
+		return $options;
+	}
+
+	public function getColleges(){
+		App::import("Model","College");
+		$this->College = new College();
+
+		$options = array();
+
+		$states = $this->College->find("list",array("fields"=>"state,state","order"=>"state ASC","group"=>"state"));
+		foreach($states as $state){
+			$options[$state] = $this->College->find("list",array("conditions"=>"state='$state'","fields"=>"id,name","order"=>"name ASC"));
+		}
+
+		$options['Other'] = array("Other"=>"Add your college");
+		return $options;
+	}
+
+	public function getStates(){
+		App::import("Model","HsAauTeam");
+		$this->HsAauTeam = new HsAauTeam();
+
+		$states = $this->HsAauTeam->find("list",array("fields"=>"id,state","order"=>"state ASC","group"=>"state"));
+		return $states;
+	}
+
+	public function getDivisions(){
+		$options = array('Division I','Division II','Division III','NAIA','JUCO');
+		$options = array_combine($options,$options);
+		return $options;
+	}
 }

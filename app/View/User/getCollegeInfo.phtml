@@ -1,0 +1,36 @@
+<?php if(!@$CollegeDetail):?>
+	<p>
+		<label>College Name:</label>
+		<span>
+			<?php echo $this->Form->input("College.name",array("div"=>false,"label"=>false,"required"=>"true"));?>
+		</span>
+	</p>
+<?php endif;?>
+
+<p>
+	<label>Address:</label>
+	<span>
+		<?php echo $this->Form->input("College.address",array("div"=>false,"label"=>false,"required"=>"true","value"=>@$CollegeDetail['College']['address_1']));?>
+	</span>
+</p>
+
+<p>
+	<label>City:</label>
+	<span>
+		<?php echo $this->Form->input("College.city",array("div"=>false,"label"=>false,"required"=>"true","value"=>@$CollegeDetail['College']['city']));?>
+	</span>
+</p>
+
+<p>
+	<label>State:</label>
+	<span>
+		<?php echo $this->Form->input("College.state",array("div"=>false,"label"=>false,"required"=>"true","selected"=>@$CollegeDetail['College']['state'],"options"=>$this->Register->getStates(),"empty"=>"Select One"));?>
+	</span>
+</p>
+
+<p>
+	<label>Zip Code:</label>
+	<span>
+		<?php echo $this->Form->input("College.zip",array("div"=>false,"label"=>false,"required"=>"true","readonly","value"=>@$CollegeDetail['College']['zip']));?>
+	</span>
+</p>

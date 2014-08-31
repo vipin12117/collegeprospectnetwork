@@ -1,6 +1,6 @@
 <div class="cantener">
 	<div class="register-main">
-		<?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Athlete","action"=>"registerAthlete")));?>
+		<?php echo $this->Form->create("CollegeCoach",array("url"=>array("controller"=>"Athlete","action"=>"registerAthlete")));?>
 		
 			<h1>Athlete Registration</h1>
 			<span class="msg"><font color="#0000ff">&nbsp;*</font> Fields are Mandatory.</span>
@@ -50,28 +50,46 @@
 					<font color="#0000ff">&nbsp;*</font>
 				</p>
 				<p>
-					<label>Height:</label>
+					<label>Alternate Email:</label>
 					<span>
-						<?php echo $this->Form->input("height",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getHeights(),"empty"=>"Select One"));?>
+						<?php echo $this->Form->input("email2",array("div"=>false,"label"=>false));?>
 					</span>
 					<font color="#0000ff">&nbsp;*</font>
 				</p>
 				<p>
-					<label>Weight:</label>
+					<label>Phone:</label>
 					<span>
-						<?php echo $this->Form->input("weight",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getWeights(),"empty"=>"Select One"));?>
+						<?php echo $this->Form->input("phone",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Alternate Phone:</label>
+					<span>
+						<?php echo $this->Form->input("phone2",array("div"=>false,"label"=>false));?>
 					</span>
 					<font color="#0000ff">&nbsp;*</font>
 				</p>
 				<hr class="line" />
 				
 				<p>
-				   <label>High School/AAU Team:</label>
+				   <label>College:</label>
 				   <span>
-				   		<?php echo $this->Form->input("sport_id",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getSchools(),"empty"=>"Select One"));?>
+				   		<?php echo $this->Form->input("college_id",array("id"=>"college_id","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getColleges(),"empty"=>"Select One"));?>
 				   </span>
 				   <font color="#0000ff">*</font>
 				</p>   
+				<?php $this->Js->get("#college_id"); ?>
+		    	<?php $this->Js->event('change',$this->Js->request(array('controller' => 'User','action' => 'getCollegeInfo'),
+		    					   array('async' => true,'update' => '#school_address','data' => '$("#college_id").serialize()','dataExpression' => true
+		               		 ))); 
+		     	?>
+		     	
+		     	<div id="school_address">
+		     	
+		     	
+		     	</div>
+		     	
 				<p>
 					<label>Sport:</label>
 					<span>
@@ -79,23 +97,16 @@
 					</span>
 				</p>	
 				<p>
-					<label>Jersey Number:</label>
+					<label>Sport Divison:</label>
 					<span>
-						<?php echo $this->Form->input("jersey_number",array("div"=>false,"label"=>false,"required"=>"true"));?>
+						<?php echo $this->Form->input("division",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getDivisions(),"empty"=>"Select One"));?>
 					</span>
 					<font color="#0000ff">&nbsp;*</font>
 				</p>
 				<p>
-					<label>Graduating Class:</label>
+					<label>Job Position:</label>
 					<span>
-						<?php echo $this->Form->input("class",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getClasses(),"empty"=>"Select One"));?>
-					</span>
-					<font color="#0000ff">&nbsp;*</font>
-				</p>
-				<p>
-					<label>Intended Major:</label>
-					<span>
-						<?php echo $this->Form->input("intended_major",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getIntendedMajor(),"empty"=>"Select One"));?>
+						<?php echo $this->Form->input("position",array("div"=>false,"label"=>false,"required"=>"true"));?>
 					</span>
 					<font color="#0000ff">&nbsp;*</font>
 				</p>

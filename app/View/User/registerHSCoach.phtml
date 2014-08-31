@@ -1,8 +1,56 @@
+<?php $total = count($this->Register->getSports());?>
+<script type="text/javascript">
+   var position = 0;
+   
+   function addRow(){
+	   position = parseInt(position);
+	   if(position > '<?php echo $total - 2?>'){
+		   //return;
+	   }
+	   position++;
+	   var row = "<div id='sport_position_"+position+"'><p>"+
+		            "<label>Sport: "+ (position + 1) +"</label>"+
+					"<span>"+
+						"<select id='AthleteSportId' required='required' name='data[Athlete][sport_id]["+position+"]'>"+
+							"<option value=''>Select One</option>"+
+							"<option value='12'>Basketball - Womens</option>"+
+							"<option value='11'>Basketball - Mens</option>"+
+							"<option value='10'>Football</option>"+
+						"</select>"+
+					"</span>"+
+					"<font color='#0000ff'>*</font>"+
+				 "</p>"+	
+				 "<p>"+
+					"<label>Position: "+ (position + 1) +"</label>"+
+					"<span>"+
+						"<input type='text' id='AthletePosition' required='required' name=''data[Athlete][position]["+position+"]'>"+
+					"</span>"+
+					"<font color='#0000ff'>&nbsp;*</font>"+
+				 "</p></div>";
+		jQuery("#sportTable").append(row);			
+		jQuery("#remfield").show();		 
+   }
+
+   function removeRow(){
+	   position = parseInt(position);
+
+	   if(position <= 1){
+		   jQuery("#remfield").hide();	
+	   }
+	   
+	   if(position < 1){
+		   return;
+	   }
+
+	   jQuery("#sport_position_"+position).remove();
+	   position--;
+   }
+</script>
 <div class="cantener">
 	<div class="register-main">
 		<?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Athlete","action"=>"registerAthlete")));?>
 		
-			<h1>Athlete Registration</h1>
+			<h1>High School / AAU Coach Registration</h1>
 			<span class="msg"><font color="#0000ff">&nbsp;*</font> Fields are Mandatory.</span>
 			<div class="registerPage">
 				<p>
@@ -50,54 +98,77 @@
 					<font color="#0000ff">&nbsp;*</font>
 				</p>
 				<p>
-					<label>Height:</label>
+					<label>Alternate Email:</label>
 					<span>
-						<?php echo $this->Form->input("height",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getHeights(),"empty"=>"Select One"));?>
+						<?php echo $this->Form->input("email2",array("div"=>false,"label"=>false));?>
+					</span>
+				</p>
+				<p>
+					<label>Phone:</label>
+					<span>
+						<?php echo $this->Form->input("phone",array("div"=>false,"label"=>false,"required"=>"true"));?>
 					</span>
 					<font color="#0000ff">&nbsp;*</font>
 				</p>
 				<p>
-					<label>Weight:</label>
+					<label>Alternate Phone:</label>
 					<span>
-						<?php echo $this->Form->input("weight",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getWeights(),"empty"=>"Select One"));?>
+						<?php echo $this->Form->input("phone2",array("div"=>false,"label"=>false));?>
 					</span>
-					<font color="#0000ff">&nbsp;*</font>
 				</p>
 				<hr class="line" />
 				
 				<p>
 				   <label>High School/AAU Team:</label>
 				   <span>
-				   		<?php echo $this->Form->input("sport_id",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getSchools(),"empty"=>"Select One"));?>
+				   		<?php echo $this->Form->input("hs_aau_team_id",array("id"=>"hs_aau_team_id","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getHsAauSchools(),"empty"=>"Select One"));?>
 				   </span>
 				   <font color="#0000ff">*</font>
 				</p>   
-				<p>
-					<label>Sport:</label>
-					<span>
-						<?php echo $this->Form->input("sport_id",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getSports(),"empty"=>"Select One"));?>
-					</span>
-				</p>	
-				<p>
-					<label>Jersey Number:</label>
-					<span>
-						<?php echo $this->Form->input("jersey_number",array("div"=>false,"label"=>false,"required"=>"true"));?>
-					</span>
-					<font color="#0000ff">&nbsp;*</font>
+				
+				<?php $this->Js->get("#hs_aau_team_id"); ?>
+		    	<?php $this->Js->event('change',$this->Js->request(array('controller' => 'User','action' => 'getAddressInfo'),
+		    					   array('async' => true,'update' => '#school_address','data' => '$("#hs_aau_team_id").serialize()','dataExpression' => true
+		               		 ))); 
+		     	?>
+		     	
+		     	<div id="school_address">
+		     	
+		     	
+		     	</div>
+		     	<div id="sportTable">
+		     		<div id='sport_position_0'>
+						<p>
+							<label>Sport 1:</label>
+							<span>
+								<?php echo $this->Form->input("sport_id",array("name"=>"data[Athlete][sport_id][0]","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getSports(),"empty"=>"Select One"));?>
+							</span>
+							<font color="#0000ff">*</font>
+						</p>	
+						<p>
+							<label>Position 1:</label>
+							<span>
+								<?php echo $this->Form->input("position",array("name"=>"data[Athlete][position][0]","div"=>false,"label"=>false,"required"=>"true"));?>
+							</span>
+							<font color="#0000ff">&nbsp;*</font>
+						</p>
+					</div>	
+				</div>
+				
+				<p style="margin-bottom:3px;padding-bottom:0;" class="lineheightnormal">
+					<label>&nbsp;</label>
+					<span style="font-weight:bold;">Do you coach more than one sport?</span>
 				</p>
-				<p>
-					<label>Graduating Class:</label>
+				<p class="lineheightnormal">
+					<label>&nbsp;</label>
 					<span>
-						<?php echo $this->Form->input("class",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getClasses(),"empty"=>"Select One"));?>
+						<input type="hidden" name="currentrow" value="0" id="currentrow" />
+						
+						<a href="javascript://" onclick="javascript:addRow(); return false;" style="float:left;text-decoration: none">[+] Add Sport</a>
+                		<span id="remfield" style="display:none">&nbsp;&nbsp;&nbsp;&nbsp;
+                			<a href="javascript://" onclick="javascript:removeRow(); return false;" style="text-decoration: none">[-] Remove Sport</a>
+                		</span>
 					</span>
-					<font color="#0000ff">&nbsp;*</font>
-				</p>
-				<p>
-					<label>Intended Major:</label>
-					<span>
-						<?php echo $this->Form->input("intended_major",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getIntendedMajor(),"empty"=>"Select One"));?>
-					</span>
-					<font color="#0000ff">&nbsp;*</font>
 				</p>
 				
 				<hr class="line" />
