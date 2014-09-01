@@ -46,6 +46,7 @@ class RegisterHelper extends AppHelper{
 						 "Other",
 		);
 
+		$options = array_combine($options,$options);
 		return $options;
 	}
 

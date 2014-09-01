@@ -11,7 +11,7 @@
 	   var row = "<div id='sport_position_"+position+"'><p>"+
 		            "<label>Sport: "+ (position + 1) +"</label>"+
 					"<span>"+
-						"<select id='AthleteSportId' required='required' name='data[Athlete][sport_id]["+position+"]'>"+
+						"<select id='HsAauCoachSportId' required='required' name='data[HsAauCoach][sport_id]["+position+"]'>"+
 							"<option value=''>Select One</option>"+
 							"<option value='12'>Basketball - Womens</option>"+
 							"<option value='11'>Basketball - Mens</option>"+
@@ -23,7 +23,7 @@
 				 "<p>"+
 					"<label>Position: "+ (position + 1) +"</label>"+
 					"<span>"+
-						"<input type='text' id='AthletePosition' required='required' name=''data[Athlete][position]["+position+"]'>"+
+						"<input type='text' id='HsAauCoachPosition' required='required' name='data[HsAauCoach][position]["+position+"]'>"+
 					"</span>"+
 					"<font color='#0000ff'>&nbsp;*</font>"+
 				 "</p></div>";
@@ -48,7 +48,7 @@
 </script>
 <div class="cantener">
 	<div class="register-main">
-		<?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Athlete","action"=>"registerAthlete")));?>
+		<?php echo $this->Form->create("HsAauCoach",array("url"=>array("controller"=>"User","action"=>"registerHSCoach")));?>
 		
 			<h1>High School / AAU Coach Registration</h1>
 			<span class="msg"><font color="#0000ff">&nbsp;*</font> Fields are Mandatory.</span>
@@ -141,14 +141,14 @@
 						<p>
 							<label>Sport 1:</label>
 							<span>
-								<?php echo $this->Form->input("sport_id",array("name"=>"data[Athlete][sport_id][0]","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getSports(),"empty"=>"Select One"));?>
+								<?php echo $this->Form->input("sport_id",array("name"=>"data[HsAauCoach][sport_id][0]","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getSports(),"empty"=>"Select One"));?>
 							</span>
 							<font color="#0000ff">*</font>
 						</p>	
 						<p>
 							<label>Position 1:</label>
 							<span>
-								<?php echo $this->Form->input("position",array("name"=>"data[Athlete][position][0]","div"=>false,"label"=>false,"required"=>"true"));?>
+								<?php echo $this->Form->input("position",array("name"=>"data[HsAauCoach][position][0]","div"=>false,"label"=>false,"required"=>"true"));?>
 							</span>
 							<font color="#0000ff">&nbsp;*</font>
 						</p>

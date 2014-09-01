@@ -12,17 +12,17 @@ class EmailComponent extends Component {
 
 	public function initialize(Controller $controller){
 		parent::initialize($controller);
-		
+
 		$this->phpMailer = new PHPMailer();
 	}
 
-	public function athleteRegisterEmail($data,$newSchool){
+	public function athleteRegisterEmail($data,$address,$newSchool){
 		App::import("Model","HsAauTeam");
 		$this->HsAauTeam = new HsAauTeam();
-		
+
 		App::import("Model","Sport");
 		$this->Sport = new Sport();
-		
+
 		$subject = "College Prospect Network - Athlete Welcome";
 		$body = "Thanks for registering";
 
@@ -41,20 +41,20 @@ class EmailComponent extends Component {
 		$body .= "<br /><b>Name:</b> " . $data['firstname'] . " " . $data['lastname'];
 		$body .= "<br /><b>Email:</b> " .$data['email'];
 		$body .= "<br />";
-		$body .= "<br /><b>State:</b> " . $data['state'];
+		$body .= "<br /><b>State:</b> " . $address['state'];
 
 		$HsAauTeam = $this->HsAauTeam->find("first",array("conditions"=>"HsAauTeam.id = '".$data['hs_aau_team_id']."'","fields"=>"HsAauTeam.school_name"));
 		$HighSchoolName = $HsAauTeam['HsAauTeam']['school_name'];
-		
+
 		//HS/AAU Name
 		$body .= "<br /><b>HS/AAU:</b> " . $HighSchoolName;
-		$body .= "<br />" . $data['address'];
-		$body .= "<br />" . $data['city']. ", ". $data['state'] . " " . $data['zip'];
+		$body .= "<br />" . $address['address'];
+		$body .= "<br />" . $address['city']. ", ". $address['state'] . " " . $address['zip'];
 
 		//Get Sport Name
 		$Sport = $this->Sport->find("first",array("conditions"=>"Sport.id = '".$data['sport_id']."'","fields"=>"Sport.name"));
 		$sport_name = $Sport['Sport']['name'];
-		
+
 		$body .= "<br /><br /><b>Sport:</b> " . $sport_name;
 		$body .= "<br /><b>Jersey Number:</b> " . $data['jersey_number'];
 		$body .= "<br /><b>Graduating Class:</b> " . $data['class'];
@@ -124,6 +124,52 @@ class EmailComponent extends Component {
 		}
 
 		return 1;
+	}
+
+	public function HSCoachAdminNotifiction($data , $sportPositions, $newSchool){
+		if($newSchool) {
+			$subject = "[CPN] - New HS Coach Registration + New School";
+			$body = "New HS Coach Registration + New School:<br />";
+		}
+		else {
+			$subject = "[CPN] - New HS Coach Registration";
+			$body = "New HS Coach Registration:<br />";
+		}
+			
+		$body .= "<br /><b>Status:</b> Active";
+		$body .= "<br /><b>Username:</b> " .$data['username'];
+		$body .= "<br /><b>Password:</b> " .$data['password'];
+		$body .= "<br /><b>Name:</b> " . $data['firstname'] . " " . $data['lastname'];
+		$body .= "<br /><b>Email:</b> " .$data['email'];
+		$body .= "<br /><b>Alt Email:</b> " .$data['email2'];
+		$body .= "<br /><b>Phone:</b> " .$data['phone'];
+		$body .= "<br /><b>Alt Phone:</b> " . $data['phone2'];
+		$body .= "<br />";
+		$body .= "<br /><b>State:</b> " .$data['state'];
+
+		$HsAauTeam = $this->HsAauTeam->find("first",array("conditions"=>"HsAauTeam.id = '".$data['hs_aau_team_id']."'","fields"=>"HsAauTeam.school_name"));
+		$HighSchoolName = $HsAauTeam['HsAauTeam']['school_name'];
+
+		//HS/AAU Name
+		$body .= "<br /><b>HS/AAU:</b> " . $HighSchoolName;
+		$body .= "<br />" . $data['address_1'];
+		$body .= "<br />" . $data['city']. ", ". $data['state'] . " " . $data['zip'];
+
+		//Sports Loop
+		$body .= "<br /><br /><b>Sport(s):</b> ";
+		for ($n = 0; $n < $sportPositions; $n++) {
+			$sports_name = $sportPositions[$n]['sport_id'];
+			$body .=  $sports_name . ": " . $sportPositions[$n]['position'];
+		}
+
+		$body .= "<br /><br />" . $_SERVER['HTTP_USER_AGENT'];
+
+		$this->phpMailer->ClearAddresses();
+		$this->phpMailer->SetFrom("no-reply@collegeprospectnetwork.com","College Prospect Network");
+		$this->phpMailer->AddAddress("admin@collegeprospectnetwork.com","Admin");
+		$this->phpMailer->Subject = $subject;
+		$this->phpMailer->MsgHTML($body);
+		$this->phpMailer->Send();
 	}
 }
 ?>
