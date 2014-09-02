@@ -1,1 +1,41 @@
-<?php
+<div class="cantener">
+  <div class="register-main">
+      <div class="registerPage">
+			<?php echo $this->Form->create("Admin",array("url"=>array("controller"=>"Home" , "action"=>"login" ),"id"=>"loginForm"));?>
+			
+			<p>
+				<label>User Name:</label>
+				<span>
+					<?php echo $this->Form->input("username" , array("label" => false , "div" => false, "required" , "type" => "text"))?>
+				</span><font color="#0000ff">&nbsp;*</font>
+			</p>
+			<p>
+				<label>Password:</label>
+				<span>
+					<?php echo $this->Form->input("password" , array("type" => "password" ,"label" => false , "div" => false , "required"))?>
+				</span><font color="#0000ff">&nbsp;*</font>
+			</p>
+			<p>
+				<label>User Type:</label>
+				<span class="rdio-spac">
+					<input type="radio" name="data[Admin][user_type]" value="Athlete" checked="checked"/>
+					<label>Athlete</label>
+					<input type="radio"  name="data[Admin][user_type]" value="HsAauCoach">
+					<label>High School / AAU Coach</label>
+					<input type="radio"  name="data[Admin][user_type]" value="CollegeCoach"/>
+					<label>College Coach</label> 
+				</span>
+			</p>
+			<p>
+				<label>&nbsp;</label>
+				<span>
+					<?php echo $this->Form->submit("Login",array("type"=>"submit","div"=>false));?>
+					
+					<?php echo $this->Html->link(__("Forget Password ?",true),array("controller"=>"Home" , "action" =>"forgotPassword"));?>
+				</span>
+			</p>
+			
+			<?php echo $this->Form->end()?>
+	   </div>
+	</div>
+</div>	   			

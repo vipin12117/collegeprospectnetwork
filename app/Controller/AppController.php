@@ -58,7 +58,7 @@ class AppController extends Controller {
 
 			$this->disableCache();
 		}
-		
+
 		$this->set("keywords_for_layout","");
 		$this->set("description_for_layout","");
 	}
@@ -91,6 +91,25 @@ class AppController extends Controller {
 		if(!$this->Session->read($type)){
 			$this->Session->destroy();
 			$this->redirect(array('controller'=>'Admin','action'=>'login'));
+		}
+	}
+
+	public function checkLogin(){
+		if($this->Session->read("user_id")){
+			$user_type = $this->Session->read('user_type');
+			switch($user_type){
+				case 'Athlete':
+					$this->redirect(array("controller"=>"Walker","action"=>"index"));
+					break;
+				case 'HsAauCoach':
+					$this->redirect(array("controller"=>"Walker","action"=>"index"));
+					break;
+				case 'CollegeCoach':
+				default:
+					$this->redirect(array("controller"=>"Walker","action"=>"index"));
+					break;
+			}
+			exit;
 		}
 	}
 

@@ -38,6 +38,7 @@ Router::connect('/privacy-policy', array('controller' => 'Home', 'action' => 'pr
 Router::connect('/terms-conditions', array('controller' => 'Home', 'action' => 'termsConditions'));
 Router::connect('/refund-policy', array('controller' => 'Home', 'action' => 'refundPolicy'));
 Router::connect('/login.php', array('controller' => 'Home', 'action' => 'login'));
+Router::connect('/forgot-password.php', array('controller' => 'Home', 'action' => 'forgotPassword'));
 Router::connect('/register.php', array('controller' => 'User', 'action' => 'register'));
 Router::connect('/logout.php', array('controller' => 'Home', 'action' => 'logout'));
 

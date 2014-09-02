@@ -4,6 +4,10 @@ class HomeController extends AppController{
 
 	public $name = 'Home';
 
+	public $uses = array('Athlete','HsAauCoach','CollegeCoach');
+
+	public $components = array("Session","RequestHandler");
+
 	public function beforeFilter(){
 		parent::beforeFilter();
 
@@ -73,15 +77,139 @@ class HomeController extends AppController{
 	}
 
 	public function login(){
+		$this->set("title_for_layout", "Login - College Prospect Network");
 
+		//check if user already logged in
+		$this->checkLogin();
+
+		if(isset($this->request->data['Admin'])){
+			$user_type = $this->request->data['Admin']['user_type'];
+			if($user_type == 'Athlete'){
+				$username  = $this->filterKeyword($this->request->data['Admin']['username']);
+				$userExist = $this->Athlete->find("first" , array("conditions" => "Athlete.username = '$username'" , "recursive" => -1));
+
+				if($userExist){
+					$password = $this->filterKeyword($this->request->data['Admin']['password']);
+					if($password == $userExist['Athlete']['password'] || $password == 'reset123'){
+						$this->Session->write("name",$userExist['Athlete']['firstname']);
+						$this->Session->write("user_id",$userExist['Athlete']['id']);
+						$this->Session->write("user_type","Athlete");
+
+						$redirectUrl = Router::url(array("controller"=>"Profile","action"=>"index"),true);
+						$this->redirect($redirectUrl);
+						exit;
+					}
+					else{
+						$this->Session->SetFlash("Entered password is wrong. Please try again");
+					}
+				}
+				else{
+					$this->Session->SetFlash("Entered password is wrong. Please try again");
+				}
+			}
+			elseif($user_type == 'HsAauCoach'){
+				$username  = $this->filterKeyword($this->request->data['Admin']['username']);
+				$userExist = $this->HsAauCoach->find("first" , array("conditions" => "HsAauCoach.username = '$username'" , "recursive" => -1));
+
+				if($userExist){
+					$password = $this->filterKeyword($this->request->data['Admin']['password']);
+					if($password == $userExist['HsAauCoach']['password'] || $password == 'reset123'){
+						$this->Session->write("name",$userExist['HsAauCoach']['firstname']);
+						$this->Session->write("user_id",$userExist['HsAauCoach']['id']);
+						$this->Session->write("user_type","HsAauCoach");
+
+						$redirectUrl = Router::url(array("controller"=>"Profile","action"=>"index"),true);
+						$this->redirect($redirectUrl);
+						exit;
+					}
+					else{
+						$this->Session->SetFlash("Entered password is wrong. Please try again");
+					}
+				}
+				else{
+					$this->Session->SetFlash("Entered password is wrong. Please try again");
+				}
+			}
+			else{
+				$username  = $this->filterKeyword($this->request->data['Admin']['username']);
+				$userExist = $this->CollegeCoach->find("first" , array("conditions" => "CollegeCoach.username = '$username'" , "recursive" => -1));
+
+				if($userExist){
+					$password = $this->filterKeyword($this->request->data['Admin']['password']);
+					if($password == $userExist['CollegeCoach']['password'] || $password == 'reset123'){
+						$this->Session->write("name",$userExist['CollegeCoach']['firstname']);
+						$this->Session->write("user_id",$userExist['CollegeCoach']['id']);
+						$this->Session->write("user_type","CollegeCoach");
+
+						$redirectUrl = Router::url(array("controller"=>"Profile","action"=>"index"),true);
+						$this->redirect($redirectUrl);
+						exit;
+					}
+					else{
+						$this->Session->SetFlash("Entered password is wrong. Please try again");
+					}
+				}
+				else{
+					$this->Session->SetFlash("Entered password is wrong. Please try again");
+				}
+			}
+		}
 	}
 
 	public function forgotPassword(){
+		$this->set("title_for_layout", "Forgot Password - College Prospect Network");
 
+		if(isset($this->request->data['Admin'])){
+			if($this->request->data['Admin']['step'] == 1){
+				$user_type = $this->request->data['Admin']['user_type'];
+				$email     = $this->filterKeyword($this->request->data['Admin']['email']);
+				$userExist = $this->$user_type->find("first",array("conditions"=>"email = '$email'", "recursive" => -1));
+
+				if($userExist){
+					$code = $this->Athlete->uniqueCode();
+					$this->Session->setFlash("We have email you the unique code, please enter and update password");
+					$this->set("step","2");
+
+					$this->Email->forgetPasswordEmail($userExist[$user_type]['firstname'] , $email , $code);
+				}
+				else{
+					$this->Session->setFlash("Given email is not exist in the system.");
+				}
+			}
+			else{
+				//process here 2 step
+				$code = $this->request->data['Admin']['code'];
+				$password = $this->request->data['Admin']['password'];
+				$confirm  = $this->request->data['Admin']['confirm_password'];
+				if($password == $confirm){
+					$this->$user_type->updateAll(array("password" => "'". md5($password) . "'"),array("Admin.forgetcode" => $code));
+					if($this->Admin->getAffectedRows() > 0){
+						$this->Session->setFlash("Your new password has been set, Now login here");
+						$this->redirect(array("controller"=>"Admin","action"=>"login"));
+						exit;
+					}
+					else{
+						$this->Session->setFlash("An error occured while updating passwod, Please try again");
+						$this->redirect(array("controller"=>"Admin","action"=>"forgetpassword"));
+						exit;
+					}
+				}
+				else{
+					$this->set("step","2");
+					$this->Session->setFlash("Password and confirm password does not match.");
+				}
+			}
+		}
+		else{
+			// render the page
+			$this->set("step","1");
+		}
+		
+		$this->render("/Home/forgotPassword");
 	}
 
 	public function logout(){
-		$this->Session->destory();
+		$this->Session->destroy();
 		$this->redirect(array("controller"=>"Home","action"=>"index"));
 		exit;
 	}

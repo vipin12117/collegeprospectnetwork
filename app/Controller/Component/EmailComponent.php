@@ -126,12 +126,15 @@ class EmailComponent extends Component {
 		return 1;
 	}
 
-	public function HSCoachAdminNotifiction($data , $sportPositions, $newSchool){
+	public function HSCoachAdminNotifiction($data , $address , $sportPositions, $newSchool){
+		App::import("Model","HsAauTeam");
+		$this->HsAauTeam = new HsAauTeam();
+
 		if($newSchool) {
 			$subject = "[CPN] - New HS Coach Registration + New School";
 			$body = "New HS Coach Registration + New School:<br />";
 		}
-		else {
+		else{
 			$subject = "[CPN] - New HS Coach Registration";
 			$body = "New HS Coach Registration:<br />";
 		}
@@ -145,21 +148,21 @@ class EmailComponent extends Component {
 		$body .= "<br /><b>Phone:</b> " .$data['phone'];
 		$body .= "<br /><b>Alt Phone:</b> " . $data['phone2'];
 		$body .= "<br />";
-		$body .= "<br /><b>State:</b> " .$data['state'];
+		$body .= "<br /><b>State:</b> " .$address['state'];
 
 		$HsAauTeam = $this->HsAauTeam->find("first",array("conditions"=>"HsAauTeam.id = '".$data['hs_aau_team_id']."'","fields"=>"HsAauTeam.school_name"));
 		$HighSchoolName = $HsAauTeam['HsAauTeam']['school_name'];
 
 		//HS/AAU Name
 		$body .= "<br /><b>HS/AAU:</b> " . $HighSchoolName;
-		$body .= "<br />" . $data['address_1'];
-		$body .= "<br />" . $data['city']. ", ". $data['state'] . " " . $data['zip'];
+		$body .= "<br />" . $address['address'];
+		$body .= "<br />" . $address['city']. ", ". $address['state'] . " " . $address['zip'];
 
 		//Sports Loop
 		$body .= "<br /><br /><b>Sport(s):</b> ";
-		for ($n = 0; $n < $sportPositions; $n++) {
-			$sports_name = $sportPositions[$n]['sport_id'];
-			$body .=  $sports_name . ": " . $sportPositions[$n]['position'];
+		foreach($sportPositions as $sportPosition){
+			$sports_name = $sportPosition['sport_id'];
+			$body .=  $sports_name . ": " . $sportPosition['position'] . "<br />";
 		}
 
 		$body .= "<br /><br />" . $_SERVER['HTTP_USER_AGENT'];
@@ -170,6 +173,90 @@ class EmailComponent extends Component {
 		$this->phpMailer->Subject = $subject;
 		$this->phpMailer->MsgHTML($body);
 		$this->phpMailer->Send();
+	}
+
+	public function CollegeCoachAdminNotifiction($data , $address , $newCollege){
+		App::import("Model","College");
+		$this->College = new College();
+
+		App::import("Model","Sport");
+		$this->Sport = new Sport();
+
+		if ($newCollege) {
+			$subject = "[CPN] - New College Coach Registration + New College";
+			$body = "New College Coach Registration + New College<br />";
+		}
+		else{
+			$subject = "[CPN] - New College Coach Registration";
+			$body = "New College Coach Registration:<br />";
+		}
+			
+		$body .= "<br /><b>Status:</b> Active - 5 Day Trial Period";
+		$body .= "<br /><b>Status:</b> Active";
+		$body .= "<br /><b>Username:</b> " .$data['username'];
+		$body .= "<br /><b>Password:</b> " .$data['password'];
+		$body .= "<br /><b>Name:</b> " . $data['firstname'] . " " . $data['lastname'];
+		$body .= "<br /><b>Email:</b> " .$data['email'];
+		$body .= "<br /><b>Alt Email:</b> " .$data['email2'];
+		$body .= "<br /><b>Phone:</b> " .$data['phone'];
+		$body .= "<br /><b>Alt Phone:</b> " . $data['phone2'];
+		$body .= "<br />";
+		$body .= "<br /><b>State:</b> " .$address['state'];
+
+		$College = $this->College->find("first",array("conditions"=>"College.id = '".$data['college_id']."'","fields"=>"College.name"));
+		$CollegeName = $College['College']['name'];
+
+		//College Name
+		$body .= "<br /><b>College:</b> " . $CollegeName;
+		$body .= "<br />" . $address['address'];
+		$body .= "<br />" . $address['city']. ", ". $address['state'] . " " . $address['zip'];
+
+		//Get Sport Name
+		$Sport = $this->Sport->find("first",array("conditions"=>"Sport.id = '".$data['sport_id']."'","fields"=>"Sport.name"));
+		$sport_name = $Sport['Sport']['name'];
+
+		$body .= "<br /><br /><b>Sport:</b> " . $sport_name;
+		$body .= "<br /><b>Division:</b> " .$data['division'];
+		$body .= "<br /><b>Job Position:</b> " . $data['position'];
+		$body .= "<br /><br />" . $_SERVER['HTTP_USER_AGENT'];
+
+		$this->phpMailer->ClearAddresses();
+		$this->phpMailer->SetFrom("no-reply@collegeprospectnetwork.com","College Prospect Network");
+		$this->phpMailer->AddAddress("admin@collegeprospectnetwork.com","Admin");
+		$this->phpMailer->Subject = $subject;
+		$this->phpMailer->MsgHTML($body);
+		$this->phpMailer->Send();
+	}
+
+	/**
+	 * Send an email with unique code to admin to change thier password
+	 * @param $name
+	 * @param $email
+	 * @param $code
+	 */
+	public function forgetPasswordEmail($name , $email , $code){
+		$subject = "College Prospect Network - Forget Password Request";
+		$message = "";
+
+		$message.= "Hello $name, <br />
+                         We have received a forget password request. If you did not send it then ignore this email. <br  /> <br  />
+                         
+                         Your forget password code is : $code <br  /><br  />
+                         
+                    Regards, <br />
+                    College Prospect Network team";           
+
+		$from = "no-reply@collegeprospectnetwork.com";
+
+		$phpmailer = new PHPMailer();
+		$phpmailer->From = $from;
+		$phpmailer->FromName = "College Prospect Network";
+		$phpmailer->Subject = $subject;
+		$phpmailer->MsgHTML($message);
+		$phpmailer->AddAddress($email);
+		$phpmailer->Send();
+
+		return 1;
 	}
 }
 ?>
