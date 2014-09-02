@@ -35,6 +35,10 @@ class UserController extends AppController{
 		$this->autoRender = false;
 
 		$hs_aau_team_id = @$this->request->query['data']['Athlete']['hs_aau_team_id'];
+		if(!$hs_aau_team_id){
+			$hs_aau_team_id = @$this->request->query['data']['HsAauCoach']['hs_aau_team_id'];
+		}
+		
 		if($hs_aau_team_id != 'Other'){
 			$hs_aau_team_id = (int)$hs_aau_team_id;
 		}
@@ -55,7 +59,7 @@ class UserController extends AppController{
 			$hsAauTeamDetail = $this->HsAauTeam->find("first",array("conditions"=>"HsAauTeam.id = '$hs_aau_team_id'"));
 			$this->set("hsAauTeamDetail",$hsAauTeamDetail);
 		}
-
+		
 		$this->render("/User/getAddressInfo","ajax");
 	}
 

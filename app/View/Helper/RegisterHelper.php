@@ -108,7 +108,7 @@ class RegisterHelper extends AppHelper{
 		App::import("Model","HsAauTeam");
 		$this->HsAauTeam = new HsAauTeam();
 
-		$states = $this->HsAauTeam->find("list",array("fields"=>"id,state","order"=>"state ASC","group"=>"state"));
+		$states = $this->HsAauTeam->find("list",array("fields"=>"state,state","order"=>"state ASC","group"=>"state"));
 		return $states;
 	}
 
