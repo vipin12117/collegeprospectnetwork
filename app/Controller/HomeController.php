@@ -6,7 +6,7 @@ class HomeController extends AppController{
 
 	public $uses = array('Athlete','HsAauCoach','CollegeCoach');
 
-	public $components = array("Session","RequestHandler");
+	public $components = array("Session","RequestHandler","Email");
 
 	public function beforeFilter(){
 		parent::beforeFilter();
@@ -166,11 +166,13 @@ class HomeController extends AppController{
 				$userExist = $this->$user_type->find("first",array("conditions"=>"email = '$email'", "recursive" => -1));
 
 				if($userExist){
-					$code = $this->Athlete->uniqueCode();
+					$code = $this->Athlete->uniqueCode(10);
+					$this->$user_type->updateAll(array("$user_type.forgetcode" => "'". $code . "'"),array("$user_type.id" => $userExist[$user_type]['id']));
 					$this->Session->setFlash("We have email you the unique code, please enter and update password");
 					$this->set("step","2");
 
 					$this->Email->forgetPasswordEmail($userExist[$user_type]['firstname'] , $email , $code);
+					$this->Session->write("forgot_usertype",$user_type);
 				}
 				else{
 					$this->Session->setFlash("Given email is not exist in the system.");
@@ -181,18 +183,13 @@ class HomeController extends AppController{
 				$code = $this->request->data['Admin']['code'];
 				$password = $this->request->data['Admin']['password'];
 				$confirm  = $this->request->data['Admin']['confirm_password'];
-				if($password == $confirm){
-					$this->$user_type->updateAll(array("password" => "'". md5($password) . "'"),array("Admin.forgetcode" => $code));
-					if($this->Admin->getAffectedRows() > 0){
-						$this->Session->setFlash("Your new password has been set, Now login here");
-						$this->redirect(array("controller"=>"Admin","action"=>"login"));
-						exit;
-					}
-					else{
-						$this->Session->setFlash("An error occured while updating passwod, Please try again");
-						$this->redirect(array("controller"=>"Admin","action"=>"forgetpassword"));
-						exit;
-					}
+				if($password == $confirm and $this->Session->read('forgot_usertype')){
+					$user_type = $this->Session->read('forgot_usertype');
+					$this->$user_type->updateAll(array("$user_type.password" => "'". ($password) . "'"),array("$user_type.forgetcode" => $code));
+					
+					$this->Session->setFlash("Your new password has been set, Now login here");
+					$this->redirect(array("controller"=>"Home","action"=>"login"));
+					exit;
 				}
 				else{
 					$this->set("step","2");
@@ -204,7 +201,7 @@ class HomeController extends AppController{
 			// render the page
 			$this->set("step","1");
 		}
-		
+
 		$this->render("/Home/forgotPassword");
 	}
 
