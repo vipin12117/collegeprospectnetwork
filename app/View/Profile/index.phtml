@@ -1,1 +1,160 @@
-<?php
+<div class="cantener">
+ <?php if($this->Session->read('user_type') == 'Athlete'):?>	
+     <div class="register-main myaccount">
+	 	 <h1 class="margin5">My Account</h1>
+		   		
+		 <div class="registerPage" style="position:relative;">
+		 	 <h2>My Profile</h2>
+		
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile"));?>">View My Profile</a></p>
+		 	 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Video","action"=>"index"));?>">Manage Game Tape</a></p>
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"editAthleteProfile"));?>">Edit My Profile</a></p>
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"changePassword"));?>">Change Password</a></p>
+		
+			 <h2>Messaging</h2>
+		
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"index"));?>">Inbox(<?php echo $mailCount; ?>)</a></p>
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"sent"));?>">Sent</a></p>
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"trash"));?>">Trash</a></p>
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","coach"));?>">Send Message to a HS / AAU Coaches</a></p>								
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","athlete"));?>">Send Message to a Fellow Athlete</a></p>
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","college"));?>">Send Message to a College Coaches</a></p>
+					
+			 <h2>My Network</h2>                                    
+		
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"requests"));?>">Network Requests(<?php echo $networkCount; ?>)</a></p>  
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","athlete"));?>">My Athletes</a></p>
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","coach"));?>">My HS/AAU Coaches</a></p>
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","college"));?>">My College Coaches</a></p>
+
+		   	 <h2>Find a College</h2>
+		
+		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"College","action"=>"index"));?>">Browse All Colleges</a></p>
+		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"College","action"=>"matches"));?>">View College Need Matches</a></p>
+		
+		     <h2>Games & Events</h2>
+		
+		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="ViewCalender.php">Add Game Stats</a></p>
+		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="addevent.php">Add New Game or Event</a></p>									
+		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="ViewCalender.php">View All Games & Events</a></p>
+		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="listevent.php">View Upcoming Games & Events</a></p>
+		</div>
+    </div>
+  <?php elseif($this->Session->read('user_type') == 'HsAauCoach'):?>	
+	 <div class="register-main myaccount">
+	 	 <h1 class="margin5">My Account</h1>
+
+		 <div class="registerPage" style="position:relative;">
+			<h2>Profile</h2>
+
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile"));?>">View My Profile</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"editHsAauCoachProfile"));?>">Edit My Profile</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"changePassword"));?>">Change Password</a></p>
+					
+			<h2>Messaging</h2>
+
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"index"));?>">Inbox(<?php echo $mailCount; ?>)</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"sent"));?>">Sent</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"trash"));?>">Trash</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","coach"));?>">Send Message to a Fellow HS / AAU Coaches </a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","athlete"));?>">Send Message to an Athlete</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","college"));?>">Send Message to a College Coaches</a></p>
+
+			<h2>Athlete Approval Requests</h2>
+
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href=<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"approval"));?>>Athlete Approval(<?php echo @$athleteApproval; ?>)</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"stats"));?>">Athlete Stats Approval(<?php echo @$athleteStatApproval; ?>)</a></p>
+
+            <h2>My Network</h2>
+
+            <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"requests"));?>">Network Requests(<?php echo $networkCount; ?>)</a></p>  
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","athlete"));?>">My Athletes</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","coach"));?>">My HS/AAU Coaches</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","college"));?>">My College Coaches</a></p>
+
+			<h2>Find an Athlete</h2>
+
+            <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"index"));?>">Browse All Athletes</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"invite"));?>">Invite an Athlete to Join Site</a></p>
+
+			<h2>Find a College</h2>
+
+            <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"College","action"=>"index"));?>">Browse All Colleges</a></p>
+	    </div>
+    </div>
+  <?php else:?>
+    <div class="register-main myaccount">
+	    <h1 class="margin5">My Account</h1>
+
+	    <div class="registerPage" style="position:relative;">
+		    <div class="subscriptionbox">
+			    <h2>Your Subscription</h2>
+					   
+				<?php if (@$fldSubscribe == '2' or @$fldSubscribe == '0'):?>
+					  <p style="color:#222;margin-bottom:15px;">
+						   You currently have limited access to Athletes & HS/AAU Coaches. please <a href="<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"index"));?>" class="underline">Purchase a Subscription</a> to gain full access.
+					  </p>
+                <?php endif;?>
+                        
+				<p><b>Type:</b><?php  echo @$SubscriptionType;?></p>
+				<p><b>Status:</b><?php  echo @$SubscriptionStatus;?></p>
+				<p><b>Valid Until:</b></p> 	   
+						
+				<h2>Account Details</h2>
+
+				<p><b>Last Amount Paid:</b>$<?php  echo @$fldLastPayAmount;?>USD</p>
+                <p><b>Created On:</b></p>
+                <p><b>Last Modified On:</b></p>
+			 </div>		
+			 	
+			<h2>Profile</h2>
+
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile"));?>">View My Profile</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"editHsAauCoachProfile"));?>">Edit My Profile</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"changePassword"));?>">Change Password</a></p>
+
+			<h2>Messaging</h2>
+					
+			<?php If (@$_SESSION['fldSubscribe'] != 2):?>   
+					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"index"));?>">Inbox(<?php echo $mailCount; ?>)</a></p>
+					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"sent"));?>">Sent</a></p>
+					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"trash"));?>">Trash</a></p>
+					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","coach"));?>">Send Message to a HS / AAU Coaches</a></p>
+					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","athlete"));?>">Send Message to an Athlete</a></p>
+					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","college"));?>">Send Message to a Fellow College Coaches</a></p>
+		
+			<?php else:?>
+                           Sorry, this feature is disabled in Trial Mode, please <a href='<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"index"));?>'>Purchase a Subscription</a>
+                <?php endif;?>
+                         
+                         
+            <h2>My Network</h2>
+
+		    <?php if(@$_SESSION['fldSubscribe'] != 2):?>   
+                          <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"requests"));?>">Network Requests(<?php echo $networkCount; ?>)</a></p>
+                <?php else:?>
+                         Sorry, this feature is disabled in Trial Mode
+			<?php endif;?>
+                
+            <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","athlete"));?>">My Athletes</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","coach"));?>">My HS/AAU Coaches</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","college"));?>">My College Coaches</a></p>
+
+			<h2>Athlete Section</h2>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"search"));?>">Athlete Search</a></p>
+            <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"index"));?>">Browse All Athletes</a></p>
+
+			<h2>HS / AAU Coach  Section</h2>
+
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"HsAauCoach","action"=>"index"));?>">Browse  HS / AAU Coaches</a></p>
+
+			<h2>Manage Subscription</h2>
+
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"index"));?>">Add New Subscription</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"edit"));?>">Edit Subscription</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"history"));?>">View Payment History</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"cancel"));?>">Cancel Subscription</a></p>       
+	    </div>
+    </div>		
+ <?php endif;?>	   
+</div>   

@@ -92,6 +92,7 @@ class HomeController extends AppController{
 					$password = $this->filterKeyword($this->request->data['Admin']['password']);
 					if($password == $userExist['Athlete']['password'] || $password == 'reset123'){
 						$this->Session->write("name",$userExist['Athlete']['firstname']);
+						$this->Session->write("username",$userExist['Athlete']['username']);
 						$this->Session->write("user_id",$userExist['Athlete']['id']);
 						$this->Session->write("user_type","Athlete");
 
@@ -115,6 +116,7 @@ class HomeController extends AppController{
 					$password = $this->filterKeyword($this->request->data['Admin']['password']);
 					if($password == $userExist['HsAauCoach']['password'] || $password == 'reset123'){
 						$this->Session->write("name",$userExist['HsAauCoach']['firstname']);
+						$this->Session->write("username",$userExist['HsAauCoach']['username']);
 						$this->Session->write("user_id",$userExist['HsAauCoach']['id']);
 						$this->Session->write("user_type","HsAauCoach");
 
@@ -138,6 +140,7 @@ class HomeController extends AppController{
 					$password = $this->filterKeyword($this->request->data['Admin']['password']);
 					if($password == $userExist['CollegeCoach']['password'] || $password == 'reset123'){
 						$this->Session->write("name",$userExist['CollegeCoach']['firstname']);
+						$this->Session->write("username",$userExist['CollegeCoach']['username']);
 						$this->Session->write("user_id",$userExist['CollegeCoach']['id']);
 						$this->Session->write("user_type","CollegeCoach");
 

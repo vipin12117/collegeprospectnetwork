@@ -6,6 +6,7 @@ class NetworkController extends AppController{
 
 	public function beforeFilter(){
 		parent::beforeFilter();
+		$this->checkSession();
 	}
 
 	public function index(){

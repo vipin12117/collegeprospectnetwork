@@ -87,10 +87,10 @@ class AppController extends Controller {
 	 * This method will check admin is logged in or not
 	 */
 	public function checkSession(){
-		$type = "admin_id";
+		$type = "user_id";
 		if(!$this->Session->read($type)){
 			$this->Session->destroy();
-			$this->redirect(array('controller'=>'Admin','action'=>'login'));
+			$this->redirect(array('controller'=>'Home','action'=>'login'));
 		}
 	}
 
