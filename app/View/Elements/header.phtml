@@ -22,7 +22,7 @@
 					</li>
 			<?php else:?>		
 					<li style="background:url(<?php echo $this->Html->webroot('img/ico-4.jpg');?>) no-repeat;">
-						<a href="<?php echo $this->Html->url(array("controller"=>"User","action"=>"myaccount"));?>" title="My Account">My Account</a>
+						<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"index"));?>" title="My Account">My Account</a>
 					</li>
 		
 					<li style="background:url(<?php echo $this->Html->webroot('img/ico-4.jpg');?>) no-repeat;">
@@ -54,7 +54,7 @@
 			<?php if(!$this->Session->read('user_id')):?>
 				 <a href="<?php echo $this->Html->url(array("controller"=>"Home","action"=>"index"));?>"><?php echo $this->Html->image('logo.jpg',array("width"=>"161","height"=>86))?></a>
 			<?php else:?>
-				 <a href="<?php echo $this->Html->url(array("controller"=>"User","action"=>"myaccount"));?>"><?php echo $this->Html->image('logo.jpg',array("width"=>"161","height"=>86))?></a>
+				 <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"index"));?>"><?php echo $this->Html->image('logo.jpg',array("width"=>"161","height"=>86))?></a>
 			<?php endif;?>	
 		</div>
 		
@@ -69,7 +69,13 @@
 					
 					&nbsp; | &nbsp;
 					
-					<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"index"),array("class"=>"bluelarge"));?>">View Profile</a>
+					<?php if($this->Session->read('user_type') == 'Athlete'):?>
+							<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile"),array("class"=>"bluelarge"));?>">View Profile</a>
+					<?php elseif($this->Session->read('user_type') == 'HsAauCoach'):?>
+							<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile"),array("class"=>"bluelarge"));?>">View Profile</a>
+					<?php else:?>
+							<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"collegeCoachProfile"),array("class"=>"bluelarge"));?>">View Profile</a>
+					<?php endif;?>		
 				</p>
 		    <?php else:?>
 		   		<p class="l-text">

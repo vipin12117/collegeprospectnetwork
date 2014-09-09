@@ -4,7 +4,7 @@ class AthleteStatCategory extends AppModel{
 
 	public $name = 'AthleteStatCategory';
 
-	public $useTable = 'athelete_stat_categories';
+	public $useTable = 'athlete_stat_categories';
 
 	public function __construct(){
 		parent::__construct();

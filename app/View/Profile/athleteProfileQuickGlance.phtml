@@ -1,0 +1,62 @@
+<?php
+
+$numCoaches   = count($hsAauCoach);
+$approveCoach = NULL;
+for ($i = 0; $i < $numCoaches; $i++) {
+    if ($hsAauCoach[$i]['HsAauCoach']['id'] == $profileDetail['Athlete']['approve_hs_aau_coach_id']) {
+        $approveCoach = $hsAauCoach[$i]['HsAauCoach'];
+        unset($hsAauCoach[$i]);
+    }
+}
+?>
+<table width="100%" cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" style="border-collapse: collapse;" class="tablePadd">
+    <?php if(count($hsAauCoach) > 0): ?>
+        <tr>
+            <td valign="middle"  align="left" class="normalblack_12_stat">
+                <b>Coach Name:</b>
+            </td>
+            <td valign="middle"  align="left" class="normalblack_12_stat">
+                <b>Coach Phone:</b>
+            </td>
+        </tr>
+        <?php if ($approveCoach): ?>
+	        <tr>
+	            <td valign="middle"  align="left" class="normalblack_12_stat">
+	                <a href="HsAauCoachProfile.php?mode=view&fldId=<?php echo $approveCoach['id']; ?>" title="View HS/AAU Coach Profile">
+	                    <?php echo $approveCoach['firstname'] . ' ' . $approveCoach['lastname']; ?>
+	                </a>
+	            </td>
+	            <td valign="middle"  align="left" class="normalblack_12_stat">
+	                <?php echo $approveCoach['phone']; ?>
+	            </td>
+	        </tr>
+        <?php endif; ?>
+
+        <?php foreach ($hsAauCoach as $coach): ?>
+	        <tr>
+            	<td valign="middle"  align="left" class="normalblack_12_stat">
+              	  <a href="HsAauCoachProfile.php?mode=view&fldId=<?php echo $coach['HsAauCoach']['id']; ?>" title="View HS/AAU Coach Profile">
+                    	<?php echo $coach['HsAauCoach']['firstname'] . ' ' . $coach['HsAauCoach']['lastname']; ?>
+                  </a>
+	            </td>
+
+           	    <td valign="middle"  align="left" class="normalblack_12_stat">
+               		 <?php echo $coach['HsAauCoach']['phone']; ?>
+           	    </td>
+            </tr>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+    <tr>
+        <td valign="middle"  align="left" class="normalblack_12_stat">
+            <b>HS/AAU Team:</b>
+            <br />
+            <?php echo ($profileDetail['HsAauTeam']['school_name']) ? $profileDetail['HsAauTeam']['school_name'] : 'NA'; ?>
+        </td>
+        <td valign="middle"  align="left" class="normalblack_12_stat" >
+            <b>Team Address:</b>
+            <br />
+            <?php echo ($profileDetail['HsAauTeam']['address']) ? $profileDetail['HsAauTeam']['address'] : 'NA'; ?>
+        </td>
+    </tr>
+</table>

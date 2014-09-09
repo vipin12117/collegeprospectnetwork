@@ -12,4 +12,16 @@ class MailController extends AppController{
 	public function index(){
 
 	}
+
+	public function sent(){
+
+	}
+
+	public function trash(){
+
+	}
+
+	public function compose(){
+		$this->layout = 'popup';
+	}
 }

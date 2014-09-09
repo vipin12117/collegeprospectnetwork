@@ -12,4 +12,16 @@ class SubscribeController extends AppController{
 	public function index(){
 
 	}
+
+	public function edit(){
+
+	}
+
+	public function history(){
+
+	}
+
+	public function cancel(){
+
+	}
 }

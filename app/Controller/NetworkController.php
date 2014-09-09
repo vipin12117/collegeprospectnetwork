@@ -12,4 +12,20 @@ class NetworkController extends AppController{
 	public function index(){
 
 	}
+
+	public function requests(){
+
+	}
+
+	public function sendRequest(){
+
+	}
+
+	public function confirmRequest(){
+
+	}
+
+	public function deleteRequest(){
+
+	}
 }

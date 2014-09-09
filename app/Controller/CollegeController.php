@@ -8,8 +8,12 @@ class CollegeController extends AppController{
 		parent::beforeFilter();
 		$this->checkSession();
 	}
-	
+
 	public function index(){
-		
+
+	}
+
+	public function matches(){
+
 	}
 }

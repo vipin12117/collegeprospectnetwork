@@ -10,4 +10,14 @@ class CollegeCoach extends AppModel{
 		parent::__construct();
 		$this->primaryKey = 'id';
 	}
+
+	public function getByUsername($username){
+		$row = $this->find("first",array("conditions"=>"CollegeCoach.username = '$username'"));
+		return $row;
+	}
+
+	public function getById($id){
+		$row = $this->find("first",array("conditions"=>"CollegeCoach.id = '$id'"));
+		return $row;
+	}
 }

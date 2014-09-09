@@ -45,6 +45,25 @@ Router::connect('/logout.php', array('controller' => 'Home', 'action' => 'logout
 Router::connect('/register-athlete.php', array('controller' => 'User', 'action' => 'registerAthlete'));
 Router::connect('/register-hs-coach.php', array('controller' => 'User', 'action' => 'registerHSCoach'));
 Router::connect('/register-college-coach.php', array('controller' => 'User', 'action' => 'registerCollegeCoach'));
+Router::connect('/my-account.php', array('controller' => 'Profile', 'action' => 'index'));
+Router::connect('/change-password.php', array('controller' => 'Profile', 'action' => 'changePassword'));
+
+//urls after login
+//athlete urls
+Router::connect('/athlete-profile.php/*', array('controller' => 'Profile', 'action' => 'athleteProfile'));
+Router::connect('/edit-athlete-profile.php/*', array('controller' => 'Profile', 'action' => 'editAthleteProfile'));
+
+
+//hsaau coaches urls
+Router::connect('/hsaau-coach-profile.php/*', array('controller' => 'Profile', 'action' => 'hsAauCoachProfile'));
+Router::connect('/edit-hsaau-coach-profile.php/*', array('controller' => 'Profile', 'action' => 'editHsAauCoachProfile'));
+
+
+
+//college coaches urls
+Router::connect('/college-coach-profile.php/*', array('controller' => 'Profile', 'action' => 'collegeCoachProfile'));
+Router::connect('/edit-college-coach-profile.php/*', array('controller' => 'Profile', 'action' => 'editCollegeCoachProfile'));
+
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

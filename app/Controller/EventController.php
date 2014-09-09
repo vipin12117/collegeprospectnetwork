@@ -12,4 +12,16 @@ class EventController extends AppController{
 	public function index(){
 
 	}
+
+	public function stats(){
+
+	}
+
+	public function addNew(){
+
+	}
+
+	public function upcoming(){
+
+	}
 }

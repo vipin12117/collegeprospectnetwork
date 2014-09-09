@@ -10,4 +10,9 @@ class AthleteVideo extends AppModel{
 		parent::__construct();
 		$this->primaryKey = 'id';
 	}
+	
+	public function getVideo($athlete_id){
+		$row = $this->find("first",array("conditions"=>"AthleteVideo.athlete_id = '$athlete_id' AND AthleteVideo.status = 1"));
+		return $row;
+	}
 }

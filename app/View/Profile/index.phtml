@@ -34,10 +34,10 @@
 		
 		     <h2>Games & Events</h2>
 		
-		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="ViewCalender.php">Add Game Stats</a></p>
-		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="addevent.php">Add New Game or Event</a></p>									
-		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="ViewCalender.php">View All Games & Events</a></p>
-		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="listevent.php">View Upcoming Games & Events</a></p>
+		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Event","action"=>"stats"));?>">Add Game Stats</a></p>
+		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Event","action"=>"addNew"));?>">Add New Game or Event</a></p>									
+		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Event","action"=>"index"));?>">View All Games & Events</a></p>
+		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Event","action"=>"upcoming"));?>">View Upcoming Games & Events</a></p>
 		</div>
     </div>
   <?php elseif($this->Session->read('user_type') == 'HsAauCoach'):?>	
@@ -90,7 +90,7 @@
 		    <div class="subscriptionbox">
 			    <h2>Your Subscription</h2>
 					   
-				<?php if (@$fldSubscribe == '2' or @$fldSubscribe == '0'):?>
+				<?php if ($profileDetail['subscription_id'] == 0 || $is_trial_mode):?>
 					  <p style="color:#222;margin-bottom:15px;">
 						   You currently have limited access to Athletes & HS/AAU Coaches. please <a href="<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"index"));?>" class="underline">Purchase a Subscription</a> to gain full access.
 					  </p>
@@ -109,13 +109,13 @@
 			 	
 			<h2>Profile</h2>
 
-			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile"));?>">View My Profile</a></p>
-			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"editHsAauCoachProfile"));?>">Edit My Profile</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"collegeCoachProfile"));?>">View My Profile</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"editCollegeCoachProfile"));?>">Edit My Profile</a></p>
 			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"changePassword"));?>">Change Password</a></p>
 
 			<h2>Messaging</h2>
 					
-			<?php If (@$_SESSION['fldSubscribe'] != 2):?>   
+			<?php If (!$is_trial_mode):?>   
 					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"index"));?>">Inbox(<?php echo $mailCount; ?>)</a></p>
 					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"sent"));?>">Sent</a></p>
 					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"trash"));?>">Trash</a></p>
@@ -124,16 +124,17 @@
 					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","college"));?>">Send Message to a Fellow College Coaches</a></p>
 		
 			<?php else:?>
-                           Sorry, this feature is disabled in Trial Mode, please <a href='<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"index"));?>'>Purchase a Subscription</a>
-                <?php endif;?>
+                     <p>Sorry, this feature is disabled in Trial Mode, please <a href='<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"index"));?>'>Purchase a Subscription</a></p>
+            
+			<?php endif;?>
                          
                          
             <h2>My Network</h2>
 
-		    <?php if(@$_SESSION['fldSubscribe'] != 2):?>   
+		    <?php if(!$is_trial_mode):?>   
                           <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"requests"));?>">Network Requests(<?php echo $networkCount; ?>)</a></p>
                 <?php else:?>
-                         Sorry, this feature is disabled in Trial Mode
+                          <p>Sorry, this feature is disabled in Trial Mode</p>
 			<?php endif;?>
                 
             <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","athlete"));?>">My Athletes</a></p>

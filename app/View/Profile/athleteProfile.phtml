@@ -1,0 +1,427 @@
+<script type="text/javascript" src="<?php echo Router::fullBaseUrl().$this->base;?>/fancybox/jquery.fancybox.js"></script>
+<link type="text/css" rel="stylesheet" href="<?php echo Router::fullBaseUrl().$this->base;?>/fancybox/jquery.fancybox.css" />
+<script type="text/javascript">
+   jQuery(document).ready(function() {
+	   jQuery(".fancybox").fancybox({fitToView:false,width:'600px',height:'100%',autoSize:false});
+   });
+</script>
+
+<div class="profile">
+     <div style="float:left;width:400px;">
+     	<h1><?php echo $profileDetail['Athlete']['firstname']. " ".$profileDetail['Athlete']['lastname'] . ' - #' . $profileDetail['Athlete']['jersey_number'];?></h1>
+     </div>
+
+     <div style="float:right;width:400px;font-size:17px;text-align:right;padding-right:20px;">
+     	  <span style="color:#999;font-size:14px;">Username:</span> 
+     	  <span style="font-weight:normal;"><?php echo $profileDetail['Athlete']['username'];?></span>
+     </div>
+
+     <div class="clear"></div>
+ 
+  	 <div class="left-panel">
+		<div class="mid-con">
+			<div class="registerPage1">
+				<div class="left-col">
+					<p>
+						<?php if($profileDetail['Athlete']['image']):?>
+								<?php echo $this->Html->image("athlete/".$profileDetail['Athlete']['image'],array("width"=>150));?>
+						<?php else:?>
+								<?php echo $this->Html->image("athlete/no-pre.png",array("width"=>140));?>
+						<?php endif;?>
+					</p>
+					
+					<div class="btnclass1">
+						<p>
+ 						  <span>
+ 						  	  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose"));?>">Send Message</a>
+						  </span>
+						</p>
+					</div>
+					
+					<div class="btnclass1">
+						<p>
+						   <span>
+						   	  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"addRating"));?>">Add Rating</a>
+						   </span>
+						</p>
+					</div>
+					
+					<div class="btnclass1">
+                        <p>
+                           <span>
+                           	   <a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"sendRequest",$profileDetail['Athlete']['id']));?>">Send Request</a>
+						   </span>
+					    </p>     
+					</div>
+				</div>
+			</div>	
+			
+			<div class="right-col">
+				<h3>Athletic Stats</h3>
+
+				<div class="boxes">
+						<table width="100%" cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" style="border-collapse: collapse;" class="tablePadd">
+							<tr>
+							    <td valign="middle" align="left" class="normalblack_12_stat"><b>Sport:</b>&nbsp;<?php echo $profileDetail['Sport']['name']; ?></td>
+							</tr>
+
+							<tr>
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>Class:</b>&nbsp;<?php echo ($profileDetail['Athlete']['class']) ? $profileDetail['Athlete']['class'] : 'N/A';?>
+								</td>
+							</tr>
+
+							<tr>	
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>Height:</b>&nbsp;<?php echo ($profileDetail['Athlete']['height']) ? $profileDetail['Athlete']['height'] : 'N/A';?>
+								</td>
+							</tr>
+
+							<tr>
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>Weight:</b>&nbsp;<?php echo ($profileDetail['Athlete']['weight']) ? $profileDetail['Athlete']['weight'] : 'N/A';?>
+								</td>
+							</tr>
+
+							<tr>
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>Primary Position:</b>&nbsp;<?php echo ($profileDetail['Athlete']['primary_position']) ? $profileDetail['Athlete']['primary_position'] : 'N/A';?>
+								</td>
+							</tr>
+
+							<tr>
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>Secondary Position:</b>&nbsp;<?php echo ($profileDetail['Athlete']['secondary_position']) ? $profileDetail['Athlete']['secondary_position'] : 'N/A';?>
+								</td>
+							</tr>
+
+							<tr>
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>Bench Press:</b>&nbsp;<?php echo ($profileDetail['Athlete']['bench_press_max']) ? $profileDetail['Athlete']['bench_press_max'] : 'N/A';?>
+								</td>
+							</tr>
+
+							<tr>
+                                <td valign="middle" align="left" class="normalblack_12_stat">
+                                	<b>Squat Max:</b>&nbsp;<?php echo ($profileDetail['Athlete']['squat_max']) ? $profileDetail['Athlete']['squat_max'] : 'N/A';?>
+                                </td>
+							</tr>
+
+							<tr>
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>40-yard Dash:</b>&nbsp;<?php echo ($profileDetail['Athlete']['yarddash_40']) ? $profileDetail['Athlete']['yarddash_40'] : 'N/A';?>
+								</td>
+							</tr>
+
+							<tr>
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>Shuttle Run:</b>&nbsp;<?php echo ($profileDetail['Athlete']['shuttle_run']) ? $profileDetail['Athlete']['shuttle_run'] : 'N/A';?>
+								</td>
+							</tr>
+							
+							<tr>
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>Vertical Jump:</b>&nbsp;<?php echo ($profileDetail['Athlete']['vertical']) ? $profileDetail['Athlete']['vertical'] : 'N/A';?>
+								</td>
+							</tr>
+					 </table>
+				</div>
+				    
+				<h3 style="float:left;"><?php echo $profileDetail['Sport']['name']; ?> Stats Summary</h3>
+					
+				<div style="float:right;">
+						<?php if(@$profileDetail['Athlete']['subscribe_id']):?>
+							  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"addRating"));?>">View Game Log</a>	
+						<?php endif;?>	
+				</div>
+
+				<div class="clear"></div>
+				<div class="boxes">
+					<?php
+						if(isset($athleteStats)){
+                          $itemcount = 0;
+                          $itemtotal = count($athleteStats);
+
+                          $itemsin1col = $itemtotal / 2;
+                          $flagnewcol = 0;
+                          
+		                  if(count($athleteStats) > 0) {
+		                       for ($i=0;$i<count($athleteStats);$i++) {
+		                              $Label = $athleteStats[$i]['AthleteStat']['label_name'];
+		                              $value = $athleteStats[$i][0]['value'];
+		                              $count = $athleteStats[$i][0]['count'];
+		                              $Initial = $athleteStats[$i]['AthleteStatCategory']['initial'];
+		                              
+		                              if($count > 0){
+		                              	 $final = $value / $count;
+		                              }
+		                              else{
+		                              	 $final = 0;
+		                              }
+		
+		                              $final = number_format($final, 1, '.', '');
+		                              if($itemcount == 0){
+		                                   echo '<ul class="stats">' . "\r\n";
+		                              }
+		
+		                              if($itemcount > $itemsin1col && $flagnewcol == 0) {
+		                                   echo '</ul><ul class="stats stats-rightcol">' . "\r\n";
+		                                   $flagnewcol = 1;
+		                              }
+		
+		                              echo '<li><span>' . $Label . '</span>:&nbsp;' . $final . '</li>' . "\r\n";
+		                              $itemcount = $itemcount + 1;
+	                             }
+		
+		                         echo '</ul><div class="clear"></div>' . "\r\n";
+		                   } 
+		                   else{
+                              echo "Athlete has not entered any stats";
+		                   }
+						}
+					   ?>
+				</div>
+			    
+			    <div>
+                   <h3>Academic Stats</h3>
+
+                   <div class="boxes">
+					  <table width="100%" cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" style="border-collapse: collapse;" class="tablePadd">
+						  <tr>
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>GPA:</b>&nbsp;<?php echo ($profileDetail['Athlete']['gpa']) ? $profileDetail['Athlete']['gpa'] : 'N/A';?>
+								</td>
+								
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>ACT Score:</b>&nbsp;<?php echo ($profileDetail['Athlete']['act_score']) ? $profileDetail['Athlete']['act_score'] : 'N/A';?>
+								</td>
+					      </tr>
+					      
+					      <tr>
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>SAT Score:</b>&nbsp;<?php echo ($profileDetail['Athlete']['sat_score']) ? $profileDetail['Athlete']['sat_score'] : 'N/A';?>
+								</td>
+								
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>Clearinghouse Eligible:</b>&nbsp;<?php echo ($profileDetail['Athlete']['clearing_house_eligible']) ? $profileDetail['Athlete']['clearing_house_eligible'] : 'N/A';?>
+								</td>
+					      </tr>
+					      
+					      <tr>
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>Class Rank:</b>&nbsp;<?php echo ($profileDetail['Athlete']['class_rank']) ? $profileDetail['Athlete']['class_rank'] : 'N/A';?>
+								</td>
+								
+								<td valign="middle" align="left" class="normalblack_12_stat">
+									<b>Intended Major:</b>&nbsp;<?php echo ($profileDetail['Athlete']['intended_major']) ? $profileDetail['Athlete']['intended_major'] : 'N/A';?>
+								</td>
+					      </tr>
+					    </table>
+			        </div>
+			    </div>
+           </div>
+
+		   <div class="clr"></div>
+		   
+		   <div class="full-col">
+			   <h3>Athlete Bio</h3>
+  			   <div class="boxes">
+  			   		<?php echo $profileDetail['Athlete']['description'];?>
+  			   </div>
+		   </div>
+		   
+		   <div class="full-col">
+				<h3 style="float:left;">Comments From My Coach</h3>
+
+				<div style="float:left;padding:4px 0 0 30px;">
+				
+				</div>
+		   
+		  	   <div class="clear"></div>
+			   <div class="boxes">
+			   		<?php echo $profileDetail['Athlete']['comments'];?>
+			   </div>
+		   </div>
+		   
+		   <div class="full-col">
+				<h3>Comments From Opposing Coach</h3>
+
+			    <div class="boxes">
+			   		 NA
+			    </div>
+		   </div>
+	   </div>
+    </div>	   
+		   
+	 <!--right panel starts from here -->
+	 <div class="right-panel">
+	     <div style="padding-top:0;">
+              <h3>HS / AAU Coach Quick Glance:</h3>
+
+              <div class="right-boxes">
+                    <?php if (@$_SESSION['subscription_id'] != 2): ?>
+                   			<?php include_once ROOT. '/app/View/Profile/athleteProfileQuickGlance.phtml'; ?>
+                    <?php else: ?>
+                             Sorry, this feature is disabled in Trial Mode, please <a href='subscribe.php'>Purchase a Subscription</a>.
+                    <?php endif; ?>
+             </div>
+          </div>
+
+		  <div>
+			  <h3 style="float:left;">Profile Viewed</h3><br /><br />
+		      <div class="right-boxes">
+				  <table width="100%" cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" style="border-collapse: collapse;" class="tablePadd">
+					<tr>
+                         <td valign="middle"  align="left" class="normalblack_12_stat"><b>Last Week:</b>&nbsp;<?php echo $profileDetail['Athlete']["weekly_counter"]; ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td valign="middle"  align="left" class="normalblack_12_stat"><b>Total Viewed:</b>&nbsp;<?php echo $profileDetail['Athlete']["total_counter"];?></td>
+                    </tr>
+			    </table>
+			 </div>
+		</div>
+        
+        <div>
+              <h3 style="float:left;">Game Film</h3>
+              <div style="float:right;">
+	              <?php 
+	                   if($profileDetail['Athlete']['id'] != $this->Session->read('user_id') AND $this->Session->read('user_type') == 'athlete') {
+	                          echo ' ';
+	                   } 
+	                   else{
+	                         echo '<a href="Video-List.php" class="gametape">Manage Game Tape</a>';
+	                   }
+				  ?>
+			  </div>
+              <div class="clear"></div>
+
+ 			  <div class="right-boxesfirst" <?php if (($this->Session->read('user_type') == 'CollegeCoach')) { ?>style="margin-bottom:0px;" <?php } ?> >
+			      <?php if(isset($video) AND @$video['AthleteVideo']['video_path']):?>
+					  <?php $imagename = str_replace(".flv", ".jpg", $video['AthleteVideo']['video_path']); ?>
+				  
+				  	  <div id="jwplayer">Loading the Video Player ...</div>
+	                  <script type="text/javascript">
+	                         jwplayer("jwplayer").setup({
+	                             flashplayer: "/jwplayer/player.swf",
+	                             file: "video/<?php echo $video['AthleteVideo']['video_path'];?>",
+	                             image: "video/<?php echo $imagename;?>",
+	                             skin: "skins/stormtrooper/stormtrooper.zip",
+	                             controlbar: "bottom",
+	                             height: 220,
+	                             width: 300
+	                          });
+	                   </script>
+				   <?php else: ?>
+							User has not added any videos yet.
+				   <?php endif; ?>
+			  </div>
+		  </div>
+
+		  <?php if (($this->Session->read('user_type') == 'CollegeCoach')) { ?>
+				<div class="btnclass2" style="margin-bottom:20px;">
+					<p>
+						<span>
+						    <?php
+                                 if($_SESSION['subscription_id'] == 2) {
+                                 	     echo '<INPUT TYPE="BUTTON" VALUE="Request Game Tape" onclick="alert(\'Sorry, this feature is disabled in Trial Mode, please purchase a Subscription. \');">';
+                                 } else {
+                             ?>
+                                     <input type=BUTTON onclick="window.open('RequestGameTape.php?fldId=<?php  echo $_REQUEST['fldId'];?>','windowname1', 'width=665, height=400'); return false;" value="Request Game Tape">
+                             <?php
+                                }
+                            ?>
+					    </span>
+					</p>
+				</div>
+
+		<?php } ?>
+
+		<div style="padding-top:0;">
+             <h3>Comments
+             	    <?php  
+						if($profileDetail['Athlete']['id'] == $this->Session->read('user_id') AND $this->Session->read('user_type') == 'athlete') {
+							echo '<a href="javascript:void(0);" onclick="window.open(\'add_user_notes.php?fldAthleteid='.$uid.'&usertype=athlete\',\'winname\',\'directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=980px,height=380\');" style="float:right;">Add Note</a>';
+						}
+					?>
+				</h3>
+
+                <div class="right-boxes">
+                <?php
+					if($notes && count($notes) > 0){
+						echo '<table width="100%" cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" style="border-collapse: collapse;" class="tablePadd">';
+						
+						foreach($notes as $note){
+							echo '<tr><td valign="middle"  align="left" class="normalblack_12_stat">';
+							echo $note['Note']['description'].'<br>';
+
+							echo '<span style="color:#CCCCCC;float:right;">'.$note['Note']['added_date'].'</span>';
+							echo '</td></tr>';
+						}
+
+						if($rowcount>1){
+								echo '<tr><td valign="middle"  align="right" class="normalblack_12_stat">';
+								echo '<a href="javascript:void(0);" onclick="window.open(\'view_more_notes.php?fldAthleteid='.$uid.'&usertype=athlete\',\'winname\',\'directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=980px,height=380\');" class="gametape" style="float:right;">view more</a>';
+								echo '</td></tr>';
+						}
+						echo '</table>';
+					}
+					else{
+						if($profileDetail['Athlete']['id'] == $this->Session->read('user_id') AND $this->Session->read('user_type') == 'athlete') {
+							echo "You have not added any comments yet.";
+						}
+						else{
+							echo "User has not added any comments yet.";
+						}
+					}
+				 ?>
+               </div>
+            </div>
+
+			<div>
+				<h3>Upcoming Games</h3>
+
+				<div class="right-boxesfirst">
+			       <?php if(@$_SESSION['subscription_id'] != 2) {
+                      if(count($events) > 0) {?>
+        				  <table width="100%" cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" style="border-collapse: collapse;" class="tablePadd">
+							  <?php for ($i = 0; $i < count($events); $i++):?>
+								<tr>
+									<td valign="middle"  align="left" class="normalblack_12_upevent">
+									   <a href="<?php echo $this->Html->url(array("controller"=>"Event","action"=>"details",$events[$i]['Event']['id']));?>"><?php echo $events[$i]['Event']['name'];?></a>	
+									   <?php echo date('m-d-Y g:i A', strtotime($events[$i]['Event']['start_date']));?> 		   
+	    							</td>
+	        					</tr>
+							  <?php endfor; ?>
+        				  </table>
+
+        				  <?php } else { 
+        				  	       echo "No Games Scheduled"; 
+        				  		 }
+                          ?>
+						  <?php
+                               }
+                               else{
+                                  echo "Sorry, this feature is disabled in Trial Mode, please <a href='subscribe.php'>Purchase a Subscription</a>";
+                               }
+                          ?>
+					</div>
+			   </div>
+
+			   <div style="margin-top:10px;">
+					<h3 class="advertisement">Advertisement</h3>
+
+					<div class="right-boxesfirst" style="height:226px;">
+					<?php foreach($banners as $banner): ?>
+							<p>
+								<?php echo html_entity_decode($banner['Banner']['third_party']);?>
+							</p>
+					<?php break; endforeach;?>
+				</div>
+		  </div>
+	 </div>
+	 
+	 <!-- end right div here -->
+	 <div class="clr"></div>
+</div>
+<div class="clr"></div>

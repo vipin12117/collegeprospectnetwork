@@ -143,6 +143,7 @@ class HomeController extends AppController{
 						$this->Session->write("username",$userExist['CollegeCoach']['username']);
 						$this->Session->write("user_id",$userExist['CollegeCoach']['id']);
 						$this->Session->write("user_type","CollegeCoach");
+						$this->Session->write("subscription_id",$userExist['CollegeCoach']['subscription_id']);
 
 						$redirectUrl = Router::url(array("controller"=>"Profile","action"=>"index"),true);
 						$this->redirect($redirectUrl);
