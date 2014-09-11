@@ -8,7 +8,7 @@ class ProfileController extends AppController{
 
 	public $uses = array('Mail','Network','CollegeCoach','Athlete','HsAauCoach','Event','Banner','AthleteVideo','Note','AthleteStat');
 
-	public $components = array('Email','Session');
+	public $components = array('Email','Session','Image');
 
 	public function beforeFilter(){
 		parent::beforeFilter();
@@ -33,7 +33,7 @@ class ProfileController extends AppController{
 		$this->set("networkCount",$networkCount);
 
 		$is_trial_mode = false;
-		if($this->Session->read('user_type') == 'Athlete'){
+		if($this->user_type == 'Athlete'){
 			$profileDetail = $this->Athlete->getByUsername($username);
 			$this->set("profileDetail",$profileDetail);
 
@@ -43,7 +43,7 @@ class ProfileController extends AppController{
 			}
 			$this->set("is_trial_mode",$is_trial_mode);
 		}
-		elseif($this->Session->read('user_type') == 'CollegeCoach'){
+		elseif($this->user_type == 'CollegeCoach'){
 			$profileDetail = $this->CollegeCoach->getByUsername($username);
 			$this->set("profileDetail",$profileDetail);
 		}
@@ -80,7 +80,7 @@ class ProfileController extends AppController{
 
 		$athleteStats = $this->AthleteStat->getStatsByAthleteId($user_id);
 		$this->set("athleteStats",$athleteStats);
-		
+
 		$hsAauCoach = $this->HsAauCoach->getByHsAauTeamId($profileDetail['Athlete']['hs_aau_team_id']);
 		$this->set("hsAauCoach",$hsAauCoach);
 
@@ -88,9 +88,37 @@ class ProfileController extends AppController{
 	}
 
 	public function editAthleteProfile(){
+		$user_id  = $this->Session->read('user_id');
 
+		if(isset($this->request->data['Athlete'])){
+			$this->request->data['Athlete']['id'] = $user_id;
 
-		$this->render("/Profile/editAthleteProfile");
+			//unset these fields
+			unset($this->request->data['Athlete']['username']);
+			unset($this->request->data['Athlete']['email']);
+
+			if($this->request->data['Athlete']['image']){
+				$this->Image->set_paths(WWW_ROOT . 'img/athlete/', WWW_ROOT . 'img/athlete/thumb/');
+
+				$this->request->data['Athlete']['image'] = $_FILES['image'];
+				$photo_path = $this->Image->upload_image('Athlete.image');
+
+				$this->request->data['Athlete']['image'] = basename($photo_path);
+			}
+			else{
+				unset($this->request->data['Athlete']['image']);
+			}
+
+			$this->Athlete->save($this->request->data);
+
+			$this->Session->setFlash("Profile is updated successfully");
+			$this->redirect(array("controller"=>"Profile","action"=>"athleteProfile"));
+			exit;
+		}
+		else{
+			$this->request->data = $this->Athlete->getById($user_id);
+			$this->render("/Profile/editAthleteProfile");
+		}
 	}
 
 	public function hsAauCoachProfile(){
@@ -100,7 +128,9 @@ class ProfileController extends AppController{
 	}
 
 	public function editHsAauCoachProfile(){
-
+		$user_id  = $this->Session->read('user_id');
+		$profileDetail = $this->Athlete->getById($user_id);
+		$this->set("profileDetail",$profileDetail);
 
 		$this->render("/Profile/editHsAauCoachProfile");
 	}
@@ -112,13 +142,36 @@ class ProfileController extends AppController{
 	}
 
 	public function editCollegeCoachProfile(){
-
+		$user_id  = $this->Session->read('user_id');
+		$profileDetail = $this->Athlete->getById($user_id);
+		$this->set("profileDetail",$profileDetail);
 
 		$this->render("/Profile/editCollegeCoachProfile");
 	}
 
 	public function changePassword(){
+		$user_id  = $this->Session->read('user_id');
 
+		if(isset($this->request->data['Athlete'])){
+			if($this->user_type == 'HsAauCoach'){
+				$this->request->data['HsAauCoach']['id'] = $user_id;
+				$this->request->data['HsAauCoach']['password'] = $this->request->data['Athlete']['password'];
+				$this->HsAauCoach->save($this->request->data);
+			}
+			elseif($this->user_type == 'CollegeCoach'){
+				$this->request->data['CollegeCoach']['id'] = $user_id;
+				$this->request->data['CollegeCoach']['password'] = $this->request->data['Athlete']['password'];
+				$this->CollegeCoach->save($this->request->data);
+			}
+			else{
+				$this->request->data['Athlete']['id'] = $user_id;
+				$this->Athlete->save($this->request->data);
+			}
+
+			$this->Session->setFlash("Your password is updated successfully");
+			$this->redirect(array("controller"=>"Profile","action"=>"athleteProfile"));
+			exit;
+		}
 
 		$this->render("/Profile/changePassword");
 	}

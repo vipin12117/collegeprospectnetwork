@@ -22,6 +22,10 @@ class MailController extends AppController{
 	}
 
 	public function compose(){
+		
+	}
+
+	public function composePopup(){
 		$this->layout = 'popup';
 	}
 }

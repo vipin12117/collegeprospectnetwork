@@ -1,1 +1,49 @@
-<?php
+<div class="cantener">
+  <div class="register-main">
+      <div class="registerPage advancedsearch">
+       
+      <?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Athlete","action"=>"index")));?>  
+      
+      <h1 style="float:left;margin-bottom:15px;">Athlete Search</h1>
+
+      <div class="form-footnote" style="float:right;color:#777;font-size:13px;margin-left:15px;padding-top:7px;"> * All Search Fields are optional </div>
+
+      <div class="clear"></div>
+
+	  <div class="col-fieldset-left">
+		  <fieldset>
+				<legend>Basic Details</legend>
+				<p class="alt">
+					 <label>Athlete Name:</label>
+					 <span>
+						  <input type="text" name="fldName" style="width:80px;margin-right:3px;" value="<?php echo $fldName; ?>" />
+					 </span>
+				</p>
+		  </fieldset>
+	  </div>
+
+      <fieldset>
+          <legend>Athletic Stats</legend>
+          <div class="formarea">
+              <div class="col-left">
+                  <?php include_once ROOT. '/app/View/Athlete/athlete_search_left.phtml'; ?>
+              </div>
+              
+              <div class="col-right">
+                  <?php include_once ROOT. '/app/View/Athlete/athlete_search_right.phtml'; ?>
+              </div>
+
+              <div class="clear"></div>
+          </div>
+     </fieldset>
+
+     <fieldset>
+         <legend>Athletic Points and Intangible Ratings</legend>
+         <div class="formarea">
+            <div class="col-left">
+			   <p>
+                  <label>Points:</label>
+                  <span>
+                     <select name="fldTotal_points_min">
+                         <option value="" class="selectgrey">Any Point</option>
+      

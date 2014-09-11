@@ -1,1 +1,274 @@
-<?php
+<div class="cantener">
+  <div class="register-main">
+	  <div class="registerPage">
+	  
+	  <h1><?php echo $page_title;?></h1>
+	  
+	  <div style="display: block; margin-bottom: 5px; text-align: right;"><?php echo count($networks); ?> Total Records</div>
+	  
+	  <?php if(count($networks) > 0):?>
+	  
+	  <?php if($type == "athlete"):?>
+		  <ul class="box_list">
+			 <?php foreach($networks as $network): ?>
+				<li>
+				  <?php $ProfileFields = $this->Profile->index($network['Network']['user_id'],$network['Network']['user_type']);?>
+				  
+				  <table cellpadding="2" cellspacing="2" class="table_main">
+					 <tr>
+						<td class="table_main_td1">
+							<table cellpadding="2" cellspacing="2" class="table_main_first">
+								<tr>
+									<td>
+									   <center>
+										   <div class="viewhim_" id="viewhim_<?php echo $network['Network']["id"]; ?>">
+												<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$ProfileFields['Athlete']['id']));?>" title="<?php echo $ProfileFields['Athlete']["firstname"]; ?>">
+												    <?php echo $this->Html->image("athlete/".$ProfileFields['Athlete']['image'],array("width"=>"88px","height"=>"119px","style"=>"margin:5px 5px 1px 5px;")); ?>
+												</a>
+												
+												<div class="view_" id="view_<?php echo $network['Network']["id"]; ?>">
+													<?php if(@$_SESSION['subscription_id'] == 2):?>        
+														 <a href="javascript:void(0);" onclick="alert('Sorry, this feature is disabled in Trial Mode, please purchase a Subscription.');">Send Message</a>
+	                                                <?php else:?>
+														 <a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","athlete"));?>">Send Message</a>
+													<?php endif;?>
+												</div>
+												
+												<div>
+													<?php echo $this->Html->image("Coins.png",array("width"=>"20px","height"=>"20px","style"=>"margin:0px 5px 0px 5px;float:left;")); ?>
+													<div class="totpoint" style="color:#0066CC;"><?php echo $ProfileFields['Athlete']["total_points"]; ?></div>
+												</div>
+											</div>
+										</center>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td class="table_main_td2">
+							<div class="showbutton_" id="showbutton_<?php echo $network['Network']["id"]; ?>">
+								<table cellpadding="2" border="0" cellspacing="2" class="table_second">
+									<tr>
+										<td>
+										   <div class="td_div">
+											   <label class="lbl_name">Athlete Name:</label>
+											   <label class="lbl_value">
+													<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$ProfileFields['Athlete']['id']));?>" title="<?php echo $ProfileFields['Athlete']["firstname"]; ?>"><?php echo $ProfileFields['Athlete']["firstname"]; ?></a>
+											   </label>
+										   </div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="td_div">
+												<label class="lbl_name">Athlete Team:</label>
+												<label class="lbl_value"><?php echo $ProfileFields['HsAauTeam']["school_name"]; ?></label>
+											</div>
+									    </td>
+									</tr>
+									<tr>
+										<td>
+											<div class="td_div">
+												<label class="lbl_name">Sport:</label>
+												<label class="lbl_value"><?php echo $ProfileFields['Sport']["name"]; ?></label>
+											</div>
+									    </td>
+									</tr>
+									<tr>
+									    <td>
+										   <div class="td_div">
+											   <label class="lbl_name">Athlete Height:</label>
+											   <label class="lbl_value"><?php echo $ProfileFields['Athlete']["height"]; ?></label>
+										   </div>
+									    </td>
+									</tr>
+									<tr>
+										<td>
+											<div class="td_div">
+												<label class="lbl_name">Primary Position:</label>
+												<label class="lbl_value"><?php echo $ProfileFields['Athlete']["primary_position"]; ?></label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="td_div">
+												<label class="lbl_name">Secondary Position:</label>
+												<label class="lbl_value"><?php echo $ProfileFields['Athlete']["secondary_position"]; ?></label>
+												<div id="showbox_<?php echo $network['Network']["id"]; ?>" class="showbox_">
+													<?php echo $this->Html->link("Delete",array("controller"=>"Network","action"=>"deleteRequest",$network['Network']["id"]),null,"Are you sure?");?>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>	
+			  </li>
+			  
+			  <script language="javascript" type="text/javascript">
+				 try{
+					$('#viewhim_<?php echo $network['Network']["id"]; ?>').hover(function() {
+						$(this).find("img").animate(
+							{opacity:"0.5"},
+							{duration:300}
+						);
+						$("#view_<?php echo $network['Network']["id"]; ?>").fadeIn(100);
+					 }, function() {
+							$(this).find("img").animate(
+								{opacity:"1"},
+								{duration:300}
+							);
+							$("#view_<?php echo $network['Network']["id"]; ?>").fadeOut(100);
+						});
+
+					 $('#showbutton_<?php echo $network['Network']["id"]; ?>').hover(function() {
+							$("#showbox_<?php echo $network['Network']["id"]; ?>").fadeIn(100);
+					 }, function() {
+							$("#showbox_<?php echo $network['Network']["id"]; ?>").fadeOut(100);
+						});
+					}
+					catch(ex){
+						alert(ex.message);
+					}
+				</script>	
+			<?php endforeach; ?>
+		  </ul>
+	 
+	  <?php elseif($type == "coach"):?>
+		   <table cellpadding=2 cellspacing=1 width="100%" align="center">
+			   <thead>
+				   <tr>
+			            <th colspan="4" class="normalblack_12" style="text-align:center; background-color:#79B1D2; color:#FFFFFF;">My High School and AAU Coaches</th>
+			       </tr>
+			       <tr style="background-color:#C9DFED;">
+			            <th width="55%" class="normalblack_12">Profile Name</th>
+			            <th width="15%" class="normalblack_12">Type</th>
+			            <th width="15%" class="normalblack_12">Status</th>
+			            <th width="15%" class="normalblack_12">Action</th>
+			       </tr>
+			   </thead>
+			   <tbody>
+			      <?php $jk = 0; foreach($networks as $network):?>
+						  <?php $ProfileFields = $this->Profile->index($network['Network']['user_id'],$network['Network']['user_type']);?>
+							
+						  <?php if($ProfileFields['Sport']['id'] == $userDetails['Sport']['id']):?>
+			            		<tr>
+			                		<td class="normalblack_12">
+			                			 <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile",$ProfileFields['HsAauCoach']['id']));?>" title="<?php echo $ProfileFields['HsAauCoach']["firstname"]; ?>">
+			                			 	<?php echo $ProfileFields['HsAauCoach']["firstname"] ." ".$ProfileFields['HsAauCoach']["lastname"] . " - ".$ProfileFields['Sport']['name']; ?>
+			                			 </a>
+	                       		   </td>
+			               		   <td class="normalblack_12"><?php echo ucfirst(strtolower($network['Network']['user_type'])); ?></td>
+			               		   <td class="normalblack_12"><?php echo ucfirst(strtolower($network['Network']['status'])); ?></td>
+					               <td class="normalblack_12">
+					                    <?php if (strtolower($network['Network']['status']) === 'pending'): ?>
+					                    	 <?php echo $this->Html->link("Approve",array("controller"=>"Network","action"=>"confirmRequest",$network['Network']["id"]),null,"Are you sure?");?> /
+					                    <?php endif; ?>
+					                    
+					                    <?php echo $this->Html->link("Delete",array("controller"=>"Network","action"=>"deleteRequest",$network['Network']["id"]),null,"Are you sure?");?>
+					              </td>
+			            	  </tr>
+						<?php  endif; endforeach; ?>
+			    </tbody>
+		   </table>
+		   
+		   <br /><br />
+		   <table cellpadding=2 cellspacing=1 width="100%" align="center">
+			  <thead>
+			     <tr>
+			         <th colspan="4" class="normalblack_12" style="text-align:center; background-color:#79B1D2; color:#FFFFFF;">Other Coaches in My Network</th>
+			     </tr>
+			     <tr style="background-color:#C9DFED;">
+			         <th width="55%" class="normalblack_12">Profile Name </th>
+			         <th width="15%" class="normalblack_12">Type</th>
+			         <th width="15%" class="normalblack_12">Status</th>
+			         <th width="15%" class="normalblack_12">Action</th>
+			     </tr>
+			   </thead>
+			   <tbody>
+			   <?php $ik = 0; foreach($networks as $network):?>
+					  <?php $ProfileFields = $this->Profile->index($network['Network']['user_id'],$network['Network']['user_type']);?>
+					  
+					  <?php if($ProfileFields['Sport']['id'] != $userDetails['Sport']['id']):?>
+			            	<tr>
+			               		<td class="normalblack_12">
+			               			 <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile",$ProfileFields['HsAauCoach']['id']));?>" title="<?php echo $ProfileFields['HsAauCoach']["firstname"]; ?>">
+			                			 <?php echo $ProfileFields['HsAauCoach']["firstname"] ." ".$ProfileFields['HsAauCoach']["lastname"]; ?>
+			                		 </a>
+	                        	</td>
+			                	<td class="normalblack_12"><?php echo ucfirst(strtolower($network['Network']['user_type'])); ?></td>
+			               		<td class="normalblack_12"><?php echo ucfirst(strtolower($network['Network']['status'])); ?></td>
+			                	<td class="normalblack_12">
+				                    <?php if (strtolower($network['Network']['status']) === 'pending'): ?>
+				                    	 <a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"confirmRequest",$network['Network']['id']));?>">Approve</a> /
+				                    <?php endif; ?>
+				                    
+				                    <a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"deleteRequest",$network['Network']['id']));?>">Delete</a>   
+				                </td>
+			                </tr>
+				      <?php  endif; endforeach; ?>
+			     </tbody>
+		    </table>
+				
+	  <?php else: ?>
+				
+		   <table cellpadding=2 cellspacing=1 width="100%" align="center">
+			   <thead>
+					<tr>
+			            <th colspan="4" class="normalblack_12" style="text-align:center; background-color:#79B1D2; color:#FFFFFF;">Other Coaches in My Network</th>
+			        </tr>    
+			        <tr>
+			            <th width="49%" class="normalblack_12">Profile Name</th>
+			            <th width="17%" class="normalblack_12">Type</th>
+			            <th width="15%" class="normalblack_12">Status</th>
+			            <th width="19%" class="normalblack_12">Action</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			       <?php foreach($networks as $network):?>
+			       	    <?php $ProfileFields = $this->Profile->index($network['Network']['user_id'],$network['Network']['user_type']);?>
+			       	    
+			            <tr>
+			                <td class="normalblack_12">
+		               			 <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"collegeCoachProfile",@$ProfileFields['CollegeCoach']['id']));?>" title="<?php echo @$ProfileFields['CollegeCoach']["firstname"]; ?>">
+		                			 <?php echo @$ProfileFields['CollegeCoach']["firstname"] ." ".@$ProfileFields['CollegeCoach']["lastname"]; ?>
+		                		 </a>
+                        	</td>
+			                <td class="normalblack_12"><?php echo ucfirst(strtolower($network['Network']['user_type'])); ?></td>
+			                <td class="normalblack_12"><?php echo ucfirst(strtolower($network['Network']['status'])); ?></td>
+			                <td class="normalblack_12">
+			                    <?php if (strtolower($network['Network']['status']) === 'pending'): ?>
+			                    	 <a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"confirmRequest",$network['Network']['id']));?>">Approve</a> /
+			                    <?php endif; ?>
+			                    
+			                    <a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"deleteRequest",$network['Network']['id']));?>">Delete</a>   
+			                </td>
+			            </tr>
+			        <?php endforeach; ?>
+			    </tbody>
+	      </table>
+	  <?php endif; ?>
+	  
+     <?php else: ?>
+			   <div class="thankyoumessage">
+                     <?php echo $displayMessage;?>
+               </div>
+     <?php endif; ?>
+				
+	 <div style="clear:both;"></div>
+     
+     <p>
+       <label>&nbsp;</label>
+       <br />
+       <span>
+           <input type="button" value="Back" onclick="window.open('myaccount.php', '_self');">
+		   <?php if($type == "athlete"): ?>
+				<input type="button" value="Search Athlete" style="width:130px;" onclick="window.location='<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"index"))?>';">
+		   <?php endif; ?>
+       </span>
+     </p>
+  </div>
+</div>
+</div>

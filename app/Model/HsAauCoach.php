@@ -5,6 +5,8 @@ class HsAauCoach extends AppModel{
 	public $name = 'HsAauCoach';
 
 	public $useTable = 'hs_aau_coach';
+	
+	public $belongsTo = array('Sport','HsAauTeam');
 
 	public function __construct(){
 		parent::__construct();

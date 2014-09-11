@@ -30,29 +30,31 @@
 						<?php endif;?>
 					</p>
 					
-					<div class="btnclass1">
-						<p>
- 						  <span>
- 						  	  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose"));?>">Send Message</a>
-						  </span>
-						</p>
-					</div>
-					
-					<div class="btnclass1">
-						<p>
-						   <span>
-						   	  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"addRating"));?>">Add Rating</a>
-						   </span>
-						</p>
-					</div>
-					
-					<div class="btnclass1">
-                        <p>
-                           <span>
-                           	   <a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"sendRequest",$profileDetail['Athlete']['id']));?>">Send Request</a>
-						   </span>
-					    </p>     
-					</div>
+					<?php if($this->Session->read('user_id') != $profileDetail['Athlete']['id'] AND $this->Session->read('user_type')):?>
+							<div class="btnclass1">
+								<p>
+		 						  <span>
+		 						  	  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose"));?>">Send Message</a>
+								  </span>
+								</p>
+							</div>
+							
+							<div class="btnclass1">
+								<p>
+								   <span>
+								   	  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"addRating"));?>">Add Rating</a>
+								   </span>
+								</p>
+							</div>
+							
+							<div class="btnclass1">
+		                        <p>
+		                           <span>
+		                           	   <a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"sendRequest",$profileDetail['Athlete']['id']));?>">Send Request</a>
+								   </span>
+							    </p>     
+							</div>
+					<?php endif;?>		
 				</div>
 			</div>	
 			

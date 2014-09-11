@@ -52,6 +52,8 @@ Router::connect('/change-password.php', array('controller' => 'Profile', 'action
 //athlete urls
 Router::connect('/athlete-profile.php/*', array('controller' => 'Profile', 'action' => 'athleteProfile'));
 Router::connect('/edit-athlete-profile.php/*', array('controller' => 'Profile', 'action' => 'editAthleteProfile'));
+Router::connect('/manage-game-taps.php/*', array('controller' => 'Video', 'action' => 'index'));
+Router::connect('/add-game-tape.php/*', array('controller' => 'Video', 'action' => 'addTape'));
 
 
 //hsaau coaches urls

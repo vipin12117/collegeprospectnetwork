@@ -1,1 +1,75 @@
-<?php
+<div class="cantener">
+  <div class="register-main">
+	 <div class="registerPage">
+		<h1>Manage Game Tape</h1>
+		
+		<?php if($AthleteVideos && count($AthleteVideos) > 0):?>
+		
+			  <?php foreach($AthleteVideos as $AthleteVideo):?>
+			  		
+					<div class="videolist">
+						<div class="video-container">
+							<div id="jwplayer<?php echo $i;?>">Loading the Video Player ...</div>                                                            
+                            <script type="text/javascript">
+                                jwplayer("jwplayer<?php echo $i;?>").setup({
+                                    flashplayer: "/jwplayer/player.swf",
+                                    file: "video/<?php echo $AthleteVideo['Video']['video_path'];?>",
+                                    image: "video/<?php echo str_ireplace(".flv", ".jpg",$AthleteVideo['Video']['video_path']);?>",
+                                    skin: "skins/stormtrooper/stormtrooper.zip",
+                                    controlbar: "bottom",
+                                    height: 300,
+                                    width: 480
+                                 });
+                            </script>           
+                        </div>
+                        
+						<div class="details-container">
+							<div class="vidtitle"><span class="label">Title:</span><?php echo $AthleteVideo['Video']['title'];?></div>
+							
+							<div class="vidtype"><span class="label">Type:</span><?php echo $AthleteVideo['Video']['video_type'];?></div>    
+							
+							<div class="vidstatus">
+								<span class="label">Status:</span>
+								
+								<?php if($AthleteVideo['Video']['status']):?>
+                                       <span style="color:#04990E;">Active - visible on profile</span>
+                                <?php else:?>       
+                                       <span style="color:#C40B0B;font-style:italic;">Inactive - hidden on profile</span>
+                                <?php endif;?>       
+                            </div>                                            
+                            
+                            <?php if($AthleteVideo['Video']['video_type'] == "Highlight Video"):?>
+                                     <div class="actions" style="margin-bottom:35px;">';   
+                                         <a href="Video-Edit.php?mode=edit&type=highlight&fldId=' . $db -> f('fldId') . '" class="editlink"><img src="images/b_edit.png" border="0" title="Edit Title & Status">Edit Title & Status</a>
+                                     </div>
+                                                                                   
+                                     <div class="actions" style="text-align:left;">
+                                          <a href="javascript:deleteRecord(\'' . $fldId . '\',' . $pageno . ')" class="deletelink"><img src="images/b_drop.png" border="0" title="Delete Video">Delete Highlight Video</a>
+                                     </div>
+                                                                
+                            <?php else:?>
+                                     <div class="actions" style="margin-bottom:35px;">
+                                         <a href="Video-Edit.php?mode=edit&fldId=' . $db -> f('fldId') . '" class="editlink"><img src="images/b_edit.png" border="0" title="Edit Title & Status">Edit Title & Status</a>
+                                     </div>
+                                                        
+                                     <div class="actions" style="margin-bottom:65px;">
+                                         <a href="Video-Trim.php?mode=edit&fldId=' . $db -> f('fldId') . '" class="trimlink"><img src="images/trim.png" border="0" title="Create Highlight">Create Highlight (trim this video)</a>
+                                     </div>
+                                                            
+                                     <div class="actions" style="text-align:left;">';   
+                                         <a href="javascript:deleteRecord(\'' . $fldId . '\',' . $pageno . ')" class="deletelink"><img src="images/b_drop.png" border="0" title="Delete Video">Delete this Video</a>
+                                     </div>                                                                                                                        
+                            <?php endif;?>
+                        </div>                            
+				  </div>
+		    <?php endforeach;?>
+		    		  
+		<?php else:?>
+				<div class="thankyoumessage" style="font-size:16px;font-weight:normal;">
+					No Records Available, please &nbsp;
+					<a href="<?php echo $this->Html->url(array("controller"=>"Video","action"=>"addTape"));?>" class="bluelargest">Add New Game Tape</a> 
+				</div>
+		<?php endif;?>
+	 </div>
+   </div>
+</div>   	 

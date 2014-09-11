@@ -1,1 +1,207 @@
-<?php
+<div class="cantener">
+	<div class="register-main">
+		<?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Profile","action"=>"editAthleteProfile")));?>
+		
+			<h1>Athlete Registration</h1>
+			<span class="msg"><font color="#0000ff">&nbsp;*</font> Fields are Mandatory.</span>
+			<div class="registerPage">
+				<p>
+					<label>User Name:</label>
+					<span>
+						<?php echo $this->Form->input("username",array("div"=>false,"label"=>false,"required"=>"true","disabled"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				
+				<p>
+					<label>First Name:</label>
+					<span>
+						<?php echo $this->Form->input("firstname",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Last Name:</label>
+					<span>
+						<?php echo $this->Form->input("lastname",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				
+				<p>
+					<label>Profile Image:</label>
+					<span>
+						<?php echo $this->Form->input("image",array("div"=>false,"label"=>false,"type"=>"file"));?>
+					</span>
+				</p>
+				
+				<p>
+					<label>Email:</label>
+					<span>
+						<?php echo $this->Form->input("email",array("div"=>false,"label"=>false,"required"=>"true","disabled"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Height:</label>
+					<span>
+						<?php echo $this->Form->input("height",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getHeights(),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Weight:</label>
+					<span>
+						<?php echo $this->Form->input("weight",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getWeights(),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				
+				<p>
+					<label>Primary Position:</label>
+					<span>
+						<?php echo $this->Form->input("primary_position",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getPositions($this->request->data['Athlete']['sport_id']),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				
+				<p>
+					<label>Secondary Position:</label>
+					<span>
+						<?php echo $this->Form->input("secondary_position",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getPositions($this->request->data['Athlete']['sport_id']),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				
+				<p>
+					<label>Vertical:</label>
+					<span>
+						<?php echo $this->Form->input("vertical",array("div"=>false,"label"=>false));?>
+					</span>
+				</p>
+				
+				<p>
+					<label>40-yard Dash:</label>
+					<span>
+						<?php echo $this->Form->input("yarddash_40",array("div"=>false,"label"=>false));?>
+					</span>
+				</p>
+				
+				<p>
+					<label>Shuttle Run:</label>
+					<span>
+						<?php echo $this->Form->input("shuttle_run",array("div"=>false,"label"=>false));?>
+					</span>
+				</p>
+				
+				<p>
+					<label>Bench Press Max:</label>
+					<span>
+						<?php echo $this->Form->input("bench_press_max",array("div"=>false,"label"=>false));?>
+					</span>
+				</p>
+				
+				<p>
+					<label>Squat Max:</label>
+					<span>
+						<?php echo $this->Form->input("squat_max",array("div"=>false,"label"=>false));?>
+					</span>
+				</p>
+				
+				<p>
+					<label>GPA:</label>
+					<span>
+						<?php echo $this->Form->input("gpa",array("div"=>false,"label"=>false,"options"=>$this->Register->getGPA(),"empty"=>"Select One"));?>
+					</span>
+				</p>
+				
+				<p>
+					<label>SAT Score:</label>
+					<span>
+						<?php echo $this->Form->input("sat_score",array("div"=>false,"label"=>false,"options"=>$this->Register->getSatScore(),"empty"=>"Select One"));?>
+					</span>
+				</p>
+				
+				<p>
+					<label>ACT Score:</label>
+					<span>
+						<?php echo $this->Form->input("act_score",array("div"=>false,"label"=>false,"options"=>$this->Register->getActScore(),"empty"=>"Select One"));?>
+					</span>
+				</p>
+				
+				<p>
+					<label>Class Rank:</label>
+					<span>
+						<?php echo $this->Form->input("class_rank",array("div"=>false,"label"=>false,"options"=>$this->Register->getClassRank(),"empty"=>"Select One"));?>
+					</span>
+				</p>
+				<hr class="line" />
+				
+				<p>
+				   <label>High School/AAU Team:</label>
+				   <span>
+				   		<?php echo $this->Form->input("hs_aau_team_id",array("id"=>"hs_aau_team_id","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getHsAauSchools(),"empty"=>"Select One","disabled"));?>
+				   </span>
+				   <font color="#0000ff">*</font>
+				</p>   
+	     	
+				<p>
+					<label>Sport:</label>
+					<span>
+						<?php echo $this->Form->input("sport_id",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getSports(),"empty"=>"Select One","disabled"));?>
+					</span>
+				</p>	
+				<p>
+					<label>Jersey Number:</label>
+					<span>
+						<?php echo $this->Form->input("jersey_number",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Graduating Class:</label>
+					<span>
+						<?php echo $this->Form->input("class",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getClasses(),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Intended Major:</label>
+					<span>
+						<?php echo $this->Form->input("intended_major",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getIntendedMajor(),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				
+			    <p>
+				   <label>BIO:</label>
+                   <span><?php echo $this->Form->input("description",array("div"=>false,"label"=>false,"required"=>"true","type"=>"textarea"));?></span>
+                   <font color="#0000ff">&nbsp;*</font>
+			    </p>
+				
+				<hr class="line" />
+				<p>
+				   <label>Enter your Security Question:</label>
+                   <span><?php echo $this->Form->input("question",array("div"=>false,"label"=>false,"required"=>"true"));?></span>
+                   <font color="#0000ff">&nbsp;*</font>
+			    </p>
+
+				<p>
+                   <label>Enter your Security Answer:</label>
+                   <span><?php echo $this->Form->input("answer",array("div"=>false,"label"=>false,"required"=>"true"));?></span>
+                   <font color="#0000ff">&nbsp;*</font>
+			    </p>
+				
+				<p>
+					<label>&nbsp;</label>
+					<span>
+						<?php echo $this->Form->submit("Update",array("type"=>"submit","div"=>false,"label"=>false));?>
+						
+						<?php echo $this->Form->submit("Back",array("type"=>"button","div"=>false,"label"=>false,"onclick"=>"window.location.href='".$this->Html->url(array("controller"=>"Profile","action"=>"index"))."'"));?>
+					</span>
+				</p>
+			</div>
+		
+		<?php echo $this->Form->end();?>
+	</div>
+</div>	

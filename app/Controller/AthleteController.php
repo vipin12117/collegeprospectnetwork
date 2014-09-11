@@ -10,7 +10,7 @@ class AthleteController extends AppController{
 	}
 
 	public function index(){
-
+		$this->set("title_for_layout","College Prospect Network - Athlete Search");
 	}
 
 	public function approval(){
@@ -28,8 +28,8 @@ class AthleteController extends AppController{
 	public function search(){
 
 	}
-	
+
 	public function addRating(){
-		
+
 	}
 }

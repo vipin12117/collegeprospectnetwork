@@ -22,3 +22,134 @@ Stack Trace:
 #3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(NetworkController), Object(CakeRequest))
 #4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #5 {main}
+2014-09-09 19:40:58 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /collegeprospectnetwork/img/athlete/no-pre.png
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-09-09 20:58:52 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\Video\add_tape.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\Video\\add_tape.phtml',
+)
+Request URL: /collegeprospectnetwork/add-game-tape.php
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(VideoController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-09-10 04:34:59 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\Video\add_tape.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\Video\\add_tape.phtml',
+)
+Request URL: /collegeprospectnetwork/add-game-tape.php
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(VideoController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-09-10 04:45:44 Error: Fatal Error (4): syntax error, unexpected ')', expecting ',' or ';' in [E:\xampp2\htdocs\collegeprospectnetwork\app\View\Video\addTape.phtml, line 33]
+2014-09-10 04:45:44 Error: [FatalErrorException] syntax error, unexpected ')', expecting ',' or ';'
+Request URL: /collegeprospectnetwork/add-game-tape.php
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'E:\xampp2\htdoc...', 33)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'E:\xampp2\htdoc...', 33, Array)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'E:\xampp2\htdoc...', 33, Array)
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-09-11 17:42:21 Error: Fatal Error (1): Call to a member function getById() on a non-object in [E:\xampp2\htdocs\collegeprospectnetwork\app\Controller\NetworkController.php, line 35]
+2014-09-11 17:42:21 Error: [FatalErrorException] Call to a member function getById() on a non-object
+Request URL: /collegeprospectnetwork/Network/index/coach
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'E:\xampp2\htdoc...', 35)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'E:\xampp2\htdoc...', 35, Array)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'E:\xampp2\htdoc...', 35, Array)
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-09-11 17:43:00 Error: [MissingModelException] Network
+Request URL: /collegeprospectnetwork/Network/index/coach
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(1080): PaginatorComponent->paginate('Network', Array, Array)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\app\Controller\NetworkController.php(50): Controller->paginate('Network')
+#2 [internal function]: NetworkController->index('coach')
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(NetworkController), Array)
+#4 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#5 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(NetworkController), Object(CakeRequest))
+#6 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#7 {main}
+2014-09-11 17:43:47 Error: [MissingModelException] Network
+Request URL: /collegeprospectnetwork/Network/index/coach
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(1080): PaginatorComponent->paginate('Network', Array, Array)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\app\Controller\NetworkController.php(50): Controller->paginate('Network')
+#2 [internal function]: NetworkController->index('coach')
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(NetworkController), Array)
+#4 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#5 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(NetworkController), Object(CakeRequest))
+#6 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#7 {main}
+2014-09-11 17:44:07 Error: [MissingModelException] Network
+Request URL: /collegeprospectnetwork/Network/index/coach
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(1080): PaginatorComponent->paginate('Network', Array, Array)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\app\Controller\NetworkController.php(40): Controller->paginate('Network')
+#2 [internal function]: NetworkController->index('coach')
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(NetworkController), Array)
+#4 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#5 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(NetworkController), Object(CakeRequest))
+#6 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#7 {main}
+2014-09-11 17:44:24 Error: [MissingModelException] Network
+Request URL: /collegeprospectnetwork/Network/index/coach
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(1080): PaginatorComponent->paginate('Network', Array, Array)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\app\Controller\NetworkController.php(50): Controller->paginate('Network')
+#2 [internal function]: NetworkController->index('coach')
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(NetworkController), Array)
+#4 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#5 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(NetworkController), Object(CakeRequest))
+#6 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#7 {main}
+2014-09-11 17:44:32 Error: [MissingModelException] Network
+Request URL: /collegeprospectnetwork/Network/index/coach
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(1080): PaginatorComponent->paginate('Network', Array, Array)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\app\Controller\NetworkController.php(50): Controller->paginate('Network')
+#2 [internal function]: NetworkController->index('coach')
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(NetworkController), Array)
+#4 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#5 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(NetworkController), Object(CakeRequest))
+#6 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#7 {main}
+2014-09-11 17:44:48 Error: [MissingModelException] Network
+Request URL: /collegeprospectnetwork/Network/index/coach
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(1080): PaginatorComponent->paginate('Network', Array, Array)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\app\Controller\NetworkController.php(50): Controller->paginate('Network')
+#2 [internal function]: NetworkController->index('coach')
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(NetworkController), Array)
+#4 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#5 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(NetworkController), Object(CakeRequest))
+#6 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#7 {main}
+2014-09-11 18:52:12 Error: [MissingViewException] View file "E:\xampp2\htdocs\collegeprospectnetwork\app\View\Network\delete_request.phtml" is missing.
+Exception Attributes: array (
+  'file' => 'E:\\xampp2\\htdocs\\collegeprospectnetwork\\app\\View\\Network\\delete_request.phtml',
+)
+Request URL: /collegeprospectnetwork/Network/deleteRequest/28
+Stack Trace:
+#0 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 E:\xampp2\htdocs\collegeprospectnetwork\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(NetworkController), Object(CakeRequest))
+#4 E:\xampp2\htdocs\collegeprospectnetwork\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
