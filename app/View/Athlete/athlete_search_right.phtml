@@ -1,1 +1,44 @@
-<?php
+<!-- Max 40-yard Dash (sec) -->
+<p class="alt">
+    <label>40-yard Dash:</label>
+    <span>
+    	<?php echo $this->Form->input("yarddash_40",array("type"=>"text","label"=>false,"div"=>false));?>
+        <span class="description">seconds or faster</span>
+    </span>
+</p>
+
+<!-- Max Shuttle Run (sec) -->
+<p>
+    <label>Shuttle Run:</label>
+    <span>
+    	<?php echo $this->Form->input("shuttle_run",array("type"=>"text","label"=>false,"div"=>false));?>
+        <span class="description">seconds or faster</span>
+    </span>
+</p>        
+
+<!-- Min Vertical Jump (inches) -->
+<p class="alt">
+    <label>Vertical Jump:</label>
+    <span>
+    	<?php echo $this->Form->input("vertical",array("type"=>"text","label"=>false,"div"=>false));?>
+        <span class="description">inches or higher</span>
+    </span>
+</p>                                        
+
+<!-- Min Bench Press (lbs) -->
+<p>
+    <label>Bench Press:</label>
+    <span>
+	    <?php echo $this->Form->input("bench_press_max",array("type"=>"text","label"=>false,"div"=>false));?>    	
+        <span class="description">lbs or heaver</span>
+    </span>
+</p>
+
+<!-- Min Squat Max (lbs) -->
+<p class="alt">
+    <label>Squat Max:</label>
+    <span>
+    	<?php echo $this->Form->input("squat_max",array("type"=>"text","label"=>false,"div"=>false));?>
+        <span class="description">lbs or heaver</span>
+    </span>
+</p>

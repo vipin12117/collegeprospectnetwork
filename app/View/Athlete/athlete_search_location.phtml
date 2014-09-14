@@ -1,0 +1,26 @@
+<!-- HS/AAU Team -->
+<p class="alt">
+    <label>HS/AAU Team:</label>
+    <span>
+    	<?php echo $this->Form->input("hs_aau_team_id",array("div"=>false,"label"=>false,"options"=>$this->Register->getHsAauSchools(),"empty"=>"Select One"));?>
+    </span>
+</p>
+
+<!-- State -->
+<p>
+    <label>State:</label>
+    <span>
+    	<?php echo $this->Form->input("state",array("div"=>false,"label"=>false,"options"=>$this->Register->getStates(),"empty"=>"Select One"));?>
+    </span>
+</p>
+
+<!-- ZIP code and Distance -->
+<p class="alt">
+    <label>ZIP Code:</label>
+    <span>
+    	<?php echo $this->Form->input("zip",array("div"=>false,"label"=>false,"style"=>"width:80px;margin-right:3px;"));?>
+        within
+        
+        <?php echo $this->Form->input("distance",array("div"=>false,"label"=>false,"options"=>$this->Register->getDistanceList(),"empty"=>"Select One","style"=>"width: 95px;margin-right:5px;"));?>
+    </span>
+</p>

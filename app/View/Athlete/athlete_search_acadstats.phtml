@@ -1,0 +1,39 @@
+<!-- GPA -->
+<p class="alt">
+    <label>GPA:</label>
+    <span>
+        <?php echo $this->Form->input("gpa",array("div"=>false,"label"=>false,"empty"=>"Select One","options"=>$this->Register->getGPA()));?>
+    </span>
+</p>
+
+<!-- SAT Score -->
+<p>
+    <label>SAT Score:</label>
+    <span>
+        <?php echo $this->Form->input("sat_score",array("div"=>false,"label"=>false,"empty"=>"Select One","options"=>$this->Register->getSatScore()));?>                                                    
+    </span>
+</p>
+
+<!-- ACT Score -->
+<p class="alt">
+    <label>ACT Score:</label>
+    <span>
+        <?php echo $this->Form->input("act_score",array("div"=>false,"label"=>false,"empty"=>"Select One","options"=>$this->Register->getActScore()));?>
+    </span>
+</p>
+
+<!-- Class Rank -->
+<p>
+    <label>Class Rank:</label>
+    <span>
+       <?php echo $this->Form->input("class_rank",array("div"=>false,"label"=>false,"empty"=>"Select One","options"=>$this->Register->getClassRank()));?>
+    </span>
+</p>
+
+<!-- Intended Major -->
+<p class="alt">
+    <label>Intended Major:</label>
+    <span>
+        <?php echo $this->Form->input("intended_major",array("div"=>false,"label"=>false,"empty"=>"Select One","options"=>$this->Register->getIntendedMajor()));?>
+    </span>
+</p>

@@ -200,4 +200,12 @@ class RegisterHelper extends AppHelper{
 
 		return $distanceList;
 	}
+
+	public function getStatsCategories(){
+		App::import("Model","AthleteStatCategory");
+		$this->AthleteStatCategory = new AthleteStatCategory();
+
+		$options = $this->AthleteStatCategory->find("list",array("fields"=>"id,name","order"=>"name ASC","group"=>"name"));
+		return $options;
+	}
 }
