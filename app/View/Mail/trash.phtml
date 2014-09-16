@@ -19,7 +19,7 @@
                 	<td align="left" class="normalblack_12" ><?php echo $trashMassage['Mail']['sent_date']?></td>
                 	<td align="left" class="normalblack_12" ><?php echo $this->Html->link($trashMassage['Mail']['subject'], array('controller' => 'Mail', 'action' => 'veiwtrash', $trashMassage['Mail']['id']))?></td>
 					<td align="center" class="normalblack_12" style="text-align:center;">
-                	<?php echo $this->Html->link($this->Html->image('/images/b_drop.png'), array('controller'=>'Mail', 'action'=>'deleteconfirm', $trashMassage['Mail']['id']), array('escape' => false), "Are you sure you want to Permanently Delete Message? This cannot be undone.");?>
+                	<?php echo $this->Html->link($this->Html->image('/img/b_drop.png'), array('controller'=>'Mail', 'action'=>'deleteconfirm', $trashMassage['Mail']['id']), array('escape' => false), "Are you sure you want to Permanently Delete Message? This cannot be undone.");?>
                 	</td>                	                	                	
                 </tr>
                 <?php }?>
