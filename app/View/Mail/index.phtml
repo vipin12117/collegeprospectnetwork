@@ -21,7 +21,7 @@
                 	<td align="left" class="normalblack_12" ><?php echo $this->Html->link($inboxMassage['Mail']['subject'], array('controller' => 'Mail', 'action' => 'view', $inboxMassage['Mail']['id']))?></td>
                 	<td align="left" class="normalblack_12" ><?php echo $this->Html->link($inboxMassage['Mail']['sender'], array('controller' => 'College', 'action' => 'view')).' - ('.$inboxMassage['Mail']['usertype_from'].')'?></td>                	
                 	<td align="center" class="normalblack_12" style="text-align:center;">                	
-                	<?php echo $this->Html->link($this->Html->image('/images/trash_16x16.gif'), array('controller'=>'Mail', 'action'=>'delete', $inboxMassage['Mail']['id']), array('escape' => false), "Are you sure you want to Send Message to Trash?");?>
+                	<?php echo $this->Html->link($this->Html->image('/img/trash_16x16.gif'), array('controller'=>'Mail', 'action'=>'delete', $inboxMassage['Mail']['id']), array('escape' => false), "Are you sure you want to Send Message to Trash?");?>
                 	</td>                	                	
                 </tr>
                 <?php }?>
