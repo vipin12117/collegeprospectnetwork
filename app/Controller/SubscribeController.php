@@ -10,7 +10,13 @@ class SubscribeController extends AppController{
 	}
 
 	public function index(){
+		$this->set("title_for_layout","Subscribe - College Prospect Network");
 
+		$username  = $this->Session->read("username");
+		$this->loadModel('CollegeCoach');
+		
+		$profileDetail = $this->CollegeCoach->getByUsername($username);
+		$this->set("profileDetail",$profileDetail);
 	}
 
 	public function edit(){

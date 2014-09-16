@@ -90,7 +90,7 @@
 		    <div class="subscriptionbox">
 			    <h2>Your Subscription</h2>
 					   
-				<?php if ($profileDetail['subscription_id'] == 0 || $is_trial_mode):?>
+				<?php if ($profileDetail['CollegeCoach']['subscription_id'] == 0 || $is_trial_mode):?>
 					  <p style="color:#222;margin-bottom:15px;">
 						   You currently have limited access to Athletes & HS/AAU Coaches. please <a href="<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"index"));?>" class="underline">Purchase a Subscription</a> to gain full access.
 					  </p>
