@@ -36,15 +36,21 @@ class ProfileController extends AppController{
 		if($this->user_type == 'Athlete'){
 			$profileDetail = $this->Athlete->getByUsername($username);
 			$this->set("profileDetail",$profileDetail);
-
-			$total_days = time() - strtotime($profileDetail['Athlete']['added_date']);
-			if($total_days > (5*24*60*60)){
-				$is_trial_mode = true;
-			}
 		}
 		elseif($this->user_type == 'CollegeCoach'){
 			$profileDetail = $this->CollegeCoach->getByUsername($username);
 			$this->set("profileDetail",$profileDetail);
+
+			$this->loadModel('CollegeSubscription');
+			$collegeSubscription = $this->CollegeSubscription->getDetailByCollegeCoachId($user_id);
+			$this->set("collegeSubscription",$collegeSubscription);
+
+			if(!$collegeSubscription || (time() - strtotime($collegeSubscription['CollegeSubscription']['next_billdate'])) > 0){
+				$total_days = time() - strtotime($profileDetail['CollegeCoach']['added_date']);
+				if($total_days > (5*24*60*60)){
+					$is_trial_mode = true;
+				}
+			}
 		}
 		else{
 			$profileDetail = $this->HsAauCoach->getByUsername($username);
@@ -143,7 +149,7 @@ class ProfileController extends AppController{
 			//unset these fields
 			unset($this->request->data['HsAauCoach']['username']);
 			unset($this->request->data['HsAauCoach']['email']);
-				
+
 			$sports = $this->request->data['HsAauCoach']['sport_id'];
 			$positions = $this->request->data['HsAauCoach']['position'];
 
@@ -190,11 +196,11 @@ class ProfileController extends AppController{
 
 		$profileDetail = $this->CollegeCoach->getById($user_id);
 		$this->set("profileDetail",$profileDetail);
-		
+
 		$this->loadModel('CollegeNeed');
 		$collegeNeeds = $this->CollegeNeed->getByCollegeId($profileDetail['CollegeCoach']['college_id']);
 		$this->set("collegeNeeds",$collegeNeeds);
-		
+
 		$networkRequests = $this->Network->find("all",array("conditions"=>"Network.receiver_id = '$user_id' and Network.status = 'Active'"));
 		$this->set("networkRequests",$networkRequests);
 

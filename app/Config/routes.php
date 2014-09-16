@@ -59,7 +59,7 @@ Router::connect('/add-game-tape.php/*', array('controller' => 'Video', 'action' 
 //hsaau coaches urls
 Router::connect('/hsaau-coach-profile.php/*', array('controller' => 'Profile', 'action' => 'hsAauCoachProfile'));
 Router::connect('/edit-hsaau-coach-profile.php/*', array('controller' => 'Profile', 'action' => 'editHsAauCoachProfile'));
-
+Router::connect('/subscribe.php/*', array('controller' => 'Subscribe', 'action' => 'index'));
 
 
 //college coaches urls

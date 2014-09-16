@@ -96,16 +96,16 @@
 					  </p>
                 <?php endif;?>
                         
-				<p><b>Type:</b><?php  echo @$SubscriptionType;?></p>
-				<p><b>Status:</b><?php  echo @$SubscriptionStatus;?></p>
-				<p><b>Valid Until:</b></p> 	   
+				<p><b>Type:</b><?php  echo $collegeSubscription['Subscription']['name'];?></p>
+				<p><b>Status:</b><?php  echo $collegeSubscription['CollegeSubscription']['status'];?></p>
+				<p><b>Valid Until:</b><?php  echo $collegeSubscription['CollegeSubscription']['next_billdate'];?></p> 	   
 						
 				<h2>Account Details</h2>
 
-				<p><b>Last Amount Paid:</b>$<?php  echo @$fldLastPayAmount;?>USD</p>
-                <p><b>Created On:</b></p>
-                <p><b>Last Modified On:</b></p>
-			 </div>		
+				<p><b>Last Amount Paid:</b>$<?php  echo $collegeSubscription['CollegeSubscription']['amount'];?> USD</p>
+                <p><b>Created On:</b><?php echo $collegeSubscription['CollegeSubscription']['start_date'];?></p>
+                <p><b>Last Modified On:</b><?php echo $collegeSubscription['CollegeSubscription']['start_date'];?></p>
+			</div>		
 			 	
 			<h2>Profile</h2>
 
