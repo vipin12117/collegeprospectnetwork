@@ -208,4 +208,32 @@ class RegisterHelper extends AppHelper{
 		$options = $this->AthleteStatCategory->find("list",array("fields"=>"id,name","order"=>"name ASC","group"=>"name"));
 		return $options;
 	}
+
+	public function getSubscription(){
+		App::import("Model","Subscription");
+		$this->Subscription = new Subscription();
+
+		$options = $this->Subscription->find("list",array("fields"=>"id,name","order"=>"name ASC","group"=>"name"));
+		return $options;
+	}
+
+	public function getSubcribeMonths(){
+		$months = array('','January','February','March','April','May','June','July','August','September','October','November','December');
+		
+		$options = array();
+		for ($month = 1; $month <= 12; $month++){
+			$options[$month] = $months[$month];
+		}
+
+		return $options;
+	}
+
+	public function getSubcribeYears(){
+		$options = array();
+		for ($year = 2011; $year <= 2031; $year++){
+			$options[$year] = $year;
+		}
+
+		return $options;
+	}
 }
