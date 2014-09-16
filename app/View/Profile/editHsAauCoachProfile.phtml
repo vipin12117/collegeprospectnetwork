@@ -48,7 +48,7 @@
 </script>
 <div class="cantener">
 	<div class="register-main">
-		<?php echo $this->Form->create("HsAauCoach",array("url"=>array("controller"=>"User","action"=>"registerHSCoach")));?>
+		<?php echo $this->Form->create("HsAauCoach",array("url"=>array("controller"=>"Profile","action"=>"editHsAauCoachProfile")));?>
 		
 			<h1>High School / AAU Coach Registration</h1>
 			<span class="msg"><font color="#0000ff">&nbsp;*</font> Fields are Mandatory.</span>
@@ -60,21 +60,6 @@
 					</span>
 					<font color="#0000ff">&nbsp;*</font>
 				</p>
-				<p>
-					<label>Password:</label>
-					<span>
-						<?php echo $this->Form->input("password",array("div"=>false,"label"=>false,"required"=>"true","type"=>"password"));?>
-					</span>
-					<font color="#0000ff">&nbsp;*</font>
-				</p>
-				<p>
-					<label>Confirm Password:</label>
-					<span>
-						<?php echo $this->Form->input("confirm_password",array("div"=>false,"label"=>false,"required"=>"true","type"=>"password"));?>
-					</span>
-					<font color="#0000ff">&nbsp;*</font>
-				</p>
-				<hr class="line" />
 				
 				<p>
 					<label>First Name:</label>
@@ -187,9 +172,9 @@
 				<p>
 					<label>&nbsp;</label>
 					<span>
-						<?php echo $this->Form->submit("Register",array("type"=>"submit","div"=>false,"label"=>false));?>
+						<?php echo $this->Form->submit("Update",array("type"=>"submit","div"=>false,"label"=>false));?>
 						
-						<?php echo $this->Form->submit("Back",array("type"=>"button","div"=>false,"label"=>false,"onclick"=>"window.location.href='".$this->Html->url(array("controller"=>"User","action"=>"register"))."'"));?>
+						<?php echo $this->Form->submit("Back",array("type"=>"button","div"=>false,"label"=>false,"onclick"=>"window.location.href='".$this->Html->url(array("controller"=>"Profile","action"=>"index"))."'"));?>
 					</span>
 				</p>
 			</div>
