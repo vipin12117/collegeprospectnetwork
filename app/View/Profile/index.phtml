@@ -16,9 +16,9 @@
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"index"));?>">Inbox(<?php echo $mailCount; ?>)</a></p>
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"sent"));?>">Sent</a></p>
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"trash"));?>">Trash</a></p>
-			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","coach"));?>">Send Message to a HS / AAU Coaches</a></p>								
-			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","athlete"));?>">Send Message to a Fellow Athlete</a></p>
-			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","college"));?>">Send Message to a College Coaches</a></p>
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose",'value'=>"coach"));?>">Send Message to a HS / AAU Coaches</a></p>								
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose",'value'=>"athlete"));?>">Send Message to a Fellow Athlete</a></p>
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose",'value'=>"college"));?>">Send Message to a College Coaches</a></p>
 					
 			 <h2>My Network</h2>                                    
 		
