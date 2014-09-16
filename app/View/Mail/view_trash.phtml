@@ -7,14 +7,14 @@
 				<?php echo $this->Html->link('Sent', array('controller' => 'Mail', 'action' => 'sent'));?>
 				<?php echo $this->Html->link('Trash', array('controller' => 'Mail', 'action' => 'trash'));?>																
 			</div>
-			<?php if (isset($viewMassage)) {?>
-				<p><label>From: </label><span><?php echo $fullName?></span></p>
-				<p><label>Subject:</label><span><?php echo $viewMassage['Mail']['subject']?></span></p>
-				<p><label>Message:</label><span style='line-height:18px;'><?php echo $viewMassage['Mail']['message']?></span></p>
-				<p style="padding-top:20px;height:50px;line-height:18px;">
+			<?php if (isset($viewTrash)) {?>
+				<p><label>From: </label><span><?php echo (isset($fullName) ? $fullName : '')?></span></p>
+				<p><label>Subject:</label><span><?php echo (isset($viewTrash['Mail']['subject']) ? $viewTrash['Mail']['subject'] : '')?></span></p>
+				<p><label>Message:</label><span style='line-height:18px;'><?php echo (isset($viewTrash['Mail']['message']) ? str_replace("\n", "<br>", $viewTrash['Mail']['message']) : '')?></span></p>
+				<p style='padding-top:20px;height:50px;line-height:18px;'>
 					<label>&nbsp;</label>
-					<span>						
-						<?php echo $this->Html->link('Reply to Message', array('controller' => 'Mail', 'action' => 'compose', 'id' => $viewMassage['Mail']['id'], 'to' => $fullName, 'subject' => 'RE: '.$newSubject, 'userTypeFrom' => $userTypeFrom, 'userTypeTo' => $userTypeTo, 'newFrom' => $newFrom), array('class' => "mailaction"));?>	
+					<span>
+						<?php echo $this->Html->link('Move to Inbox', array('controller' => 'Mail', 'action' => 'restore', $viewTrash['Mail']['id']), array('class' => "mailaction"));?>	
 					</span>
 				</p>
             <?php } else {?>    															

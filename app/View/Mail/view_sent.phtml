@@ -1,0 +1,20 @@
+<div class="cantener">
+	<div class="register-main">
+	<h1>Messaging</h1>
+		<div class="registerPage messaging">
+			<div style="margin-bottom: 15px;" class="messagecenter">								
+				<?php echo $this->Html->link('Inbox', array('controller' => 'Mail', 'action' => 'index'));?>
+				<?php echo $this->Html->link('Sent', array('controller' => 'Mail', 'action' => 'sent'));?>
+				<?php echo $this->Html->link('Trash', array('controller' => 'Mail', 'action' => 'trash'));?>																
+			</div>
+			<?php if (isset($viewSent)) {?>
+				<p><label>To: </label><span><?php echo (isset($fullName) ? $fullName : '')?></span></p>
+				<p><label>Subject:</label><span><?php echo (isset($viewSent['Mail']['subject']) ? $viewSent['Mail']['subject'] : '')?></span></p>
+				<p><label>Message:</label><span style='line-height:18px;'><?php echo (isset($viewSent['Mail']['message']) ? str_replace("\n", "<br>", $viewSent['Mail']['message']) : '')?></span></p>				
+            <?php } else {?>    															
+			<div class="thankyoumessage" style="margin-top: 10px;">This isn't your mail!</div>
+			<?php }?>															
+		</div>				
+	</div>			
+</div>		
+

@@ -1,5 +1,6 @@
 <div class="cantener">
 	<div class="register-main">
+		
 	<h1>Messaging</h1>
 		<div class="registerPage messaging">
 			<div style="margin-bottom: 15px;" class="messagecenter">								
@@ -7,16 +8,88 @@
 				<?php echo $this->Html->link('Sent', array('controller' => 'Mail', 'action' => 'sent'));?>
 				<?php echo $this->Html->link('Trash', array('controller' => 'Mail', 'action' => 'trash'));?>																
 			</div>
-			<?php echo $this->Form->create();?>
-			<p><label>To:</label><span><input type=text name=receiver size=40 class='displaynormal' value=<?php echo (isset($receiver) ? $receiver : '') ?> ><input type=hidden name=sender size=40 value=<?php echo (isset($sender) ? $sender : '') ?>></span></p>			
-			<p><label>Subject:</label><span><input type=text name=subject size=40 value=<?php echo (isset($subject) ? '"'.$subject.'"' : '') ?>></span></p>
-			<p><label>Message:</label><span><textarea name=message class=ta2><?php echo (isset($message) ? $message : '') ?></textarea></span></p>
-			<input type='hidden' name='isSubmit' value='save'>
-			<p><label>&nbsp;</label><span><button type=submit onsubmit='' class='btn'>Send Message</button></span></p>
-			<?php echo $this->Form->end;?>
-		</div>				
+			<?php echo $this->Form->create();
+					if (isset($value)) { 
+						if ($value == 'coach') {?>
+							<h2 style='padding-left:160px;'>Send Message to HS/AAU Coach</h2><br>
+							<p><label>To:</label><span>
+							<select name="to" style="width:276px" id="to">
+								<option value="">----- Please Select -----</option>
+								<?php for ($i=0;$i< count($coachList);$i++) {?>
+									<option value =<?php echo "'".$coachList[$i]['HsAauCoach']['username']."'" ?> >
+										<?php echo ucfirst($coachList[$i]['HsAauCoach']['lastname']) ?>, <?php echo ucfirst($coachList[$i]['HsAauCoach']['firstname'])?>
+									</option>
+								<? } ?>
+							</select></span></p>
+				<?php   } elseif ($value == 'athlete') { ?>
+							<h2 style='padding-left:160px;'>Send Message to an Athlete</h2><br>
+							<p><label>To:</label><span>
+							<select name="to" style="width:276px" id="to">
+								<option value="">----- Please Select -----</option>
+								<?php for ($i=0;$i< count($coachList);$i++) {?>
+									<option value =<?php echo "'".$coachList[$i]['Athlete']['username']."'" ?> >
+										<?php echo ucfirst($coachList[$i]['Athlete']['lastname']) ?>, <?php echo ucfirst($coachList[$i]['Athlete']['firstname'])?>
+									</option>
+								<? } ?>
+							</select></span></p>
+				<?php   } elseif ($value == 'college') { ?>
+							<h2 style='padding-left:160px;'>Send Message to College Coach</h2><br>
+							<p><label>To:</label><span>
+							<select name="to" style="width:276px" id="to">
+								<option value="">----- Please Select -----</option>
+								<?php for ($i=0;$i< count($coachList);$i++) {?>
+									<option value =<?php echo "'".$coachList[$i]['CollegeCoach']['username']."'" ?> >
+										<?php echo ucfirst($coachList[$i]['CollegeCoach']['lastname']) ?>, <?php echo ucfirst($coachList[$i]['CollegeCoach']['firstname'])?>
+									</option>
+								<? } ?>
+							</select></span></p>							
+				<?php   } ?>
+														
+						<p><label>Subject:</label><span><input type=text name=subject size=40 id=subject></span></p>
+						<p><label>Message:</label><span><textarea name=message class=ta2></textarea></span></p>
+						<input type='hidden' name='isSubmit' value='save'>
+						<p><label>&nbsp;</label><span><button type=submit onsubmit='' class='btn'>Send Message</button></span></p>
+				<?php } else {?>
+						<p><label>To:</label>
+							<span>
+								<input type=text name=receiver size=40 class='displaynormal' value=<?php echo (isset($receiver) ? $receiver : '') ?> >
+								<input type=hidden name=sender size=40 value=<?php echo (isset($sender) ? $sender : '') ?>>
+							</span>
+						</p>			
+						<p><label>Subject:</label><span><input type=text name=subject size=40 id=subject value=<?php echo (isset($subject) ? '"'.$subject.'"' : '') ?>></span></p>
+						<p><label>Message:</label><span><textarea name=message class=ta2><?php echo (isset($message) ? $message : '') ?></textarea></span></p>			
+						<input type='hidden' name='isSubmit' value='save'>
+						<p><label>&nbsp;</label><span><button type=submit onsubmit='' class='btn'>Send Message</button></span></p>
+				<?php }
+					echo $this->Form->end;?>
+		</div>
+				
 	</div>			
-</div>		
-<script>
+</div>
+
+<script type="text/javascript">
+$(".btn").click(function(){
+
+	var to = $('#to').val();
+	var subject = $('#subject').val();
+	var message = $('.ta2').val();
+
+	if (to == ""){
+		alert("Please select the Receiver (To)");
+		$('#to').focus();
+		return false;	
+	}
 	
+	if (subject == ""){
+		alert("Please enter the Subject");
+		$('#subject').focus();
+		return false;
+	}
+	
+	if (message == ""){
+		alert("Please enter the Message");
+		$('#subject').focus();
+		return false;
+	}
+});
 </script>

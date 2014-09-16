@@ -17,8 +17,8 @@
                 <?php foreach ($sentMassages as $sentMassage) {?>
                 <tr>                	
                 	<td align="left" class="normalblack_12" ><?php echo $sentMassage['Mail']['sent_date']?></td>
-                	<td align="left" class="normalblack_12" ><?php echo $this->Html->link($sentMassage['Mail']['subject'], array('controller' => 'Mail', 'action' => 'viewsent', $sentMassage['Mail']['id']))?></td>
-                	<td align="left" class="normalblack_12" ><?php echo $this->Html->link($sentMassage['Mail']['receiver'], array('controller' => 'Athlete', 'action' => 'view', $sentMassage['Mail']['id'])).' - ('.$sentMassage['Mail']['usertype_to'].')'?></td>                	                	                	
+                	<td align="left" class="normalblack_12" ><?php echo $this->Html->link($sentMassage['Mail']['subject'], array('controller' => 'Mail', 'action' => 'viewSent', $sentMassage['Mail']['id']))?></td>
+                	<td align="left" class="normalblack_12" ><?php echo $this->Html->link($sentMassage['Mail']['receiver'], array('controller' => 'Athlete', 'action' => 'view', (isset($sentMassage['Mail']['to_id']) ? $sentMassage['Mail']['to_id'] : ''))).' - ('.$sentMassage['Mail']['usertype_to'].')'?></td>                	                	                	
                 </tr>
                 <?php }?>
             </table>
