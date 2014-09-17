@@ -8,11 +8,6 @@ class Athlete extends AppModel{
 
 	public $belongsTo = array('Sport','HsAauTeam');
 
-	public function __construct(){
-		parent::__construct();
-		$this->primaryKey = 'id';
-	}
-
 	public function getByUsername($username){
 		$row = $this->find("first",array("conditions"=>"Athlete.username = '$username'"));
 		return $row;
