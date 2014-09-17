@@ -12,8 +12,11 @@
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"changePassword"));?>">Change Password</a></p>
 		
 			 <h2>Messaging</h2>
-		
-			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"index"));?>">Inbox(<?php echo $mailCount; ?>)</a></p>
+			 <?php if ($mailCount > 0):?>
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"index"));?>">Inbox (<?php echo $mailCount; ?>)</a></p>
+			 <?php else:?>
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"index"));?>">Inbox</a></p>
+			 <?php endif;?>
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"sent"));?>">Sent</a></p>
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"trash"));?>">Trash</a></p>
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose",'value'=>"coach"));?>">Send Message to a HS / AAU Coaches</a></p>								
@@ -21,8 +24,11 @@
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose",'value'=>"college"));?>">Send Message to a College Coaches</a></p>
 					
 			 <h2>My Network</h2>                                    
-		
-			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"requests"));?>">Network Requests(<?php echo $networkCount; ?>)</a></p>  
+			 <?php if ($networkCount > 0):?>
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"requests"));?>">Network Requests (<?php echo $networkCount;?>)</a></p>
+			 <?php else:?>
+			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"requests"));?>">Network Requests</a></p>
+			 <?php endif;?>  
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","athlete"));?>">My Athletes</a></p>
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","coach"));?>">My HS/AAU Coaches</a></p>
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","college"));?>">My College Coaches</a></p>

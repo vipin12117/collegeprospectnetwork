@@ -2,7 +2,7 @@
   <div class="register-main">
 	  <div class="registerPage">
 	  
-	  <h1><?php echo $page_title;?></h1>
+	  <h1><?php echo $pageTitle;?></h1>
 	  
 	  <div style="display: block; margin-bottom: 5px; text-align: right;"><?php echo count($networks); ?> Total Records</div>
 	  
@@ -30,7 +30,7 @@
 													<?php if(@$_SESSION['subscription_id'] == 2):?>        
 														 <a href="javascript:void(0);" onclick="alert('Sorry, this feature is disabled in Trial Mode, please purchase a Subscription.');">Send Message</a>
 	                                                <?php else:?>
-														 <a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","athlete"));?>">Send Message</a>
+														 <a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose", "value" => "athlete"));?>">Send Message</a>
 													<?php endif;?>
 												</div>
 												
@@ -252,8 +252,8 @@
 	  <?php endif; ?>
 	  
      <?php else: ?>
-			   <div class="thankyoumessage">
-                     <?php echo $displayMessage;?>
+			   <div class="thankyoumessage">                                          
+               		<?php echo "You have not added any members to your network yet. ".$this->Html->link("Click here", array('controller' => ucfirst($type), 'action' => 'view', strtolower($userType)))." to get started.";?>
                </div>
      <?php endif; ?>
 	
@@ -263,8 +263,8 @@
      <p>
        <label>&nbsp;</label>
        <br />
-       <span>
-           <input type="button" value="Back" onclick="window.open('myaccount.php', '_self');">
+       <span>                                 
+           <input type="button" value="Back" style="width:130px;" onclick="window.location='<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"index"))?>';">
 		   <?php if($type == "athlete"): ?>
 				<input type="button" value="Search Athlete" style="width:130px;" onclick="window.location='<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"index"))?>';">
 		   <?php endif; ?>

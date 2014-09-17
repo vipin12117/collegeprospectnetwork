@@ -24,7 +24,13 @@
                 <?php foreach ($inboxMassages as $inboxMassage) {?>
                 <tr>                	
                 	<td align="left" class="normalblack_12" ><?php echo $inboxMassage['Mail']['sent_date']?></td>
-                	<td align="left" class="normalblack_12" ><?php echo $this->Html->link($inboxMassage['Mail']['subject'], array('controller' => 'Mail', 'action' => 'view', $inboxMassage['Mail']['id']), array('title' => 'Read Message'))?></td>
+                	<?php
+                		$classStatus = "";
+                		if ($inboxMassage['Mail']['status'] == 'unread') {
+                			$classStatus = 'unread';
+                		}
+                	?>
+                	<td align="left" class="normalblack_12" ><?php echo $this->Html->link($inboxMassage['Mail']['subject'], array('controller' => 'Mail', 'action' => 'view', $inboxMassage['Mail']['id']), array('title' => 'Read Message', 'class' => $classStatus))?></td>
                 	<?php if ($inboxMassage['Mail']['usertype_from'] == 'athlete') {
                 			 $controller = 'Athlete';
                 			 $title = 'View Athlete';
@@ -37,14 +43,8 @@
                 		  }                		
                 	?>
                 	<td align="left" class="normalblack_12" ><?php echo $this->Html->link($inboxMassage['Mail']['sender'], array('controller' => $controller, 'action' => 'view', (isset($inboxMassage['Mail']['from_id']) ?  $inboxMassage['Mail']['from_id'] : '')), array('title' => $title)).' - ('.$inboxMassage['Mail']['usertype_from'].')'?></td>
-                	<?php
-                		$classStatus = "";
-                		if ($inboxMassage['Mail']['status'] == 'unread') {
-                			$classStatus = 'unread';
-                	}?>                	
-                	             
                 	<td align="center" class="normalblack_12" style="text-align:center;">                	
-                	<?php echo $this->Html->link($this->Html->image('/img/trash_16x16.gif'), array('controller'=>'Mail', 'action'=>'delete', $inboxMassage['Mail']['id']), array('escape' => false, 'class' => $classStatus), "Are you sure you want to Send Message to Trash?");?>
+                	<?php echo $this->Html->link($this->Html->image('/img/trash_16x16.gif'), array('controller'=>'Mail', 'action'=>'delete', $inboxMassage['Mail']['id']), array('escape' => false), "Are you sure you want to Send Message to Trash?");?>
                 	</td>                	                	
                 </tr>				
                 <?php }?>
