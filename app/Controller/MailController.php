@@ -107,6 +107,11 @@ class MailController extends AppController{
 	public function view($id){
 		$username = $this->Session->read("username");
 		if (!empty($username) && !empty($id)){	
+			// Set status to read.
+			$this->Mail->id = $id;
+			$this->Mail->saveField('status', 'read');
+			
+			// View message
 			$viewMassage = $this->Mail->find('first', array('conditions' => array('Mail.receiver' => $username, 'Mail.id' => $id), 'order' => 'id DESC'));
 			
 			$fullName = "";
@@ -150,7 +155,7 @@ class MailController extends AppController{
 	public function compose(){
 		$username = $this->Session->read("username");
 		// Reply and maybe forward
-		if (!empty($username) && !isset($this->params['named']['value'])){	
+		if (!empty($username) && !isset($this->params['named']['value']) && isset($this->params['named']['id'])){	
 			if (!$this->request->is('post')){
 				$id = $this->params['named']['id'];
 				$mail = $this->Mail->findById($id);
