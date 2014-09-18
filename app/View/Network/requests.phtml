@@ -3,8 +3,8 @@
 		<div class="registerPage">	  
 		  	<h1>Network Requests</h1>
 		  	<!-- Requests Pending My Approval -->
-		  	<?php if (count($receiverRequests) > 0): ?>
-		  	<div style="display: block; margin-bottom: 5px; text-align: right;"><?php echo count($receiverRequests); ?> Total Records</div>		  	
+		  	<?php if (count($receivedRequests) > 0): ?>
+		  	<div style="display: block; margin-bottom: 5px; text-align: right;"><?php echo count($receivedRequests); ?> Total Records</div>		  	
 		  	<table cellpadding=2 cellspacing=1 width="100%" align="center">
 				<thead>
 					<tr>
@@ -19,26 +19,34 @@
 				</thead>
 				
 				<tbody>
-				<?php foreach ($receiverRequests as $receiverRequest):?>
+				<?php foreach ($receivedRequests as $receivedRequest):?>
 					<tr>
-						<td class="normalblack_12"><?php echo $this->Html->link($receiverRequest['Network']['username'], array('controller' => 'HsAauCoach', 'action' => 'view', $receiverRequest['Network']['sender_id'])); ?></td>				
-						<td class="normalblack_12"><?php echo ucfirst(strtolower($receiverRequest['Network']['sender_type'])); ?></td>
-						<td class="normalblack_12"><?php echo ucfirst(strtolower($receiverRequest['Network']['status'])); ?></td>
+						<?php if ($receivedRequest['Network']['sender_type'] == 'athlete') {
+								  $controller = "Athlete";	
+							  } elseif ($receivedRequest['Network']['sender_type'] == 'coach'){
+							  	  $controller = "HsAauCoach";							  	
+							  } elseif ($receivedRequest['Network']['sender_type'] == 'college'){
+							  	  $controller = "CollegeCoach";							  	
+							  } 							  
+						?>
+						<td class="normalblack_12"><?php echo $this->Html->link((isset($receivedRequest['Network']['username']) ? $receivedRequest['Network']['username'] : ''), array('controller' => $controller, 'action' => 'view', $receivedRequest['Network']['sender_id'])); ?></td>				
+						<td class="normalblack_12"><?php echo ucfirst(strtolower($receivedRequest['Network']['sender_type'])); ?></td>
+						<td class="normalblack_12"><?php echo ucfirst(strtolower($receivedRequest['Network']['status'])); ?></td>
 						<td class="normalblack_12">
-						<?php if (strtolower($receiverRequest['Network']['status']) == 'pending'){?>								
-									<?php if ($receiverRequest['Network']['sender_type'] == 'coach') {?>
-											<?php if ('1' == '0'){?>
-													<a href="javascript:rate_this_athlete('<?php echo $receiverRequest['Network']['id']; ?>',<?php echo $receiverRequest['Network']['sender_id']; ?>,'0')">Approve</a>
+						<?php if (strtolower($receivedRequest['Network']['status']) == 'pending'){?>								
+									<?php if ($receivedRequest['Network']['sender_type'] == 'coach') {?>
+											<?php if (isset($receivedRequest['Network']['count_rating']) && $receivedRequest['Network']['count_rating'] > 0){?>													
+													<?php echo $this->Html->link('Approve', array('controller' => 'Athlete', 'action' => 'addRating', $receivedRequest['Network']['id'], $receivedRequest['Network']['sender_id'], 0))?>
 											<?php } else {?>													
-													<?php echo $this->Html->link('Approve', array('action' => 'activeRequest', $receiverRequest['Network']['id']), array('escape' => false), "Are you sure you want to approve this user's Network Request?")?>
+													<?php echo $this->Html->link('Approve', array('action' => 'activeRequest', $receivedRequest['Network']['id']), array('escape' => false), "Are you sure you want to approve this user's Network Request?")?>
 											<?php }?>
 									<?php } else {?>											
-											<?php echo $this->Html->link('Approve', array('action' => 'activeRequest', $receiverRequest['Network']['id']), array('escape' => false), "Are you sure you want to approve this user's Network Request?")?>
+											<?php echo $this->Html->link('Approve', array('action' => 'activeRequest', $receivedRequest['Network']['id']), array('escape' => false), "Are you sure you want to approve this user's Network Request?")?>											
 									<?php }?>
 						<?php } ?>						
 							&nbsp;/&nbsp;
 							
-							<?php echo $this->Html->link('Delete', array('action' => 'deleteRequest', $receiverRequest['Network']['id']), array('escape' => false), "Are you sure you want to delete this Network Request? This cannot be undone")?>
+							<?php echo $this->Html->link('Delete', array('action' => 'deleteRequest', $receivedRequest['Network']['id']), array('escape' => false), "Are you sure you want to delete this Network Request? This cannot be undone")?>
 						</td>											
 					</tr>
 				<?php endforeach; ?>
@@ -50,8 +58,8 @@
 			<br>
 			
 			<!-- My Sent Requests -->
-			<?php if (count($senderRequests) > 0): ?>
-		  	<div style="display: block; margin-bottom: 5px; text-align: right;"><?php echo count($senderRequests); ?> Total Records</div>		  	
+			<?php if (count($sentRequests) > 0): ?>
+		  	<div style="display: block; margin-bottom: 5px; text-align: right;"><?php echo count($sentRequests); ?> Total Records</div>		  	
 			<table cellpadding=2 cellspacing=1 width="100%" align="center">
 				<thead>
 					<tr>
@@ -65,19 +73,35 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php foreach ($senderRequests as $senderRequest):?>
+				<?php foreach ($sentRequests as $sentRequest):?>
 					<tr>
-						<td class="normalblack_12"><?php echo $this->Html->link($senderRequest['Network']['username'], array('controller' => 'HsAauCoach', 'action' => 'view', $senderRequest['Network']['sender_id'])); ?></td>				
-						<td class="normalblack_12"><?php echo ucfirst(strtolower($senderRequest['Network']['receiver_type'])); ?></td>
-						<td class="normalblack_12"><?php echo ucfirst(strtolower($senderRequest['Network']['status'])); ?></td>
-						<td class="normalblack_12"><?php echo $this->Html->link('Delete', array('action' => 'deleteRequest', $senderRequest['Network']['id']), array('escape' => false), "Are you sure you want to delete this Network Request? This cannot be undone")?></td>																							
+						<?php if ($sentRequest['Network']['receiver_type'] == 'athlete') {
+								  $controller = "Athlete";	
+							  } elseif ($sentRequest['Network']['receiver_type'] == 'coach'){
+							  	  $controller = "HsAauCoach";							  	
+							  } elseif ($sentRequest['Network']['receiver_type'] == 'college'){
+							  	  $controller = "CollegeCoach";							  	
+							  } 							  
+						?>
+						<td class="normalblack_12"><?php echo $this->Html->link((isset($sentRequest['Network']['username']) ? $sentRequest['Network']['username'] : ''), array('controller' => $controller, 'action' => 'view', $sentRequest['Network']['sender_id'])); ?></td>				
+						<td class="normalblack_12"><?php echo ucfirst(strtolower($sentRequest['Network']['receiver_type'])); ?></td>
+						<td class="normalblack_12"><?php echo ucfirst(strtolower($sentRequest['Network']['status'])); ?></td>
+						<td class="normalblack_12"><?php echo $this->Html->link('Delete', array('action' => 'deleteRequest', $sentRequest['Network']['id']), array('escape' => false), "Are you sure you want to delete this Network Request? This cannot be undone")?></td>																							
 					</tr>
 				<?php endforeach; ?>
 				</tbody>
-			</table>
+			</table>			
 			<?php else:?>
 			<div class="thankyoumessage">You have not send any Requests.</div>
-			<?php endif;?>	  
+			<?php endif;?>
+			<br />
+			<p>
+		       <label>&nbsp;</label>
+		       <br />
+		       <span>                                 
+		           <input type="button" value="Back" style="width:130px;" onclick="window.location='<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"index"))?>';">				   
+		       </span>
+		     </p>	  
 		</div>
 	</div>
 </div>	  

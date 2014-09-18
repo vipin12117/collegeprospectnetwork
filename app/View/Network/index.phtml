@@ -12,8 +12,6 @@
 		  <ul class="box_list">
 			 <?php foreach($networks as $network): ?>
 				<li>
-				  <?php $ProfileFields = $this->Profile->index($network['Network']['user_id'],$network['Network']['user_type']);?>
-				  
 				  <table cellpadding="2" cellspacing="2" class="table_main">
 					 <tr>
 						<td class="table_main_td1">
@@ -22,21 +20,21 @@
 									<td>
 									   <center>
 										   <div class="viewhim_" id="viewhim_<?php echo $network['Network']["id"]; ?>">
-												<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$ProfileFields['Athlete']['id']));?>" title="<?php echo $ProfileFields['Athlete']["firstname"]; ?>">
-												    <?php echo $this->Html->image("athlete/".$ProfileFields['Athlete']['image'],array("width"=>"88px","height"=>"119px","style"=>"margin:5px 5px 1px 5px;")); ?>
+												<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$network['Network']['Athlete']['id']));?>" title="<?php echo $network['Network']['Athlete']["firstname"]; ?>">
+												    <?php echo $this->Html->image("athlete/".$network['Network']['Athlete']['image'],array("width"=>"88px","height"=>"119px","style"=>"margin:5px 5px 1px 5px;")); ?>
 												</a>
 												
 												<div class="view_" id="view_<?php echo $network['Network']["id"]; ?>">
-													<?php if(@$_SESSION['subscription_id'] == 2):?>        
+													<?php if($this->Session->read('subscription_id') == 2):?>        
 														 <a href="javascript:void(0);" onclick="alert('Sorry, this feature is disabled in Trial Mode, please purchase a Subscription.');">Send Message</a>
 	                                                <?php else:?>
-														 <a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose", "value" => "athlete"));?>">Send Message</a>
+														 <a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose", "value" => "athlete"));?>">Send Message</a>														
 													<?php endif;?>
 												</div>
 												
 												<div>
 													<?php echo $this->Html->image("Coins.png",array("width"=>"20px","height"=>"20px","style"=>"margin:0px 5px 0px 5px;float:left;")); ?>
-													<div class="totpoint" style="color:#0066CC;"><?php echo $ProfileFields['Athlete']["total_points"]; ?></div>
+													<div class="totpoint" style="color:#0066CC;"><?php echo $network['Network']['Athlete']["total_points"]; ?></div>
 												</div>
 											</div>
 										</center>
@@ -52,7 +50,7 @@
 										   <div class="td_div">
 											   <label class="lbl_name">Athlete Name:</label>
 											   <label class="lbl_value">
-													<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$ProfileFields['Athlete']['id']));?>" title="<?php echo $ProfileFields['Athlete']["firstname"]; ?>"><?php echo $ProfileFields['Athlete']["firstname"]; ?></a>
+													<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$network['Network']['Athlete']['id']));?>" title="<?php echo $network['Network']['Athlete']["firstname"]." ".$network['Network']['Athlete']["lastname"]; ?>"><?php echo $network['Network']['Athlete']["firstname"]." ".$network['Network']['Athlete']["lastname"]; ?></a>
 											   </label>
 										   </div>
 										</td>
@@ -61,7 +59,7 @@
 										<td>
 											<div class="td_div">
 												<label class="lbl_name">Athlete Team:</label>
-												<label class="lbl_value"><?php echo $ProfileFields['HsAauTeam']["school_name"]; ?></label>
+												<label class="lbl_value"><?php echo $network['Network']['HsAauTeam']["school_name"]; ?></label>
 											</div>
 									    </td>
 									</tr>
@@ -69,7 +67,7 @@
 										<td>
 											<div class="td_div">
 												<label class="lbl_name">Sport:</label>
-												<label class="lbl_value"><?php echo $ProfileFields['Sport']["name"]; ?></label>
+												<label class="lbl_value"><?php echo $network['Network']['Sport']["name"]; ?></label>
 											</div>
 									    </td>
 									</tr>
@@ -77,7 +75,7 @@
 									    <td>
 										   <div class="td_div">
 											   <label class="lbl_name">Athlete Height:</label>
-											   <label class="lbl_value"><?php echo $ProfileFields['Athlete']["height"]; ?></label>
+											   <label class="lbl_value"><?php echo $network['Network']['Athlete']["height"]; ?></label>
 										   </div>
 									    </td>
 									</tr>
@@ -85,7 +83,7 @@
 										<td>
 											<div class="td_div">
 												<label class="lbl_name">Primary Position:</label>
-												<label class="lbl_value"><?php echo $ProfileFields['Athlete']["primary_position"]; ?></label>
+												<label class="lbl_value"><?php echo $network['Network']['Athlete']["primary_position"]; ?></label>
 											</div>
 										</td>
 									</tr>
@@ -93,7 +91,7 @@
 										<td>
 											<div class="td_div">
 												<label class="lbl_name">Secondary Position:</label>
-												<label class="lbl_value"><?php echo $ProfileFields['Athlete']["secondary_position"]; ?></label>
+												<label class="lbl_value"><?php echo $network['Network']['Athlete']["secondary_position"]; ?></label>
 												<div id="showbox_<?php echo $network['Network']["id"]; ?>" class="showbox_">
 													<?php echo $this->Html->link("Delete",array("controller"=>"Network","action"=>"deleteRequest",$network['Network']["id"]),null,"Are you sure?");?>
 												</div>
@@ -106,7 +104,6 @@
 					</tr>
 				</table>	
 			  </li>
-			  
 			  <script language="javascript" type="text/javascript">
 				 try{
 					$('#viewhim_<?php echo $network['Network']["id"]; ?>').hover(function() {
@@ -132,11 +129,12 @@
 					catch(ex){
 						alert(ex.message);
 					}
-				</script>	
+				</script>			  	
 			<?php endforeach; ?>
 		  </ul>
 	 
 	  <?php elseif($type == "coach"):?>
+
 		   <table cellpadding=2 cellspacing=1 width="100%" align="center">
 			   <thead>
 				   <tr>
@@ -150,14 +148,12 @@
 			       </tr>
 			   </thead>
 			   <tbody>
-			      <?php $jk = 0; foreach($networks as $network):?>
-						  <?php $ProfileFields = $this->Profile->index($network['Network']['user_id'],$network['Network']['user_type']);?>
-							
-						  <?php if($ProfileFields['Sport']['id'] == $userDetails['Sport']['id']):?>
+			      <?php $jk = 0; foreach($networks as $network):?>						  							
+						  <?php if($network['Network']['Sport']['id'] == $userDetails['Sport']['id']):?>
 			            		<tr>
 			                		<td class="normalblack_12">
-			                			 <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile",$ProfileFields['HsAauCoach']['id']));?>" title="<?php echo $ProfileFields['HsAauCoach']["firstname"]; ?>">
-			                			 	<?php echo $ProfileFields['HsAauCoach']["firstname"] ." ".$ProfileFields['HsAauCoach']["lastname"] . " - ".$ProfileFields['Sport']['name']; ?>
+			                			 <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile",$network['Network']['HsAauCoach']['id']));?>" title="<?php echo $network['Network']['HsAauCoach']["firstname"]; ?>">
+			                			 	<?php echo $network['Network']['HsAauCoach']["firstname"] ." ".$network['Network']['HsAauCoach']["lastname"] . " - ".$network['Network']['Sport']['name']; ?>
 			                			 </a>
 	                       		   </td>
 			               		   <td class="normalblack_12"><?php echo ucfirst(strtolower($network['Network']['user_type'])); ?></td>
@@ -188,14 +184,12 @@
 			     </tr>
 			   </thead>
 			   <tbody>
-			   <?php $ik = 0; foreach($networks as $network):?>
-					  <?php $ProfileFields = $this->Profile->index($network['Network']['user_id'],$network['Network']['user_type']);?>
-					  
-					  <?php if($ProfileFields['Sport']['id'] != $userDetails['Sport']['id']):?>
+			   <?php $ik = 0; foreach($networks as $network):?>					  
+					  <?php if($network['Network']['Sport']['id'] != $userDetails['Sport']['id']):?>
 			            	<tr>
 			               		<td class="normalblack_12">
-			               			 <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile",$ProfileFields['HsAauCoach']['id']));?>" title="<?php echo $ProfileFields['HsAauCoach']["firstname"]; ?>">
-			                			 <?php echo $ProfileFields['HsAauCoach']["firstname"] ." ".$ProfileFields['HsAauCoach']["lastname"]; ?>
+			               			 <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile",$network['Network']['HsAauCoach']['id']));?>" title="<?php echo $network['Network']['HsAauCoach']["firstname"]; ?>">
+			                			 <?php echo $network['Network']['HsAauCoach']["firstname"] ." ".$network['Network']['HsAauCoach']["lastname"]; ?>
 			                		 </a>
 	                        	</td>
 			                	<td class="normalblack_12"><?php echo ucfirst(strtolower($network['Network']['user_type'])); ?></td>
@@ -227,14 +221,12 @@
 			        </tr>
 			    </thead>
 			    <tbody>
-			       <?php foreach($networks as $network):?>
-			       	    <?php $ProfileFields = $this->Profile->index($network['Network']['user_id'],$network['Network']['user_type']);?>
-			       	    
+			       <?php foreach($networks as $network):?>			       	    
 			            <tr>
 			                <td class="normalblack_12">
-		               			 <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"collegeCoachProfile",@$ProfileFields['CollegeCoach']['id']));?>" title="<?php echo @$ProfileFields['CollegeCoach']["firstname"]; ?>">
-		                			 <?php echo @$ProfileFields['CollegeCoach']["firstname"] ." ".@$ProfileFields['CollegeCoach']["lastname"]; ?>
-		                		 </a>
+			                	<?php if (isset($network['Network']['CollegeCoach'])):?>		               			 
+		                		<?php echo $this->Html->link($network['Network']['CollegeCoach']["firstname"] ." ".$network['Network']['CollegeCoach']["lastname"], array('controller' => 'Profile', 'action' => 'collegeCoachProfile', $network['Network']['CollegeCoach']['id']), array('title' => $network['Network']['CollegeCoach']["firstname"]." ".$network['Network']['CollegeCoach']["lastname"]))?>
+		                		<?php endif;?>
                         	</td>
 			                <td class="normalblack_12"><?php echo ucfirst(strtolower($network['Network']['user_type'])); ?></td>
 			                <td class="normalblack_12"><?php echo ucfirst(strtolower($network['Network']['status'])); ?></td>
@@ -252,14 +244,21 @@
 	  <?php endif; ?>
 	  
      <?php else: ?>
-			   <div class="thankyoumessage">                                          
-               		<?php echo "You have not added any members to your network yet. ".$this->Html->link("Click here", array('controller' => ucfirst($type), 'action' => 'view', strtolower($userType)))." to get started.";?>
+			   <div class="thankyoumessage">
+			   		<?php 	if ($type == 'coach') {
+			   					$controller = 'HsAauCoach';
+			   				} elseif ($type == 'college') {			   				
+			   					$controller = 'CollegeCoach';
+			   				} elseif ($type == 'athlete'){			   				
+			   					$controller = 'Athlete';
+			   				}
+			   		?>                                          
+               		<?php echo "You have not added any members to your network yet. ".$this->Html->link("Click here", array('controller' => $controller, 'action' => 'viewAll', strtolower($userType)))." to get started.";?>
                </div>
      <?php endif; ?>
 	
 	 <?php echo $this->Element('pagination');?>			
 	 <div style="clear:both;"></div>
-     
      <p>
        <label>&nbsp;</label>
        <br />
@@ -270,6 +269,6 @@
 		   <?php endif; ?>
        </span>
      </p>
-  </div>
+  	</div>
 </div>
 </div>
