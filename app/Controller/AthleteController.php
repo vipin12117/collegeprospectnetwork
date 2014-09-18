@@ -41,8 +41,14 @@ class AthleteController extends AppController{
 	public function search(){
 
 	}
-
-	public function addRating(){
-
+		
+	public function addRating($networkId, $athleteId, $isAdded){
+		$userId = $this->Session->read('user_id');
+		if (isset($userId)){
+							
+			$this->redirect(array('controller' => 'Network', 'action' => 'requests'));
+		} else {
+			$this->redirect(array('controller' => 'Home', 'action' => 'login'));		
+		}				
 	}
 }
