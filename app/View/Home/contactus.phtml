@@ -6,6 +6,46 @@
 		 <div>
 		 	 <?php echo $page_detail['Page']['description'];?>
 		 </div>
+		 
+		 <?php echo $this->Form->create("Admin",array("url"=>array("controller"=>"Home","action"=>"contactus"),"type"=>"post"));?>
+		 
+			<div class="msg" >
+				<font color="#0000ff">*</font> Fields are Mandatory.
+			</div>
+			
+			<div class="registerPage">
+				<p>
+					<label style="width:100px;">Name:</label>
+					<span>
+						<?php echo $this->Form->input("name",array("div"=>false,"label"=>false,"required"));?>
+						<font color="#0000ff">*</font>
+					</span>
+				</p>
+				
+				<p>
+				   <label style="width:100px;">Email:</label>
+				   <span>
+				   	  <?php echo $this->Form->input("email",array("div"=>false,"label"=>false,"required"));?>
+					  <font color="#0000ff">*</font>
+				   </span>
+				</p>
+				
+				<p>
+				  <label style="width:100px;">Comments:</label>
+				  <span>
+				      <?php echo $this->Form->input("comments",array("div"=>false,"label"=>false,"required","type"=>"textarea"));?>
+					  <font color="#0000ff">*</font>
+			      </span>
+			   </p>
+			   
+			   <p>
+				  <label style="width:100px;">&nbsp;</label>
+				  <span>
+				  	 <?php echo $this->Form->submit("Send",array("div"=>false));?>
+				 </span>
+			   </p>
+		  </div>
+		<?php echo $this->Form->end();?>
 	  </div>
    </div>
 </div>   	  	 

@@ -12,7 +12,6 @@ class EmailComponent extends Component {
 
 	public function initialize(Controller $controller){
 		parent::initialize($controller);
-
 		$this->phpMailer = new PHPMailer();
 	}
 
@@ -254,6 +253,33 @@ class EmailComponent extends Component {
 		$phpmailer->Subject = $subject;
 		$phpmailer->MsgHTML($message);
 		$phpmailer->AddAddress($email);
+		$phpmailer->Send();
+
+		return 1;
+	}
+	
+	public function contactUs($name , $email , $comments){
+		$subject = "College Prospect Network - Contact Us Request";
+		$message = "";
+
+		$message.= "Hello $name, <br />
+                         We have received a contact us. Find the below detail of request. <br  /> <br  />
+                         
+						 Name: $name <br />
+						 Email: $email <br />
+						 Comments: $comments <br />
+						 
+                    Regards, <br />
+                    College Prospect Network team";           
+
+		$from = "no-reply@collegeprospectnetwork.com";
+
+		$phpmailer = new PHPMailer();
+		$phpmailer->From = $from;
+		$phpmailer->FromName = "College Prospect Network";
+		$phpmailer->Subject = $subject;
+		$phpmailer->MsgHTML($message);
+		$phpmailer->AddAddress("admin@collegeprospectnetwork.com");
 		$phpmailer->Send();
 
 		return 1;

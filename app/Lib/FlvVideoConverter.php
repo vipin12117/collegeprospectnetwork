@@ -1,5 +1,5 @@
 <?php
-class flv {	public $extension_arr = array("avi","mp4","mpeg","mpg","mov","wmv","flv");
+class FlvVideoConverter {	public $extension_arr = array("avi","mp4","mpeg","mpg","mov","wmv","flv");
 	public $APP_ROOT  = "";
 	public $FFLV_PATH      = "";
 	public $newname        = "";

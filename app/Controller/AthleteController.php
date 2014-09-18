@@ -13,7 +13,7 @@ class AthleteController extends AppController{
 		$this->set("title_for_layout","College Prospect Network - Athlete Search");
 
 		$conditions = array();
-		if($_GET['division']){
+		if(@$_GET['division']){
 			$_GET['division'] = $this->filterKeyword($_GET['division']);
 			$conditions[] = "Athlete.division = '{$_GET['division']}'";
 			$this->set("division",$_GET['division']);

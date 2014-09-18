@@ -40,6 +40,13 @@ class HomeController extends AppController{
 		$this->set("title_for_keywords",$page_detail['Page']['meta_keywords']);
 		$this->set("title_for_description",$page_detail['Page']['meta_desc']);
 
+		if(isset($this->request->data['Admin'])){
+			$this->Email->contactUs($this->request->data['Admin']['name'],$this->request->data['Admin']['email'],$this->request->data['Admin']['comments']);
+
+			$this->Session->setFlash("Your email has been sent to the appropriate team to best address your needs, and you should receive a response shortly.");
+			$this->redirect(array("controller"=>"Home","action"=>"contactus"));
+		}
+
 		$this->set("page_detail",$page_detail);
 	}
 
@@ -190,7 +197,7 @@ class HomeController extends AppController{
 				if($password == $confirm and $this->Session->read('forgot_usertype')){
 					$user_type = $this->Session->read('forgot_usertype');
 					$this->$user_type->updateAll(array("$user_type.password" => "'". ($password) . "'"),array("$user_type.forgetcode" => $code));
-					
+
 					$this->Session->setFlash("Your new password has been set, Now login here");
 					$this->redirect(array("controller"=>"Home","action"=>"login"));
 					exit;
