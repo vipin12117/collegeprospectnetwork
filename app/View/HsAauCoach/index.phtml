@@ -1,1 +1,40 @@
-<?php
+<div class="cantener">
+  <div class="register-main">
+  	  <h1>HS / AAU Coach Listing</h1>
+  	  	
+      <div class="registerPage">
+       
+      <?php echo $this->Form->create("HsAauCoach",array("url"=>array("controller"=>"Athlete","action"=>"index"),"type"=>"get"));?>  
+      
+		  <?php if(count(@$hsAauCoaches) > 0):?>
+	         <table cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" width="100%" class="tablePadd" style="border-collapse: collapse;">
+	         	  <tr>
+	                  <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>HS/AAU Coach Name</strong></td>
+	                  <td align="center" class="normalblack_12" width="25%">&nbsp;<strong>Team</strong></td>
+	                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Sport</strong></td>
+	                  <td class="normalblack_12" width="15%" align="center"><strong>View Profile</strong></td>
+	              </tr>
+	                    
+	              <?php foreach ($hsAauCoaches as $hsAauCoach): ?>
+	              	 <tr>
+	                      <td align="center" class="normalblack_12"><?php echo $hsAauCoach['HsAauCoach']['firstname']." ".$hsAauCoach['HsAauCoach']['lastname']?></td>
+	                      <td align="center" class="normalblack_12"><?php echo $hsAauCoach['HsAauTeam']['school_name']; ?></td>
+	                      <td align="center" class="normalblack_12"><?php echo $hsAauCoach['Sport']['name']; ?></td>
+	                      <td class="normalblack_12" align="center">
+	                      		<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$hsAauCoach['HsAauCoach']['id']));?>" title="<?php   echo html_entity_decode($hsAauCoach['HsAauCoach']['firstname']); ?>">
+	                      			<?php echo $this->Html->image("view.gif");?>
+	                      		</a>
+	                      </td>
+	                 </tr>
+		          <?php endforeach; ?>
+		     </table>
+		     
+		     <div style="clear:both;"></div>
+		     
+		     <?php echo $this->Element('pagination');?>
+		     
+	     <?php endif;?> 	
+	  <?php echo $this->Form->end();?>     
+   </div>	   
+  </div>
+</div>    		     

@@ -8,17 +8,21 @@ class HsAauCoachController extends AppController{
 		parent::beforeFilter();
 		$this->checkSession();
 	}
-	
-	public function index(){
-		
-	}
 
-	public function viewAll($type){
-		$userId = $this->Session->read('user_id');
-		if (isset($userId) && isset($type)){
-			
-		} else {
-			$this->redirect(array('controller' => 'Home', 'action' => 'login'));			
+	public function index(){
+		$this->set("title_for_layout","College Prospect Network - HS / AAU Coach Listing");
+
+		$conditions = array();
+
+		if($conditions){
+			$conditions_str = implode(" AND ",$conditions);
+			$this->paginate = array('HsAauCoach'=>array("conditions"=>$conditions_str,"limit"=>20,"order"=>"firstname asc"));
 		}
+		else{
+			$this->paginate = array('HsAauCoach'=>array("limit"=>20,"order"=>"firstname asc"));
+		}
+
+		$hsAauCoaches = $this->paginate('HsAauCoach');
+		$this->set("hsAauCoaches",$hsAauCoaches);
 	}
 }

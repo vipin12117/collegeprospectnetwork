@@ -113,8 +113,9 @@ class RegisterHelper extends AppHelper{
 	}
 
 	public function getDivisions(){
-		$options = array('Division I','Division II','Division III','NAIA','JUCO');
-		$options = array_combine($options,$options);
+		$options1 = array('DivisionI','DivisionII','DivisionIII','NAIA','JUCO');
+		$options2 = array('Division I','Division II','Division III','NAIA','JUCO');
+		$options = array_combine($options1,$options2);
 		return $options;
 	}
 

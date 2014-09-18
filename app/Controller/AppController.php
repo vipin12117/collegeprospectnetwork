@@ -84,32 +84,13 @@ class AppController extends Controller {
 	}
 
 	/**
-	 * This method will check admin is logged in or not
+	 * This method will check user is logged in or not
 	 */
 	public function checkSession(){
 		$type = "user_id";
 		if(!$this->Session->read($type)){
 			$this->Session->destroy();
 			$this->redirect(array('controller'=>'Home','action'=>'login'));
-		}
-	}
-
-	public function checkLogin(){
-		if($this->Session->read("user_id")){
-			$user_type = $this->Session->read('user_type');
-			switch($user_type){
-				case 'Athlete':
-					$this->redirect(array("controller"=>"Walker","action"=>"index"));
-					break;
-				case 'HsAauCoach':
-					$this->redirect(array("controller"=>"Walker","action"=>"index"));
-					break;
-				case 'CollegeCoach':
-				default:
-					$this->redirect(array("controller"=>"Walker","action"=>"index"));
-					break;
-			}
-			exit;
 		}
 	}
 
