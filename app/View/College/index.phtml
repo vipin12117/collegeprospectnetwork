@@ -1,1 +1,38 @@
-<?php
+<div class="cantener">
+  <div class="register-main">
+     <div class="registerPage">
+         <h1>Browse All College Coaches</h1>
+         
+         <?php if(count($collegeCoaches) > 0):?>
+         
+          	   <table cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" width="100%" class="tablePadd" style="border-collapse: collapse;">
+                    <tr>
+                        <td class="normalblack_12" align="left"><strong>College Name</strong></td>
+                        <td class="normalblack_12" align="left"><strong>Name</strong></td>
+                        <td class="normalblack_12" align="center"><strong>View</strong></td>
+                    </tr>
+         
+         			<?php foreach($collegeCoaches as $collegeCoach):?>
+	         			<tr>
+	                        <td class="normalblack_12" align="left"><?php echo $collegeCoach['College']['name']; ?></td>
+	                        <td class="normalblack_12" align="left"><?php echo $collegeCoach['CollegeCoach']['firstname']. ' ' .$collegeCoach['CollegeCoach']['lastname']; ?></td>
+	                        <td class="normalblack_12" align="center">
+	                             <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"collegeCoachProfile",$collegeCoach['CollegeCoach']['id']));?>" style="text-decoration:none">
+	                                  <?php echo $this->Html->image("view.gif");?>
+	                             </a>
+	                        </td>
+	                    </tr>
+         			<?php endforeach;?>
+         		</table>
+         		
+         		<div style="clear:both;"></div>
+		     
+		     	<?php echo $this->Element('pagination');?>	
+		     	
+         <?php else:?>
+         
+         		<p class="thankyoumessage">No colleges match the search criteria.</p>
+         <?php endif;?>
+     </div>
+   </div>
+</div>

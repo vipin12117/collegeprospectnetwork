@@ -1,1 +1,153 @@
-<?php
+<div class="profile">
+  <form name="frmUsers" action="" method="post" onsubmit="">
+	 <div class="cantener">
+	   <div class="register-main">
+	     <div class="registerPage1">
+			  <h1 style="float:left;">HS / AAU Coach Profile</h1>      
+			  <div class="clear"></div>
+			  
+			  <?php if($this->Session->read('user_id') != $profileDetail['HsAauCoach']['id'] && $this->Session->read('user_type') != 'HsAauCoach'):?>
+                     <div class="btnclass1" style="float:right;margin-right:20px;">
+                        <p>
+                           <span>
+                           	  <?php echo $this->Html->link('Add To Network',array("controller"=>"Network","action"=>"sendRequest",$profileDetail['HsAauCoach']['id']));?>
+                           </span>
+                           <div class="clear"></div>
+                        </p>
+                     </div>
+
+                     <div class="btnclass1" style="float:right;margin-right:20px;">
+                         <p>
+                            <span>
+                            	<?php echo $this->Html->link('Send Message',array("controller"=>"Mail","action"=>"compose",$profileDetail['HsAauCoach']['id']));?>
+                            </span>
+                            <div class="clear"></div>
+                         </p>
+                     </div>
+                     <div class="clear"></div>
+                 <?php endif;?>      
+
+				 <div style="width: 890px;">
+					<div style="width: 340px;float:left;">										
+						 <h3>Coach Information</h3>
+
+						 <div class="boxes info">
+							<p>
+                                    <font class="title">Username: </font><?php echo $profileDetail['HsAauCoach']['username'];?>
+                                </p>								
+    							<p>
+    							    <font class="title">Name: </font><?php echo $profileDetail['HsAauCoach']['firstname']." ".$profileDetail['HsAauCoach']['lastname'];?>
+							</p>
+    						<p>
+ 							    <font class="title">Phone: </font><?php echo $profileDetail['HsAauCoach']['phone'];?>
+						    </p>
+    						<p>
+    							<font class="title">Position: </font><?php echo $profileDetail['HsAauCoach']['position'];?>
+    						</p>
+
+    						<?php if($this->Session->read('user_type') != 'CollegeCoach'):?>
+    								 <div class="btnclass1">
+        								<p style="margin:30px 0 8px; 3px;">
+											<?php echo $this->Html->link('Rate This Coach',array("controller"=>"Rating","action"=>"add",$profileDetail['HsAauCoach']['id']));?>
+											<?php echo $this->Html->link('View Coach Ratings',array("controller"=>"Rating","action"=>"viewCoachRating",$profileDetail['HsAauCoach']['id']));?>
+    								   	</p>	        		
+    							    </div>
+    						<?php endif;?>		    
+						 </div><!--//end box-->
+					  </div><!--//end leftcol-->
+				 
+				 	  <div style="width: 500px;float:right">		
+						  <h3>High School Quick Glance</h3>
+
+						  <div class="boxes info">   
+    						 <p>
+    						    <font class="title">Name: </font><?php echo $profileDetail['HsAauTeam']['school_name'];?>
+    						 </p>
+
+    						<p>
+    						   <font class="title">Address: </font><?php echo $profileDetail['HsAauTeam']['address'];?>
+    						</p>
+
+    						<p>
+    						   <font class="title">City: </font><?php echo $profileDetail['HsAauTeam']['city'];?>
+    						</p>
+
+    						<p>
+    						   <font class="title">State: </font><?php echo $profileDetail['HsAauTeam']['state'];?>
+    						</p>
+
+    						<p>
+    						   <font class="title">Zipcode: </font><?php echo $profileDetail['HsAauTeam']['zip'];?>
+    						</p>
+
+    						<p>
+    						   <font class="title">Enrollment: </font>
+    						   <?php echo $profileDetail['HsAauTeam']['enrollment'];?>   
+    						</p>
+						  </div><!--//end box-->
+					   </div><!--//end rightcol-->
+				 </div><!--//end top panel-->
+				 
+				 <div class="left-panel">
+					<h3>My Athletes</h3>			
+					
+					<div class="boxes" style="width:540px;padding-bottom:0px;padding-top:10px;">		
+						<?php if(@$_SESSION['subscription_id'] != 2):?>
+							<h4 style="margin-bottom:5px;"><?php echo $profileDetail['Sport']['name'];?></h4>
+							
+							<table cellspacing="2" cellpadding="5" bordercolor="#e7e7e7" border="0" width="100%" class="tablePadd whitetable" style="border-collapse: collapse;margin-bottom:20px;">
+								<tr>
+								    <td align="center" class="normalblack_12" width="15%">&nbsp;<strong></strong></td>
+	                                <td align="center" class="normalblack_12" width="40%">&nbsp;<strong>Athlete Name</strong></td>
+	                                <td align="center" class="normalblack_12" width="25%">&nbsp;<strong>Sport</strong></td>
+	                                <td class="normalblack_12" width="10%" align="center"><strong>View</strong></td>
+	                            </tr>
+								
+								<?php foreach($athletes as $athlete):?>
+									<tr>                                             
+										<td align="center" class="normalblack_12" style="text-align:center;">
+											<?php if($athlete['Athlete']['image']):?>
+													<?php echo $this->Html->image("athlete/".$athlete['Athlete']['image'],array("width"=>50));?>
+											<?php else:?>
+													<?php echo $this->Html->image("athlete/no-pre.png",array("width"=>50));?>
+											<?php endif;?>
+										</td>	
+										
+		                                <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['firstname']. " ".$athlete['Athlete']['lastname'];?></td>
+		                                
+		                                <td align="center" class="normalblack_12" ><?php echo $athlete['Sport']['name'];?></td>
+		                                
+		                                <td class="normalblack_12" align="center">
+		                                	<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$athlete['Athlete']['id']));?>" title="<?php echo html_entity_decode($athlete['Athlete']['firstname']); ?>">
+				                      			<?php echo $this->Html->image("view.gif");?>
+				                      		</a>
+		                                </td>
+		                            </tr>
+								<?php endforeach;?>
+							</table>	
+							
+							<?php echo $this->Element('pagination');?>
+								
+						<?php else:?>
+								 Sorry, this feature is disabled in Trial Mode
+						<?php endif;?>
+			    	</div>	
+			    </div><!--//end leftpanel-->
+
+				<div class="right-panel" style="width:150px;">
+					<h3>Advertisement</h3>           
+
+					<div class="right-boxesfirst" style="height:220px;padding-top:6px;">
+						<?php foreach($banners as $banner): ?>
+							<p>
+								<?php echo html_entity_decode($banner['Banner']['third_party']);?>
+							</p>
+						<?php break; endforeach;?>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+	    </div>
+	 </div>
+  </form>
+</div>			 

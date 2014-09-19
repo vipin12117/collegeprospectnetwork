@@ -18,7 +18,6 @@ class ProfileController extends AppController{
 	}
 
 	public function index(){
-
 		$this->loadModel('Mail');
 		$this->loadModel('Network');
 
@@ -134,6 +133,13 @@ class ProfileController extends AppController{
 
 		$profileDetail = $this->HsAauCoach->getById($user_id);
 		$this->set("profileDetail",$profileDetail);
+		
+		$banners = $this->Banner->getBannerByPosition('bottom-left');
+		$this->set("banners",$banners);
+		
+		$this->paginate = array('Athlete' => array("conditions"=>array("Athlete.sport_id"=>$profileDetail['HsAauCoach']['sport_id'],"Athlete.hs_aau_team_id"=>$profileDetail['HsAauTeam']['id'])));
+		$athletes = $this->paginate('Athlete');
+		$this->set("athletes",$athletes);
 
 		$this->render("/Profile/hsAauCoachProfile");
 	}

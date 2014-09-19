@@ -139,6 +139,14 @@
 						<?php echo $this->Form->input("year",array("label"=>false,"div"=>false,"options"=>$this->Register->getSubcribeYears(),"empty"=>"Select Year","required","style"=>"width:120px;"));?>
                     </span>
                 </p>
+                
+                <p>
+                    <label>CVV:</label>
+                    <span>
+                        <?php echo $this->Form->input("cvv",array("label"=>false,"div"=>false,"required"));?>
+                    </span>
+                    <font color="#0000ff">&nbsp;*</font>
+                </p>
 
                 <p style="margin-top:30px;">
                     <label>&nbsp;</label>

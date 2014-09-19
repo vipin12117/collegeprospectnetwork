@@ -1,13 +1,17 @@
 <?php
 
-require_once 'anet_php_sdk/AuthorizeNet.php';
+require_once 'sdk-php-master/autoload.php';
 
 class Authnet {
 
 	public function __construct(){
-		define("AUTHORIZENET_API_LOGIN_ID",     "24u2SUseP");
-		define("AUTHORIZENET_TRANSACTION_KEY",  "43U485fA9ySEq38K");
-		define("AUTHORIZENET_SANDBOX",          false);
+		//define("AUTHORIZENET_API_LOGIN_ID",     "24u2SUseP");
+		//define("AUTHORIZENET_TRANSACTION_KEY",  "43U485fA9ySEq38K");
+		//define("AUTHORIZENET_SANDBOX",          false);
+		
+		define("AUTHORIZENET_API_LOGIN_ID",     "2hfYT85W");
+		define("AUTHORIZENET_TRANSACTION_KEY",  "23m2qL9tW7f43TUV");
+		define("AUTHORIZENET_SANDBOX",          true);
 	}
 
 	public function createProfile($data , $customer_profile_id = false){
@@ -17,12 +21,13 @@ class Authnet {
 		$sport_id     = intval($data['sport_id']);
 		$firstname    = mysql_real_escape_string($data['firstname']);
 		$lastname     = mysql_real_escape_string($data['lastname']);
-		$address_1    = mysql_real_escape_string($data['address_1']);
+		$address_1    = mysql_real_escape_string($data['address']);
 		$city         = mysql_real_escape_string($data['city']);
 		$state        = mysql_real_escape_string($data['state']);
 		$zip          = intval($data['zip']);
-		$owner_name   = mysql_real_escape_string($data['owner_name']);
+		$owner_name   = mysql_real_escape_string($data['card_owner']);
 		$card_number  = intval($data['card_number']);
+		$cvv_number   = intval($data['cvv']);
 		$subExpMonth  = intval($data['month']);
 		$subExpYear   = intval($data['year']);
 
@@ -40,6 +45,8 @@ class Authnet {
 
 			$paymentProfile->payment->creditCard->cardNumber = $card_number;
 			$paymentProfile->payment->creditCard->expirationDate = $subCardExpDate;
+			$paymentProfile->payment->creditCard->cardCode = $cvv_number;
+			
 			$paymentProfile->billTo->firstName = $firstname;
 			$paymentProfile->billTo->lastName  = $lastname;
 			$paymentProfile->billTo->address   = $address_1;
