@@ -32,17 +32,17 @@
                 	?>
                 	<td align="left" class="normalblack_12" ><?php echo $this->Html->link($inboxMassage['Mail']['subject'], array('controller' => 'Mail', 'action' => 'view', $inboxMassage['Mail']['id']), array('title' => 'Read Message', 'class' => $classStatus))?></td>
                 	<?php if ($inboxMassage['Mail']['usertype_from'] == 'athlete') {
-                			 $controller = 'Athlete';
+                			 $action = 'athleteProfile';
                 			 $title = 'View Athlete';
                 		  } elseif ($inboxMassage['Mail']['usertype_from'] == 'coach') {
-                		  	 $controller = 'HsAauCoach';
+                		  	 $action = 'hsAauCoachProfile';
                 		  	 $title = 'View HS/AAU Coach';
                 		  } elseif ($inboxMassage['Mail']['usertype_from'] == 'college') {
-                		  	 $controller = 'College';
+                		  	 $action = 'collegeCoachProfile';                		  	 
                 		  	 $title = 'View College Coach';
                 		  }                		
                 	?>
-                	<td align="left" class="normalblack_12" ><?php echo $this->Html->link($inboxMassage['Mail']['sender'], array('controller' => $controller, 'action' => 'view', (isset($inboxMassage['Mail']['from_id']) ?  $inboxMassage['Mail']['from_id'] : '')), array('title' => $title)).' - ('.$inboxMassage['Mail']['usertype_from'].')'?></td>
+                	<td align="left" class="normalblack_12" ><?php echo $this->Html->link($inboxMassage['Mail']['sender'], array('controller' => 'Profile', 'action' => $action, (isset($inboxMassage['Mail']['from_id']) ?  $inboxMassage['Mail']['from_id'] : '')), array('title' => $title)).' - ('.$inboxMassage['Mail']['usertype_from'].')'?></td>
                 	<td align="center" class="normalblack_12" style="text-align:center;">                	
                 	<?php echo $this->Html->link($this->Html->image('/img/trash_16x16.gif'), array('controller'=>'Mail', 'action'=>'delete', $inboxMassage['Mail']['id']), array('escape' => false), "Are you sure you want to Send Message to Trash?");?>
                 	</td>                	                	

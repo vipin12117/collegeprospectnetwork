@@ -20,8 +20,6 @@
 	<title><?php echo $title_for_layout; ?></title>
 </head>
 <body>
-	<?php echo $this->fetch('content'); ?>
-
-	<p>This email was sent using the <a href="http://cakephp.org">CakePHP Framework</a></p>
+	<?php echo $this->fetch('content'); ?>	
 </body>
 </html>

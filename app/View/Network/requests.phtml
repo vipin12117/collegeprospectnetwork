@@ -21,15 +21,15 @@
 				<tbody>
 				<?php foreach ($receivedRequests as $receivedRequest):?>
 					<tr>
-						<?php if ($receivedRequest['Network']['sender_type'] == 'athlete') {
-								  $controller = "Athlete";	
+						<?php if ($receivedRequest['Network']['sender_type'] == 'athlete') {	
+								  $action = 'athleteProfile';
 							  } elseif ($receivedRequest['Network']['sender_type'] == 'coach'){
-							  	  $controller = "HsAauCoach";							  	
+							  	  $action = 'hsAauCoachProfile';							  	  							  
 							  } elseif ($receivedRequest['Network']['sender_type'] == 'college'){
-							  	  $controller = "CollegeCoach";							  	
+							  	  $action = 'collegeCoachProfile';							  	
 							  } 							  
 						?>
-						<td class="normalblack_12"><?php echo $this->Html->link((isset($receivedRequest['Network']['username']) ? $receivedRequest['Network']['username'] : ''), array('controller' => $controller, 'action' => 'view', $receivedRequest['Network']['sender_id'])); ?></td>				
+						<td class="normalblack_12"><?php echo $this->Html->link((isset($receivedRequest['Network']['username']) ? $receivedRequest['Network']['username'] : ''), array('controller' => 'Profile', 'action' => $action, $receivedRequest['Network']['sender_id'])); ?></td>				
 						<td class="normalblack_12"><?php echo ucfirst(strtolower($receivedRequest['Network']['sender_type'])); ?></td>
 						<td class="normalblack_12"><?php echo ucfirst(strtolower($receivedRequest['Network']['status'])); ?></td>
 						<td class="normalblack_12">
@@ -76,14 +76,14 @@
 				<?php foreach ($sentRequests as $sentRequest):?>
 					<tr>
 						<?php if ($sentRequest['Network']['receiver_type'] == 'athlete') {
-								  $controller = "Athlete";	
+								  $action = 'athleteProfile';	
 							  } elseif ($sentRequest['Network']['receiver_type'] == 'coach'){
-							  	  $controller = "HsAauCoach";							  	
+							  	  $action = 'hsAauCoachProfile';							  	
 							  } elseif ($sentRequest['Network']['receiver_type'] == 'college'){
-							  	  $controller = "CollegeCoach";							  	
+							  	  $action = 'collegeCoachProfile';							  	
 							  } 							  
 						?>
-						<td class="normalblack_12"><?php echo $this->Html->link((isset($sentRequest['Network']['username']) ? $sentRequest['Network']['username'] : ''), array('controller' => $controller, 'action' => 'view', $sentRequest['Network']['sender_id'])); ?></td>				
+						<td class="normalblack_12"><?php echo $this->Html->link((isset($sentRequest['Network']['username']) ? $sentRequest['Network']['username'] : ''), array('controller' => 'Profile', 'action' => $action, $sentRequest['Network']['sender_id'])); ?></td>				
 						<td class="normalblack_12"><?php echo ucfirst(strtolower($sentRequest['Network']['receiver_type'])); ?></td>
 						<td class="normalblack_12"><?php echo ucfirst(strtolower($sentRequest['Network']['status'])); ?></td>
 						<td class="normalblack_12"><?php echo $this->Html->link('Delete', array('action' => 'deleteRequest', $sentRequest['Network']['id']), array('escape' => false), "Are you sure you want to delete this Network Request? This cannot be undone")?></td>																							
