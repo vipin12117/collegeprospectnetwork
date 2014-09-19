@@ -1,5 +1,6 @@
 <?php
 
+App::uses('CakeEmail', 'Network/Email');
 class HomeController extends AppController{
 
 	public $name = 'Home';
@@ -41,7 +42,7 @@ class HomeController extends AppController{
 		$this->set("title_for_description",$page_detail['Page']['meta_desc']);
 
 		if(isset($this->request->data['Admin'])){
-			$this->Email->contactUs($this->request->data['Admin']['name'],$this->request->data['Admin']['email'],$this->request->data['Admin']['comments']);
+			$this->contactUs($this->request->data['Admin']['name'],$this->request->data['Admin']['email'],$this->request->data['Admin']['comments']);
 
 			$this->Session->setFlash("Your email has been sent to the appropriate team to best address your needs, and you should receive a response shortly.");
 			$this->redirect(array("controller"=>"Home","action"=>"contactus"));
@@ -87,7 +88,7 @@ class HomeController extends AppController{
 		$this->set("title_for_layout", "Login - College Prospect Network");
 
 		//check if user already logged in
-		$this->checkLogin();
+		//$this->checkLogin();
 
 		if(isset($this->request->data['Admin'])){
 			$user_type = $this->request->data['Admin']['user_type'];
@@ -179,10 +180,10 @@ class HomeController extends AppController{
 				if($userExist){
 					$code = $this->Athlete->uniqueCode(10);
 					$this->$user_type->updateAll(array("$user_type.forgetcode" => "'". $code . "'"),array("$user_type.id" => $userExist[$user_type]['id']));
+										
+					$this->forgetPasswordEmail($userExist[$user_type]['firstname'] , $email , $code);
 					$this->Session->setFlash("We have email you the unique code, please enter and update password");
-					$this->set("step","2");
-
-					$this->Email->forgetPasswordEmail($userExist[$user_type]['firstname'] , $email , $code);
+					$this->set("step","2");					
 					$this->Session->write("forgot_usertype",$user_type);
 				}
 				else{
@@ -220,5 +221,47 @@ class HomeController extends AppController{
 		$this->Session->destroy();
 		$this->redirect(array("controller"=>"Home","action"=>"index"));
 		exit;
+	}
+	
+	/**
+	 * Send an email with unique code to admin to change thier password
+	 * @param $name
+	 * @param $email
+	 * @param $code
+	 */
+	private function forgetPasswordEmail($name , $email , $code){
+		$subject = "College Prospect Network - Forget Password Request";
+		$template = 'forget_password_email';
+		$cakeEmail = new CakeEmail('cpn');
+    	try {
+			$cakeEmail->template($template);                  	
+            $cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+            $cakeEmail->to(array($email));
+            $cakeEmail->subject($subject);
+            $cakeEmail->emailFormat('html');            
+            $cakeEmail->viewVars(array('name' => $name, 'code' => $code));
+            // Send email
+            $cakeEmail->send();
+		} catch (Exception $e){
+			$this->Session->setFlash('Error while sending email');
+		}
+	}
+	
+	private function contactUsEmail($name , $email , $comments){
+		$subject = "College Prospect Network - Contact Us Request";		        	
+		$template = 'contact_us_email';
+		$cakeEmail = new CakeEmail('cpn');
+    	try {
+			$cakeEmail->template($template);                  	
+            $cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+            $cakeEmail->to('admin@collegeprospectnetwork.com');
+            $cakeEmail->subject($subject);
+            $cakeEmail->emailFormat('html');            
+            $cakeEmail->viewVars(array('name' => $name, 'email' => $email, 'comments' => $comments));
+            // Send email
+            $cakeEmail->send();
+		} catch (Exception $e){
+			$this->Session->setFlash('Error while sending email');
+		}
 	}
 }

@@ -130,6 +130,7 @@ class NetworkController extends AppController{
 	 * Network Request 
 	 */
 	public function requests(){
+		
 		$userId = $this->Session->read('user_id');
 		if (isset($userId)){
 			

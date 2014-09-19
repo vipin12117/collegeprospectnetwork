@@ -4,7 +4,7 @@ App::uses('Component', 'Controller');
 
 include_once ROOT . '/app/Lib/phpmailer/class.phpmailer.php';
 
-class EmailComponent extends Component {
+class OldEmailComponent extends Component {
 
 	public $name = 'Email';
 
@@ -246,8 +246,8 @@ class EmailComponent extends Component {
                     College Prospect Network team";           
 
 		$from = "no-reply@collegeprospectnetwork.com";
-
 		$phpmailer = new PHPMailer();
+
 		$phpmailer->From = $from;
 		$phpmailer->FromName = "College Prospect Network";
 		$phpmailer->Subject = $subject;
