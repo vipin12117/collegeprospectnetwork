@@ -124,7 +124,7 @@ class UserController extends AppController{
 				}
 				else{
 					$hs_aau_team_id = $this->request->data['Athlete']['hs_aau_team_id'];
-					$this->Email->athleteCoachApproval($hs_aau_team_id, $this->request->data['Athlete']['firstname'],$this->request->data['Athlete']['lastname']);
+					$this->athleteCoachApproval($hs_aau_team_id, $this->request->data['Athlete']['firstname'],$this->request->data['Athlete']['lastname']);
 				}
 
 				$this->Athlete->save($this->request->data);
