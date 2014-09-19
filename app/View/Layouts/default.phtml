@@ -56,5 +56,10 @@
 	</div>
 	
 	<?php echo $this->Js->writeBuffer();?>
+	<?php 
+		if (Configure::read('debug') == 2) {
+			echo $this->element('sql_dump'); 
+		}
+	?>
 </body>
 </html>
