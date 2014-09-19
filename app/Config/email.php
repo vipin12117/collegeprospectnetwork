@@ -59,7 +59,20 @@ class EmailConfig {
 		//'charset' => 'utf-8',
 		//'headerCharset' => 'utf-8',
 	);
-
+	
+	public $cpn = array(
+		'transport' => 'Smtp',		
+		'host' => '103.226.222.34',
+		'port' => 25,
+		'timeout' => 30,
+		'username' => 'info@mfproductivity.com.au',
+		'password' => 'Jobear2014',
+		'client' => null,
+		'log' => false,
+		//'charset' => 'utf-8',
+		//'headerCharset' => 'utf-8',
+	);
+	
 	public $fast = array(
 		'from' => 'you@localhost',
 		'sender' => null,
