@@ -102,7 +102,7 @@ class HomeController extends AppController{
 						$this->Session->write("name",$userExist['Athlete']['firstname']);
 						$this->Session->write("username",$userExist['Athlete']['username']);
 						$this->Session->write("user_id",$userExist['Athlete']['id']);
-						$this->Session->write("user_type","Athlete");
+						$this->Session->write("user_type","athlete");
 
 						$redirectUrl = Router::url(array("controller"=>"Profile","action"=>"index"),true);
 						$this->redirect($redirectUrl);
@@ -126,7 +126,7 @@ class HomeController extends AppController{
 						$this->Session->write("name",$userExist['HsAauCoach']['firstname']);
 						$this->Session->write("username",$userExist['HsAauCoach']['username']);
 						$this->Session->write("user_id",$userExist['HsAauCoach']['id']);
-						$this->Session->write("user_type","HsAauCoach");
+						$this->Session->write("user_type","coach");
 
 						$redirectUrl = Router::url(array("controller"=>"Profile","action"=>"index"),true);
 						$this->redirect($redirectUrl);
@@ -150,7 +150,7 @@ class HomeController extends AppController{
 						$this->Session->write("name",$userExist['CollegeCoach']['firstname']);
 						$this->Session->write("username",$userExist['CollegeCoach']['username']);
 						$this->Session->write("user_id",$userExist['CollegeCoach']['id']);
-						$this->Session->write("user_type","CollegeCoach");
+						$this->Session->write("user_type","college");
 						$this->Session->write("subscription_id",$userExist['CollegeCoach']['subscription_id']);
 
 						$redirectUrl = Router::url(array("controller"=>"Profile","action"=>"index"),true);

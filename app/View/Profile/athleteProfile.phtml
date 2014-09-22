@@ -34,7 +34,7 @@
 							<div class="btnclass1">
 								<p>
 		 						  <span>
-		 						  	  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose"));?>">Send Message</a>
+		 						  	  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"composePopup","type"=>"athlete","receiver"=>$profileDetail['Athlete']['username']));?>">Send Message</a>
 								  </span>
 								</p>
 							</div>
@@ -42,7 +42,7 @@
 							<div class="btnclass1">
 								<p>
 								   <span>
-								   	  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"addRating"));?>">Add Rating</a>
+								   	  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"addRating","type"=>"athlete","id"=>$profileDetail['Athlete']['id']));?>">Add Rating</a>
 								   </span>
 								</p>
 							</div>
@@ -50,7 +50,7 @@
 							<div class="btnclass1">
 		                        <p>
 		                           <span>
-		                           	   <a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"sendRequest",$profileDetail['Athlete']['id']));?>">Send Request</a>
+		                           	   <a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"sendRequest",$profileDetail['Athlete']['id'],"type"=>"athlete"));?>">Send Request</a>
 								   </span>
 							    </p>     
 							</div>
@@ -292,7 +292,7 @@
 	                          echo ' ';
 	                   } 
 	                   else{
-	                         echo '<a href="Video-List.php" class="gametape">Manage Game Tape</a>';
+	                         echo $this->Html->link('Manage Game Tape',array("controller"=>"Video","action"=>"index"));
 	                   }
 				  ?>
 			  </div>

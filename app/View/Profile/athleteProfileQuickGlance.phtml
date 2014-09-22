@@ -21,8 +21,8 @@ for ($i = 0; $i < $numCoaches; $i++) {
         </tr>
         <?php if ($approveCoach): ?>
 	        <tr>
-	            <td valign="middle"  align="left" class="normalblack_12_stat">
-	                <a href="HsAauCoachProfile.php?mode=view&fldId=<?php echo $approveCoach['id']; ?>" title="View HS/AAU Coach Profile">
+	            <td valign="middle"  align="left" class="normalblack_12_stat"> 
+	                <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile",$approveCoach['id']));?>" title="View HS/AAU Coach Profile">
 	                    <?php echo $approveCoach['firstname'] . ' ' . $approveCoach['lastname']; ?>
 	                </a>
 	            </td>
@@ -35,7 +35,7 @@ for ($i = 0; $i < $numCoaches; $i++) {
         <?php foreach ($hsAauCoach as $coach): ?>
 	        <tr>
             	<td valign="middle"  align="left" class="normalblack_12_stat">
-              	  <a href="HsAauCoachProfile.php?mode=view&fldId=<?php echo $coach['HsAauCoach']['id']; ?>" title="View HS/AAU Coach Profile">
+              	  <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile",$coach['HsAauCoach']['id']));?>" title="View HS/AAU Coach Profile">
                     	<?php echo $coach['HsAauCoach']['firstname'] . ' ' . $coach['HsAauCoach']['lastname']; ?>
                   </a>
 	            </td>

@@ -13,7 +13,7 @@ class NetworkController extends AppController{
 		parent::beforeFilter();
 		$this->checkSession();
 	}
-	
+
 	//public $uses = array('Athlete','HsAauCoach','CollegeCoach','Network');
 
 	/**
@@ -21,30 +21,29 @@ class NetworkController extends AppController{
 	 * @param $type
 	 */
 	public function index($type){
-		
 		$userId   = $this->Session->read('user_id');
 		$userType = $this->Session->read('user_type');
-		
+
 		if (isset($userId)){
-					
 			$this->set("title_for_layout","College Prospect Network - $type in my network");
-	
+
 			if($type == 'college'){
-				$pageTitle = 'My College Coach';				
+				$pageTitle = 'My College Coach';
 			}
 			elseif($type == 'coach'){
 				$pageTitle = 'My HS/AAU Coach';
 			}
 			elseif($type == 'athlete'){
 				$pageTitle = 'My Athletes';
-			} else {
+			}
+			else {
 				$this->redirect($this->referer());
 			}
-						
+
 			switch($userType){
 				case 'Athlete':
 					$this->loadModel('Athlete');
-					$userDetails = $this->Athlete->findById($userId, array('fields' => 'Sport.id'));									
+					$userDetails = $this->Athlete->findById($userId, array('fields' => 'Sport.id'));
 					break;
 				case 'HsAauCoach':
 					$this->loadModel('HsAauCoach');
@@ -55,16 +54,15 @@ class NetworkController extends AppController{
 					$userDetails = $this->CollegeCoach->findById($userId, array('fields' => 'Sport.id'));
 					break;
 			}
-					
-			$this->paginate = array('Network' => array('conditions'=> 
-														array(
-															'OR' => array(
-																		array('AND' => array ('Network.receiver_id' => $userId, 'Network.sender_type' => $type)),																			 
-																		array('AND' => array ('Network.sender_id' => $userId,  'Network.sender_type' => $type))
-																	),																       
-															'Network.status' => 'Active')));													       								       
-			$networks = $this->paginate('Network');
 				
+			$this->paginate = array('Network' => 
+								array('conditions'=>
+								array('OR' => array(array('AND' => array ('Network.receiver_id' => $userId, 'Network.sender_type' => $type)),
+								array('AND' => array ('Network.sender_id' => $userId,  'Network.sender_type' => $type))),
+								'Network.status' => 'Active')));
+																					       								       
+			$networks = $this->paginate('Network');
+
 			foreach($networks as $key => $value){
 				if($userId != $value['Network']['sender_id']){
 					$networks[$key]['Network']['user_id'] = $value['Network']['sender_id'];
@@ -74,7 +72,7 @@ class NetworkController extends AppController{
 					$networks[$key]['Network']['user_id'] = $value['Network']['receiver_id'];
 					$networks[$key]['Network']['user_type'] = $value['Network']['receiver_type'];
 				}
-				
+
 				if ($type == 'athlete'){
 					$this->loadModel('Athlete');
 					$athlete = $this->Athlete->findById($networks[$key]['Network']['user_id']);
@@ -85,23 +83,24 @@ class NetworkController extends AppController{
 						$networks[$key]['Network']['Athlete']['image'] = $athlete['Athlete']['image'];
 						$networks[$key]['Network']['Athlete']['height'] = $athlete['Athlete']['height'];
 						$networks[$key]['Network']['Athlete']['primary_position'] = $athlete['Athlete']['primary_position'];
-						$networks[$key]['Network']['Athlete']['secondary_position'] = $athlete['Athlete']['secondary_position'];						
+						$networks[$key]['Network']['Athlete']['secondary_position'] = $athlete['Athlete']['secondary_position'];
 						$networks[$key]['Network']['Athlete']['total_points'] = $athlete['Athlete']['total_points'];
-						
+
 						// Get school name.
 						$this->loadModel('HsAauTeam');
 						$hsAuuTeam = $this->HsAauTeam->findById($athlete['Athlete']['hs_aau_team_id'], array('fields' => 'HsAauTeam.id, HsAauTeam.school_name'));
 						$networks[$key]['Network']['HsAauTeam']['school_name'] = $hsAuuTeam['HsAauTeam']['school_name'];
-						
+
 						// Get sport name.
 						$this->loadModel('Sport');
 						$sport = $this->Sport->findById($athlete['Athlete']['sport_id'], array('fields' => 'Sport.id, Sport.name'));
-						$networks[$key]['Network']['Sport']['name'] = $sport['Sport']['name'];												
+						$networks[$key]['Network']['Sport']['name'] = $sport['Sport']['name'];
 					}
-				} elseif ($type == 'coach'){
+				} 
+				elseif ($type == 'coach'){
 					$this->loadModel('HsAauCoach');
 					$coach = $this->HsAauCoach->findById($networks[$key]['Network']['user_id']);
-					
+						
 					if (isset($coach['HsAauCoach'])){
 						$networks[$key]['Network']['HsAauCoach']['id'] = $coach['HsAauCoach']['id'];
 						$networks[$key]['Network']['HsAauCoach']['firstname'] = $coach['HsAauCoach']['firstname'];
@@ -109,7 +108,8 @@ class NetworkController extends AppController{
 						$networks[$key]['Network']['Sport']['id'] = $coach['Sport']['id'];
 						$networks[$key]['Network']['Sport']['name'] = $coach['Sport']['name'];
 					}
-				} elseif ($type == 'college') {
+				} 
+				elseif ($type == 'college') {
 					$this->loadModel('CollegeCoach');
 					$college = $this->CollegeCoach->findById($networks[$key]['Network']['user_id']);
 					if (isset($college['CollegeCoach'])){
@@ -119,39 +119,39 @@ class NetworkController extends AppController{
 					}
 				}
 			}
-
 			$this->set(compact('userDetails', 'networks', 'userType', 'pageTitle', 'type'));
-		} else {
+		} 
+		else {
 			$this->redirect(array('controller' => 'Home', 'action' => 'login'));
 		}
 	}
 
 	/**
-	 * Network Request 
+	 * Network Request
 	 */
 	public function requests(){
-		
 		$userId = $this->Session->read('user_id');
 		if (isset($userId)){
-			
+				
 			// Get received requests.
 			$receivedRequests = $this->Network->find('all', array('conditions' => array('Network.status' => 'Pending', 'Network.receiver_id' => $userId)));
 			$tmpReceivedRequests = $receivedRequests;
-			 
+
 			foreach ($receivedRequests as $key => $value){
 				if ($value['Network']['sender_type'] == 'athlete'){
 					$this->loadModel('Athlete');
 					$athlete = $this->Athlete->findById($value['Network']['sender_id'], array('fields' => 'Athlete.username, Athlete.image'));
-					
+						
 					if (isset($athlete['Athlete'])) {
 						$tmpReceivedRequests[$key]['Network']['username'] = $athlete['Athlete']['username'];
 						$tmpReceivedRequests[$key]['Network']['image'] = $athlete['Athlete']['image'];
 					}
-				} else if ($value['Network']['sender_type'] == 'coach'){										
+				} 
+				else if ($value['Network']['sender_type'] == 'coach'){
 					$this->loadModel('HsAauCoach');
 					$this->HsAauCoach->recursive = -1;
 					$coach = $this->HsAauCoach->findById($value['Network']['sender_id'], array('fields' => 'HsAauCoach.username'));
-					
+						
 					if (isset($coach['HsAauCoach'])) {
 						$tmpReceivedRequests[$key]['Network']['username'] = $coach['HsAauCoach']['username'];
 					}
@@ -159,19 +159,20 @@ class NetworkController extends AppController{
 					$this->loadModel('Rating');
 					$countRating = $this->Rating->find('count', array('conditions'=> array('Rating.athlete_id' => $value['Network']['id'])));
 					$tmpReceivedRequests[$key]['Network']['count_rating'] = $countRating;
-					
-				} else if ($value['Network']['sender_type'] == 'college'){
+						
+				} 
+				else if ($value['Network']['sender_type'] == 'college'){
 					$this->loadModel('CollegeCoach');
 					$college = $this->CollegeCoach->findById($value['Network']['sender_id'], array('fields' => 'CollegeCoach.username'));
-					
+						
 					if (isset($college['CollegeCoach'])) {
 						$tmpReceivedRequests[$key]['Network']['username'] = $college['CollegeCoach']['username'];
 					}
-				}				
+				}
 			}
-			
+				
 			$receivedRequests = $tmpReceivedRequests;
-						
+
 			// Get sender requests.
 			$sentRequests = $this->Network->find('all', array('conditions' => array('Network.status' => 'Pending', 'Network.sender_id' => $userId)));
 			$tmpSentRequests = $sentRequests;
@@ -180,36 +181,39 @@ class NetworkController extends AppController{
 				if ($value['Network']['receiver_type'] == 'athlete'){
 					$this->loadModel('Athlete');
 					$athlete = $this->Athlete->findById($value['Network']['receiver_id'], array('fields' => 'Athlete.username, Athlete.image'));
-					
+						
 					if (isset($athlete['Athlete'])) {
 						$tmpSentRequests[$key]['Network']['username'] = $athlete['Athlete']['username'];
 						$tmpSentRequests[$key]['Network']['image'] = $athlete['Athlete']['image'];
 					}
-				} else if ($value['Network']['receiver_type'] == 'coach'){										
+				} 
+				else if ($value['Network']['receiver_type'] == 'coach'){
 					$this->loadModel('HsAauCoach');
 					$this->HsAauCoach->recursive = -1;
 					$coach = $this->HsAauCoach->findById($value['Network']['receiver_id'], array('fields' => 'HsAauCoach.username'));
-					
+						
 					if (isset($coach['HsAauCoach'])) {
 						$tmpSentRequests[$key]['Network']['username'] = $coach['HsAauCoach']['username'];
 					}
-				} else if ($value['Network']['receiver_type'] == 'college'){
+				} 
+				else if ($value['Network']['receiver_type'] == 'college'){
 					$this->loadModel('CollegeCoach');
 					$college = $this->CollegeCoach->findById($value['Network']['receiver_id'], array('fields' => 'CollegeCoach.username'));
-					
+						
 					if (isset($college['CollegeCoach'])) {
 						$tmpSentRequests[$key]['Network']['username'] = $college['CollegeCoach']['username'];
 					}
-				}				
+				}
 			}
-			
+				
 			$sentRequests = $tmpSentRequests;
 			$this->set(compact('sentRequests', 'receivedRequests'));
-												
-		} else {
-			$this->redirect(array('controller' => 'Home', 'action' => 'login'));			
+
+		} 
+		else {
+			$this->redirect(array('controller' => 'Home', 'action' => 'login'));
 		}
-		
+
 	}
 
 	public function sendRequest(){
@@ -219,7 +223,7 @@ class NetworkController extends AppController{
 	public function confirmRequest(){
 
 	}
-	
+
 	/**
 	 * Active request
 	 * @param $id
@@ -232,16 +236,17 @@ class NetworkController extends AppController{
 				$this->Network->saveField('status', 'Active');
 				$this->Session->setFlash("Network Request approved. User has been sent a nofication.");
 				//Send Email
-			} else {
+			} 
+			else {
 				$this->Session->setFlash("Do not exits this request.");
 			}
 		}
 		else {
-			$this->redirect(array('controller' => 'Home', 'action' => 'login'));		
+			$this->redirect(array('controller' => 'Home', 'action' => 'login'));
 		}
 		$this->redirect(array('controller' => 'Network', 'action' => 'requests'));
 	}
-	
+
 	/**
 	 * Deactive request
 	 * @param $id
@@ -253,12 +258,13 @@ class NetworkController extends AppController{
 				$this->Network->id = $id;
 				$this->Network->saveField('status', 'Pending');
 				$this->Session->setFlash("Network Link successfully de-activated");
-				//Send Email
-			} else {
+			} 
+			else {
 				$this->Session->setFlash("Do not exits this request.");
-			}		
-		} else {
-			$this->redirect(array('controller' => 'Home', 'action' => 'login'));		
+			}
+		} 
+		else {
+			$this->redirect(array('controller' => 'Home', 'action' => 'login'));
 		}
 		$this->redirect(array('controller' => 'Network', 'action' => 'requests'));
 	}
@@ -274,12 +280,14 @@ class NetworkController extends AppController{
 			if ($isMine > 0){
 				$this->Network->delete($id);
 				$this->Session->setFlash("Network Request successfully deleted.");
-			} else {
+			} 
+			else {
 				$this->Session->setFlash("The Network Request wasnt deleted.");
-			}			
-		} else {
-			$this->redirect(array('controller' => 'Home', 'action' => 'login'));		
+			}
+		} 
+		else {
+			$this->redirect(array('controller' => 'Home', 'action' => 'login'));
 		}
-		$this->redirect(array('controller' => 'Network', 'action' => 'requests'));		
-	}			
+		$this->redirect(array('controller' => 'Network', 'action' => 'requests'));
+	}
 }

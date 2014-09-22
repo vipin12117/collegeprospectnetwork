@@ -1,0 +1,43 @@
+<div class="cantener">
+	<div class="register-main">
+		<h1>Send Message</h1>
+		<div class="registerPage popupsmall">
+		
+		 <?php if(isset($message)):?>
+				
+				<h4 align="center" class="thankyoumessage"><?php echo $message;?></h4>
+				<script type="text/javascript">
+					setTimeout(function(){window.close();},"5000");
+				</script>
+		 <?php else:?>
+				<?php echo $this->Form->create("Mail",array("url"=>array("controller"=>"Mail","composePopup"),"type"=>"post"));?>
+						<p>
+							<label>To:</label><span class="displaynormal">
+								<input type="text" name="too" size="40" value="<?php echo $userDetail['firstname'];?>" readonly style="width:265px;">
+								<?php echo $this->Form->input("receiver",array("type"=>"hidden","value"=>$receiver));?>
+								<?php echo $this->Form->input("usertype_to",array("type"=>"hidden","value"=>$usertype_to));?>
+							</span>
+						</p>
+						<p>
+							<label>Subject:</label>
+							<span>
+								<?php echo $this->Form->input("subject",array("type"=>"text","label"=>false,"div"=>false,'required'));?>
+							</span>
+						</p>
+						<p>
+							<label>Message:</label>
+							<span>
+							    <?php echo $this->Form->input("message",array("type"=>"textarea","label"=>false,"div"=>false,'required'));?>
+						    </span>
+						</p>
+						<p>
+							<label>&nbsp;</label>
+							<span>
+								<?php echo $this->Form->submit('Send Message',array('div'=>false));?>
+							</span>
+						</p>
+					<?php echo $this->Form->end();?>
+			<?php endif;?>			
+		</div>
+	</div>
+</div>

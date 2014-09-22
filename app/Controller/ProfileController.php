@@ -30,11 +30,11 @@ class ProfileController extends AppController{
 		$this->set("networkCount",$networkCount);
 
 		$is_trial_mode = false;
-		if($this->user_type == 'Athlete'){
+		if($this->user_type == 'athlete'){
 			$profileDetail = $this->Athlete->getByUsername($username);
 			$this->set("profileDetail",$profileDetail);
 		}
-		elseif($this->user_type == 'CollegeCoach'){
+		elseif($this->user_type == 'college'){
 			$profileDetail = $this->CollegeCoach->getByUsername($username);
 			$this->set("profileDetail",$profileDetail);
 

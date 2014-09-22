@@ -1,5 +1,5 @@
 <div class="cantener">
- <?php if($this->Session->read('user_type') == 'Athlete'):?>	
+ <?php if($this->Session->read('user_type') == 'athlete'):?>	
      <div class="register-main myaccount">
 	 	 <h1 class="margin5">My Account</h1>
 		   		
@@ -13,10 +13,11 @@
 		
 			 <h2>Messaging</h2>
 			 <?php if ($mailCount > 0):?>
-			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"index"));?>">Inbox (<?php echo $mailCount; ?>)</a></p>
+				 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"index"));?>">Inbox (<?php echo $mailCount; ?>)</a></p>
 			 <?php else:?>
-			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"index"));?>">Inbox</a></p>
+			 	<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"index"));?>">Inbox</a></p>
 			 <?php endif;?>
+			 
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"sent"));?>">Sent</a></p>
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"trash"));?>">Trash</a></p>
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose",'value'=>"coach"));?>">Send Message to a HS / AAU Coaches</a></p>								
@@ -25,10 +26,11 @@
 					
 			 <h2>My Network</h2>                                    
 			 <?php if ($networkCount > 0):?>
-			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"requests"));?>">Network Requests (<?php echo $networkCount;?>)</a></p>
+			 	 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"requests"));?>">Network Requests (<?php echo $networkCount;?>)</a></p>
 			 <?php else:?>
-			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"requests"));?>">Network Requests</a></p>
+				 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"requests"));?>">Network Requests</a></p>
 			 <?php endif;?>  
+			 
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","athlete"));?>">My Athletes</a></p>
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","coach"));?>">My HS/AAU Coaches</a></p>
 			 <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","college"));?>">My College Coaches</a></p>
@@ -46,7 +48,7 @@
 		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Event","action"=>"upcoming"));?>">View Upcoming Games & Events</a></p>
 		</div>
     </div>
-  <?php elseif($this->Session->read('user_type') == 'HsAauCoach'):?>	
+  <?php elseif($this->Session->read('user_type') == 'coach'):?>	
 	 <div class="register-main myaccount">
 	 	 <h1 class="margin5">My Account</h1>
 

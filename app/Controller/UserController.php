@@ -258,7 +258,7 @@ class UserController extends AppController{
 
 		$this->render("/User/registerCollegeCoach");
 	}
-	
+
 	/**
 	 * Send register email to athelete.
 	 * @param array $data
@@ -266,105 +266,104 @@ class UserController extends AppController{
 	 * @param boolean $newSchool
 	 */
 	private function athleteRegisterEmail($data,$address,$newSchool){
-			
-		$subject = "College Prospect Network - Athlete Welcome";		
+		$subject = "College Prospect Network - Athlete Welcome";
 		if($newSchool) {
 			$subjectStre = "[CPN] - New Athlete Registration + New School";
 		}
 		else{
 			$subjectStre = "[CPN] - New Athlete Registration";
 		}
-		
+
 		// HS/AAU Name
 		$this->loadModel('HsAauTeam');
-		$hsAauTeam = $this->HsAauTeam->find('first',array('conditions'=>array('HsAauTeam.id' => $data['hs_aau_team_id']), 
-																		array('fields'=>'HsAauTeam.school_name')));
+		$hsAauTeam = $this->HsAauTeam->find('first',array('conditions'=>array('HsAauTeam.id' => $data['hs_aau_team_id']),
+		array('fields'=>'HsAauTeam.school_name')));
 		$highSchoolName = $hsAauTeam['HsAauTeam']['school_name'];
 
 		// Get Sport Name
 		$this->loadModel('Sport');
 		$sport = $this->Sport->find('first',array('conditions'=>array('Sport.id' => $data['sport_id']),
-										    array('fields'=>'Sport.name')));
+		array('fields'=>'Sport.name')));
 		$sportName = $Sport['Sport']['name'];
 		$httpUserAgent = $_SERVER['HTTP_USER_AGENT'];
-		
+
 		$template = 'athlete_registerer_mail';
-		$cakeEmail = new CakeEmail('cpn');
+		$cakeEmail = new CakeEmail();
 		try {
-			$cakeEmail->template($template);                  	
-            $cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
-            $cakeEmail->to(array($data['email'] => $data['firstname']));
-            $cakeEmail->subject($subject);
-            $cakeEmail->emailFormat('html');            
-            $cakeEmail->viewVars(array('newSchool' => $newSchool, 'data' => $data, 'address' => $address, 'sportName' => $sportName, 'httpUserAgent' => $httpUserAgent));
-            // Send email
-            $cakeEmail->send();
-		} catch (Exception $e){
+			$cakeEmail->template($template);
+			$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+			$cakeEmail->to(array($data['email'] => $data['firstname']));
+			$cakeEmail->subject($subject);
+			$cakeEmail->emailFormat('html');
+			$cakeEmail->viewVars(array('newSchool' => $newSchool, 'data' => $data, 'address' => $address, 'sportName' => $sportName, 'httpUserAgent' => $httpUserAgent));
+			// Send email
+			$cakeEmail->send();
+		} 
+		catch (Exception $e){
 			$this->Session->setFlash('Error while sending email');
 		}
 	}
-	
-	private function athleteCoachApproval($hs_aau_team_id , $first_name , $last_name){
 
+	private function athleteCoachApproval($hs_aau_team_id , $first_name , $last_name){
 		$this->loadModel('HsAauCoach');
 		$hsAauCoaches = $this->HsAauCoach->find('all',array('conditions'=>array('HsAauCoach.hs_aau_team_id' => $hs_aau_team_id)));
 		if(!$hsAauCoaches){
 			return false;
 		}
 
-		$cakeEmail = new CakeEmail('cpn');
+		$cakeEmail = new CakeEmail();
 		$subject = "College Prospect Network - Athlete Pending Approval";
 		$template = 'athlete_coach_approval';
-		foreach($hsAauCoaches as $hsAauCoach){						
+		foreach($hsAauCoaches as $hsAauCoach){
 			try {
-				$cakeEmail->template($template);                  	
-	            $cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
-	            $cakeEmail->to(array($hsAauCoach['HsAauCoach']['email'] => $hsAauCoach['HsAauCoach']['firstname']));
-	            $cakeEmail->subject($subject);
-	            $cakeEmail->emailFormat('html');            
-	            $cakeEmail->viewVars(array('hsAauCoach' => $hsAauCoach, 'first_name' => $first_name, 'last_name' => $last_name));
-	            // Send email
-	            $cakeEmail->send();
-			} catch (Exception $e){
+				$cakeEmail->template($template);
+				$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+				$cakeEmail->to(array($hsAauCoach['HsAauCoach']['email'] => $hsAauCoach['HsAauCoach']['firstname']));
+				$cakeEmail->subject($subject);
+				$cakeEmail->emailFormat('html');
+				$cakeEmail->viewVars(array('hsAauCoach' => $hsAauCoach, 'first_name' => $first_name, 'last_name' => $last_name));
+				// Send email
+				$cakeEmail->send();
+			} 
+			catch (Exception $e){
 				$this->Session->setFlash('Error while sending email');
-			}		
-		}		
+			}
+		}
 	}
-	
+
 	private function hSCoachAdminNotifiction($data , $address , $sportPositions, $newSchool){
-		
 		if($newSchool) {
-			$subject = "[CPN] - New HS Coach Registration + New School";		
+			$subject = "[CPN] - New HS Coach Registration + New School";
 		}
 		else{
 			$subject = "[CPN] - New HS Coach Registration";
 		}
-							
+			
 		//HS/AAU Name
 		$this->loadModel('HsAauTeam');
 		$hsAauTeam = $this->HsAauTeam->find('first',array('conditions'=>array('HsAauTeam.id' => $data['hs_aau_team_id']),'fields' => array('HsAauTeam.school_name')));
 		$highSchoolName = $hsAauTeam['HsAauTeam']['school_name'];
-		
+
 		$httpUserAgent = $_SERVER['HTTP_USER_AGENT'];
-		
+
 		$template = 'hs_coach_admin_notifiction';
-		$cakeEmail = new CakeEmail('cpn');		
+		$cakeEmail = new CakeEmail();
 		try {
-			$cakeEmail->template($template);                  	
-            $cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
-            $cakeEmail->to(array("admin@collegeprospectnetwork.com" => "Admin"));
-            $cakeEmail->subject($subject);
-            $cakeEmail->emailFormat('html');            
-            $cakeEmail->viewVars(array('newSchool' => $newSchool, 'data' => $data, 'address' => $address, 'sportPositions' => $sportPositions, 'httpUserAgent' => $httpUserAgent));
-            // Send email
-            $cakeEmail->send();
-		} catch (Exception $e){
+			$cakeEmail->template($template);
+			$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+			$cakeEmail->to(array("admin@collegeprospectnetwork.com" => "Admin"));
+			$cakeEmail->subject($subject);
+			$cakeEmail->emailFormat('html');
+			$cakeEmail->viewVars(array('newSchool' => $newSchool, 'data' => $data, 'address' => $address, 'sportPositions' => $sportPositions, 'httpUserAgent' => $httpUserAgent));
+			// Send email
+			$cakeEmail->send();
+		} 
+		catch (Exception $e){
 			$this->Session->setFlash('Error while sending email');
 		}
 	}
-	
-    private function collegeCoachAdminNotifiction($data , $address , $newCollege){		
 
+	private function collegeCoachAdminNotifiction($data , $address , $newCollege){
 		if ($newCollege) {
 			$subject = "[CPN] - New College Coach Registration + New College";
 		}
@@ -376,24 +375,25 @@ class UserController extends AppController{
 		$this->loadModel('College');
 		$college = $this->College->find("first",array("conditions"=>"College.id = '".$data['college_id']."'","fields"=>"College.name"));
 		$collegeName = $college['College']['name'];
-		
+
 		// Get Sport Name
 		$sport = $this->Sport->find("first",array("conditions"=>"Sport.id = '".$data['sport_id']."'","fields"=>"Sport.name"));
 		$sportName = $sport['Sport']['name'];
-		
+
 		$httpUserAgent = $_SERVER['HTTP_USER_AGENT'];
 		$template = 'college_coach_admin_notifiction';
-		$cakeEmail = new CakeEmail('cpn');
-    	try {
-			$cakeEmail->template($template);                  	
-            $cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
-            $cakeEmail->to(array("admin@collegeprospectnetwork.com" => "Admin"));
-            $cakeEmail->subject($subject);
-            $cakeEmail->emailFormat('html');            
-            $cakeEmail->viewVars(array('newSchool' => $newSchool, 'data' => $data, 'address' => $address, 'collegeName' => $collegeName, 'sportName' => $sportName, 'httpUserAgent' => $httpUserAgent));
-            // Send email
-            $cakeEmail->send();
-		} catch (Exception $e){
+		$cakeEmail = new CakeEmail();
+		try {
+			$cakeEmail->template($template);
+			$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+			$cakeEmail->to(array("admin@collegeprospectnetwork.com" => "Admin"));
+			$cakeEmail->subject($subject);
+			$cakeEmail->emailFormat('html');
+			$cakeEmail->viewVars(array('newSchool' => $newSchool, 'data' => $data, 'address' => $address, 'collegeName' => $collegeName, 'sportName' => $sportName, 'httpUserAgent' => $httpUserAgent));
+			// Send email
+			$cakeEmail->send();
+		} 
+		catch (Exception $e){
 			$this->Session->setFlash('Error while sending email');
 		}
 	}
