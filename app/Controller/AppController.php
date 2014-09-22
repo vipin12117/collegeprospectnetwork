@@ -93,6 +93,18 @@ class AppController extends Controller {
 			$this->redirect(array('controller'=>'Home','action'=>'login'));
 		}
 	}
+	
+	/**
+	 * This method will check admin user is logged in or not
+	 */
+	public function checkAdminSession()
+	{
+		if(($this->Session->read("Admin.id"))){		
+			return true;
+		} else {			  
+			return false;
+		}	
+	}
 
 	/**
 	 * Return unique code of passed digits
