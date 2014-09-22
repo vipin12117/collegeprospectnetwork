@@ -1,0 +1,155 @@
+body {
+	font-family:arial;
+	font-size:12px;
+}
+
+.normalblack_12 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	font-weight: normal;
+	text-decoration:none;
+}
+.normalwhite_12 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+	font-weight: normal;
+	text-decoration:none;
+}
+.normalwhite_14 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #FFFFFF;
+	font-weight: normal;
+	text-decoration:none;
+}
+.linkgrey_12 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color:#808080;
+	font-weight: normal;
+	text-decoration:none;
+}
+.normalgrey_12 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color:#666666;
+	font-weight: normal;
+	text-decoration:none;
+}
+form {
+margin:0px;
+}
+.websitename_25 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 25px;
+	color: #000000;
+	font-weight: bold;
+	text-decoration:none; 
+}
+.smallgrey_10 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color:#666666;
+	font-weight: normal;
+	text-decoration:none;
+}
+.errmsg_12 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color:#CC3333;
+	font-weight: bold;
+	text-decoration:none;
+}
+.successmsg_12 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color:#009900;
+	font-weight: bold;
+	text-decoration:none;
+}
+.normalwhite_11 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #ffffff;
+	font-weight: bold;
+	text-decoration:none;
+}
+.tickler {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	
+	font-size: 11px;
+	color: #336699;
+	background-color: #FFFFFF;
+}
+
+.link {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #235090;
+}
+.SearchHead1
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #363636;
+	border: 1px;
+	font-weight: bold;
+	border-bottom-style: dotted;
+	border-color: #363636;
+}
+
+table.tablePadd td{
+	padding:2px 4px;
+}
+
+
+/* -------------------------------------------------------------- */
+/* FORMS */
+/* -------------------------------------------------------------- */
+hr.line {border: none 0;border-top: 1px solid #ccc;width: 560px;height: 1px;padding:0;margin: 12px 0 16px 0;margin-left:50px;} 
+#AjaxResponse label {margin-bottom:3px;}
+#AjaxResponse span {margin-bottom:3px;}
+.registerPage.wideform p label {width:200px !important;}
+
+textarea{padding:7px 6px; margin:0px; border:1px solid #bbb; width:265px; height:72px; font-size:13px; color:#646464; display:inline-block; overflow:auto; font-family:Arial,sans-serif; margin-right:5px; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px}
+textarea.ta1 {width:350px !important;height:100px !important;}
+textarea.ta2 {width:400px !important;height:120px !important;}
+
+
+/* -------------------------------------------------------------- */
+/* PAGING - Table Footer */
+/* -------------------------------------------------------------- */
+.paging {display:block;padding:6px 12px;background:#ebebeb;}
+.paging .paging-leftcol {float:left;}
+.paging .paging-rightcol {float:right;}
+
+/*total records*/
+.paging span.total {margin-left:2px;display:inline;font-size:12px;color:#888;}
+
+/*defaults*/
+.paging span {color:#888;padding:0;margin:0 3px 0 0;} 
+.paging A:link, .paging A:visited, .paging A:active {font-size:12px;text-decoration:underline; color: #086AA8;padding:0;margin:0 3px 0 0;} 
+.paging A:hover {text-decoration: underline;  color: #000;}
+
+/*page*/
+.paging span.page {padding:2px 5px; background:#086AA8; font-size:12px; color:#fff; font-weight:bold; margin:0 1px 0 1px; }
+.paging A.page:link, .paging A.page:visited, .paging A.page:active {padding:2px 5px; background:#eaeaea; font-size:12px; color:#086AA8; font-weight:bold; text-decoration:none; margin:0 1px 0 1px;}
+.paging A.page:hover {background:#333; font-size:12px; color:#fff; font-weight:bold; text-decoration:none; }
+/*first*/
+.paging span.first {margin:0 8px 0 0;}
+.paging A.first:link, .paging A.first:visited, .paging A.first:active {margin:0 8px 0 0;}
+.paging A.first:hover {}
+/*prev*/
+.paging span.prev {margin:0 5px 0 0;}
+.paging A.prev:link, .paging A.prev:visited, .paging A.prev:active {margin:0 5px 0 0;}
+.paging A.prev:hover {}
+/*next*/
+.paging span.next {margin:0 8px 0 5px;}
+.paging A.next:link, .paging A.next:visited, .paging A.next:active {margin:0 8px 0 5px;}
+.paging A.next:hover {}
+/*last*/
+.paging span.last {margin:0 0 0 0;}
+.paging A.last:link, .paging A.last:visited, .paging A.last:active {margin:0 0 0 0;}
+.paging A.last:hover {}
