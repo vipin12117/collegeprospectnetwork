@@ -7,6 +7,8 @@ class AdminController extends AppController{
 	
 	var $layout = 'admin';
 	
+	public $components = array('Email','Session');
+	
 	public function login(){
 
 		if ($this->request->is('post')) ///////if form is post
@@ -54,6 +56,7 @@ class AdminController extends AppController{
 				if (!empty($admin)) {
 					$this->Admin->id = $admin['Admin']['id'];
 					$this->Admin->saveField('password', $strNewPassword);
+					
 					//Send email for notification
 					$this->forgetPasswordAdminEmail($email, $strNewPassword, $admin['Admin']['username']);
 					$msg = 'Your password has been reset and mailed to you on your registered email id.';
@@ -66,12 +69,12 @@ class AdminController extends AppController{
 	}
 	
 	private function forgetPasswordAdminEmail($email, $password, $username){
-		$subject = "Change your password";
+		$subject = 'Change your password';
 		$template = 'forget_password_admin_email';
-		$cakeEmail = new CakeEmail('cpn');		            
+		$cakeEmail = new CakeEmail('default');
     	try {
 			$cakeEmail->template($template);                  	
-            $cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+            $cakeEmail->from(array('admin@collegeprospectnetwork.com' => 'College Prospect Network - Admin'));
             $cakeEmail->to(array($email));
             $cakeEmail->subject($subject);
             $cakeEmail->emailFormat('html');

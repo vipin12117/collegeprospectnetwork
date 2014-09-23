@@ -232,7 +232,7 @@ class HomeController extends AppController{
 	private function forgetPasswordEmail($name , $email , $code){
 		$subject = "College Prospect Network - Forget Password Request";
 		$template = 'forget_password_email';
-		$cakeEmail = new CakeEmail('cpn');
+		$cakeEmail = new CakeEmail('default');
     	try {
 			$cakeEmail->template($template);                  	
             $cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
@@ -250,7 +250,7 @@ class HomeController extends AppController{
 	private function contactUsEmail($name , $email , $comments){
 		$subject = "College Prospect Network - Contact Us Request";		        	
 		$template = 'contact_us_email';
-		$cakeEmail = new CakeEmail('cpn');
+		$cakeEmail = new CakeEmail('default');
     	try {
 			$cakeEmail->template($template);                  	
             $cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
