@@ -5,6 +5,7 @@
 //
 
 	echo $this->Html->css('admin/styles');
+	echo $this->Html->script('functions.js');
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,9 +16,16 @@
             &bull; Admin Panel
         </title>
     </head>
-    <body>        
-        <div id="admin-content">			
-			<?php echo $content_for_layout; ?>
+    <body>    
+    	<?php if($this->Session->check('Message.flash')):?> 
+			<div align="center" id="flashMessage">
+			<?php 
+				echo $this->Session->flash(); 
+		    ?> 
+			</div>
+		<?php endif;?>
+        <div id="admin-content">        				
+			<?php echo $content_for_layout; ?>			
         </div>
     </body>
 	

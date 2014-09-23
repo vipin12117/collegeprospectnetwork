@@ -152,4 +152,4 @@ textarea.ta2 {width:400px !important;height:120px !important;}
 /*last*/
 .paging span.last {margin:0 0 0 0;}
 .paging A.last:link, .paging A.last:visited, .paging A.last:active {margin:0 0 0 0;}
-.paging A.last:hover {}
+.paging A.last:hover {}/* -------------------------------------------------------------- */	/* MESSAGES */	/* -------------------------------------------------------------- */	/* Message Boxes */.thankyoumessage {	font-size: 13px;	font-weight: bold;	display: block;	margin-bottom: 20px;	border: 1px solid #c5ce41;	background: #f5f8c0;	padding: 10px 20px;	color: #6c6600;}.infomessage {	font-size: 16px;	font-weight: normal;	display: block;	text-align: right;	margin-bottom: 20px;	border: 1px solid #A0C1D3;	background: #D7E6EF;	padding: 10px 20px;	color: #1B5A7C;}.errormessage {	font-size: 13px;	font-weight: bold;	display: block;	margin-bottom: 20px;	border: 1px solid #e89797;	background: #fbdcdc;	padding: 10px 20px;	color: #8d0d0d;}

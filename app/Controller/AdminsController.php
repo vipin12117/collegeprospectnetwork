@@ -1,16 +1,16 @@
 <?php
 
 App::uses('CakeEmail', 'Network/Email');
-class AdminController extends AppController{
+class AdminsController extends AppController{
 
-	public $name = 'Admin';
+	public $name = 'Admins';
 	
 	var $layout = 'admin';
 	
 	public $components = array('Email','Session');
 	
 	public function login(){
-
+		$this->layout = 'admin';
 		if ($this->request->is('post')) ///////if form is post
 		{
 			$results = $this->Admin->findByUsername($this->request->data['username']);
@@ -21,19 +21,18 @@ class AdminController extends AppController{
 				$this->Session->write('Admin.username', $this->request->data['username']);
 				$this->Session->write('Admin.usertype', $results['Admin']['user_type']);
 				$this->Session->write('Admin.id', $results['Admin']['id']);
-				$this->redirect(array('controller' => 'admin', 'action' => 'index'));
+				$this->redirect(array('controller' => 'admins', 'action' => 'index'));
 			} 
 			else 
 			{
-				$errorMsg = 'Incorrect Username/Password';
-				$this->set('errorMsg', $errorMsg);
+				$this->Session->setFlash('Incorrect Username/Password', 'flash_error');
 			}
 		} 	
 	}
 	
 	public function index(){
 		if (!$this->checkAdminSession()){
-			$this->redirect(array('controller'=>'admin','action'=>'login'));
+			$this->redirect(array('controller'=>'admins','action'=>'login'));
 		} else {
 			
 		}
@@ -48,9 +47,8 @@ class AdminController extends AppController{
 			} elseif ((!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email)) && !empty($email)){
 				$error['email'] = 'Please Enter A Valid Email';
 			}
-			$msg = "";
 			if(empty($error)) {
-				$strNewPassword = $this->get_rand_id(6);
+				$strNewPassword = $this->getRandId(6);
 				// Check if email exists in the database
 				$admin = $this->Admin->find('first', array('conditions' => array('Admin.email' => $email)));
 				if (!empty($admin)) {
@@ -59,12 +57,14 @@ class AdminController extends AppController{
 					
 					//Send email for notification
 					$this->forgetPasswordAdminEmail($email, $strNewPassword, $admin['Admin']['username']);
-					$msg = 'Your password has been reset and mailed to you on your registered email id.';
+					$this->Session->setFlash('Your password has been reset and mailed to you on your registered email id.', 'flash_success');
+					$this->redirect(array('controller' => 'admins', 'action' => 'login'));
 				} else {
-					$msg = 'User not found. Please try again.';
+					$this->Session->setFlash('User not found. Please try again.', 'flash_error');
 				}
+			} else {
+				$this->Session->setFlash($error['email'], 'flash_error');
 			}
-			$this->set(compact('msg', '$error'));
 		}
 	}
 	
@@ -89,10 +89,10 @@ class AdminController extends AppController{
 	public function logout(){
 		$this->Session->delete('Admin.id');
 		$this->Session->destroy();
-		$this->redirect(array('controller' => 'admin', 'action' => 'login'));		
+		$this->redirect(array('controller' => 'admins', 'action' => 'login'));		
 	}
 	
-	private function get_rand_id($length)
+	private function getRandId($length)
 	{
 	  	if($length>0) 
 	  	{ 
@@ -101,13 +101,13 @@ class AdminController extends AppController{
 		   	{
 		   		mt_srand((double)microtime() * 1000000);
 		   		$num = mt_rand(1,36);
-		   		$rand_id .= $this->assign_rand_value($num);
+		   		$rand_id .= $this->assignRandValue($num);
 		   	}
 	 	}
 		return $rand_id;
 	} 
 	
-	private function assign_rand_value($num)
+	private function assignRandValue($num)
 	{
 		// accepts 1 - 36
 		switch($num)

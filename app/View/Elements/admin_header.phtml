@@ -1,17 +1,27 @@
-<table width="100%"  border="0" cellspacing="0" cellpadding="0" >
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
 
-<tr>
+	<tr>
 
-<td height="50" class="normalbrown" align="left"></td>
+		<td height="50" class="normalbrown" align="left"></td>
 
-<td height="50" align="right" class="normalbrown"><strong class="websitename_25"><?php echo ('College Prospect Network - Admin Panel') ?> &nbsp;&nbsp; </strong></td>
+		<td height="50" align="right" class="normalbrown"><strong
+			class="websitename_25"><?php echo ('College Prospect Network - Admin Panel') ?>
+		&nbsp;&nbsp; </strong></td>
 
-</tr>
+	</tr>
 
-<tr>
+	<tr>
 
-<td height="1" align="right" class="normalbrown" bgcolor="#808080" colspan="2">&nbsp;</td>
+		<td height="1" align="right" class="normalbrown" bgcolor="#808080"
+			colspan="2">&nbsp;</td>
 
-</tr>	
+	</tr>
 
 </table>
+<?php if($this->Session->check('Message.flash')):?> 
+	<div align="center" id="flashMessage">
+	<?php 
+		echo $this->Session->flash(); 
+    ?> 
+	</div>
+<?php endif;?>

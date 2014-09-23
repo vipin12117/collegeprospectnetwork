@@ -49,14 +49,7 @@
 
 										<strong>Administrator Login</strong></td>
 
-									</tr>
-									<?
-						            if(isset($errorMsg) && $errorMsg!="")						
-						            {						
-						                echo "<tr align='center' valign='middle'><td colspan='2' class='normalblack_12'>&nbsp;</td></tr><tr align='center' valign='middle'><td colspan='2' class='normalblack_12'><font color=red>$errorMsg</font></td></tr>";						
-						            }						
-						            ?> 
-
+									</tr>									
 
 									<tr align="center" valign="middle">
 										<td colspan="2" class="normalblack_12">&nbsp;</td>
@@ -97,7 +90,7 @@
 										
 										
 										<td align="left" height="30" class="normalblack_12">
-											<?php echo $this->Html->link('Forgot Password', array('controller' => 'admin', 'action' => 'forgot_password'))?>
+											<?php echo $this->Html->link('Forgot Password', array('controller' => 'admins', 'action' => 'forgot_password'))?>
 										</td>
 
 									</tr>
