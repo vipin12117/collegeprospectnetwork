@@ -13,7 +13,7 @@ class AthleteController extends AppController{
         	if ($this->checkAdminSession()){
             	$this->layout = 'admin';
         	} else {
-        		$this->redirect(array('controller'=>'admin','action'=>'login'));
+        		$this->redirect(array('controller'=>'admins','action'=>'login'));
         	}
 		} else {
 			$this->checkSession();
@@ -110,12 +110,104 @@ class AthleteController extends AppController{
 		}
 	}
 	
+	public function admin_edit($id){
+		if (!empty($id)) {	
+			$athlete = $this->Athlete->findById($id);
+			// Get class list.
+			$this->loadModel('Classes');
+			$classes = $this->Classes->find('all', array('fields' => array('Classes.id', 'Classes.name'), 
+														 'order' => array('Classes.id')));
+			$classList = array();
+			foreach ($classes as $class){
+				$classList[$class['Classes']['name']] = $class['Classes']['name'];
+			}
+			
+			// Get category list.
+			$this->loadModel('HsAauTeam');
+			$hsAauTeams = $this->HsAauTeam->find('all', array('fields' => array('HsAauTeam.id', 'HsAauTeam.school_name'), 
+														 'order' => array('HsAauTeam.id')));						
+			$categoryList = array();
+			foreach ($hsAauTeams as $hsAauTeam){
+				$categoryList[$hsAauTeam['HsAauTeam']['school_name']] = $hsAauTeam['HsAauTeam']['school_name'];
+			}
+			
+			// Get sport list.
+			$this->loadModel('Sport');
+			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'), 
+														 'order' => array('Sport.id')));						
+			$sportList = array();
+			foreach ($sports as $sport){
+				$sportList[$sport['Sport']['name']] = $sport['Sport']['name'];
+			}
+						
+			$this->set(compact('athlete', 'classList', 'categoryList', 'sportList'));
+								
+			if ($this->request->is('post')) {							
+				$this->Athlete->id = $id;
+				if ($this->Athlete->save($this->request->data)){
+					
+					// Save school name
+					$this->loadModel('HsAauTeam');
+					$this->HsAauTeam->id = $athlete['Athlete']['hs_aau_team_id'];
+					$this->HsAauTeam->saveField('school_name', $this->request->data['HsAauTeam']['school_name']);
+					
+					// Save sport name
+					$this->loadModel('Sport');
+					$this->Sport->id = $athlete['Athlete']['sport_id'];					
+					$this->Sport->saveField('name', $this->request->data['Sport']['name']);
+					$this->Session->setFlash('Athlete Updated Successfully!', 'flash_success');
+					$this->redirect(array('controller' => 'Athlete', 'action' => 'list'));																				
+					} else {
+						$this->Session->setFlash('Can not update this athlete.', 'flash_error');
+					}
+			} 						
+		} else {
+			$this->Session->setFlash('Do not exits this athlete', 'flash_error');
+			$this->redirect($this->referer());
+		}
+	}
+	
+	public function admin_delete($id){
+		if (!empty($id)) {
+			if ($this->Athlete->delete($id)){
+				$this->Session->setFlash('Athelete Deleted Successfully!', 'flash_success');
+			} else {
+				$this->Session->setFlash('Can not delete this athlete', 'flash_error');
+			}
+		} else {
+			$this->Session->setFlash('Do not exits this athlete', 'flash_error');			
+		}
+		$this->redirect($this->referer());
+	}
+	
 	public function admin_activeRecord($id){
 		if (!empty($id)) {
 			$this->Athlete->id = $id;
 			$this->Athlete->saveField('status', 1);
 			$this->Session->setFlash('Athelete Approved Successfully!', 'flash_success');
 			$this->redirect($this->referer());		
+		} else {
+			$this->Session->setFlash('Do not exits this athlete', 'flash_error');
+			$this->redirect($this->referer());
+		}
+	}
+	
+	public function admin_deactiveRecord($id){
+		if (!empty($id)) {
+			$this->Athlete->id = $id;
+			$this->Athlete->saveField('status', 0);
+			$this->Session->setFlash('Athelete Non-Approved Successfully!', 'flash_success');
+			$this->redirect($this->referer());		
+		} else {
+			$this->Session->setFlash('Do not exits this athlete', 'flash_error');
+			$this->redirect($this->referer());
+		}
+	}
+	
+	public function admin_details($id){
+		if (!empty($id)) {
+			$athlete = $this->Athlete->findById($id);
+			$this->set('athlete', $athlete);	
 		} else {
 			$this->Session->setFlash('Do not exits this athlete', 'flash_error');
 			$this->redirect($this->referer());

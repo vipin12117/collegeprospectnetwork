@@ -85,9 +85,7 @@
 															</td>
 															<?php } else {?>
 															<td  class="normalblack_12" align="center">
-																<a href="javascript:deactiveRecord(<?php echo $athlete['Athlete']['id']?>)">
-																	<img src="/img/green-point.gif" border="0" title="Deactive">
-																</a>
+																<?php echo $this->Html->link($this->Html->image('/img/green-point.gif'), array('controller' => 'Athlete', 'action' => 'deactiveRecord', $athlete['Athlete']['id']), array('escape' => false, 'title' => 'Deactive'), "Are you sure to deactive this Athlete?")?>
 															</td>
 															<?php }?>
 															<td class="normalblack_12" align="center">
@@ -95,14 +93,12 @@
 																	<img src="/img/b_edit.png" border="0" title="Edit">
 																</a>
 															</td>
-															<td  class="normalblack_12" align="center">
-																<a href="/admin/Athlete/delete/<?php echo $athlete['Athlete']['id']?>">
-																	<img src="/img/b_drop.png" border="0" title="Delete">
-																</a>
+															<td class="normalblack_12" align="center">																
+																<?php echo $this->Html->link($this->Html->image('/img/b_drop.png'), array('controller' => 'Athlete', 'action' => 'delete', $athlete['Athlete']['id']), array('escape' => false, 'title' => 'Delete'), "Are you sure to delete this Athlete?")?>
 															</td>
 															<td  class="normalblack_12" align="center" nowrap>
-																<a href="/admin/Athlete/details/<?php echo $athlete['Athlete']['id']?>">View</a> / 
-																<a href="/admin/Athlete/ratingView/<?php echo $athlete['Athlete']['id']?>">View Rate</a>
+																<?php echo $this->Html->link('View', array('controller' => 'athlete', 'action' => 'details', $athlete['Athlete']['id']))?> /
+																<?php echo $this->Html->link('View Rate', array('controller' => 'athlete', 'action' => 'ratingView', $athlete['Athlete']['id']))?>																																
 															</td>
 														</tr>
 														<?php endforeach?>
