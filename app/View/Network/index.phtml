@@ -1,3 +1,11 @@
+<script type="text/javascript" src="<?php echo Router::fullBaseUrl().$this->base;?>/fancybox/jquery.fancybox.js"></script>
+<link type="text/css" rel="stylesheet" href="<?php echo Router::fullBaseUrl().$this->base;?>/fancybox/jquery.fancybox.css" />
+<script type="text/javascript">
+   jQuery(document).ready(function() {
+	   jQuery(".fancybox").fancybox({fitToView:true,width:'600px',height:'100%',autoSize:true});
+   });
+</script>
+
 <div class="cantener">
   <div class="register-main">
 	  <div class="registerPage">
@@ -9,9 +17,9 @@
 	  <?php if(count($networks) > 0):?>
 	  
 	  <?php if($type == "athlete"):?>
-		  <ul class="box_list">
+		  <ul class="box_list" style="list-style:none;">
 			 <?php foreach($networks as $network): ?>
-				<li>
+				<li style="float:left;width:410px">
 				  <table cellpadding="2" cellspacing="2" class="table_main">
 					 <tr>
 						<td class="table_main_td1">
@@ -28,7 +36,7 @@
 													<?php if($this->Session->read('subscription_id') == 2):?>        
 														 <a href="javascript:void(0);" onclick="alert('Sorry, this feature is disabled in Trial Mode, please purchase a Subscription.');">Send Message</a>
 	                                                <?php else:?>
-														 <a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose", "value" => "athlete"));?>">Send Message</a>														
+														 <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"composePopup", "type" => "athlete","receiver"=>$network['Network']['Athlete']['username']));?>">Send Message</a>														
 													<?php endif;?>
 												</div>
 												
@@ -132,6 +140,7 @@
 				</script>			  	
 			<?php endforeach; ?>
 		  </ul>
+		  <div style="clear:both"></div>
 	 
 	  <?php elseif($type == "coach"):?>
 

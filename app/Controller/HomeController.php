@@ -42,7 +42,7 @@ class HomeController extends AppController{
 		$this->set("title_for_description",$page_detail['Page']['meta_desc']);
 
 		if(isset($this->request->data['Admin'])){
-			$this->contactUs($this->request->data['Admin']['name'],$this->request->data['Admin']['email'],$this->request->data['Admin']['comments']);
+			$this->contactUsEmail($this->request->data['Admin']['name'],$this->request->data['Admin']['email'],$this->request->data['Admin']['comments']);
 
 			$this->Session->setFlash("Your email has been sent to the appropriate team to best address your needs, and you should receive a response shortly.");
 			$this->redirect(array("controller"=>"Home","action"=>"contactus"));
@@ -242,7 +242,8 @@ class HomeController extends AppController{
             $cakeEmail->viewVars(array('name' => $name, 'code' => $code));
             // Send email
             $cakeEmail->send();
-		} catch (Exception $e){
+		} 
+		catch (Exception $e){
 			$this->Session->setFlash('Error while sending email');
 		}
 	}
@@ -260,7 +261,8 @@ class HomeController extends AppController{
             $cakeEmail->viewVars(array('name' => $name, 'email' => $email, 'comments' => $comments));
             // Send email
             $cakeEmail->send();
-		} catch (Exception $e){
+		} 
+		catch (Exception $e){
 			$this->Session->setFlash('Error while sending email');
 		}
 	}

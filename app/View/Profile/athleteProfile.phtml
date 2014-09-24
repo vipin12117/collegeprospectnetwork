@@ -2,7 +2,7 @@
 <link type="text/css" rel="stylesheet" href="<?php echo Router::fullBaseUrl().$this->base;?>/fancybox/jquery.fancybox.css" />
 <script type="text/javascript">
    jQuery(document).ready(function() {
-	   jQuery(".fancybox").fancybox({fitToView:false,width:'600px',height:'100%',autoSize:false});
+	   jQuery(".fancybox").fancybox({fitToView:true,width:'600px',height:'100%',autoSize:true});
    });
 </script>
 
@@ -50,7 +50,7 @@
 							<div class="btnclass1">
 		                        <p>
 		                           <span>
-		                           	   <a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"sendRequest",$profileDetail['Athlete']['id'],"type"=>"athlete"));?>">Send Request</a>
+		                           	   <a onclick="if(!confirm('Are you sure?')){return false;}" href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"sendRequest",$profileDetail['Athlete']['id'],"athlete"));?>">Send Request</a>
 								   </span>
 							    </p>     
 							</div>
@@ -132,9 +132,9 @@
 				<h3 style="float:left;"><?php echo $profileDetail['Sport']['name']; ?> Stats Summary</h3>
 					
 				<div style="float:right;">
-						<?php if(@$profileDetail['Athlete']['subscribe_id']):?>
-							  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"addRating"));?>">View Game Log</a>	
-						<?php endif;?>	
+					<?php if(@$profileDetail['Athlete']['subscribe_id']):?>
+						  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"addRating"));?>">View Game Log</a>	
+					<?php endif;?>	
 				</div>
 
 				<div class="clear"></div>
@@ -264,7 +264,7 @@
                     <?php if (@$_SESSION['subscription_id'] != 2): ?>
                    			<?php include_once ROOT. '/app/View/Profile/athleteProfileQuickGlance.phtml'; ?>
                     <?php else: ?>
-                             Sorry, this feature is disabled in Trial Mode, please <a href='subscribe.php'>Purchase a Subscription</a>.
+                             Sorry, this feature is disabled in Trial Mode, please <a href="<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"index"));?>">Purchase a Subscription</a>.
                     <?php endif; ?>
              </div>
           </div>
@@ -320,35 +320,28 @@
 			  </div>
 		  </div>
 
-		  <?php if (($this->Session->read('user_type') == 'CollegeCoach')) { ?>
+		  <?php if (($this->Session->read('user_type') == 'college')): ?>
 				<div class="btnclass2" style="margin-bottom:20px;">
 					<p>
-						<span>
-						    <?php
-                                 if($_SESSION['subscription_id'] == 2) {
-                                 	     echo '<INPUT TYPE="BUTTON" VALUE="Request Game Tape" onclick="alert(\'Sorry, this feature is disabled in Trial Mode, please purchase a Subscription. \');">';
-                                 } else {
-                             ?>
-                                     <input type=BUTTON onclick="window.open('RequestGameTape.php?fldId=<?php  echo $_REQUEST['fldId'];?>','windowname1', 'width=665, height=400'); return false;" value="Request Game Tape">
-                             <?php
-                                }
-                            ?>
+					   <span>
+					      <?php if(@$_SESSION['subscription_id'] == 2):?>
+                              	    <a onclick="alert('Sorry, this feature is disabled in Trial Mode, please purchase a Subscription.');">Request Game Tape</a>
+                          <?php else:?>
+                          			<a href="<?php echo $this->Html->url(array("controller"=>"Video","action"=>"request",$profileDetail['CollegeCoach']['id']));?>" title="Request Game Tape">Request Game Tape</a>
+                          <?php endif;?> 			
 					    </span>
 					</p>
 				</div>
-
-		<?php } ?>
+		<?php endif; ?>
 
 		<div style="padding-top:0;">
              <h3>Comments
-             	    <?php  
-						if($profileDetail['Athlete']['id'] == $this->Session->read('user_id') AND $this->Session->read('user_type') == 'athlete') {
-							echo '<a href="javascript:void(0);" onclick="window.open(\'add_user_notes.php?fldAthleteid='.$uid.'&usertype=athlete\',\'winname\',\'directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=980px,height=380\');" style="float:right;">Add Note</a>';
-						}
-					?>
-				</h3>
+	             <?php if($profileDetail['Athlete']['id'] == $this->Session->read('user_id') AND $this->Session->read('user_type') == 'athlete'):?>
+	             		<a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Note","action"=>"add"))?>" style="float:right;">Add Note</a>
+	             <?php endif;?>		
+			 </h3>
 
-                <div class="right-boxes">
+             <div class="right-boxes">
                 <?php
 					if($notes && count($notes) > 0){
 						echo '<table width="100%" cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" style="border-collapse: collapse;" class="tablePadd">';
