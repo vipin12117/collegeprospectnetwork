@@ -97,8 +97,8 @@
 																<?php echo $this->Html->link($this->Html->image('/img/b_drop.png'), array('controller' => 'Athlete', 'action' => 'delete', $athlete['Athlete']['id']), array('escape' => false, 'title' => 'Delete'), "Are you sure to delete this Athlete?")?>
 															</td>
 															<td  class="normalblack_12" align="center" nowrap>
-																<?php echo $this->Html->link('View', array('controller' => 'athlete', 'action' => 'details', $athlete['Athlete']['id']))?> /
-																<?php echo $this->Html->link('View Rate', array('controller' => 'athlete', 'action' => 'ratingView', $athlete['Athlete']['id']))?>																																
+																<?php echo $this->Html->link('View', array('controller' => 'Athlete', 'action' => 'details', $athlete['Athlete']['id']), array('target' => 'blank'))?> /
+																<?php echo $this->Html->link('View Rate', array('controller' => 'Athlete', 'action' => 'viewRating', $athlete['Athlete']['id']), array('target' => 'blank'))?>																																
 															</td>
 														</tr>
 														<?php endforeach?>
