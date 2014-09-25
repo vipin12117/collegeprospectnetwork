@@ -213,4 +213,33 @@ class AthleteController extends AppController{
 			$this->redirect($this->referer());
 		}
 	}
+	
+	public function admin_viewRating($id){
+		if (!empty($id)) {			
+			$this->loadModel('Rating');
+			$ratingAthlete = $this->Rating->find('first', array(
+								'fields' => array(
+												    'ROUND(avg(Rating.leadership), 1) as leadership',
+													'ROUND(avg(Rating.work_ethic), 1) as work_ethic',
+													'ROUND(avg(Rating.primacy_go_to_guy), 1) as primacy_go_to_guy',
+													'ROUND(avg(Rating.mental_toughness), 1) as mental_toughness',
+													'ROUND(avg(Rating.composure), 1) as composure',
+													'ROUND(avg(Rating.awareness), 1) as awareness',
+													'ROUND(avg(Rating.instincts), 1) as instincts',
+													'ROUND(avg(Rating.vision), 1) as vision',
+													'ROUND(avg(Rating.conditioning), 1) as conditioning',
+													'ROUND(avg(Rating.physical_toughness), 1) as physical_toughness',
+													'ROUND(avg(Rating.tenacity), 1) as tenacity',
+													'ROUND(avg(Rating.hustle), 1) as hustle',
+													'ROUND(avg(Rating.strength), 1) as strength'			
+												 ),
+								'conditions' => array('Rating.athlete_id' => $id)
+							 ));
+
+			$this->set('ratingAthlete', $ratingAthlete);
+		} else {
+			$this->Session->setFlash('Do not exits this athlete', 'flash_error');
+			$this->redirect($this->referer());
+		}
+	}
 }
