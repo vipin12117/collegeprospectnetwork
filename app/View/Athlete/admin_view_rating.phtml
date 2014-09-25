@@ -1,0 +1,129 @@
+<table width="100%" cellpadding="3" cellspacing="5">
+	<tr>
+		<td width="100%" align="center">
+		<table width="95%" cellpadding="0" cellspacing="3">
+			<tr>
+				<td width="100%" class="SearchHead"><b>Athlete Rating</b></td>
+			</tr>
+			<tr>
+				<td width="100%" class="GeneralFont">&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="100%">
+				<table width="100%" cellspacing="0" cellpadding="2">
+					<tr>
+						<td width="100%" valign="top">
+						<table width="100%" cellspacing="0" cellpadding="3">
+						<?php if(sizeof($ratingAthlete) == 1){ ?>
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Leadership</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ratingAthlete['0']['leadership']; ?>
+								with <?php echo sizeof($ratingAthlete);?> votes</td>
+							</tr>
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Work
+								Ethic</b></td>
+								<td class="normalblack_12" valign="top"><?php echo $ratingAthlete['0']['work_ethic']; ?>
+								with <?php echo sizeof($ratingAthlete);?> votes</td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Primacy
+								(Go-To Guy)</b></td>
+								<td class="normalblack_12" valign="top"><?php echo $ratingAthlete['0']['primacy_go_to_guy']; ?>
+								with <?php echo sizeof($ratingAthlete);?> votes</td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Mental
+								Toughness</b></td>
+								<td class="normalblack_12" valign="top"><?php echo $ratingAthlete['0']['mental_toughness']; ?>
+								with <?php echo sizeof($ratingAthlete);?> votes</td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Composure</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ratingAthlete['0']['composure']; ?>
+								with <?php echo sizeof($ratingAthlete);?> votes</td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Awareness</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ratingAthlete['0']['awareness']; ?>
+								with <?php echo sizeof($ratingAthlete);?> votes</td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Instincts</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ratingAthlete['0']['instincts']; ?>
+								with <?php echo sizeof($ratingAthlete);?> votes</td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Vision</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ratingAthlete['0']['vision']; ?>
+								with <?php echo sizeof($ratingAthlete);?> votes</span></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Conditioning</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ratingAthlete['0']['conditioning']; ?>
+								with <?php echo sizeof($ratingAthlete);?> votes</span></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Physical
+								Toughness</b></td>
+								<td class="normalblack_12" valign="top"><?php echo $ratingAthlete['0']['physical_toughness']; ?>
+								with <?php echo sizeof($ratingAthlete);?> votes</td>
+							</tr>
+							
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Tenacity</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ratingAthlete['0']['tenacity']; ?>
+								with <?php echo sizeof($ratingAthlete);?> votes</td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Hustle</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ratingAthlete['0']['hustle']; ?>
+								with <?php echo sizeof($ratingAthlete);?> votes</td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Strength</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ratingAthlete['0']['strength']; ?>
+								with <?php echo sizeof($ratingAthlete);?> votes</td>
+							</tr>
+
+							<?php } else {?>
+							<tr>
+								<td class="normalblack_12" valign="top">Athlete Not Rated by HS/AAU Coach</td>								
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>&nbsp;</b>
+								</td>
+							</tr>
+							<?php }?>
+						</table>
+						</td>
+						<tr>
+							<td class="normalblack_12" valign="top" height="25" width="40%"
+								colspan="2"><input type=button value="Close"
+								onClick="javascript:window.close();"></td>
+						</tr>				
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+

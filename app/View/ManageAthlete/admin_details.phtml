@@ -1,0 +1,94 @@
+<table width="100%" cellpadding="3" cellspacing="5">
+	<tr>
+		<td width="100%" align="center">
+		<table width="95%" cellpadding="0" cellspacing="3">
+			<tr>
+				<td width="100%" class="SearchHead"><b>Athlete Details</b></td>
+			</tr>
+			<tr>
+				<td width="100%" class="GeneralFont">&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="100%">
+				<table width="100%" cellspacing="0" cellpadding="2">
+					<tr>
+						<td width="100%" valign="top">
+						<table width="100%" cellspacing="0" cellpadding="3">
+							<tr>
+								<td align="center"><img src="/img/<?php echo $athlete['Athlete']['image']; ?>" height="200px;" width="150px;">
+									
+								</td>
+								<td>
+								<table border="0">
+									<tr>
+										<td class="normalblack_12" valign="top" height="25"
+											width="40%"><b> Name</b></td>
+										<td class="normalblack_12" valign="top"><?php echo ucfirst($athlete['Athlete']['firstname']) .'&nbsp;'. ucfirst($athlete['Athlete']['lastname'])?></td>
+									</tr>
+									<tr>
+										<td class="normalblack_12" valign="top" height="25"
+											width="40%"><b>Email</b></td>
+										<td class="normalblack_12" valign="top"><?php echo $athlete['Athlete']['email']?></td>
+									</tr>
+									<tr>
+										<td class="normalblack_12" valign="top" height="25"
+											width="40%"><b>Description</b></td>
+										<td class="normalblack_12" valign="top"><?php echo $athlete['Athlete']['description']?></td>
+									</tr>
+
+									<?php if($athlete['Sport']['name'] != '')
+									{
+										?>
+									<tr>
+										<td class="normalblack_12" valign="top" height="25"
+											width="40%"><b>Sport</b></td>
+										<td class="normalblack_12" valign="top"><?php echo $athlete['Sport']['name'] ?></td>
+									</tr>
+									<?php
+									}
+									if($athlete['HsAauTeam']['school_name'] != '')
+									{
+										?>
+									<tr>
+										<td class="normalblack_12" valign="top" height="25"
+											width="40%"><b>School</b></td>
+										<td class="normalblack_12" valign="top"><?php echo $athlete['HsAauTeam']['school_name']?></td>
+									</tr>
+									<?php
+									}
+									?>
+									<tr>
+										<td class="normalblack_12" valign="top" height="25"
+											width="40%"><b>Class</b></td>
+										<td class="normalblack_12" valign="top"><?php echo $athlete['Athlete']['class']?></td>
+									</tr>
+									<tr>
+										<td class="normalblack_12" valign="top" height="25"
+											width="40%"><b>Height</b></td>
+										<td class="normalblack_12" valign="top"><?php echo $athlete['Athlete']['height']?></td>
+									</tr>
+									<tr>
+										<td class="normalblack_12" valign="top" height="25"
+											width="40%"><b>Weight</b></td>
+										<td class="normalblack_12" valign="top"><?php echo $athlete['Athlete']['weight']?></td>
+									</tr>
+								</table>
+								</td>
+								<tr>
+									<td class="normalblack_12" valign="top" height="25" width="40%"
+										colspan="2"><input type=button value="Close"
+										onClick="javascript:window.close();"></td>
+								</tr>						
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td width="100%" align="center">&nbsp;</td>
+	</tr>
+</table>

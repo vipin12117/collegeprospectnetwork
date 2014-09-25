@@ -1,0 +1,502 @@
+<div class="cantener">
+<div class="register-main">							
+	<div class="registerPage smallest">				
+		<?php  if(($HSCoachhasvoted==0) and ($IsHSCoach==1) and ($_REQUEST['mode'] != 'view') ){
+    #### START -  RATE ATHLETE #####
+                                //$IsCollegeCoach= 0; //If is College Coach
+                                //$IsHSCoach = 0;  //If is HS Coach
+                                //$HSCoachhasvoted = 0; //If HS Coach Voted
+                                //$AthleteHasRatings = 0; //If Athlete has Ratings
+?>
+<h1>Rate Athlete</h1>
+<form action="" method="post" name="rating" onsubmit="return validate()" class="searchform">
+                
+                <p>
+                                    <label>Leadership:</label>                     
+                                    <span class="multiField" id="LeaderShip">     
+                                        <select name="fldLeaderShip">
+                                            <option value="0">Reset Rating</option>
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?><?php echo ($i == 1 ?  " (Lowest)" : ""); echo ($i == 10 ?  " (Highest)" : ""); ?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Work Ethic:</label>                     
+                                    <span class="multiField" id="WorkEthic">     
+                                        <select name="fldWork_Ethic">
+                                            <option value="0">Reset Rating</option>
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?><?php echo ($i == 1 ?  " (Lowest)" : ""); echo ($i == 10 ?  " (Highest)" : ""); ?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Primacy (Go-To Guy):</label>                     
+                                    <span class="multiField" id="Primacy">     
+                                        <select name="fldPrimacy_Go_To_Guy">
+                                            <option value="0">Reset Rating</option>
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?><?php echo ($i == 1 ?  " (Lowest)" : ""); echo ($i == 10 ?  " (Highest)" : ""); ?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Mental Toughness:</label>                     
+                                    <span class="multiField" id="MentalToughness">     
+                                        <select name="fldMental_Toughness">
+                                            <option value="0">Reset Rating</option>
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?><?php echo ($i == 1 ?  " (Lowest)" : ""); echo ($i == 10 ?  " (Highest)" : ""); ?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Composure:</label>                     
+                                    <span class="multiField" id="Composure">     
+                                        <select name="fldComposure">
+                                            <option value="0">Reset Rating</option>
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?><?php echo ($i == 1 ?  " (Lowest)" : ""); echo ($i == 10 ?  " (Highest)" : ""); ?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Awareness:</label>                     
+                                    <span class="multiField" id="Awareness">     
+                                        <select name="fldAwareness">
+                                            <option value="0">Reset Rating</option>
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?><?php echo ($i == 1 ?  " (Lowest)" : ""); echo ($i == 10 ?  " (Highest)" : ""); ?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Instincts:</label>                     
+                                    <span class="multiField" id="Instincts">     
+                                        <select name="fldInstincts">
+                                            <option value="0">Reset Rating</option>
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?><?php echo ($i == 1 ?  " (Lowest)" : ""); echo ($i == 10 ?  " (Highest)" : ""); ?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Vision:</label>                     
+                                    <span class="multiField" id="Vision">     
+                                        <select name="fldVision">
+                                            <option value="0">Reset Rating</option>
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?><?php echo ($i == 1 ?  " (Lowest)" : ""); echo ($i == 10 ?  " (Highest)" : ""); ?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Conditioning:</label>                     
+                                    <span class="multiField" id="Conditioning">     
+                                        <select name="fldConditioning">
+                                            <option value="0">Reset Rating</option>
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?><?php echo ($i == 1 ?  " (Lowest)" : ""); echo ($i == 10 ?  " (Highest)" : ""); ?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Physical Toughness:</label>                     
+                                    <span class="multiField" id="PhysicalToughness">     
+                                        <select name="fldPhysical_Toughness">
+                                            <option value="0">Reset Rating</option>
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?><?php echo ($i == 1 ?  " (Lowest)" : ""); echo ($i == 10 ?  " (Highest)" : ""); ?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Tenacity:</label>                     
+                                    <span class="multiField" id="Tenacity">     
+                                        <select name="fldTenacity">
+                                            <option value="0">Reset Rating</option>
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?><?php echo ($i == 1 ?  " (Lowest)" : ""); echo ($i == 10 ?  " (Highest)" : ""); ?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Hustle:</label>                     
+                                    <span class="multiField" id="Hustle">     
+                                        <select name="fldHustle">
+                                            <option value="0">Reset Rating</option>
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?><?php echo ($i == 1 ?  " (Lowest)" : ""); echo ($i == 10 ?  " (Highest)" : ""); ?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Strength:</label>                     
+                                    <span class="multiField" id="Strength">     
+                                        <select name="fldStrength">
+                                            <option value="0">Reset Rating</option>
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?><?php echo ($i == 1 ?  " (Lowest)" : ""); echo ($i == 10 ?  " (Highest)" : ""); ?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+            
+                               <p style="height:20px;">&nbsp;</p>
+            <input type="hidden" name="save" size="40" value="save">
+            <p>
+            <label>&nbsp;</label>
+            <span>
+            <button type="submit">
+            Submit Rating
+            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </form>
+                    <button type=submit onclick="javascript:refreshParent();">
+                    Close Window
+                    </button>
+               </span>
+            </p>
+
+<?php  
+    #### END - RATE ATHLETE ####
+                                    } 
+
+                                  if(($AthleteHasRatings==1) and ($IsHSCoach==1 || $IsCollegeCoach==1) and ($_REQUEST['mode'] == 'view') ){
+                                    #### START -  SHOW ATHLETE RATING #####                                    
+                                    //$IsCollegeCoach= 0; //If is College Coach
+                                    //$IsHSCoach = 0;  //If is HS Coach
+                                    //$HSCoachhasvoted = 0; //If HS Coach Voted
+                                    //$AthleteHasRatings = 0; //If Athlete has Ratings                                   
+      
+                                     #### START -  SHOW ATHLETE RATING #####
+                                    // $info_query="select fldAthlete_id, ROUND(avg(fldLeaderShip), 1) as fldLeaderShip,
+                                    // ROUND(avg(fldWork_Ethic), 1) as fldWork_Ethic,
+                                    // ROUND(avg(fldPrimacy_Go_To_Guy), 1) as fldPrimacy_Go_To_Guy,
+                                    // ROUND(avg(fldMental_Toughness), 1) as fldMental_Toughness,
+                                    // ROUND(avg(fldComposure), 1) as fldComposure,
+                                    // ROUND(avg(fldAwareness), 1) as fldAwareness,
+                                    // ROUND(avg(fldInstincts), 1) as fldInstincts,
+                                    // ROUND(avg(fldVision), 1) as fldVision,
+                                    // ROUND(avg(fldConditioning), 1) as fldConditioning,
+                                    // ROUND(avg(fldPhysical_Toughness), 1) as fldPhysical_Toughness,
+                                    // ROUND(avg(fldTenacity), 1) as fldTenacity,
+                                    // ROUND(avg(fldHustle), 1) as fldHustle,
+                                    // ROUND(avg(fldStrength), 1) as fldStrength from ".TBL_RATING." where fldAthlete_id=".$_REQUEST['fldId'];
+                                    // $db2->query($info_query);
+                                    // $db2->next_record();
+                                    // $query_number="select * FROM tbl_rating where fldAthlete_id=".$_REQUEST['fldId'];
+                                    // $db3->query($query_number);
+                                    // $db3->next_record();
+?>
+    <h1>Athlete Ratings</h1>
+
+    <?php
+                                    if($_REQUEST['msg'] == 'Success')
+                                    {
+    ?>
+    <div class="thankyoumessage">Thank you, your Rating was successfully added.  <a href="javascript:refreshParent();">Close Window</a></div>									
+    <?php  
+    }
+    ?>
+    <p>
+                                        <label>&nbsp;</label>
+                                        <span style="line-height:26px;font-size:12px;"><b>Average Rating</b> (<?php  echo $db3 -> num_rows() . " ";  echo ($db3 -> num_rows() > 1 ?  "votes" : "vote");  ?>)</span>
+                                    </p>
+
+    <p>
+                                        <label>Leadership:</label>                     
+                                        <span class="multiField" id="LeaderShip">
+                                            <select name="fldLeaderShip" disabled="disabled">                                               
+                                                <?php
+                                                for ($i=1;$i<=10;$i++)
+                                                {
+                                                ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?></option><?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </span>                  
+                                    </p>							    								
+    								<p>
+                                    <label>Work Ethic:</label>                     
+                                    <span class="multiField" id="WorkEthic">     
+                                        <select name="fldWork_Ethic" disabled="disabled">
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Primacy (Go-To Guy):</label>                     
+                                    <span class="multiField" id="Primacy">     
+                                        <select name="fldPrimacy_Go_To_Guy" disabled="disabled">
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Mental Toughness:</label>                     
+                                    <span class="multiField" id="MentalToughness">     
+                                        <select name="fldMental_Toughness" disabled="disabled">
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Composure:</label>                     
+                                    <span class="multiField" id="Composure">     
+                                        <select name="fldComposure" disabled="disabled">
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Awareness:</label>                     
+                                    <span class="multiField" id="Awareness">     
+                                        <select name="fldAwareness" disabled="disabled">
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Instincts:</label>                     
+                                    <span class="multiField" id="Instincts">     
+                                        <select name="fldInstincts" disabled="disabled">
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Vision:</label>                     
+                                    <span class="multiField" id="Vision">     
+                                        <select name="fldVision" disabled="disabled">
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Conditioning:</label>                     
+                                    <span class="multiField" id="Conditioning">     
+                                        <select name="fldConditioning" disabled="disabled">
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Physical Toughness:</label>                     
+                                    <span class="multiField" id="PhysicalToughness">     
+                                        <select name="fldPhysical_Toughness" disabled="disabled">
+                                           <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Tenacity:</label>                     
+                                    <span class="multiField" id="Tenacity">     
+                                        <select name="fldTenacity" disabled="disabled">
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Hustle:</label>                     
+                                    <span class="multiField" id="Hustle">     
+                                        <select name="fldHustle" disabled="disabled">
+                                            <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>
+                                <p>
+                                    <label>Strength:</label>                     
+                                    <span class="multiField" id="Strength">     
+                                        <select name="fldStrength" disabled="disabled">
+                                           <?php
+                                            for ($i=1;$i<=10;$i++)
+                                            {
+                                            ?><option value ="<?php  echo $i;?>" ><?php  echo $i;?></option><?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </span>                  
+                                </p>			
+    								<p style="padding-top:10px;">
+    									<label>&nbsp;</label>
+    									<span>
+    										<button type="submit"onclick="javascript:refreshParent();" class="normalbtn">Close Window</button>
+    </span>
+    </p>
+<?php
+        ##End Display Rating
+     }
+
+                                    else if(($AthleteHasRatings==0) and ($IsHSCoach==1 || $IsCollegeCoach==1) and ($_REQUEST['mode'] == 'view') ){
+                                    #### START -  SHOW NO RATINGS AVAILABLE#####                                    
+                                    //$IsCollegeCoach= 0; //If is College Coach
+                                    //$IsHSCoach = 0;  //If is HS Coach
+                                    //$HSCoachhasvoted = 0; //If HS Coach Voted
+                                    //$AthleteHasRatings = 0; //If Athlete has Ratings     
+                             
+                                        ##Display Error if cannot retrieve Athlete Rating
+    ?>
+    <div class="thankyoumessage">
+    <?php echo "Athlete has not yet been rated.";?>
+    </div>
+    <p>
+    <label>&nbsp;</label>
+    <span>
+        <?php
+    									      #echo $IsCollegeCoach . "<br />";
+                                              #echo $IsHSCoach . "<br />";
+                                              #echo $HSCoachhasvoted . "<br />";
+                                             #echo $AthleteHasRatings . "<br />";    									    
+    									    ?>
+    <button type="submit"onclick="javascript:refreshParent();" class="normalbtn">Close Window</button>
+    </span>
+    </p>
+    <?php
+         ##End Display No Ratings Available
+                                }
+
+                                else if (($IsAthlete == 1) and ($IsHSCoach==0) and ($IsCollegeCoach==0) ) {                                    
+                                     #### START -  SHOW NO PERMISSION#####  
+    ?>
+    <div class="thankyoumessage">
+                                        <?php echo "Sorry, Athletes cannot view fellow Athlete Ratings";?>
+                                    </div>
+                                    <p>
+                                        <label>&nbsp;</label>
+                                        <span>
+                                            <button type="submit"onclick="javascript:refreshParent();" class="normalbtn">Close Window</button>
+                                        </span>
+                                    </p>
+    <?php
+     ##End Display No Permission
+                                }        
+                                       
+                                else if (($HSCoachhasvoted==1) and ($IsHSCoach==1) and ($_REQUEST['mode'] != 'view')  ) {                                    
+                                     #### START -  SHOW NO PERMISSION#####  
+                                ?>
+                                <div class="thankyoumessage">
+                                        <?php 
+                                        $viewLink = "RatingAthlete.php?fldId=" . $_REQUEST['fldId'] . "&mode=view";
+                                        echo "Sorry, you have already voted for this Athlete.  Please <a href='$viewLink'>Click Here</a> to view Ratings";
+                                        ?>
+                                    </div>
+                                    <p>
+                                        <label>&nbsp;</label>
+                                        <span>
+                                            <button type="submit"onclick="javascript:refreshParent();" class="normalbtn">Close Window</button>
+                                        </span>
+                                    </p>
+                                <?php
+                                 ##End Display No Permission
+                                }               
+                                ?>
+</div>
+</div>
+</div>

@@ -80,6 +80,7 @@ class NetworkController extends AppController{
 						$networks[$key]['Network']['Athlete']['id'] = $athlete['Athlete']['id'];
 						$networks[$key]['Network']['Athlete']['firstname'] = $athlete['Athlete']['firstname'];
 						$networks[$key]['Network']['Athlete']['lastname'] = $athlete['Athlete']['lastname'];
+						$networks[$key]['Network']['Athlete']['username'] = $athlete['Athlete']['username'];
 						$networks[$key]['Network']['Athlete']['image'] = $athlete['Athlete']['image'];
 						$networks[$key]['Network']['Athlete']['height'] = $athlete['Athlete']['height'];
 						$networks[$key]['Network']['Athlete']['primary_position'] = $athlete['Athlete']['primary_position'];
@@ -216,12 +217,30 @@ class NetworkController extends AppController{
 
 	}
 
-	public function sendRequest(){
-
-	}
-
-	public function confirmRequest(){
-
+	public function sendRequest($id,$type){
+		$userId = $this->Session->read('user_id');
+		if (isset($userId)){
+			if (isset($id)){
+				$Network = array();
+				$Network['sender_id'] = $userId;
+				$Network['receiver_id']   = $id;
+				$Network['sender_type']   = $this->Session->read('user_type');
+				$Network['receiver_type'] = $type;
+				$Network['status'] = 'Pending';
+				$Network['date_added'] = date('Y-m-d H:i:s');
+				
+				$this->Network->save($Network);
+				$this->Session->setFlash("Network request sent. User has been sent a nofication.");
+				//Send Email
+			} 
+			else {
+				$this->Session->setFlash("Do not exits this request.");
+			}
+		}
+		else {
+			$this->redirect(array('controller' => 'Home', 'action' => 'login'));
+		}
+		$this->redirect(array('controller' => 'Network', 'action' => 'requests'));
 	}
 
 	/**

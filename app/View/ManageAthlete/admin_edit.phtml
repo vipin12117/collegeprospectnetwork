@@ -1,0 +1,474 @@
+<table cellSpacing=0 cellPadding=0 width="100%" border=0>
+	<tr>
+		<td height=120><?php echo $this->element('admin_header');?></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<tr>
+			<td class="heading">
+			<table cellSpacing=0 cellPadding=1 width="95%" align=center border=0>
+				<tr>
+					<td>
+					<table cellSpacing=0 cellPadding=1 width=780 border=0>
+						<tr>
+							<td bgColor=#ffffff>
+							<table cellSpacing=0 cellPadding=0 width=900 border=0>
+								<tr>
+									<td vAlign=top width=20%><?php echo $this->element('admin_menu');?></td>
+									<td valign=top width=1%>&nbsp;</td>
+									<td width=10><img src="spacer.gif" height="1" width="1"></td>
+									<td valign=top width="" align="center"><!-- MAin Content Starts From Here -->
+									<?php echo $this->Form->create(); ?>
+									<table width="100%" border="1" cellpadding="1" cellspacing="0"
+										bordercolor="#808080" style="border-collapse: collapse">
+										<tr height="20">
+											<td align="center" class="normalblack_12" width="90%"
+												valign="top">
+											<table width="100%" border="0" cellpadding="0"
+												cellspacing="0" bgcolor="#FFFFFF">
+												<tr>
+													<!-- Display the message on heading of the page -->
+													<td valign="top" class="normalwhite_14" colspan=3
+														bgcolor="#808080" align="center"><b>Edit Athlete </b></td>
+												</tr>
+												<tr>
+													<!-- Display the message on heading of the page -->
+													<td valign="top" colspan=3 align="center">&nbsp;</td>
+												</tr>
+												<tr>
+													<td valign="top" colspan=3 align="center"
+														class="normalblack_12"><font color="Red"></font></td>
+												</tr>
+												<tr>
+													<td height="35" colspan="3" align="right"
+														class="normalblack_12"><FONT color="Red">Fields marked
+													with * are mandatory&nbsp;</FONT></td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">UserName <font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2>
+														<?php echo $this->Form->input('Athlete.username', array('label' => false, 'value' => $athlete['Athlete']['username'], 'maxlength'=>'50', 'style' => 'width: 200px', 'readonly' => true )) ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Email <font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12" colspan=2>														
+														<?php echo $this->Form->input('Athlete.email', array('label' => false, 'value' => $athlete['Athlete']['email'], 'maxlength'=>'50', 'style' => 'width: 200px')) ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">First Name <font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12" colspan=2>														
+														<?php echo $this->Form->input('Athlete.firstname', array('label' => false, 'value' => $athlete['Athlete']['firstname'], 'maxlength'=>'50', 'style' => 'width: 200px')) ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Last Name<font color="red"> </font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12" colspan=2>														
+														<?php echo $this->Form->input('Athlete.lastname', array('label' => false, 'value' => $athlete['Athlete']['lastname'], 'maxlength'=>'50', 'style' => 'width: 200px')) ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Class <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12" colspan=2>
+														<?php echo $this->Form->input('Athlete.class', array('type'=>'select', 'empty' => array(0 => 'Select Year'), 'label' => false, 'style' => 'width: 200px', 'value' => $athlete['Athlete']['class'], 'options' => $classList)); ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Height <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<?php
+															$heightOptions = array();															                                                             
+                                                            for ($i = 5; $i < 8; $i++) {
+														        for ($j = 0; $j < 12; $j++) {
+														        	if ($i == 7 && $j > 2) {
+														            	break;
+														        	} else {
+														        		$heightOptions = array_merge($heightOptions, array($i.'-'.$j => $i."' ".$j));
+														        	}
+														        }
+														    }
+														
+														?>
+													<td valign="top" align="left" class="normalblack_12" colspan=2>
+														<?php echo $this->Form->input('Athlete.height', array('type'=>'select', 'empty' => array(0 => 'Select Height'), 'label' => false, 'style' => 'width: 200px', 'value' => $athlete['Athlete']['height'], 
+														'options' => $heightOptions)); ?>
+																		   														
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Weight <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<?php
+															$weightOptions = array('under140' => 'Under 140');
+															 for ($i = 127; $i < 245; $i++) {
+                                                                    $i = $i + 14;
+                                                                    $j = $i + 14;
+                                                                    $weightOptions = array_merge($weightOptions, array($i.'-'.$j => $i.'-'.$j));                                                                    
+                                                                } 
+                                                            $weightOptions = array_merge($weightOptions, array('over260' => 'Over 260'));
+														
+														?>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2>														
+														<?php echo $this->Form->input('Athlete.weight', array('type'=>'select', 'empty' => array(0 => 'Select Weight'), 'label' => false, 'style' => 'width: 200px', 'value' => $athlete['Athlete']['weight'], 
+														'options' => $weightOptions)); ?> 																						 																		   														
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<!--	//stats-->
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Primary Position <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2>
+														<?php echo $this->Form->input('Athlete.primary_position', array('type'=>'select', 'empty' => array(0 => 'Please Select'), 'label' => false, 'style' => 'width: 200px', 'value' => $athlete['Athlete']['primary_position'], 
+																					  				'options' => array('Point Guard' => 'Point Guard', 'Shooting Guard' => 'Shooting Guard', 'Small Forward' => 'Small Forward', 'Power Forward' => 'Power Forward', 'Center' => 'Center'))); ?>																										   
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<!--	//stats-->
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Secondary Position <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2><?php echo $this->Form->input('Athlete.secondary_position', array('type'=>'select', 'empty' => array(0 => 'Please Select'), 'label' => false, 'style' => 'width: 200px', 'value' => $athlete['Athlete']['secondary_position'], 
+																					  				'options' => array('Point Guard' => 'Point Guard', 'Shooting Guard' => 'Shooting Guard', 'Small Forward' => 'Small Forward', 'Power Forward' => 'Power Forward', 'Center' => 'Center'))); ?></td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Vertical <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12" colspan=2>														
+														<?php echo $this->Form->input('Athlete.vertical', array('label' => false, 'value' => $athlete['Athlete']['vertical'], 'style' => 'width: 200px')) ?>														
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">40-yard Dash <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2>
+														<?php echo $this->Form->input('Athlete.yarddash_40', array('label' => false, 'value' => $athlete['Athlete']['yarddash_40'], 'style' => 'width: 200px')) ?>														
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Shuttle Run <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2>
+														<?php echo $this->Form->input('Athlete.shuttle_run', array('label' => false, 'value' => $athlete['Athlete']['shuttle_run'], 'style' => 'width: 200px')) ?>														
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Bench Press Max <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2>
+														<?php echo $this->Form->input('Athlete.bench_press_max', array('label' => false, 'value' => $athlete['Athlete']['bench_press_max'], 'style' => 'width: 200px')) ?>														
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Squat Max <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2>
+														<?php echo $this->Form->input('Athlete.squat_max', array('label' => false, 'value' => $athlete['Athlete']['squat_max'], 'style' => 'width: 200px')) ?>																										
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">GPA <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2><?php echo $this->Form->input('Athlete.gpa', array('type'=>'select', 'empty' => array(0 => 'Please Select'), 'style' => 'width: 200px', 'label' => false, 'value' => $athlete['Athlete']['gpa'], 
+																					  				'options' => array('under2.0' => 'Under 2.0', '2.0-2.5' => '2.0 - 2.5', '2.6-3.0' => '2.6 - 3.0', '3.1-3.5' => '3.1 - 3.5', '3.6-4.0' => '3.6 - 4.0', 'Above4.0' => 'Above 4.0'))); ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">SAT Score <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2>
+														<?php
+															$lower = 601;
+															$upper = 800;
+															$satScoreOptions = array('400-600' => '400-600');
+															for ($i = 1; $i < 10; $i++){
+																$satScoreOptions = array_merge($satScoreOptions, array($lower.'-'.$upper => $lower.'-'.$upper));
+																$lower = $lower + 200;
+																$upper = $upper + 200;
+															}
+														?>
+																												
+														<?php echo $this->Form->input('Athlete.sat_score', array('type'=>'select', 'empty' => array(0 => 'Please Select'), 'label' => false, 'style' => 'width: 200px', 'value' => $athlete['Athlete']['sat_score'], 
+																										         'options' => $satScoreOptions)); ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">ACT Score <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2>
+													<?php echo $this->Form->input('Athlete.act_score', array('type'=>'select', 'empty' => array(0 => 'Please Select'), 'label' => false, 'style'=> 'width: 200px;', 'value' => $athlete['Athlete']['act_score'], 
+																										         'options' => array('under10' => 'Under 10', '10-15' => '10 - 15', '16-20' => '16 - 20', '21-25' => '21 - 25', '26-30' => '26 - 30', 'Above30' => 'Above 30'))); ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Class Rank <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2>
+													<?php echo $this->Form->input('Athlete.class_rank', array('type'=>'select', 'empty' => array(0 => 'Please Select'), 'label' => false, 'style'=> 'width: 200px;', 'value' => $athlete['Athlete']['class_rank'], 
+																'options' => array('Not in Top 50% of Class' => 'Not in Top 50% of Class', 'Top 50% - Top 26%' => 'Top 50% - Top 26%', 'Top 25% - Top 11%' => 'Top 25% - Top 11%', 'Top 10% - Top 6%' => 'Top 10% - Top 6%', 'Top 5% or better' => 'Top 5% or better'))); ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Intended Major <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2>
+													
+													<?php echo $this->Form->input('Athlete.intended_major', array('type'=>'select', 'empty' => array(0 => 'Please Select'), 'label' => false, 'style'=> 'width: 200px;', 'value' => $athlete['Athlete']['intended_major'], 
+																'options' => array('Undecided / General Studies' => 'Undecided / General Studies',
+																				   'Agriculture' => 'Agriculture',
+																				   'Architecture' => 'Architecture',
+																				   'Arts' => 'Arts',
+																				   'Business' => 'Business',
+																				   'Communications' => 'Communications',
+																				   'Computers / Information Technology' => 'Computers / Information Technology',
+																				   'Education' => 'Education',
+																				   'Engineering' => 'Engineering',
+																				   'Math' => 'Math',
+																				   'Science' => 'Science',
+																				   'Other' => 'Other',
+																				   ))); ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Clearinghouse Eligible <font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2>
+														<?php echo $this->Form->input('Athlete.clearing_house_eligible', array('type'=>'select', 'empty' => array(0 => 'Please Select'), 'label' => false, 'style'=> 'width: 200px;', 'value' => $athlete['Athlete']['clearing_house_eligible'], 
+																'options' => array('No' => 'No',
+																				   'Approve' => 'Yes'
+																				   ))); ?>
+														<?php 
+															if ($athlete['Athlete']['clearing_house_eligible'] == 'Pending') {
+																echo "  Pending";
+															} else if ($athlete['Athlete']['clearing_house_eligible'] == 'Approve'){
+																echo "  Approve";
+															}
+														?>
+														</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<!--	//stats-->
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">BIO <font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2>														
+														<?php echo $this->Form->input('Athlete.description', array('type' => 'textarea', 'class' => 'ta2', 'label' => false, 'value' => "".$athlete['Athlete']['description']."")); ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">HS/AAU Team <font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2>
+														<?php echo $this->Form->input('HsAauTeam.school_name', array('type'=>'select', 'empty' => array(0 => 'Select HS/AAU Team'), 'label' => false, 'style' => 'width: 200px;', 'value' => $athlete['HsAauTeam']['school_name'], 'options' => $categoryList)); ?>
+													<!--	
+													<p id="txtschoolothers"
+														style="display: none; margin-top: 5px;"><label>&nbsp;</label>
+													<span> <input type="text" name="others"
+														id="txtschoolothers" value=""
+														style="width: 200px"></span>
+													</p>
+													-->
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Sport <font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2><input type="hidden" name="schoolid"
+														id="schoolid" value=""> 
+														<?php echo $this->Form->input('Sport.name', array('type'=>'select', 'empty' => array(0 => 'Select Sport'), 'label' => false, 'style' => 'width: 200px;', 'value' => $athlete['Sport']['name'], 'options' => $sportList)); ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Status<font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12">
+														<?php echo $this->Form->input('Athlete.status', array('type' => 'select', 'style' => 'width: 200px', 'empty' => array(0 => '---Select---'), 'label' => false, 'value' => $athlete['Athlete']['class'], 
+															'options' => array('0' => 'DE-ACTIVE', '1' => 'ACTIVE'))); ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" colspan=3 align="center"
+														class="normalblack_12">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">&nbsp</td>
+													<td valign="top" align="center" class="normalblack_12">
+													&nbsp</td>
+													<td valign="top" align="left" class="normalblack_12"><input
+														type="hidden" name="userType"
+														value="<?php echo (isset($userType) ? $userType : "")?>"> <input
+														type="hidden" name="oldcode"
+														value="<?php echo (isset($oldcode) ? $oldcode : "")?>"> <input
+														type="hidden" name="isSubmit" value="save"> <input
+														type="submit" name="submit" value="Submit"> &nbsp;&nbsp; <input
+														type="reset" name="Submit2" value="Reset"> &nbsp;&nbsp;
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" colspan=3 align="center"
+														class="normalblack_12">&nbsp;</td>
+												</tr>
+												<!-- Upoad File END-->
+											</table>
+											</td>
+										</tr>
+									</table>
+									<?php echo $this->Form->end() ;?>
+									<!--Main Center Content END --></td>
+								</tr>
+							</table>
+							</td>
+						</tr>
+					</table>
+					</td>
+				</tr>
+			</table>
+			</td>
+		</tr>
+		<?php echo $this->element('admin_footer');?>
+</table>
