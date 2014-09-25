@@ -242,5 +242,70 @@ class AthleteController extends AppController{
 			$this->redirect($this->referer());
 		}
 	}
+	
+	public function admin_deleteSelected(){
+		if(isset($this->request->data['check_delete'])) {	
+					
+			foreach ($this->request->data['check_delete'] as $id){
+				$this->Athlete->delete($id);
+				$this->Session->setFlash('Athlete Deleted Successfully!', 'flash_success');				
+			}			
+		}
+		$this->redirect(array('controller' => 'Athlete', 'action' => 'list'));
+	}
+	
+	public function admin_stateList(){
+		$limit = 10;		
+		$this->loadModel('AthleteStat');
+		$this->AthleteStat->recursive = -1;
+		$this->paginate = array('AthleteStat' => array(
+												'group' => 'AthleteStat.event_id',
+												'limit' => $limit));
+		$athleteStats = $this->paginate('AthleteStat');
+
+		$tmpAthleteStats = $athleteStats;
+		$this->loadModel('Event');
+		$this->loadModel('HsAauCoach');
+		foreach ($athleteStats as $key => $value){
+			// Get event name
+			$event = $this->Event->findById($value['AthleteStat']['event_id']);
+			$tmpAthleteStats[$key]['Event']['event_name'] = $event['Event']['event_name'];
+			
+			// Get athlete name
+			$athlete = $this->Athlete->findById($value['AthleteStat']['athlete_id']);
+			$tmpAthleteStats[$key]['Athlete']['firstname'] = $athlete['Athlete']['firstname']; 			
+			$tmpAthleteStats[$key]['Athlete']['lastname'] = $athlete['Athlete']['lastname'];
+			
+			// Get coach name
+			$hsAauCoach = $this->HsAauCoach->findById($value['AthleteStat']['hs_aau_coach_id']);
+			$tmpAthleteStats[$key]['HsAauCoach']['firstname'] = $hsAauCoach['HsAauCoach']['firstname']; 			
+			$tmpAthleteStats[$key]['HsAauCoach']['lastname'] = $hsAauCoach['HsAauCoach']['lastname'];
+		}
+		$athleteStats = $tmpAthleteStats;
+		$this->set(compact('athleteStats', 'limit'));
+	} 
+	
+	public function admin_athleteStatView(){
+		if (isset($this->params['named']['eventId']) && isset($this->params['named']['athId'])) {
+			$eventId = $this->params['named']['eventId'];
+			$athId = $this->params['named']['athId'];
+			
+			// Get athlete state
+			$this->loadModel('AthleteStat');
+			$this->AthleteStat->recursive = -1;		
+			$athleteStats = $this->AthleteStat->find('all', array('conditions' => array('AthleteStat.event_id' => $eventId, 'AthleteStat.athlete_id' => $athId)));
+			
+			// Get event name
+			$this->loadModel('Event');
+			$event = $this->Event->findById($eventId);
+			$this->set(compact('athleteStats', 'event'));
+		} else {
+			$this->redirect($this->referer());
+		}
+	}
+	
+	public function admin_deleteAthleteStat($id){
+		
+	}
 
 }

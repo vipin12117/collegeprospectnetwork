@@ -1,6 +1,6 @@
 <?php $lnb = '0'?>
 
-<table
+<!--<table
 	style="position: fixed; top: 0; left: 0; width: 100%; background-color: #FF0000">
 
 	<tr>
@@ -13,7 +13,7 @@
 	</tr>
 
 </table>
-
+-->
 
 
 <table width="100%" border="0" cellpadding="1" cellspacing="0"
@@ -63,29 +63,30 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Athlete/list" class="linkgrey_12"> <strong>View
-				Athletes</strong></a></td>
-
-			</tr>
-
-			<tr>
-
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="ADAtheleteStateList.php" class="linkgrey_12"><strong>View
-				Athlete Stats</strong></a></td>
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="/admin/Athlete/list" class="linkgrey_12"> <strong>View Athletes</strong></a>
+				</td>
 
 			</tr>
 
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
+
+				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
+					href="/admin/Athlete/stateList" class="linkgrey_12"><strong>View
+				Athlete Stats</strong></a>
+				</td>
+
+			</tr>
+
+			<tr>
+
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADAthleteCatagoryAdd.php" class="linkgrey_12"> <strong>Add
@@ -96,7 +97,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADAthleteCatagoryList.php" class="linkgrey_12"> <strong>View
@@ -107,7 +108,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADAthleteClassList.php" class="linkgrey_12"> <strong>View
@@ -118,7 +119,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADAthleteClassAdd.php" class="linkgrey_12"> <strong>Add Class
@@ -127,14 +128,6 @@
 			</tr>
 
 			<!--MANAGE Atheletes EMD -->
-
-
-
-
-
-
-
-
 
 			<!--MANAGE Messageing BEGIN-->
 
@@ -152,7 +145,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADMessageList.php" class="linkgrey_12"> <strong>View Messages</strong></a></td>
@@ -164,7 +157,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADBlockMessage.php" class="linkgrey_12"> <strong>Add Block
@@ -177,21 +170,13 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADBlockMessageList.php" class="linkgrey_12"> <strong>List
 				Block Messages</strong></a></td>
 
 			</tr>
-
-
-
-
-
-
-
-
 
 			<!--MANAGE Sport BEGIN-->
 
@@ -211,7 +196,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADSportAdd.php" class="linkgrey_12"> <strong> Add Sports</strong></a></td>
@@ -223,7 +208,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADSportList.php" class="linkgrey_12"><strong>View Sports</strong></a></td>
@@ -248,7 +233,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADSchoolAdd.php" class="linkgrey_12"> <strong> Add HS / AAU
@@ -261,7 +246,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADSchoolList.php" class="linkgrey_12"><strong>View HS / AAU
@@ -274,7 +259,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="HsAauOtherList.php" class="linkgrey_12"><strong>View HS / AAU
@@ -300,7 +285,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADCoachAdd.php" class="linkgrey_12"> <strong> Add HS / AAU
@@ -313,7 +298,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADCoachList.php" class="linkgrey_12"><strong>View HS / AAU
@@ -324,15 +309,10 @@
 			<!--MANAGE coach EMD -->
 
 
-
-
-
 			<!--MANAGE School BEGIN-->
 
 
-
 			<!--MANAGE School EMD -->
-
 
 
 			<!--MANAGE School BEGIN-->
@@ -348,16 +328,12 @@
 
 			<?php if($lnb == 'o') $s_image = "/img/spacer.gif"; else $s_image = "/img/spacer.gif"; ?>
 
-
-
-
-
 			<?php if($lnb == 'o') $s_image = "/img/spacer.gif"; else $s_image = "/img/spacer.gif"; ?>
 
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADCollegeCoachList.php" class="linkgrey_12"><strong>View
@@ -366,9 +342,6 @@
 			</tr>
 
 			<!--MANAGE School EMD -->
-
-
-
 
 
 			<!--MANAGE TEAM BEGIN-->
@@ -389,7 +362,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADCollege.php" class="linkgrey_12"> <strong> Add College </strong></a></td>
@@ -401,7 +374,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADListCollege.php" class="linkgrey_12"><strong>View College </strong></a></td>
@@ -411,7 +384,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADListOther.php" class="linkgrey_12"><strong>View Other
@@ -441,7 +414,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADEvent.php" class="linkgrey_12"> <strong> Add Event</strong></a></td>
@@ -453,7 +426,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADEventList.php" class="linkgrey_12"><strong>View Event</strong></a></td>
@@ -478,7 +451,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADSpecialEvent.php" class="linkgrey_12"> <strong> Add Special
@@ -491,7 +464,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADSpecialEventList.php" class="linkgrey_12"><strong>View
@@ -504,7 +477,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADSpecialEventRegisterList.php" class="linkgrey_12"><strong>View
@@ -519,7 +492,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADTransportation.php" class="linkgrey_12"><strong>Add
@@ -532,7 +505,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADTransportationManage.php" class="linkgrey_12"><strong>View
@@ -558,7 +531,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADCoupon.php" class="linkgrey_12"> <strong> Add Coupon</strong></a></td>
@@ -568,7 +541,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADCouponManage.php" class="linkgrey_12"> <strong> View Coupon</strong></a></td>
@@ -599,7 +572,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADSubsription.php" class="linkgrey_12"> <strong> Add
@@ -612,7 +585,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADSubsriptionList.php" class="linkgrey_12"><strong>View
@@ -638,7 +611,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADPage.php" class="linkgrey_12"><strong>Add Static Page</strong></a></td>
@@ -648,7 +621,7 @@
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADPageList.php" class="linkgrey_12"><strong>View Static Page</strong></a></td>
@@ -656,7 +629,7 @@
 				<tr>
 
 					<td bgColor=#ffffff class="normalwhite_12" align=right><img
-						src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+						src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 					<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 						href="ADHomeContentList.php" class="linkgrey_12"><strong>View Home
@@ -690,7 +663,7 @@ Manage Home page Conten-->
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADBanner.php" class="linkgrey_12"><strong>Add Banner</strong></a></td>
@@ -700,7 +673,7 @@ Manage Home page Conten-->
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADBannerList.php" class="linkgrey_12"><strong>View Banner</strong></a></td>
@@ -727,7 +700,7 @@ Manage Home page Conten-->
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADNotes.php" class="linkgrey_12"><strong>Add Notes</strong></a></td>
@@ -737,7 +710,7 @@ Manage Home page Conten-->
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADNotesList.php" class="linkgrey_12"><strong>View Notes</strong></a></td>
@@ -761,7 +734,7 @@ Manage Home page Conten-->
 			<tr>
 
 				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?=$s_image?>" width="5" height="9" border="0"></img></td>
+					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
 					href="ADChangePassword.php" class="linkgrey_12"><strong>Change
@@ -785,10 +758,6 @@ Manage Home page Conten-->
 					border="0"></img><strong> Logout</strong></a></td>
 
 			</tr>
-
-
-
-
 
 			<!--MANAGE MICELLANEOUS EMD -->
 

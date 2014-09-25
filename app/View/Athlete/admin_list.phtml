@@ -1,3 +1,10 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<?php
+echo $this->Html->css('/fancybox/admin/jquery.fancybox-1.3.4.css');
+echo $this->Html->script('/fancybox/admin/jquery.easing-1.3.pack.js');
+echo $this->Html->script('/fancybox/admin/jquery.fancybox-1.3.4.js');
+echo $this->Html->script('/fancybox/admin/jquery.mousewheel-3.0.4.pack.js'); 
+?>	
 <table cellSpacing=0 cellPadding=0 width="100%" border=0>
 	<tr>
 		<td height=120><?php echo $this->element('admin_header');?></td>
@@ -37,21 +44,21 @@
 														<td align='center' class='normalblack_12' colspan='11'
 															height='30' valign='middle'>
 			
-															<form name="searchFrm" id="searchFrm" action="" method="POST">																												
+															<form name="searchFrm" id="searchFrm" action="/admin/Athlete/list"  method="POST">																												
 																<input type="hidden" name="page" id="page" value="0">												 
 																<input type="text" name="searchname" id="searchname">												 
 																<input type="submit" name="search" id="search" style="width: 180px" value="Search Athlete By Name">												
 															</form>
 														</td>
 													</tr>
-				
+													
 													<form name="frmUsers" action="" method="post" onsubmit="">
 														<?php if (!empty($athletes)) {?>
 														<tr> 
 															<td align="left" style="padding-left:7px;"colspan="11">
 																<input type="checkbox" id="check_all" name="check_all" value="" onclick="javascript:checkAll();"> 
 																	<b>Check All</b>&nbsp; &nbsp;
-																<input type="button" name="delete" value="Delete Selected" onclick="return submitDeleteAll();">
+																<input type="button" name="delete" value="Delete Selected" onclick="return deleteSelectedAthlete();">																																															
 															</td>
 														</tr>				
 														<tr>
@@ -88,20 +95,19 @@
 																<?php echo $this->Html->link($this->Html->image('/img/green-point.gif'), array('controller' => 'Athlete', 'action' => 'deactiveRecord', $athlete['Athlete']['id']), array('escape' => false, 'title' => 'Deactive'), "Are you sure to deactive this Athlete?")?>
 															</td>
 															<?php }?>
-															<td class="normalblack_12" align="center">
-																<a href="/admin/Athlete/edit/<?php echo $athlete['Athlete']['id']?>">
-																	<img src="/img/b_edit.png" border="0" title="Edit">
-																</a>
+															<td class="normalblack_12" align="center">																
+																<?php echo $this->Html->link($this->Html->image('/img/b_edit.png'), array('controller' => 'Athlete', 'action' => 'edit', $athlete['Athlete']['id']), array('escape' => false, 'title' => 'Edit'))?>
 															</td>
 															<td class="normalblack_12" align="center">																
 																<?php echo $this->Html->link($this->Html->image('/img/b_drop.png'), array('controller' => 'Athlete', 'action' => 'delete', $athlete['Athlete']['id']), array('escape' => false, 'title' => 'Delete'), "Are you sure to delete this Athlete?")?>
 															</td>
 															<td  class="normalblack_12" align="center" nowrap>
-																<?php echo $this->Html->link('View', array('controller' => 'Athlete', 'action' => 'details', $athlete['Athlete']['id']), array('target' => 'blank'))?> /
-																<?php echo $this->Html->link('View Rate', array('controller' => 'Athlete', 'action' => 'viewRating', $athlete['Athlete']['id']), array('target' => 'blank'))?>																																
+																<?php echo $this->Html->link('View', array('controller' => 'Athlete', 'action' => 'details', $athlete['Athlete']['id']), array('id' => 'view_athlete'))?> /
+																<?php echo $this->Html->link('View Rate', array('controller' => 'Athlete', 'action' => 'viewRating', $athlete['Athlete']['id']), array('id' => 'view_rate'))?>																																																
 															</td>
 														</tr>
 														<?php endforeach?>
+
 													</form>
 													<?php } else {?>
 														<tr>
@@ -126,3 +132,16 @@
 	</tr>
 	<?php echo $this->element('admin_footer');?>
 </table>
+<script type="text/javascript">
+$(document).ready(function() {
+		
+	$("a#view_athlete").fancybox({
+		'hideOnContentClick': true
+	});
+	
+	$("a#view_rate").fancybox({
+		'hideOnContentClick': true
+	});	
+
+});
+</script>
