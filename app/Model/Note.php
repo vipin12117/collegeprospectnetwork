@@ -11,8 +11,8 @@ class Note extends AppModel{
 		$this->primaryKey = 'id';
 	}
 	
-	public function getNotesById($user_id , $user_type){
-		$conditions = "Note.status = 1 AND Note.user_id = '$user_id' AND Note.user_type = '$user_type'";
+	public function getNotesById($user_id , $user_type , $status = 1){
+		$conditions = "Note.user_id = '$user_id' AND Note.user_type = '$user_type'"; //Note.status = '$status' AND 
 		
 		$rows = $this->find("all",array("conditions"=>$conditions));
 		return $rows;

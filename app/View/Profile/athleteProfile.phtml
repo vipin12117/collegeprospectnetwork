@@ -337,7 +337,7 @@
 		<div style="padding-top:0;">
              <h3>Comments
 	             <?php if($profileDetail['Athlete']['id'] == $this->Session->read('user_id') AND $this->Session->read('user_type') == 'athlete'):?>
-	             		<a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Note","action"=>"add"))?>" style="float:right;">Add Note</a>
+	             		<a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Note","action"=>"add",$profileDetail['Athlete']['id']))?>" style="float:right;">Add Note</a>
 	             <?php endif;?>		
 			 </h3>
 
@@ -348,15 +348,16 @@
 						
 						foreach($notes as $note){
 							echo '<tr><td valign="middle"  align="left" class="normalblack_12_stat">';
-							echo $note['Note']['description'].'<br>';
+							echo $note['Note']['title'].'<br>';
 
-							echo '<span style="color:#CCCCCC;float:right;">'.$note['Note']['added_date'].'</span>';
+							echo '<span style="float:right;">'.$note['Note']['added_date'].'</span>';
 							echo '</td></tr>';
+							break;
 						}
 
-						if($rowcount>1){
+						if(count($notes) > 1){
 								echo '<tr><td valign="middle"  align="right" class="normalblack_12_stat">';
-								echo '<a href="javascript:void(0);" onclick="window.open(\'view_more_notes.php?fldAthleteid='.$uid.'&usertype=athlete\',\'winname\',\'directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=980px,height=380\');" class="gametape" style="float:right;">view more</a>';
+								echo '<a class="fancybox fancybox.iframe" href="'.$this->Html->url(array("controller"=>"Note","action"=>"index",$profileDetail['Athlete']['id'])).'" style="float:right;">View More</a>';
 								echo '</td></tr>';
 						}
 						echo '</table>';
