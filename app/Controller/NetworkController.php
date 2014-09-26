@@ -217,7 +217,7 @@ class NetworkController extends AppController{
 
 	}
 
-	public function sendRequest($id,$type){
+	public function sendRequest($id=false,$type='athlete'){
 		$userId = $this->Session->read('user_id');
 		if (isset($userId)){
 			if (isset($id)){

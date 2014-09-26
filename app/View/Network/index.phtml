@@ -253,17 +253,15 @@
 	  <?php endif; ?>
 	  
      <?php else: ?>
-			   <div class="thankyoumessage">
-			   		<?php 	if ($type == 'coach') {
-			   					$controller = 'HsAauCoach';
-			   				} elseif ($type == 'college') {			   				
-			   					$controller = 'CollegeCoach';
-			   				} elseif ($type == 'athlete'){			   				
-			   					$controller = 'Athlete';
-			   				}
-			   		?>                                          
-               		<?php echo "You have not added any members to your network yet. ".$this->Html->link("Click here", array('controller' => $controller, 'action' => 'viewAll', strtolower($userType)))." to get started.";?>
-               </div>
+			<div class="thankyoumessage">
+			      <?php if($type == 'athlete'):?>
+			      		<?php echo "You have not added any members to your network yet. ".$this->Html->link("Click here", array('controller' => "Athlete", 'action' => 'index'))." to get started.";?>
+			      <?php elseif($type == 'college'):?>
+			      		<?php echo "You have not added any members to your network yet. ".$this->Html->link("Click here", array('controller' => "College", 'action' => 'index'))." to get started.";?>
+			      <?php else:?>
+			   	  		<?php echo "You have not added any members to your network yet. ".$this->Html->link("Click here", array('controller' => "HsAauCoach", 'action' => 'index'))." to get started.";?>
+			   	  <?php endif;?>
+            </div>
      <?php endif; ?>
 	
 	 <?php echo $this->Element('pagination');?>			

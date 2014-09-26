@@ -2,7 +2,7 @@
   <div class="register-main">
       <div class="registerPage advancedsearch">
        
-      <?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Athlete","action"=>"index")));?>  
+      <?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Athlete","action"=>"search")));?>  
       
       <h1 style="float:left;margin-bottom:15px;">Athlete Search</h1>
 
@@ -16,7 +16,7 @@
 				<p class="alt">
 					 <label>Athlete Name:</label>
 					 <span>
-					 	  <?php echo $this->Form->input("name",array("div"=>false,"label"=>false,"style"=>"width:80px;margin-right:3px;"));?>
+					 	  <?php echo $this->Form->input("firstname",array("div"=>false,"label"=>false,"style"=>"width:80px;margin-right:3px;"));?>
 					 </span>
 				</p>
 		  </fieldset>
@@ -100,7 +100,7 @@
 
 	
 	<?php if(count(@$athletes) > 0):?>
-         <ul class="box_list">
+         <ul class="box_list" style="list-style:none;">
               <?php foreach ($athletes as $athlete): ?>
               		<li style="width:420px;float:left;">
 						<table cellpadding="5" cellspacing="5" class="table_main">

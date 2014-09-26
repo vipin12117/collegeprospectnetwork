@@ -58,6 +58,35 @@ class AthleteController extends AppController{
 		$this->set("title_for_layout","College Prospect Network - Athlete Search");
 
 		$conditions = array();
+		if(isset($this->request->data['Athlete'])){
+			foreach($this->request->data['Athlete'] as $key => $value){
+				if(strlen($value) > 0){
+					if($key == 'weight_min'){
+						$conditions[] = "Athlete.weight <= '$value'";
+					}
+					elseif($key == 'weight_max'){
+						$conditions[] = "Athlete.weight >= '$value'";
+					}
+					elseif($key == 'distance'){
+						//$conditions[] = "Athlete.weight >= '$value'";
+					}
+					elseif($key == 'athlete_stat_category_id'){
+						//$conditions[] = "Athlete.weight >= '$value'";
+					}
+					else{
+						$conditions[] = "Athlete.$key = '$value'";
+					}
+				}
+			}
+
+			$this->Session->write("athlete_conditions",$conditions);
+			$this->Session->write("athlete_conditions_data",$this->request->data['Athlete']);
+		}
+		elseif($this->Session->read("athlete_conditions")){
+			$conditions = $this->Session->read("athlete_conditions");
+			$this->request->data['Athlete'] = $this->Session->read("athlete_conditions_data");;
+		}
+
 		if($conditions){
 			$conditions_str = implode(" AND ",$conditions);
 			$this->paginate = array('Athlete'=>array("conditions"=>$conditions_str,"limit"=>10));
