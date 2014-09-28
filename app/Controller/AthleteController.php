@@ -334,6 +334,76 @@ class AthleteController extends AppController{
 	}
 	
 	public function admin_deleteAthleteStat($id){
+		$this->loadModel('AthleteStat');
+		if($this->AthleteStat->delete($id)){
+			$this->Session->setFlash('Athlete Stat Deleted Successfully!', 'flash_success');
+		} else {
+			$this->Session->setFlash('Can not delete this Athlete', 'flash_error');	
+		}
+		$this->redirect($this->referer());
+	}
+	
+	/**
+	 * Delete selected Athlete Stat
+	 */
+	public function admin_deleteSelectedAthleteStat(){
+		$this->loadModel('AthleteStat');
+		if(isset($this->request->data['check_delete'])) {
+			foreach ($this->request->data['check_delete'] as $id){
+				$this->AthleteStat->delete($id);
+				$this->Session->setFlash('Athlete Stat Deleted Successfully!', 'flash_success');				
+			}			
+		}
+		$this->redirect($this->referer());
+	}
+	
+	/**
+	 * It is use to perform the operation for add for Catagory.
+	 */
+	public function admin_categoryAdd(){
+		if (!$this->request->is('post')){
+			$this->loadModel('Sport');
+			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
+													  'order' => array('Sport.name'),
+			                                          'conditions' => array('Sport.status' => '1')));
+														 
+			$sportList = array();
+			foreach ($sports as $sport){
+				$sportList[$sport['Sport']['id']] = $sport['Sport']['name'];
+			}											 
+			
+			$this->set('sportList', $sportList);
+		} else {
+			$athStatCat = array();
+			$athStatCat['AthleteStatCategory']['name'] = $this->request->data['name'];
+			$athStatCat['AthleteStatCategory']['code'] = $this->request->data['code'];
+			$athStatCat['AthleteStatCategory']['parent_id'] = $this->request->data['parent_id'];
+			$athStatCat['AthleteStatCategory']['status'] = $this->request->data['status'];
+			$this->loadModel('AthleteStatCategory');
+			if($this->AthleteStatCategory->save($athStatCat)){
+				$this->Session->setFlash('Category is Added Successfully', 'flash_success');				
+			} else {
+				$this->Session->setFlash('Can not add this category', 'flash_error');
+			}
+			
+			$this->loadModel('Sport');
+			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
+													  'order' => array('Sport.name'),
+			                                          'conditions' => array('Sport.status' => '1')));
+														 
+			$sportList = array();
+			foreach ($sports as $sport){
+				$sportList[$sport['Sport']['id']] = $sport['Sport']['name'];
+			}											 
+			
+			$this->set('sportList', $sportList);
+		}
+	}
+	
+	/**
+	 * It is use to show the list of Page.
+	 */
+	public function admin_categoryList(){
 		
 	}
 

@@ -29,13 +29,11 @@ class AdminsController extends AppController{
 			}
 		} 	
 	}
-	
+			
 	public function index(){
 		if (!$this->checkAdminSession()){
 			$this->redirect(array('controller'=>'admins','action'=>'login'));
-		} else {
-			
-		}
+		} 
 	}
 	
 	public function forgot_password(){
@@ -90,6 +88,12 @@ class AdminsController extends AppController{
 		$this->Session->delete('Admin.id');
 		$this->Session->destroy();
 		$this->redirect(array('controller' => 'admins', 'action' => 'login'));		
+	}
+	
+	public function admin_login(){
+		if (!$this->checkAdminSession()){
+			$this->redirect('/admins/login');
+		} 
 	}
 	
 	private function getRandId($length)
