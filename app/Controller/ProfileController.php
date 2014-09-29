@@ -42,7 +42,7 @@ class ProfileController extends AppController{
 			$collegeSubscription = $this->CollegeSubscription->getDetailByCollegeCoachId($user_id);
 			$this->set("collegeSubscription",$collegeSubscription);
 
-			if(!$collegeSubscription || (time() - strtotime($collegeSubscription['CollegeSubscription']['next_billdate'])) > 0){
+			if((strtotime($collegeSubscription['CollegeSubscription']['next_billdate']) - time()) <= 0){
 				$total_days = time() - strtotime($profileDetail['CollegeCoach']['added_date']);
 				if($total_days > (5*24*60*60)){
 					$is_trial_mode = true;

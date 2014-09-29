@@ -8,7 +8,7 @@ class Authnet {
 		//define("AUTHORIZENET_API_LOGIN_ID",     "24u2SUseP");
 		//define("AUTHORIZENET_TRANSACTION_KEY",  "43U485fA9ySEq38K");
 		//define("AUTHORIZENET_SANDBOX",          false);
-		
+
 		define("AUTHORIZENET_API_LOGIN_ID",     "2hfYT85W");
 		define("AUTHORIZENET_TRANSACTION_KEY",  "23m2qL9tW7f43TUV");
 		define("AUTHORIZENET_SANDBOX",          true);
@@ -26,17 +26,22 @@ class Authnet {
 		$state        = mysql_real_escape_string($data['state']);
 		$zip          = intval($data['zip']);
 		$owner_name   = mysql_real_escape_string($data['card_owner']);
-		$card_number  = intval($data['card_number']);
+		$card_number  = mysql_real_escape_string($data['card_number']);
 		$cvv_number   = intval($data['cvv']);
 		$subExpMonth  = intval($data['month']);
 		$subExpYear   = intval($data['year']);
+
+		App::import("Model","Subscription");
+		$Subscription = new Subscription();
+
+		$SubscriptionDetail = $Subscription->find("first",array("conditions"=>array("Subscription.id"=>$subscription_id)));
 
 		// creates a valid expiration date from subExpMonth and
 		// subExpYear. The expiration month is left-padded with
 		// 0s to make sure it is always 2 digits long
 
 		$subCardExpDate = $subExpYear . '-' .sprintf("%02s", $subExpMonth);
-		$subAmount = null;
+		$subAmount = $SubscriptionDetail['Subscription']['cost'];
 
 		$payment_profile_id = null;
 		if (empty($customer_profile_id)) {
@@ -46,7 +51,7 @@ class Authnet {
 			$paymentProfile->payment->creditCard->cardNumber = $card_number;
 			$paymentProfile->payment->creditCard->expirationDate = $subCardExpDate;
 			$paymentProfile->payment->creditCard->cardCode = $cvv_number;
-			
+
 			$paymentProfile->billTo->firstName = $firstname;
 			$paymentProfile->billTo->lastName  = $lastname;
 			$paymentProfile->billTo->address   = $address_1;
@@ -162,5 +167,43 @@ class Authnet {
 		}
 
 		return array($customer_profile_id , $payment_profile_id);
+	}
+
+	public function updateProfile($data , $payment_profile_id , $customer_profile_id){
+		// updates the payment profile with the new information
+		$subscription_id  = intval($data['subscription_id']);
+		$sport_id     = intval($data['sport_id']);
+		$firstname    = mysql_real_escape_string($data['firstname']);
+		$lastname     = mysql_real_escape_string($data['lastname']);
+		$address_1    = mysql_real_escape_string($data['address']);
+		$city         = mysql_real_escape_string($data['city']);
+		$state        = mysql_real_escape_string($data['state']);
+		$zip          = intval($data['zip']);
+		$owner_name   = mysql_real_escape_string($data['card_owner']);
+		$card_number  = mysql_real_escape_string($data['card_number']);
+		$cvv_number   = intval($data['cvv']);
+		$subExpMonth  = intval($data['month']);
+		$subExpYear   = intval($data['year']);
+
+		$paymentProfile = new AuthorizeNetPaymentProfile;
+
+		$paymentProfile->payment->creditCard->cardNumber = $card_number;
+		$paymentProfile->payment->creditCard->expirationDate = $subCardExpDate;
+		$paymentProfile->payment->creditCard->cardCode = $cvv_number;
+
+		$paymentProfile->billTo->firstName = $firstname;
+		$paymentProfile->billTo->lastName  = $lastname;
+		$paymentProfile->billTo->address   = $address_1;
+		$paymentProfile->billTo->city      = $city;
+		$paymentProfile->billTo->state     = $state;
+		$paymentProfile->billTo->zip       = $zip;
+
+		$request  = new AuthorizeNetCIM;
+		$response = $request->updateCustomerPaymentProfile($customer_profile_id,$payment_profile_id,$paymentProfile);
+
+		if ($response->xml->messages->resultCode == 'Error') {
+			$e = $response->xml->messages->message->code . ': ' .$response->xml->messages->message->text;
+			throw new Exception($e);
+		}
 	}
 }

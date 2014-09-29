@@ -44,6 +44,7 @@ class SubscribeController extends AppController{
 						$this->request->data['CollegeSubscription']['added_date'] = date('Y-m-d H:i:s');
 						$this->request->data['CollegeSubscription']['transaction_id'] = $result[0];
 						$this->request->data['CollegeSubscription']['amount'] = $subscription['Subscription']['cost'];
+						$this->request->data['CollegeSubscription']['college_coach_id'] = $user_id;
 
 						switch($subscription['Subscription']['period']){
 							case '3-Year':
@@ -58,9 +59,11 @@ class SubscribeController extends AppController{
 						}
 
 						$this->CollegeSubscription->save($this->request->data['CollegeSubscription']);
+						$this->CollegeCoach->id = $user_id;
+						$this->CollegeCoach->saveField('subscription_id',$subscriotion_id);
 
-						$this->Session->setFlash("subscription created successfully.");
-						$this->redirect(array("controller"=>"Profile","action"=>"collegeCoachProfile"));
+						$this->Session->setFlash("Subscription profile created successfully.");
+						$this->redirect(array("controller"=>"Profile","action"=>"index"));
 					}
 				}
 				catch(Exception $e){
@@ -73,7 +76,33 @@ class SubscribeController extends AppController{
 	}
 
 	public function edit(){
+		$this->set("title_for_layout","Update Subscription - College Prospect Network");
 
+		$user_id = $this->Session->read('user_id');
+		$username  = $this->Session->read("username");
+		$this->loadModel('CollegeCoach');
+
+		if(isset($this->request->data['CollegeSubscription'])){
+			App::import('Lib','Authnet');
+			$Authnet = new Authnet();
+
+			try{
+				$subscription_id  = intval($this->request->data['CollegeSubscription']['subscription_id']);
+				$result = $this->CollegeSubscription->find("first",array("conditions"=>"CollegeSubscription.college_coach_id = '$user_id' AND subscription_id = '$subscription_id'"));
+				
+				$Authnet->updateProfile($this->request->data['CollegeSubscription'],$result['CollegeSubscription']['payment_profile_id'],$result['CollegeSubscription']['transaction_id']);
+			}
+			catch(Exception $e){
+				$this->Session->setFlash($e->getMessage());
+			}
+		}
+		else{
+			$profileDetail = $this->CollegeCoach->getByUsername($username);
+			$this->set("profileDetail",$profileDetail);
+
+			$options = $this->Subscription->find("list",array("fields"=>"id,name","order"=>"name ASC","group"=>"name"));
+			$this->set("active_subscriptions",$options);
+		}
 	}
 
 	public function history(){

@@ -64,9 +64,9 @@
 			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"index"));?>">Inbox(<?php echo $mailCount; ?>)</a></p>
 			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"sent"));?>">Sent</a></p>
 			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"trash"));?>">Trash</a></p>
-			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","coach"));?>">Send Message to a Fellow HS / AAU Coaches </a></p>
-			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","athlete"));?>">Send Message to an Athlete</a></p>
-			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","college"));?>">Send Message to a College Coaches</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose",'value'=>"coach"));?>">Send Message to a Fellow HS / AAU Coaches </a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose",'value'=>"athlete"));?>">Send Message to an Athlete</a></p>
+			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose",'value'=>"college"));?>">Send Message to a College Coaches</a></p>
 
 			<h2>Athlete Approval Requests</h2>
 
@@ -127,9 +127,9 @@
 					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"index"));?>">Inbox(<?php echo $mailCount; ?>)</a></p>
 					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"sent"));?>">Sent</a></p>
 					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"trash"));?>">Trash</a></p>
-					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","coach"));?>">Send Message to a HS / AAU Coaches</a></p>
-					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","athlete"));?>">Send Message to an Athlete</a></p>
-					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose","college"));?>">Send Message to a Fellow College Coaches</a></p>
+					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose",'value'=>"coach"));?>">Send Message to a HS / AAU Coaches</a></p>
+					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose",'value'=>"athlete"));?>">Send Message to an Athlete</a></p>
+					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"compose",'value'=>"college"));?>">Send Message to a Fellow College Coaches</a></p>
 		
 			<?php else:?>
                      <p>Sorry, this feature is disabled in Trial Mode, please <a href='<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"index"));?>'>Purchase a Subscription</a></p>
