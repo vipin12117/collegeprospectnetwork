@@ -24,7 +24,7 @@
 								
 								<!-- MAin Content Starts From Here -->
 
-								<form name="frmCatagory" action="" method="post"
+								<form name="frmAddCategory" action="" method="post"
 									enctype="multipart/form-data" onsubmit="return validate()">
 
 								<table width="100%" border="1" cellpadding="1" cellspacing="0"
@@ -88,7 +88,7 @@
 												<td valign="top" align="center" class="normalblack_12">:</td>
 
 												<td valign="top" align="left" class="normalblack_12">
-													<?php echo $this->Form->input('parent_id', array('type'=>'select', 'empty' => array(0 => 'Please Select'), 'label' => false, 'style' => 'width: 220px', 'options' => $sportList)); ?>
+													<?php echo $this->Form->input('parent_id', array('type'=>'select', 'empty' => array('select' => 'Please Select'), 'label' => false, 'style' => 'width: 220px', 'options' => $sportList)); ?>
 												</td>
 
 											</tr>
@@ -176,7 +176,7 @@ $(document).ready(function() {
 	
 	$("#parent_id").change(function() {
 		var parent_id = $("#parent_id").val();
-		if (parent_id != '0'){
+		if (parent_id != 'select'){
 			$("#txtHint").show();			
 		} else {
 			$("#txtHint").hide();
@@ -185,5 +185,37 @@ $(document).ready(function() {
 
 });
 
+function validate(){
 
+	var error_msg = "";
+
+    if(trimString(document.frmAddCategory.parent_id.value) == "select"){
+		error_msg += "Please Select Category ! \n";
+	}
+	
+	if(trimString(document.frmAddCategory.name.value) == ""){
+			error_msg += "Please Enter Category Name! \n";
+	}
+	else {
+		if(hasSpecialCharaters(document.frmAddCategory.name.value)){
+			error_msg += "Enter valid  Category Name! \n";
+		}
+	}
+	
+	if(trimString(document.frmAddCategory.code.value) == ""){
+			error_msg += "Please Enter Code! \n";
+	}
+	else {
+		if(hasSpecialCharaters(document.frmAddCategory.code.value)){
+			error_msg += "Enter valid  Code! \n";
+		}
+	}
+
+	if(error_msg!=''){
+		alert(error_msg);
+		return false;
+	} else {
+		return true;
+	}
+}
 </script>

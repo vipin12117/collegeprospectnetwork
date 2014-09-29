@@ -23,7 +23,7 @@
 								<td valign=top width="">
 								
 								<!-- MAin Content Starts From Here -->
-								<form name="frmCatagory" action="" method="post"
+								<form name="frmaddClass" action="" method="post"
 									enctype="multipart/form-data" onsubmit="return validate()">
 
 								<table width="100%" border="1" cellpadding="1" cellspacing="0"
@@ -97,7 +97,7 @@
 												?>
 												<td valign="top" align="left" class="normalblack_12"
 													colspan=2>											
-													<?php echo $this->Form->input('class', array('type'=>'select', 'empty' => array(0 => 'Please Select'), 'label' => false, 'style' => 'width: 220px', 'options' => $classList)); ?>
+													<?php echo $this->Form->input('class', array('type'=>'select', 'empty' => array('select' => 'Please Select'), 'label' => false, 'style' => 'width: 220px', 'options' => $classList)); ?>
 												</td>
 
 											</tr>
@@ -162,3 +162,21 @@
 	</tr>
 	<?php echo $this->element('admin_footer');?>
 </table>
+
+<script language="JavaScript" type="text/JavaScript">
+
+function validate(){
+	var error_msg = "";
+
+    if(trimString(document.frmaddClass.class.value) == "select"){
+		error_msg += "Please Select Class ! \n";
+	}
+
+	if(error_msg!=''){
+		alert(error_msg);
+		return false;
+	} else {
+		return true;
+	}
+}
+</script>
