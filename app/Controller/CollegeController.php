@@ -8,7 +8,16 @@ class CollegeController extends AppController{
 
 	public function beforeFilter(){
 		parent::beforeFilter();
-		$this->checkSession();
+		if (isset($this->params['prefix']) && $this->params['prefix'] == 'admin') ////for admin section template
+        {
+        	if ($this->checkAdminSession()){
+            	$this->layout = 'admin';
+        	} else {
+        		$this->redirect(array('controller'=>'admins','action'=>'login'));
+        	}
+		} else {
+			$this->checkSession();
+		}
 	}
 
 	public function index(){
@@ -75,4 +84,45 @@ class CollegeController extends AppController{
 		$collegeCoaches = $this->paginate('CollegeCoach');
 		$this->set("collegeCoaches",$collegeCoaches);
 	}
+	
+	public function admin_addCollege(){
+		if ($this->request->is('post')){			
+			// Check exits.
+			$college = $this->College->findByName($this->request->data['name']);
+			if (!empty($college)){
+				$this->Session->setFlash('This College Already Exists!', 'flash_error');
+			} else {
+				$colleges = array();
+				$colleges['College']['name'] = $this->request->data['name'];
+				$colleges['College']['address_1'] = $this->request->data['address_1'];
+				$colleges['College']['city'] = $this->request->data['city'];
+				$colleges['College']['state'] = $this->request->data['state'];
+				$colleges['College']['zip'] = $this->request->data['zip'];
+				$colleges['College']['divison'] = $this->request->data['divison'];
+				$colleges['College']['status'] = $this->request->data['status'];
+				
+				if ($this->College->save($colleges)){
+					$this->Session->setFlash('College is Added Successfully', 'flash_success');
+					$this->redirect(array('controller' => 'College', 'action' => 'listCollege'));
+				} else {
+					$this->Session->setFlash('Can not add this College', 'flash_error');
+				}
+			}
+		} 
+	}
+	
+	public function admin_listOther(){
+		if ($this->request->is('post')){
+			$limit = 100;
+			$this->loadModel('Other');
+			$others = $this->paginate('Other');
+			$this->set(compact('others', 'limit'));
+		} else {
+			$limit = 100;
+			$this->loadModel('Other');			
+			$others = $this->paginate('Other');
+			$this->set(compact('others', 'limit'));
+		}
+	}
+	
 }
