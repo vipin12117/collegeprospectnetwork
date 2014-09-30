@@ -6,7 +6,7 @@ class CollegeSubscription extends AppModel{
 
 	public $useTable = 'college_subscriptions';
 
-	public $belongsTo = array('CollegeCoach','Subscription');
+	public $belongsTo = array('CollegeCoach','Subscription','Sport');
 
 	public function __construct(){
 		parent::__construct();

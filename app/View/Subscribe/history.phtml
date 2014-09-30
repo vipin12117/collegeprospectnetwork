@@ -1,1 +1,45 @@
-<?php
+<div class="cantener">
+   <div class="register-main">
+       <div class="registerPage">
+	        <h1>Payment History</h1>
+	        
+			<?php if($subscriptions == 0): ?>
+	              <div class="thankyoumessage">
+	                   You have no Payment History on record.
+	              </div>
+	        <?php else: ?>
+	              <table cellspacing="2" cellpadding="5" bordercolor="#808080" border="0"  width="100%" class="tablePadd" style="border-collapse: collapse;">
+	                  <tr>
+	                      <td width="20%" align="left" class="normalblack_12"><b>Payment Date</b></td>
+	                      <td width="20%" align="left" class="normalblack_12"><b>Invoice ID</b></td>
+	                      <td width="30%" align="left" class="normalblack_12"><b>Subscription Type</b></td>
+	                      <td width="30%" align="left" class="normalblack_12"><b>Sport</b></td>
+	                      <td width="30%" align="left" class="normalblack_12"><b>Status</b></td>
+	                   </tr>
+	                   
+	        		   <?php foreach ($subscriptions as $payment): ?>
+	                        <tr>
+	                            <td align="left" class="normalblack_12"><?php echo $payment['CollegeSubscription']['added_date']; ?></td>
+	                            
+	                            <td align="left" class="normalblack_12"><?php echo $payment['CollegeSubscription']['payment_profile_id']; ?></td>
+	                            
+	                            <td align="left" class="normalblack_12"><?php echo $payment['Subscription']['name']; ?>&nbsp;($<?php echo $payment['Subscription']['cost']; ?>)</td>
+	                                            
+	                            <td align="left" class="normalblack_12"><?php echo $payment['Sport']['name']; ?></td>
+	                            
+	                            <td align="left" class="normalblack_12"><?php echo ($payment['CollegeSubscription']['status']) ? 'Active' : 'Canceled'; ?></td>
+	                         </tr>
+	                   <?php endforeach; ?>
+	                </table>
+	         <?php endif; ?>
+	                                
+	         <p style="margin-top:30px;">
+	            <label>&nbsp;</label>
+	
+	            <span>
+					<?php echo $this->Form->submit("Back",array("type"=>"button","div"=>false,"label"=>false,"onclick"=>"window.location.href='".$this->Html->url(array("controller"=>"Profile","action"=>"index"))."'"));?>
+	            </span>
+	         </p>
+       </div>
+    </div>
+</div>           

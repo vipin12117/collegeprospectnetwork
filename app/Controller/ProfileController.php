@@ -40,9 +40,17 @@ class ProfileController extends AppController{
 
 			$this->loadModel('CollegeSubscription');
 			$collegeSubscription = $this->CollegeSubscription->getDetailByCollegeCoachId($user_id);
-			$this->set("collegeSubscription",$collegeSubscription);
+			if($collegeSubscription){
+				$this->set("collegeSubscription",$collegeSubscription);
 
-			if((strtotime($collegeSubscription['CollegeSubscription']['next_billdate']) - time()) <= 0){
+				if((strtotime($collegeSubscription['CollegeSubscription']['next_billdate']) - time()) <= 0){
+					$total_days = time() - strtotime($profileDetail['CollegeCoach']['added_date']);
+					if($total_days > (5*24*60*60)){
+						$is_trial_mode = true;
+					}
+				}
+			}
+			else{
 				$total_days = time() - strtotime($profileDetail['CollegeCoach']['added_date']);
 				if($total_days > (5*24*60*60)){
 					$is_trial_mode = true;
@@ -133,10 +141,10 @@ class ProfileController extends AppController{
 
 		$profileDetail = $this->HsAauCoach->getById($user_id);
 		$this->set("profileDetail",$profileDetail);
-		
+
 		$banners = $this->Banner->getBannerByPosition('bottom-left');
 		$this->set("banners",$banners);
-		
+
 		$this->paginate = array('Athlete' => array("conditions"=>array("Athlete.sport_id"=>$profileDetail['HsAauCoach']['sport_id'],"Athlete.hs_aau_team_id"=>$profileDetail['HsAauTeam']['id'])));
 		$athletes = $this->paginate('Athlete');
 		$this->set("athletes",$athletes);

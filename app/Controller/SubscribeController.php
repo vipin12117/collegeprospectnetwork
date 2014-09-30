@@ -82,34 +82,82 @@ class SubscribeController extends AppController{
 		$username  = $this->Session->read("username");
 		$this->loadModel('CollegeCoach');
 
+		$count = $this->CollegeSubscription->find("count",array("conditions"=>"CollegeSubscription.college_coach_id = '$user_id' AND CollegeSubscription.status = 1"));
+		if($count == 0){
+			$this->redirect(array("controller"=>"Subscribe","action"=>"index"));
+			exit;
+		}
+
 		if(isset($this->request->data['CollegeSubscription'])){
 			App::import('Lib','Authnet');
 			$Authnet = new Authnet();
 
 			try{
 				$subscription_id  = intval($this->request->data['CollegeSubscription']['subscription_id']);
-				$result = $this->CollegeSubscription->find("first",array("conditions"=>"CollegeSubscription.college_coach_id = '$user_id' AND subscription_id = '$subscription_id'"));
-				
+				$result = $this->CollegeSubscription->find("first",array("conditions"=>"CollegeSubscription.college_coach_id = '$user_id' AND CollegeSubscription.subscription_id = '$subscription_id'"));
+
 				$Authnet->updateProfile($this->request->data['CollegeSubscription'],$result['CollegeSubscription']['payment_profile_id'],$result['CollegeSubscription']['transaction_id']);
+
+				$this->Session->setFlash("Subscription profile updated successfully.");
+				$this->redirect(array("controller"=>"Profile","action"=>"index"));
 			}
 			catch(Exception $e){
 				$this->Session->setFlash($e->getMessage());
 			}
 		}
-		else{
-			$profileDetail = $this->CollegeCoach->getByUsername($username);
-			$this->set("profileDetail",$profileDetail);
 
-			$options = $this->Subscription->find("list",array("fields"=>"id,name","order"=>"name ASC","group"=>"name"));
-			$this->set("active_subscriptions",$options);
-		}
+		$profileDetail = $this->CollegeCoach->getByUsername($username);
+		$this->set("profileDetail",$profileDetail);
+
+		$list = $this->CollegeSubscription->find("list",array("conditions"=>"CollegeSubscription.college_coach_id = '$user_id' AND CollegeSubscription.status = 1","fields"=>"CollegeSubscription.subscription_id"));
+		$options = $this->Subscription->find("list",array("fields"=>"id,name","order"=>"name ASC","group"=>"name","conditions"=>array("Subscription.id"=>$list)));
+		$this->set("active_subscriptions",$options);
 	}
 
 	public function history(){
+		$this->set("title_for_layout","Subscription History - College Prospect Network");
 
+		$user_id = $this->Session->read('user_id');
+		$username  = $this->Session->read("username");
+		
+		$result = $this->CollegeSubscription->find("all",array("conditions"=>"CollegeSubscription.college_coach_id = '$user_id'"));
+		$this->set("subscriptions",$result);
 	}
 
 	public function cancel(){
+		$this->set("title_for_layout","Cancel Subscription - College Prospect Network");
 
+		$user_id = $this->Session->read('user_id');
+		$username  = $this->Session->read("username");
+
+		$count = $this->CollegeSubscription->find("count",array("conditions"=>"CollegeSubscription.college_coach_id = '$user_id' AND CollegeSubscription.status = 1"));
+		if($count == 0){
+			$this->redirect(array("controller"=>"Subscribe","action"=>"index"));
+			exit;
+		}
+
+		if(isset($this->request->data['CollegeSubscription'])){
+			App::import('Lib','Authnet');
+			$Authnet = new Authnet();
+
+			try{
+				$subscription_id  = intval($this->request->data['CollegeSubscription']['subscription_id']);
+				$result = $this->CollegeSubscription->find("first",array("conditions"=>"CollegeSubscription.college_coach_id = '$user_id' AND CollegeSubscription.subscription_id = '$subscription_id'"));
+
+				$Authnet->cancelProfile($this->request->data['CollegeSubscription'],$result['CollegeSubscription']['payment_profile_id'],$result['CollegeSubscription']['transaction_id']);
+
+				$this->CollegeSubscription->updateAll(array("status"=>0,"cancel_date"=>date('Y-m-d'),"cancel_reason"=>"'".$this->request->data['CollegeSubscription']['reason']."'"),array("college_coach_id"=>$user_id,"CollegeSubscription.subscription_id"=>$subscription_id));
+
+				$this->Session->setFlash("Subscription profile cancel successfully.");
+				$this->redirect(array("controller"=>"Profile","action"=>"index"));
+			}
+			catch(Exception $e){
+				$this->Session->setFlash($e->getMessage());
+			}
+		}
+
+		$list = $this->CollegeSubscription->find("list",array("conditions"=>"CollegeSubscription.college_coach_id = '$user_id' AND CollegeSubscription.status = 1","fields"=>"CollegeSubscription.subscription_id"));
+		$options = $this->Subscription->find("list",array("fields"=>"id,name","order"=>"name ASC","group"=>"name","conditions"=>array("Subscription.id"=>$list)));
+		$this->set("active_subscriptions",$options);
 	}
 }

@@ -185,6 +185,8 @@ class Authnet {
 		$subExpMonth  = intval($data['month']);
 		$subExpYear   = intval($data['year']);
 
+		$subCardExpDate = $subExpYear . '-' .sprintf("%02s", $subExpMonth);
+
 		$paymentProfile = new AuthorizeNetPaymentProfile;
 
 		$paymentProfile->payment->creditCard->cardNumber = $card_number;
@@ -205,5 +207,19 @@ class Authnet {
 			$e = $response->xml->messages->message->code . ': ' .$response->xml->messages->message->text;
 			throw new Exception($e);
 		}
+		
+		return 1;
+	}
+
+	public function cancelProfile($data , $payment_profile_id , $customer_profile_id){
+		$request  = new AuthorizeNetCIM;
+		$response = $request->deleteCustomerProfile($customer_profile_id);
+		
+		if ($response->xml->messages->resultCode == 'Error') {
+			$e = $response->xml->messages->message->code . ': ' .$response->xml->messages->message->text;
+			throw new Exception($e);
+		}
+		
+		return 1;
 	}
 }

@@ -1,1 +1,59 @@
-<?php
+<div class="cantener">
+   <div class="register-main">
+       <div class="registerPage">
+			<?php echo $this->Form->create("CollegeSubscription",array("url"=>array("controller"=>"Subscribe","action"=>"cancel"),"type"=>"post"));?>
+                <h1>Cancel College Subscription</h1>
+
+                <div id="error" style="color: #ff0000; width: 510px;">
+                   <?php if(isset($errorMsg)): ?>
+	                    <div class="listhead" style="color: #ff0000; margin-bottom: 10px;">There was an error processing your subscription.</div>
+	                    <ul>
+	                        <li style="color: #ff0000;"><?php echo $errorMsg; ?></li>
+	                    </ul>
+                  <?php endif; ?>
+                </div>
+                
+                 <p>
+                    Please select the subscription you would like to cancel below and provide a reason for canceling it. 
+                    Please note that if you click "Continue" you will not be able to register again for 30 days.
+                 </p>
+
+                <p>
+                    <label>Subscription:</label>
+                    <span>
+                    	<?php echo $this->Form->input("subscription_id",array("label"=>false,"div"=>false,"options"=>$active_subscriptions,"empty"=>"Select One","required"));?>
+                    </span>
+                    <font color="#0000ff">&nbsp;*</font>
+                </p>
+
+  				<p style="font-weight: bold;">
+                   <br />
+                   Please let us know why you are canceling your subscription.
+                  <br /><br />
+                </p>
+                                    
+                <p>
+                    <label>Reason:</label>
+                    <span>
+                        <select name="data[CollegeSubscription][reason]">
+                              <option value="select">Please Select Reason</option>
+                              <option value="Cost">Cost</option>
+                              <option value="Quality of athlete">Quantity of athletes</option>
+                              <option value="No longer employed by college">No longer employed by college</option>
+                        </select>
+                    </span>
+                    <font color="#0000ff">&nbsp;*</font>
+                </p>
+
+                <p style="margin-top:30px;">
+                    <label>&nbsp;</label>
+
+                    <span>
+                        <?php echo $this->Form->submit("Submit",array("type"=>"submit","div"=>false,"label"=>false));?>
+						<?php echo $this->Form->submit("Back",array("type"=>"button","div"=>false,"label"=>false,"onclick"=>"window.location.href='".$this->Html->url(array("controller"=>"Profile","action"=>"index"))."'"));?>
+                    </span>
+                </p>
+            <?php echo $this->Form->end();?>
+        </div>
+    </div>
+</div>
