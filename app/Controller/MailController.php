@@ -6,7 +6,16 @@ class MailController extends AppController{
 
 	public function beforeFilter(){
 		parent::beforeFilter();
-		$this->checkSession();
+		if (isset($this->params['prefix']) && $this->params['prefix'] == 'admin') ////for admin section template
+        {
+        	if ($this->checkAdminSession()){
+            	$this->layout = 'admin';
+        	} else {
+        		$this->redirect(array('controller'=>'admins','action'=>'login'));
+        	}
+		} else {
+			$this->checkSession();
+		}
 	}
 
 	/**
@@ -409,6 +418,140 @@ class MailController extends AppController{
 
 			$this->set("receiver",$receiver);
 			$this->set("usertype_to",$usertype_to);
+		}
+	}
+	
+	public function admin_listMessage(){
+		if ($this->request->is('post')){
+			$startDate 	= $this->request->data['startdate'];
+			$endDate 	= $this->request->data['enddate'];
+			$content 	= $this->request->data['content'];
+			
+			if ($startDate != 'Please Select Start Date' && $endDate != 'Please Select End Date' && $content != 'Search By Content'){
+				$conditions = array('OR' =>array('Mail.message like ' => '%'.$content.'%',
+												 'AND' => array(
+													 'Mail.sent_date  >= ' => $startDate,
+					                                 'Mail.sent_date  <= ' => $endDate
+												 )));
+			} elseif ($startDate == 'Please Select Start Date' && $endDate != 'Please Select End Date' && $content != 'Search By Content') {	
+				$conditions = array('OR' =>array('Mail.message like ' => '%'.$content.'%', 
+												 'Mail.sent_date  <= ' => $endDate));												 
+			} elseif ($startDate != 'Please Select Start Date' && $endDate == 'Please Select End Date' && $content != 'Search By Content') {
+				$conditions = array('OR' =>array('Mail.message like ' => '%'.$content.'%', 
+												 'Mail.sent_date  >= ' => $startDate));
+			} elseif ($startDate != 'Please Select Start Date' && $endDate != 'Please Select End Date' && $content == 'Search By Content'){
+				$conditions = array('Mail.sent_date  >= ' => $startDate,
+									'Mail.sent_date  <= ' => $endDate);					                								   
+			} elseif ($startDate == 'Please Select Start Date' && $endDate == 'Please Select End Date' && $content != 'Search By Content'){
+				$conditions = array('Mail.message like ' => '%'.$content.'%');
+			} elseif ($startDate != 'Please Select Start Date' && $endDate == 'Please Select End Date' && $content == 'Search By Content'){
+				$conditions = array('Mail.sent_date  >= ' => $startDate);
+			} elseif ($startDate == 'Please Select Start Date' && $endDate != 'Please Select End Date' && $content == 'Search By Content'){
+				$conditions = array('Mail.sent_date  <= ' => $endDate);
+			} else {
+				$conditions = array();
+			}													
+			$limit = 100;				   
+			$this->paginate = array('Mail'=>array('conditions' => $conditions,
+												  'order' => 'Mail.id',
+												  'limit' => $limit));
+			$mails = $this->paginate('Mail');
+			$this->set(compact('mails', 'limit')); 
+			
+		} else {
+			$limit = 100;
+			$this->paginate = array('Mail'=>array('order' => 'Mail.id',
+												  'limit' => $limit));
+			$mails = $this->paginate('Mail');
+			$this->set(compact('mails', 'limit')); 
+		}
+	}
+	
+	public function admin_messageDetails($id){
+		if (isset($id)){
+			$messge = $this->Mail->findById($id);
+			$this->set('messge', $messge);
+		} else {
+			$this->Session->setFlash('Do not exits this Message', 'flash_error');
+		}			
+	}
+	
+	/**
+	 * Delete selected Messages.
+	 */
+	public function admin_deleteSelectedMessages(){
+		if(isset($this->request->data['check_delete'])) {
+			foreach ($this->request->data['check_delete'] as $id){
+				if ($this->Mail->delete($id)){
+					$this->Session->setFlash('Message Deleted Successfully!', 'flash_success');
+				} else {
+					$this->Session->setFlash('Delete error.', 'flash_error');
+				}								
+			}
+		}
+		$this->redirect($this->referer());
+	}
+	
+	public function admin_listBlockMessage(){
+		$this->loadModel('BlockMessage');
+		$limit = 100;
+		$this->paginate = array('BlockMessage'=>array('order' => 'BlockMessage.id DESC',
+												  	  'limit' => $limit));												      
+		$blockMessages = $this->paginate('BlockMessage');
+		$this->set(compact('blockMessages', 'limit'));
+	}
+	
+	public function admin_deleteBlockMessage($id){
+		if (!empty($id)) {
+			$this->loadModel('BlockMessage');
+			if ($this->BlockMessage->delete($id)){
+				$this->Session->setFlash('Message Block Deleted Successfully!', 'flash_success');
+			} else {
+				$this->Session->setFlash('Can not delete this Message', 'flash_error');
+			}
+		} else {
+			$this->Session->setFlash('Do not exits this Message', 'flash_error');			
+		}
+		$this->redirect($this->referer());
+	}
+	
+	/**
+	 * Delete selected Block Messages.
+	 */
+	public function admin_deleteSelectedBlockMessages(){
+		$this->loadModel('BlockMessage');
+		if(isset($this->request->data['check_delete'])) {
+			foreach ($this->request->data['check_delete'] as $id){
+				if ($this->BlockMessage->delete($id)){
+					$this->Session->setFlash('Message Block Deleted Successfully!', 'flash_success');
+				} else {
+					$this->Session->setFlash('Delete error.', 'flash_error');
+				}								
+			}
+		}
+		$this->redirect($this->referer());
+	}
+	
+	public function admin_addBlockMessage(){
+		if (!$this->request->is('post')){
+			// Get sport list.
+			$this->loadModel('Sport');
+			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'), 
+													  'order' => array('Sport.id')));						
+			$sportList = array();
+			foreach ($sports as $sport){
+				$sportList[$sport['Sport']['name']] = $sport['Sport']['name'];
+			}
+			
+			$this->set(compact('sportList', 'sports'));
+		} else {
+			$this->loadModel('BlockMessage');
+			if ($this->BlockMessage->save($this->request->data)){
+				$this->Session->setFlash('Block Messaging is added successfully.', 'flash_success');
+				$this->redirect(array('controller' => 'Mail', 'action' => 'listBlockMessage'));				
+			} else {
+				$this->Session->setFlash('Can not add this Block Message.', 'flash_error');
+			}						
 		}
 	}
 }

@@ -1,0 +1,416 @@
+<?php $error_msg = '';?>
+<table cellSpacing=0 cellPadding=0 width="100%" border=0>
+
+	<tr>
+		<td height=120><?php echo $this->element('admin_header');?></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="heading">
+		<table cellSpacing=0 cellPadding=1 width="95%" align=center border=0>
+			<tr>
+				<td>
+				<table cellSpacing=0 cellPadding=1 width=780 border=0>
+					<tr>
+						<td bgColor=#ffffff>
+						<table cellSpacing=0 cellPadding=0 width=900 border=0>
+							<tr>
+								<td vAlign=top width=20%><?php echo $this->element('admin_menu');?></td>
+								<td valign=top width=1%>&nbsp;</td>
+								<?php $s_image = "/img/spacer.gif"; ?>
+								<td width=10><img src="<?php echo $s_image?>" height="1"
+									width="1"></td>
+								<td valign=top width="">
+								
+								<!-- MAin Content Starts From Here -->
+								<form name="frmEditCollegeCoach" action="" method="post" enctype="multipart/form-data" onsubmit="return validate()">
+									<table width="100%" border="1" cellpadding="1" cellspacing="0"
+										bordercolor="#808080" style="border-collapse: collapse">
+										<tr height="20">
+											<td align="center" class="normalblack_12" width="90%"
+												valign="top">
+											<table width="100%" border="0" cellpadding="0" cellspacing="0"
+												bgcolor="#FFFFFF">
+												<tr>
+													<!-- Display the message on heading of the page -->
+													<td valign="top" class="normalwhite_14" colspan=3
+														bgcolor="#808080" align="center"><b>Edit College Coach Info</b>
+													</td>
+												</tr>
+												<tr>
+													<!-- Display the message on heading of the page -->
+													<td valign="top" colspan=3 align="center">&nbsp;</td>
+												</tr>
+												<tr>
+													<td valign="top" colspan=3 align="center"
+														class="normalblack_12"><font color="Red"></font></td>
+												</tr>
+												<tr>
+													<td height="35" colspan="3" align="right"
+														class="normalblack_12"><FONT color="Red">Fields marked with
+													* are mandatory&nbsp;</FONT></td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="40%">User Name <font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2><input type="text" name="username" id="username"
+														value="<?php echo $collCoach['CollegeCoach']['username']?>"
+														maxlength="50" readonly style="width: 200px"></td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="40%">Enrollment Number <font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2><input type="text" name="enrollment_number"
+														id="enrollment_number"
+														value="<?php echo $collCoach['CollegeCoach']['enrollment_number']?>"
+														maxlength="50" style="width: 200px"></td>
+												</tr>
+	
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="40%">College Name <font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"
+														colspan=2><?php echo $this->Form->input('college_id', array('type'=>'select', 'empty' => array('select' => 'Select College'), 'label' => false, 
+																							  'value' => $collCoach['College']['id'], 'style' => 'width: 200px', 
+																							  'options' => $collegeList)); ?></td>
+												</tr>
+	
+												<!--ajex code start	-->
+												<p id="txtschoolothers"
+													style="display: none; margin-top: 5px;"><label>&nbsp;</label>
+												<span> </span></p>
+												</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" colspan=3 align="center"
+														class="normalblack_12">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" colspan=3>
+													<?php if (isset($collCoach['College']['id'])) {?>
+													<div id="txtHint" >
+														<?php echo $this->element('admin_address_form', array('address' => $collCoach['College']['address_1'], 'city' => $collCoach['College']['city'], 'state' => $collCoach['College']['state'], 'zip' => $collCoach['College']['zip']));?>
+													</div>
+													<?php } else {?>
+													<div id="txtHint" style="display: none;">
+														<?php echo $this->element('admin_address_form', array('address' => $collCoach['College']['address_1'], 'city' => $collCoach['College']['city'], 'state' => $collCoach['College']['state'], 'zip' => $collCoach['College']['zip']));?>
+													</div>
+													<?php }?>
+													</td>
+												</tr>
+												<!--ajex code End	-->
+	
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="40%">First Name<font color="red"> *</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"><input
+														type="text" name="firstname"
+														value="<?php echo $collCoach['CollegeCoach']['firstname']?>"
+														maxlength="30" style="width: 200px" id="firstname"></td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="40%">Last Name<font color="red"> *</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"><input
+														type="text" name="lastname"
+														value="<?php echo $collCoach['CollegeCoach']['lastname']?>"
+														maxlength="30" style="width: 200px" id="lastname"></td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="40%">Phone<font color="red"> *</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"><input
+														type="text" name="phone"
+														value="<?php echo $collCoach['CollegeCoach']['phone']?>"
+														maxlength="30" style="width: 200px" id="phone"></td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="40%">Alternate Phone<font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"><input
+														type="text" name="phone2"
+														value="<?php echo $collCoach['CollegeCoach']['phone2']?>"
+														maxlength="30" style="width: 200px"
+														id="phone2"></td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="40%">Email Address<font color="red"> *</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"><input
+														type="text" name="email"
+														value="<?php echo $collCoach['CollegeCoach']['email']?>"
+														maxlength="30" style="width: 200px" id="email"></td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="40%">Alternative Email<font color="red"></font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"><input
+														type="text" name="email2"
+														value="<?php echo $collCoach['CollegeCoach']['email2']?>"
+														maxlength="30" style="width: 200px"
+														id="fldAlternativeEmail"></td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="40%">Position<font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"><input
+														type="text" name="position"
+														value="<?php echo $collCoach['CollegeCoach']['position']?>"
+														maxlength="40" style="width: 200px"></td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="40%">Division<font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<?php 
+													$divisionList = array();
+													$divisionList['Division_I'] = 'Division_I';
+													$divisionList['Division_II'] = 'Division_II';
+													$divisionList['Division_III'] = 'Division_III';
+													$divisionList['NAIA'] = 'NAIA';
+													$divisionList['JUCO'] = 'JUCO';
+													?>
+													<td valign="top" align="left" class="normalblack_12">
+														<?php echo $this->Form->input('division', array('type'=>'select', 'empty' => array('select' => 'Select Division'), 'label' => false, 
+																					  'value' => $collCoach['CollegeCoach']['division'], 'style' => 'width: 200px', 
+																					  'options' => $divisionList)); ?>
+													</td>											
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="40%">Sport<font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12">
+														<?php echo $this->Form->input('Sport.name', array('type'=>'select', 'empty' => array('select' => 'Select Sport'), 'label' => false, 'style' => 'width: 200px;', 'value' => $collCoach['Sport']['name'], 'options' => $sportList)); ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="40%">Subscribe<font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"><?php echo $this->Form->input('subscription_id', array('type' => 'select', 'style' => 'width: 200px', 'empty' => array('select' => 'Please Select'), 'label' => false, 'value' => $collCoach['CollegeCoach']['subscription_id'], 
+																'options' => array('2' => 'Trial Period', '1' => 'Subscribe', '0' => 'Inactive'))); ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="40%">Status<font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"><?php echo $this->Form->input('status', array('type' => 'select', 'style' => 'width: 200px',  'label' => false, 'value' => $collCoach['CollegeCoach']['status'], 
+																'options' => array('1' => 'ACTIVE', '0' => 'DE-ACTIVE'))); ?>
+													</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" colspan=3 align="center"
+														class="normalblack_12">&nbsp;</td>
+												</tr>
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">&nbsp</td>
+													<td valign="top" align="center" class="normalblack_12">
+													&nbsp</td>
+													<td valign="top" align="left" class="normalblack_12">												
+													<input type="hidden" name="isSubmit" value="save">													 
+													<input type="submit" name="submit" value="Submit">&nbsp;&nbsp;													
+													<input type="reset" name="Submit2" value="Reset"></td>												
+												</tr>
+												<tr height="20">
+													<td valign="top" colspan=3 align="center"
+														class="normalblack_12">&nbsp;</td>
+												</tr>												
+											</table>
+											</td>
+										</tr>
+									</table>
+								</form>
+								<!--Main Center Content END -->
+								</td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<?php echo $this->element('admin_footer');?>
+</table>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+	$("#college_id").change(function() {
+		var college_id = $("#college_id").val();
+		if (college_id != 'select'){
+			$("#txtHint").show();
+			changeAddressValue(college_id);
+		} else {
+			$("#txtHint").hide();
+		}
+	});
+
+});
+
+function changeAddressValue(college_id){
+	path = window.location.origin + '/admin/College/collegeAddressInfo/' + college_id
+	$.ajax({
+	        type: "POST",
+	        url: path,
+	        dataType: 'json',
+	        success: function(data) {	                
+				$("#address_1").val(data['College']['address_1']);
+				$("#city").val(data['College']['city']);
+				$("#state").val(data['College']['state']);
+				$("#zip").val(data['College']['zip']);
+	            return true;
+	        },
+	        error: function() {
+	            alert('Error occured');
+	            return false;
+	        }
+	    });
+}
+
+function validate(){
+	var error_msg = "";
+
+	if(trimString(document.frmEditCollegeCoach.enrollment_number.value) == ""){
+		error_msg += "Please Enter Enrollment Number! \n";
+	}
+	
+   	if(trimString(document.frmEditCollegeCoach.username.value) == ""){
+		error_msg += "Please Enter User Name! \n";
+	}
+	else{
+		if(hasSpecialCharaters(document.frmEditCollegeCoach.username.value)){
+			error_msg += "Enter valid User Name! \n";
+		}
+	}
+	
+	if(trimString(document.frmEditCollegeCoach.address_1.value) == ""){
+		error_msg += "Please Enter Address! \n";
+	}
+
+	if(trimString(document.frmEditCollegeCoach.city.value) == ""){
+		error_msg += "Please Enter City! \n";
+		alert(error_msg);
+	}
+	else{
+		if(hasSpecialCharaters(document.frmEditCollegeCoach.city.value)){
+			error_msg += "Enter valid City! \n";
+		}
+	}
+	
+	if(trimString(document.frmEditCollegeCoach.state.value) == ""){
+		error_msg += "Please Enter State! \n";
+	}
+
+	else{
+		if(hasSpecialCharaters(document.frmEditCollegeCoach.state.value)){
+			error_msg += "Enter valid State! \n";
+		}
+	}
+
+	if(trimString(document.frmEditCollegeCoach.zip.value) == ""){
+		error_msg += "Please Enter Zip Code! \n";
+	}
+	else{
+		if(hasSpecialCharaters(document.frmEditCollegeCoach.zip.value)){
+			error_msg += "Enter valid Zip Code! \n";
+		}
+	}
+	
+	if(trimString(document.frmEditCollegeCoach.division.value) == "select"){
+		error_msg += "Please Select Divison! \n";
+	}	
+
+	if(trimString(document.frmEditCollegeCoach.SportName.value) == "select"){
+		error_msg += "Please Select Sport Name! \n";
+	}	
+
+	if(trimString(document.frmEditCollegeCoach.subscription_id.value) == "select"){
+		error_msg += "Please Select Subscribe! \n";
+	}	
+	
+	if(error_msg != ""){
+		alert(error_msg);
+		return false;
+	}else{
+		return true;
+	}
+}
+
+</script>

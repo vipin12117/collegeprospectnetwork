@@ -1,0 +1,323 @@
+<?php $error_msg = '';?>
+<table cellSpacing=0 cellPadding=0 width="100%" border=0>
+
+	<tr>
+		<td height=120><?php echo $this->element('admin_header');?></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="heading">
+		<table cellSpacing=0 cellPadding=1 width="95%" align=center border=0>
+			<tr>
+				<td>
+				<table cellSpacing=0 cellPadding=1 width=780 border=0>
+					<tr>
+						<td bgColor=#ffffff>
+						<table cellSpacing=0 cellPadding=0 width=900 border=0>
+							<tr>
+								<td vAlign=top width=20%><?php echo $this->element('admin_menu');?></td>
+								<td valign=top width=1%>&nbsp;</td>
+								<?php $s_image = "/img/spacer.gif"; ?>
+								<td width=10><img src="<?php echo $s_image?>" height="1"
+									width="1"></td>
+								<td valign=top width="">
+								
+								<!-- MAin Content Starts From Here -->
+								<form name="frmAddBlockMessage" action="" method="post"
+									enctype="multipart/form-data" onsubmit="return validate()">
+
+								<table width="100%" border="1" cellpadding="1" cellspacing="0"
+									bordercolor="#808080" style="border-collapse: collapse">
+									<tr height="20">
+										<td align="center" class="normalblack_12" width="90%"
+											valign="top">
+										<table width="100%" border="0" cellpadding="0" cellspacing="0"
+											bgcolor="#FFFFFF">
+											<tr>
+												<!-- Display the message on heading of the page -->
+												<td valign="top" class="normalwhite_14" colspan=3
+													bgcolor="#808080" align="center"><b>Message Blocking</b></td>
+											</tr>
+											<tr>
+												<!-- Display the message on heading of the page -->
+												<td valign="top" colspan=3 align="center">&nbsp;</td>
+											</tr>
+											<tr>
+												<td valign="top" colspan=3 align="center"
+													class="normalblack_12"><font color="Red"></font>
+												</td>
+											</tr>
+											<tr>
+												<td height="35" colspan="3" align="right"
+													class="normalblack_12"><FONT color="Red">Fields marked with
+												* are mandatory&nbsp;</FONT></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">From<font color="red">*</font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><SELECT
+													NAME="from" style="width: 200px">
+													<OPTION VALUE="">----Please Select---</OPTION>
+													<OPTION VALUE="college">College Coaches</OPTION>
+													<OPTION VALUE="coach">HS/AAU Coaches</OPTION>
+												</SELECT></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td
+											</tr>										
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Sport<font color="red">*</font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12">												
+													<?php echo $this->Form->input('sport', array('type'=>'select', 'empty' => array('select' => 'Select Sport'), 'label' => false, 'style' => 'width: 200px;', 'options' => $sportList)); ?>
+												</td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">To<font color="red">*</font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><SELECT
+													NAME="to" style="width: 200px">
+													<OPTION VALUE="">----Please Select---</OPTION>
+													<OPTION VALUE="athlete">Athlete</OPTION>
+												</SELECT></td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Start Date<font color="red"> *</font></td>
+												<td valign="top" align="center" class="normalblack_12">:
+												&nbsp;</td>
+												<td valign="top" align="left" class="normalblack_12"
+													colspan=2><input type="text"
+													style="float: left; width: 200px;" class="input_L"
+													id="startdate" name="startdate" autocomplete="off"
+													value=""> <img
+													style="float: left; padding-right: 5px; margin-top: -2px;"
+													alt="" src="/img/icon-calender.png" name="button2"
+													id="button2"> 
+													<script type="text/javascript">
+														var cal = new Zapatec.Calendar.setup({																																																		
+														inputField     :    "startdate",     // id of the input field																		
+														singleClick    :     true,     // require two clicks to submit																		
+														ifFormat       :    '%Y-%m-%d',     // format of the input field																		
+														showsTime      :     true,     // show time as well as date																		
+														button         :    "button2"  // trigger button 																		
+													});																		
+													</script>
+												</td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">End Date<font color="red"> *</font></td>
+												<td valign="top" align="center" class="normalblack_12">:
+												&nbsp;</td>
+												<td valign="top" align="left" class="normalblack_12"
+													colspan=2><input type="text"
+													style="float: left; width: 200px;" class="input_L"
+													id="enddate" name="enddate" autocomplete="off"
+													value=""> <img
+													style="float: left; padding-right: 5px; margin-top: -2px;"
+													alt="" src="/img/icon-calender.png" name="button3"
+													id="button3"> 
+													<script type="text/javascript">
+														var cal = new Zapatec.Calendar.setup({
+														inputField     :    "enddate",     // id of the input field
+														singleClick    :     true,     // require two clicks to submit
+														ifFormat       :    '%Y-%m-%d',     // format of the input field
+														showsTime      :     true,     // show time as well as date
+														button         :    "button3"  // trigger button 
+														});
+
+
+													</script></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Status<font color="red">*</font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12">
+													<?php echo $this->Form->input('status', array('type'=>'select', 'label' => false, 'style' => 'width: 200px;', 'options' => array('blocked' => 'Blocked', 'unblocked' => 'UnBlocked'))); ?>
+												</td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" colspan=3 align="center"
+													class="normalblack_12">&nbsp;</td>
+											</tr>
+											
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">&nbsp</td>
+												<td valign="top" align="center" class="normalblack_12">
+												&nbsp</td>
+												<td valign="top" align="left" class="normalblack_12"><input
+													type="hidden" name="isSubmit" value="save"> <input
+													type="submit" name="submit" value="Submit"></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" colspan=3 align="center"
+													class="normalblack_12">&nbsp;</td>
+											</tr>
+										</table>
+										</td>
+									</tr>
+								</table>
+								</form>
+								<!--Main Center Content END -->
+								</td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<?php echo $this->element('admin_footer');?>
+</table>
+
+<script language="JavaScript" type="text/JavaScript">
+function validate()
+{
+	var error_msg = "";
+	var blnResult = true;
+	if(trimString(document.frmAddBlockMessage.from.value) == "")
+	{
+		error_msg += "Please Select From! \n";
+	}
+	else
+	{
+		if(hasSpecialCharaters(document.frmAddBlockMessage.from.value))
+		{
+			error_msg += "Please Select From! \n";
+		}
+	}
+
+	if(trimString(document.frmAddBlockMessage.sport.value) == "")
+	{
+		error_msg += "Please Select Sport! \n";
+	}
+	else
+	{
+		if(hasSpecialCharaters(document.frmAddBlockMessage.sport.value))
+		{
+			error_msg += "Please Select Sport! \n";
+		}
+	}
+
+	if(trimString(document.frmAddBlockMessage.to.value) == "")
+	{
+		error_msg += "Please Select To value! \n";
+	}
+	else
+	{
+		if(hasSpecialCharaters(document.frmAddBlockMessage.to.value))
+		{
+			error_msg += "Please Select To value! \n";
+		}
+	}
+
+   	if(trimString(document.frmAddBlockMessage.startdate.value) == "")
+	{
+		error_msg += "Please Select Start date! \n";
+	}
+	else
+	{
+		if(hasSpecialCharaters(document.frmAddBlockMessage.startdate.value))
+	{
+		error_msg += "Please Select Start date! \n";
+	}
+}
+
+	if(trimString(document.frmAddBlockMessage.enddate.value) == "")
+	{
+		error_msg += "Please Select End date! \n";
+	}
+	else
+	{
+		if(hasSpecialCharaters(document.frmAddBlockMessage.enddate.value))
+		{
+			error_msg += "Please Select End date! \n";
+		}
+	}
+
+	    var currentTime = new Date()
+		var month = currentTime.getMonth() + 1
+		var day = currentTime.getDate()
+		var year = currentTime.getFullYear()  
+		if(day < 10) {
+			day = '0' + day
+		} 
+		
+		if(month < 10) {
+			month = '0' + month
+		} 
+
+	if(document.frmAddBlockMessage.startdate.value != (year + "-" + month + "-" +  day))
+	{
+		error_msg += "Start Date should be same as current date \n";
+	}
+
+	if(document.frmAddBlockMessage.startdate.value > document.frmAddBlockMessage.enddate.value)
+	{
+		error_msg += "End date Should be greater than Start Date \n";
+	}
+
+    if(trimString(document.frmAddBlockMessage.status.value) == ""){
+		error_msg += "Please Select status! \n";
+	}
+	else {
+		if(hasSpecialCharaters(document.frmAddBlockMessage.status.value)){
+			error_msg += "Enter Select status! \n";
+		}
+	}
+
+	if(error_msg!='')
+	{
+		alert(error_msg);
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
+
+</script>

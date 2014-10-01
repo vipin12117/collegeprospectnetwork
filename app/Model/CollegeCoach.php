@@ -6,7 +6,7 @@ class CollegeCoach extends AppModel{
 
 	public $useTable = 'college_coaches';
 	
-	public $belongsTo = array('Sport','College');
+	public $belongsTo = array('Sport','College','Subscription');
 
 	public function __construct(){
 		parent::__construct();

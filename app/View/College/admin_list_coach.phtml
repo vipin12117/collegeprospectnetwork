@@ -1,0 +1,117 @@
+<table cellSpacing=0 cellPadding=0 width="100%" border=0>
+
+	<tr>
+		<td height=120><?php echo $this->element('admin_header');?></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="heading">
+		<table cellSpacing=0 cellPadding=1 width="95%" align=center border=0>
+			<tr>
+				<td>
+				<table cellSpacing=0 cellPadding=1 width=780 border=0>
+					<tr>
+						<td bgColor=#ffffff>
+						<table cellSpacing=0 cellPadding=0 width=900 border=0>
+							<tr>
+								<td vAlign=top width=20%><?php echo $this->element('admin_menu');?></td>
+								<td valign=top width=1%>&nbsp;</td>
+								<?php $s_image = "/img/spacer.gif"; ?>
+								<td width=10><img src="<?php echo $s_image?>" height="1"
+									width="1"></td>
+								<td valign=top width=""><!--Main Center Content BEGIN -->
+
+								<table border="1" cellpadding="1" cellspacing="0" width="100%"
+									bordercolor="#808080" style="border-collapse: collapse"
+									class="tablePadd">
+									<tr>
+										<td align="center" class="normalwhite_14" colspan="11"
+											bgcolor="#808080"><strong>College Coach Listing</strong></td>
+									</tr>
+
+									<tr>
+										<td align='center' class='normalblack_12' colspan='11'
+											height='30' valign='middle'><font color='red'></font></td>
+									</tr>
+
+									<tr>
+										<td align='center' class='normalblack_12' colspan='11'
+											height='30' valign='middle'>
+										<form name="searchFrm" id="searchFrm" action="" method="POST"><input
+											type="hidden" name="page" id="page" value="0"> <input
+											type="text" name="searchname" id="searchname"> <input
+											type="submit" name="search" id="search" style="width: 180px"
+											value="Search College By Name"></form>
+										</td>
+									</tr>
+
+									<form name="frmListCoach" action="" method="post" onsubmit="">
+									<?php if (sizeof($colCoachs) > 0) {?>
+									<tr>
+										<td align="left" style="padding-left: 7px;" colspan="11"><input
+											type="checkbox" id="check_all" name="check_all" value=""
+											onclick="javascript:checkAll();"> <b>Check All</b>&nbsp;
+										&nbsp;<input type="button" name="delete"
+											value="Delete Selected" onclick="return deleteSelectedCollegeCoach();"></td>
+									</tr>
+									<tr>
+										<td align="center" class="normalblack_12" width="4%">&nbsp;</td>
+										<td align="left" class="normalblack_12" width="8%">&nbsp;<strong>S.No.</strong></td>
+										<td align="left" class="normalblack_12" width="20%">&nbsp;<strong>User Name</strong></td>									
+										<td align="left" class="normalblack_12" width="25%">&nbsp;<strong>College Name</strong></td>										
+										<td align="left" class="normalblack_12" width="15%">&nbsp;<strong>City</strong></td>
+										<td align="left" class="normalblack_12" width="10%">&nbsp;<strong>State</strong></td>
+										<td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Sports</strong></td>
+										<td class="normalblack_12" width="5%" align="center"><strong>Edit</strong></td>
+										<td class="normalblack_12" width="7%" align="center"><strong>Delete</strong></td>
+										<td class="normalblack_12" width="7%" align="center"><strong>Details</strong></td>
+									</tr>
+									<?php $i = 1;?> 
+									<?php foreach ($colCoachs as $colCoach) : ?>
+									<tr>
+										<td align="center" class="normalblack_12">&nbsp; <input
+											type="checkbox" id="check_delete[]" name="check_delete[]"
+											value="<?php echo $colCoach['CollegeCoach']['id']?>" onclick="return checkItSelf();">
+										<td align="left" class="normalblack_12">&nbsp;<?php echo ($i + $limit * ($this->Paginator->current() - 1));?></td>
+										<td align="left" class="normalblack_12"><?php echo wordwrap($colCoach['CollegeCoach']['username'],15,"\n",true)?></td>
+										<td align="left" class="normalblack_12"><?php echo wordwrap($colCoach['College']['name'],17,"\n",true)?></td>
+										<td align="left" class="normalblack_12"><?php echo wordwrap($colCoach['CollegeCoach']['city'],10,"\n",true)?></td>
+										<td align="left" class="normalblack_12"><?php echo wordwrap($colCoach['CollegeCoach']['state'],10,"\n",true)?></td>
+										<td align="left" class="normalblack_12"><?php echo wordwrap($colCoach['Sport']['name'],17,"\n",true)?></td>
+										<td class="normalblack_12" align="center">
+											<?php echo $this->Html->link($this->Html->image('/img/b_edit.png'), array('controller' => 'College', 'action' => 'editCollegeCoach', $colCoach['CollegeCoach']['id']), array('escape' => false, 'title' => 'Edit'))?>
+										</td>
+										<td class="normalblack_12" align="center">
+											<?php echo $this->Html->link($this->Html->image('/img/b_drop.png'), array('controller' => 'College', 'action' => 'deleteCollegeCoach', $colCoach['CollegeCoach']['id']), array('escape' => false, 'title' => 'Delete'), "Are you sure to delete this College Coach?")?>	
+										</td>
+
+										<td class="normalblack_12" align="center"><a
+											href="javascript:ShowDetails('<?php echo '/admin/College/collegeCoachDetails/'.$colCoach['CollegeCoach']['id'] ?>','List Coach Details')">View</a></td>									
+									</tr>
+									<?php $i++;?>
+									<?php endforeach;?> <?php } else { ?>																		
+									<tr>
+										<td align="center" class="normalblack_12" colspan="10"
+											height="30"><font color="red">No Records Available.</font></td>
+									</tr>
+									<?php } ?>
+									</form>
+								</table>
+
+								<!--Main Center Content END --> 
+								<?php echo $this->element('pagination');?>
+								</td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<?php echo $this->element('admin_footer');?>
+</table>

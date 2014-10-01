@@ -60,7 +60,7 @@
 														<td valign="top" align="center" class="normalblack_12">:
 														&nbsp;</td>		
 														<td valign="top" align="left" class="normalblack_12"
-															colspan=2><input type="text" name="name" id="name" value=""
+															colspan=2><input type="text" name="name" id="name" value="<?php echo $college['College']['name']?>"
 															maxlength="30" style="width: 220px;" ></td>		
 													</tr>		
 													<tr height="20">		
@@ -72,13 +72,16 @@
 														<td valign="top" align="right" class="normalblack_12"
 															width="30%">Address <font color="red"> *</font></td>		
 														<td valign="top" align="center" class="normalblack_12">:</td>		
-														<td valign="top" align="left" class="normalblack_12"><textarea
-															name="address_1" id="address_1" rows="10" cols="15"
-															style="width: 220px;"
-															onKeyDown="textCounter(document.frmPage.fldPageDescraption,document.frmPage.remLen2,100000)"
-															onKeyUp="textCounter(document.frmPage.fldPageDescraption,document.frmPage.remLen2,100000)"
-															class="txt" ></textarea></td>		
-													</tr>		
+														<td valign="top" align="left" class="normalblack_12">
+															<textarea
+																name="address_1" id="address_1" rows="10" cols="15"
+																style="width: 220px;"
+																onKeyDown="textCounter(document.frmPage.fldPageDescraption,document.frmPage.remLen2,100000)"
+																onKeyUp="textCounter(document.frmPage.fldPageDescraption,document.frmPage.remLen2,100000)"
+																class="txt"><?php echo $college['College']['address_1']?>														
+															</textarea>
+														</td>
+													</tr>
 													<tr height="20">		
 														<td align="center" valign="top" colspan="3"
 															class="normalwhite_14">&nbsp;</td>		
@@ -88,7 +91,7 @@
 															width="30%">City <font color="red">*</font></td>		
 														<td valign="top" align="center" class="normalblack_12">:</td>		
 														<td valign="top" align="left" class="normalblack_12"><input
-															type="text" name="city" style="width: 220px;" value="" >		
+															type="text" name="city" style="width: 220px;" value="<?php echo $college['College']['city']?>" >		
 														</td>		
 													</tr>
 													<tr height="20">		
@@ -100,7 +103,7 @@
 															width="30%">State Abbrev.<font color="red">*</font></td>		
 														<td valign="top" align="center" class="normalblack_12">:</td>		
 														<td valign="top" align="left" class="normalblack_12"><input
-															type="text" name="state" style="width: 220px;" >		
+															type="text" name="state" style="width: 220px;" value="<?php echo $college['College']['state']?>" >		
 														</td>		
 													</tr>		
 													<tr height="20">		
@@ -112,7 +115,7 @@
 															width="30%">Zip Code <font color="red">*</font></td>		
 														<td valign="top" align="center" class="normalblack_12">:</td>		
 														<td valign="top" align="left" class="normalblack_12">
-															<input type="text" name="zip" style="width: 220px;" >
+															<input type="text" name="zip" style="width: 220px;" value="<?php echo $college['College']['zip']?>" >
 														</td>		
 													</tr>		
 													<tr height="20">		
@@ -132,7 +135,9 @@
 															$divisionList['JUCO'] = 'JUCO';										
 														?>
 														<td valign="top" align="left" class="normalblack_12">
-															<?php echo $this->Form->input('divison', array('type'=>'select', 'empty' => array('select' => 'Select Division'), 'label' => false, 'style' => 'width: 220px', 'options' => $divisionList)); ?>
+															<?php echo $this->Form->input('divison', array('type'=>'select', 'empty' => array('select' => 'Select Division'), 'label' => false, 
+																						  'value' => $college['College']['divison'], 'style' => 'width: 220px', 
+																						  'options' => $divisionList)); ?>
 														</td>		
 													</tr>		
 													<tr height="20">		
@@ -144,7 +149,8 @@
 															width="30%">Status <font color="red"></font></td>		
 														<td valign="top" align="center" class="normalblack_12">:</td>		
 														<td valign="top" align="left" class="normalblack_12">
-															<?php echo $this->Form->input('status', array('type'=>'select', 'label' => false, 'style' => 'width: 220px',  
+															<?php echo $this->Form->input('status', array('type'=>'select', 'label' => false, 'style' => 'width: 220px', 
+																						  'value' => $college['College']['status'], 
 															 							  'options' => array('1' => 'ACTIVE', '0' => 'DE-ACTIVE'))); ?>
 														</td>		
 													</tr>		
