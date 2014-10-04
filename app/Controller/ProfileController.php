@@ -108,9 +108,8 @@ class ProfileController extends AppController{
 			unset($this->request->data['Athlete']['username']);
 			unset($this->request->data['Athlete']['email']);
 
-			if($this->request->data['Athlete']['image']){
-				$this->Image->set_paths(WWW_ROOT . 'img/athlete/', WWW_ROOT . 'img/athlete/thumb/');
-
+			$this->Image->set_paths(WWW_ROOT . 'img/athlete/', WWW_ROOT . 'img/athlete/thumb/');
+			if(isset($_FILES['image']['tmp_name'])){
 				$this->request->data['Athlete']['image'] = $_FILES['image'];
 				$photo_path = $this->Image->upload_image('Athlete.image');
 

@@ -114,13 +114,15 @@ class ImageComponent extends Component {
 	 * set paths for upload and thumb
 	 */
 	public function set_paths($upload_path, $thumb_path) {
-		if(!empty($upload_path) AND is_writable($upload_path)
-		AND !empty($thumb_path) AND is_writable($thumb_path))
-		$this->save_paths = array(
-                    'upload' => $upload_path,
-                    'thumb' => $thumb_path 
-		);
-		else return false;
+		if(!empty($upload_path) AND is_writable($upload_path) AND !empty($thumb_path) AND is_writable($thumb_path)){
+			$this->save_paths = array(
+	                    'upload' => $upload_path,
+	                    'thumb' => $thumb_path 
+			);
+		}
+		else{
+			return false;
+		}
 	}
 
 	/*

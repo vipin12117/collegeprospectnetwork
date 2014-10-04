@@ -1,6 +1,6 @@
 <div class="cantener">
 	<div class="register-main">
-		<?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Profile","action"=>"editAthleteProfile")));?>
+		<?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Profile","action"=>"editAthleteProfile"),"type"=>"file"));?>
 		
 			<h1>Athlete Registration</h1>
 			<span class="msg"><font color="#0000ff">&nbsp;*</font> Fields are Mandatory.</span>
@@ -31,7 +31,7 @@
 				<p>
 					<label>Profile Image:</label>
 					<span>
-						<?php echo $this->Form->input("image",array("div"=>false,"label"=>false,"type"=>"file"));?>
+						<?php echo $this->Form->input("image",array("div"=>false,"label"=>false,"type"=>"file","name"=>"image"));?>
 					</span>
 				</p>
 				

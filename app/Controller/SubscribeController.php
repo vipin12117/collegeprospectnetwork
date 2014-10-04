@@ -32,7 +32,7 @@ class SubscribeController extends AppController{
 				$Authnet = new Authnet();
 
 				try{
-					$result = $Authnet->createProfile($this->request->data['CollegeSubscription'],$profileDetail['CollegeCoach']['customer_profile_id']);
+					$result = $Authnet->createProfile($this->request->data['CollegeSubscription'],@$profileDetail['CollegeCoach']['customer_profile_id']);
 
 					$subscriotion_id = $this->request->data['CollegeSubscription']['subscription_id'];
 					$subscription = $this->Subscription->find("first",array("conditions"=>"Subscription.id = '$subscriotion_id'"));
@@ -145,7 +145,6 @@ class SubscribeController extends AppController{
 				$result = $this->CollegeSubscription->find("first",array("conditions"=>"CollegeSubscription.college_coach_id = '$user_id' AND CollegeSubscription.subscription_id = '$subscription_id'"));
 
 				$Authnet->cancelProfile($this->request->data['CollegeSubscription'],$result['CollegeSubscription']['payment_profile_id'],$result['CollegeSubscription']['transaction_id']);
-
 				$this->CollegeSubscription->updateAll(array("status"=>0,"cancel_date"=>date('Y-m-d'),"cancel_reason"=>"'".$this->request->data['CollegeSubscription']['reason']."'"),array("college_coach_id"=>$user_id,"CollegeSubscription.subscription_id"=>$subscription_id));
 
 				$this->Session->setFlash("Subscription profile cancel successfully.");

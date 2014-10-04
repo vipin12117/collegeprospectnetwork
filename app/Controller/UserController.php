@@ -1,6 +1,7 @@
 <?php
 
 App::uses('CakeEmail', 'Network/Email');
+
 class UserController extends AppController{
 
 	public $name = "User";
@@ -282,9 +283,8 @@ class UserController extends AppController{
 
 		// Get Sport Name
 		$this->loadModel('Sport');
-		$sport = $this->Sport->find('first',array('conditions'=>array('Sport.id' => $data['sport_id']),
-		array('fields'=>'Sport.name')));
-		$sportName = $Sport['Sport']['name'];
+		$sport = $this->Sport->find('first',array('conditions'=>array('Sport.id' => $data['sport_id']),array('fields'=>'Sport.name')));
+		$sportName = $sport['Sport']['name'];
 		$httpUserAgent = $_SERVER['HTTP_USER_AGENT'];
 
 		$template = 'athlete_registerer_mail';
@@ -375,8 +375,9 @@ class UserController extends AppController{
 		$this->loadModel('College');
 		$college = $this->College->find("first",array("conditions"=>"College.id = '".$data['college_id']."'","fields"=>"College.name"));
 		$collegeName = $college['College']['name'];
-
+		
 		// Get Sport Name
+		$this->loadModel('Sport');
 		$sport = $this->Sport->find("first",array("conditions"=>"Sport.id = '".$data['sport_id']."'","fields"=>"Sport.name"));
 		$sportName = $sport['Sport']['name'];
 
@@ -389,7 +390,7 @@ class UserController extends AppController{
 			$cakeEmail->to(array("admin@collegeprospectnetwork.com" => "Admin"));
 			$cakeEmail->subject($subject);
 			$cakeEmail->emailFormat('html');
-			$cakeEmail->viewVars(array('newSchool' => $newSchool, 'data' => $data, 'address' => $address, 'collegeName' => $collegeName, 'sportName' => $sportName, 'httpUserAgent' => $httpUserAgent));
+			$cakeEmail->viewVars(array('newCollege' => $newCollege, 'data' => $data, 'address' => $address, 'collegeName' => $collegeName, 'sportName' => $sportName, 'httpUserAgent' => $httpUserAgent));
 			// Send email
 			$cakeEmail->send();
 		} 
