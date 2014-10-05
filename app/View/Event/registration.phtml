@@ -1,0 +1,187 @@
+<div class="cantener">
+	<div class="register-main">
+		<?php echo $this->Form->create("SpecialEventUser",array("url"=>array("controller"=>"Event","action"=>"registration"),"type"=>"file"));?>
+		
+			<h1>Event Registration</h1>
+			<span class="msg"><font color="#0000ff">&nbsp;*</font> Fields are Mandatory.</span>
+			<div class="registerPage">
+				<p>
+					<label>First Name:</label>
+					<span>
+						<?php echo $this->Form->input("firstname",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Last Name:</label>
+					<span>
+						<?php echo $this->Form->input("lastname",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Address:</label>
+					<span>
+						<?php echo $this->Form->input("address_1",array("div"=>false,"label"=>false,"required"=>"true","type"=>"textarea"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>City:</label>
+					<span>
+						<?php echo $this->Form->input("city",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>State:</label>
+					<span>
+						<?php echo $this->Form->input("state",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Zip Code:</label>
+					<span>
+						<?php echo $this->Form->input("zip",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Cell Phone:</label>
+					<span>
+						<?php echo $this->Form->input("phone",array("div"=>false,"label"=>false,"required"=>"true","type"=>"number"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Email Address(for receipt):</label>
+					<span>
+						<?php echo $this->Form->input("email",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Graduating Class:</label>
+					<span>
+						<?php echo $this->Form->input("class",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getClasses(),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Primary Position:</label>
+					<span>
+						<?php echo $this->Form->input("primary_position",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getPositions(11),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>Secondary Position:</label>
+					<span>
+						<?php echo $this->Form->input("secondary_position",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getPositions(11),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>HS Coach Name:</label>
+					<span>
+						<?php echo $this->Form->input("coach_name",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+				   <label>High School:</label>
+				   <span>
+				   		<?php echo $this->Form->input("school",array("id"=>"hs_aau_team_id1","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getHsAauSchools(),"empty"=>"Select One"));?>
+				   </span>
+				   <font color="#0000ff">*</font>
+				</p>   
+				<?php $this->Js->get("#hs_aau_team_id1"); ?>
+		    	<?php $this->Js->event('change',$this->Js->request(array('controller' => 'Event','action' => 'getAddressInfo'),
+		    					   array('async' => true,'update' => '#school_address1','data' => '$("#hs_aau_team_id1").serialize()','dataExpression' => true
+		               		 ))); 
+		     	?>
+		     	
+		     	<div id="school_address1">
+		     	
+		     	
+		     	</div>
+		     	
+		     	<p>
+					<label>AAU Coach Name:</label>
+					<span>
+						<?php echo $this->Form->input("hs_aau_coach_name",array("div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				
+				<p>
+				   <label>High School/AAU Team:</label>
+				   <span>
+				   		<?php echo $this->Form->input("hs_aau_team_id",array("id"=>"hs_aau_team_id2","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getHsAauSchools(),"empty"=>"Select One"));?>
+				   </span>
+				   <font color="#0000ff">*</font>
+				</p>   
+				
+				<?php $this->Js->get("#hs_aau_team_id2"); ?>
+		    	<?php $this->Js->event('change',$this->Js->request(array('controller' => 'Event','action' => 'getAddressInfo'),
+		    					   array('async' => true,'update' => '#school_address2','data' => '$("#hs_aau_team_id2").serialize()','dataExpression' => true
+		               		 ))); 
+		     	?>
+		     	
+		     	<div id="school_address2">
+		     	
+		     	
+		     	</div>
+	     		<hr />
+	     		
+				<p>
+					<label>Event:</label>
+					<span>
+						<?php echo $this->Form->input("special_event_id",array("id"=>"special_event_id","div"=>false,"label"=>false,"required"=>"true","options"=>$events,"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>	
+				
+				<?php $this->Js->get("#special_event_id"); ?>
+		    	<?php $this->Js->event('change',$this->Js->request(array('controller' => 'Event','action' => 'getTransportationDiscount'),
+		    					   array('async' => true,'update' => '#discounts','data' => '$("#special_event_id").serialize()','dataExpression' => true
+		               		 ))); 
+		     	?>
+		     	<div id="discounts">
+		     	
+		     	
+		     	</div>
+		     	
+				<p>
+					<label>Referred by:</label>
+					<span>
+						<?php echo $this->Form->input("referred_by",array("div"=>false,"label"=>false));?>
+					</span>
+				</p>
+				<p>
+					<label>Coupon Number:</label>
+					<span>
+						<?php echo $this->Form->input("coupon_number",array("div"=>false,"label"=>false));?>
+					</span>
+				</p>
+				<p>
+					<label>Upload Transcript:</label>
+					<span>
+						<?php echo $this->Form->input("transcript",array("div"=>false,"label"=>false,"type"=>"file","name"=>"transcript"));?>
+					</span>
+				</p>
+				
+				<p>
+					<label>&nbsp;</label>
+					<span>
+						<?php echo $this->Form->submit("Submit",array("type"=>"submit","div"=>false,"label"=>false));?>
+						
+						<?php echo $this->Form->submit("Back",array("type"=>"button","div"=>false,"label"=>false,"onclick"=>"window.location.href='".$this->Html->url(array("controller"=>"Home","action"=>"index"))."'"));?>
+					</span>
+				</p>
+			</div>
+		
+		<?php echo $this->Form->end();?>
+	</div>
+</div>	

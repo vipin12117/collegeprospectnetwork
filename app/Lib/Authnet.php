@@ -19,14 +19,14 @@ class Authnet {
 
 		$subscription_id  = intval($data['subscription_id']);
 		$sport_id     = intval($data['sport_id']);
-		$firstname    = mysql_real_escape_string($data['firstname']);
-		$lastname     = mysql_real_escape_string($data['lastname']);
-		$address_1    = mysql_real_escape_string($data['address']);
-		$city         = mysql_real_escape_string($data['city']);
-		$state        = mysql_real_escape_string($data['state']);
+		$firstname    = ($data['firstname']);
+		$lastname     = ($data['lastname']);
+		$address_1    = ($data['address']);
+		$city         = ($data['city']);
+		$state        = ($data['state']);
 		$zip          = intval($data['zip']);
-		$owner_name   = mysql_real_escape_string($data['card_owner']);
-		$card_number  = mysql_real_escape_string($data['card_number']);
+		$owner_name   = ($data['card_owner']);
+		$card_number  = ($data['card_number']);
 		$cvv_number   = intval($data['cvv']);
 		$subExpMonth  = intval($data['month']);
 		$subExpYear   = intval($data['year']);
@@ -173,14 +173,14 @@ class Authnet {
 		// updates the payment profile with the new information
 		$subscription_id  = intval($data['subscription_id']);
 		$sport_id     = intval($data['sport_id']);
-		$firstname    = mysql_real_escape_string($data['firstname']);
-		$lastname     = mysql_real_escape_string($data['lastname']);
-		$address_1    = mysql_real_escape_string($data['address']);
-		$city         = mysql_real_escape_string($data['city']);
-		$state        = mysql_real_escape_string($data['state']);
+		$firstname    = ($data['firstname']);
+		$lastname     = ($data['lastname']);
+		$address_1    = ($data['address']);
+		$city         = ($data['city']);
+		$state        = ($data['state']);
 		$zip          = intval($data['zip']);
-		$owner_name   = mysql_real_escape_string($data['card_owner']);
-		$card_number  = mysql_real_escape_string($data['card_number']);
+		$owner_name   = ($data['card_owner']);
+		$card_number  = ($data['card_number']);
 		$cvv_number   = intval($data['cvv']);
 		$subExpMonth  = intval($data['month']);
 		$subExpYear   = intval($data['year']);

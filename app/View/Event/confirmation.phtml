@@ -1,0 +1,188 @@
+<div class="cantener">
+  <div class="register-main">
+	 <h1>Payment Information</h1>
+
+	 <div class="registerPage">
+	 	<?php echo $this->Form->create("SpecialEventUser",array("url"=>array("controller"=>"Event","action"=>"confirmation"),"type"=>"file"));?>
+
+		<?php $total_price = $eventDetail['SpecialEvent']['current_price'];?>
+		<table cellpadding="5" width="100%" cellspacing="5" style="font-size:16px;">
+			<tr style="border-bottom:#333333 1px solid;">
+				<th width="70%"><b>Event Information</b></th>
+				<th width="30%"><b>Price</b></th>
+			</tr>
+			
+			<tr style="line-height:20px;" >
+				<td><?php echo $eventDetail['SpecialEvent']['event_name'];?></td>
+				<td style="padding-left:5px;">$<?php echo $eventDetail['SpecialEvent']['current_price'];?></td>
+			</tr>
+
+			<tr style="line-height:20px;">
+				<?php if(isset($eventDetail['SpecialEvent']['transportation_discount_id']) && $eventDetail['SpecialEvent']['transportation_discount_id']):?>
+					<td style="color:#33CC00;padding-left:5px;"> + Transportation Charge </td>
+					<td style="padding-left:5px;">$<?php echo $eventDetail['TransportationDiscount']['transport_charge'];?></td>
+					
+					<?php $total_price += $eventDetail['TransportationDiscount']['transport_charge']; ?>
+				<?php else:?>
+					<td style="color:#FF0000;padding-left:5px;"> + Transportation Charge </td>
+					<td style="padding-left:5px;">$0</td>
+				<?php endif;?>
+			</tr>
+
+			<tr><td>Discount</td><td>&nbsp;</td></tr>
+
+			<tr style="line-height:25px;">
+				<?php if(isset($early_discount_rate) && $early_discount_rate > 0):?>
+					<td style="color:#33CC00;padding-left:5px;"> - Early Registration Discount </td>
+					<td style="padding-left:5px;">$<?php echo $early_discount_rate;?></td>
+					
+					<?php $total_price -= $early_discount_rate; ?>
+				<?php else:?>
+					<td style="color:#FF0000;padding-left:5px;"> - Early Registration Discount </td>
+					<td style="padding-left:5px;">$0</td>
+				<?php endif;?>
+		   </tr>
+
+		   <tr style="line-height:20px;">
+				<?php if(isset($eventDetail['SpecialEvent']['transcript_discount']) && $eventDetail['SpecialEvent']['transcript_discount'] > 0):?>
+					<td style="color:#33CC00;padding-left:5px;"> - Upload Transcipt Discount </td>
+					<td style="padding-left:5px;">$<?php echo $eventDetail['SpecialEvent']['transcript_discount'];?></td>
+
+					<?php $total_price -= $eventDetail['SpecialEvent']['transcript_discount']; ?>
+				<?php else:?>
+					<td style="color:#FF0000;padding-left:5px;"> - Upload Transcipt Discount </td>
+					<td style="padding-left:5px;">$0</td>
+				<?php endif;?>
+	       </tr>
+
+		   <tr style="line-height:20px;">
+			   <?php if(isset($coupon_detail) && $coupon_detail['Coupon']['amount'] != ''):?>
+					<td style="color:#33CC00;padding-left:5px;"> - Coupon Discount </td>
+					<td style="padding-left:5px;">$<?php echo $coupon_detail['Coupon']['amount'];?></td>
+
+					<?php $total_price -= $coupon_detail['Coupon']['amount']; ?>
+			   <?php else:?>
+					<td style="color:#FF0000;padding-left:5px;"> - Coupon Discount </td>
+					<td style="padding-left:5px;">$0</td>
+			   <?php endif;?>
+		   </tr>
+
+		   <tr style="border-top:#333333 1px solid;line-height:20px;padding-top:5px;border-bottom:#333333 1px solid;">
+				<td style="text-align:right;"><b>Event Total Price :</b></td>
+				<td style="padding-left:5px;"><b>$<?=$total_price?></b></td>
+		   </tr>
+	  </table>
+
+	  <p>&nbsp;</p>
+
+	  <?php if(isset($_REQUEST['response_text']) && $_REQUEST['response_text']!=''):?>
+			<p> 
+			   <center>
+				 <span style="font-size:14px;color:#CC0000;text-align:center;"><?php echo $_REQUEST['response_text']; ?></span>
+			  </center>
+		    </p>
+
+			<?php unset($_REQUEST['response_text']);?>
+	  <?php endif;?>		
+
+	  <h1>Payment Confirmation</h1>
+	  
+	  <p>
+		 <label>Card Type :</label>
+		 <span>
+			<select name="cardtype" class="cer_cent_forms_box" id="cardtype">
+				<option value="">Select</option>
+				<option value="Visa">Visa</option>
+				<option value="MasterCard">MasterCard</option>
+				<option value="American Express">American Express</option>
+				<option value="Discover">Discover</option>
+			</select>
+		  </span>
+		  <font color="#0000ff">&nbsp;*</font>
+	   </p>
+	   
+       <p>
+          <label>Card Number:</label>
+          <span>
+               <?php echo $this->Form->input("card_number",array("label"=>false,"div"=>false,"required"));?>
+          </span>
+          <font color="#0000ff">&nbsp;*</font>
+       </p>
+
+       <p>
+          <label>Card Expire Date:</label>
+          <span>
+			  <?php echo $this->Form->input("month",array("label"=>false,"div"=>false,"options"=>$this->Register->getSubcribeMonths(),"empty"=>"Select Month","required","style"=>"width:120px;"));?> / 
+			  <?php echo $this->Form->input("year",array("label"=>false,"div"=>false,"options"=>$this->Register->getSubcribeYears(),"empty"=>"Select Year","required","style"=>"width:120px;"));?>
+          </span>
+       </p>
+                
+       <p>
+          <label>CVV:</label>
+          <span>
+              <?php echo $this->Form->input("cvv",array("label"=>false,"div"=>false,"required"));?>
+          </span>
+          <font color="#0000ff">&nbsp;*</font>
+       </p>
+	  
+	   <h1>Billing Information</h1>
+	   
+       <p>
+          <label>First Name:</label>
+          <span>
+              <?php echo $this->Form->input("firstname",array("label"=>false,"div"=>false,"value"=>$userDetail['SpecialEventUser']['firstname'],"required"));?>
+          </span>
+          <font color="#0000ff">&nbsp;*</font>
+       </p>
+
+       <p>
+          <label>Last Name:</label>
+          <span>
+               <?php echo $this->Form->input("lastname",array("label"=>false,"div"=>false,"value"=>$userDetail['SpecialEventUser']['lastname'],"required"));?>
+          </span>
+          <font color="#0000ff">&nbsp;*</font>
+       </p>
+
+       <p>
+          <label>Address:</label>
+          <span>
+              <?php echo $this->Form->input("address",array("label"=>false,"div"=>false,"value"=>$userDetail['SpecialEventUser']['address_1'],"required"));?>
+          </span>
+          <font color="#0000ff">&nbsp;*</font>
+       </p>
+
+        <p>
+           <label>City:</label>
+           <span>
+               <?php echo $this->Form->input("city",array("label"=>false,"div"=>false,"value"=>$userDetail['SpecialEventUser']['city'],"required"));?>
+           </span>
+           <font color="#0000ff">&nbsp;*</font>
+        </p>
+
+        <p>
+           <label>State:</label>
+           <span>
+               <?php echo $this->Form->input("state",array("label"=>false,"div"=>false,"value"=>$userDetail['SpecialEventUser']['state'],"required"));?>
+           </span>
+           <font color="#0000ff">&nbsp;*</font>
+        </p>
+
+        <p>
+           <label>Zip Code:</label>
+           <span>
+               <?php echo $this->Form->input("zip",array("label"=>false,"div"=>false,"value"=>$userDetail['SpecialEventUser']['zip'],"required"));?>
+           </span>
+           <font color="#0000ff">&nbsp;*</font>
+        </p>
+        
+		<p style="margin-top:30px;">
+            <label>&nbsp;</label>
+            <span>
+                <?php echo $this->Form->submit("Checkout",array("type"=>"submit","div"=>false,"label"=>false));?>
+				<?php echo $this->Form->submit("Back",array("type"=>"button","div"=>false,"label"=>false,"onclick"=>"window.location.href='".$this->Html->url(array("controller"=>"Event","action"=>"registration"))."'"));?>
+            </span>
+        </p>
+      <?php echo $this->Form->end();?>
+  </div>
+</div>
+</div>	 

@@ -48,6 +48,8 @@ Router::connect('/register-college-coach.php', array('controller' => 'User', 'ac
 Router::connect('/my-account.php', array('controller' => 'Profile', 'action' => 'index'));
 Router::connect('/change-password.php', array('controller' => 'Profile', 'action' => 'changePassword'));
 
+Router::connect('/events-registration', array('controller' => 'Event', 'action' => 'registration'));
+
 //urls after login
 //athlete urls
 Router::connect('/athlete-profile.php/*', array('controller' => 'Profile', 'action' => 'athleteProfile'));
