@@ -1,0 +1,45 @@
+<table width="100%" cellpadding="3" cellspacing="5">
+	<tr>
+		<td width="100%" align="center">
+		<table width="95%" cellpadding="0" cellspacing="3">
+			<tr>
+				<td width="100%" class="SearchHead"><b>Others HS / AAU TEAM Details</b></td>
+			</tr>
+			<tr>
+				<td width="100%" class="GeneralFont">&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="100%">
+				<table width="100%" cellspacing="0" cellpadding="2">
+					<tr>
+						<td class="normalblack_12" valign="top" height="25" width="40%"><b>Name</b>
+						</td>
+						<td class="normalblack_12" valign="top"><?php echo $hsAauTeamOther['HsAauTeamOther']['name'];?></td>
+					</tr>
+					<tr>
+						<td class="normalblack_12" valign="top" height="25" width="40%"><b>Coach Name</b>
+						</td>
+						<td class="normalblack_12" valign="top"><?php echo $hsAauTeamOther['HsAauTeamOther']['coach_name'];?></td>
+					</tr>
+					<tr>
+						<td class="normalblack_12" valign="top" height="25" width="40%"><b>Coach phone</b>
+						</td>
+						<td class="normalblack_12" valign="top"><?php echo $hsAauTeamOther['HsAauTeamOther']['coach_phone'];?></td>
+					</tr>
+					<tr>
+						<td class="normalblack_12" valign="top" height="25" width="40%"><b>Status</b>
+						</td>
+						<td class="normalblack_12" valign="top"><?php if($hsAauTeamOther['HsAauTeamOther']['status'] == 1) echo "Active"; else echo "DeActive";?></td>
+					</tr>
+
+				</table>
+				</td>
+				<tr>
+					<td class="normalblack_12" valign="top" height="25" width="40%"
+						colspan="2"><input type=button value="Close"
+						onClick="javascript:window.close();"></td>
+				</tr>	
+		</table>
+		</td>
+	</tr>
+</table>

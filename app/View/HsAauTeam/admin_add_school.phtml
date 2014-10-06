@@ -1,0 +1,281 @@
+<?php $error_msg = '';?>
+<table cellSpacing=0 cellPadding=0 width="100%" border=0>
+
+	<tr>
+		<td height=120><?php echo $this->element('admin_header');?></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="heading">
+		<table cellSpacing=0 cellPadding=1 width="95%" align=center border=0>
+			<tr>
+				<td>
+				<table cellSpacing=0 cellPadding=1 width=780 border=0>
+					<tr>
+						<td bgColor=#ffffff>
+						<table cellSpacing=0 cellPadding=0 width=900 border=0>
+							<tr>
+								<td vAlign=top width=20%><?php echo $this->element('admin_menu');?></td>
+								<td valign=top width=1%>&nbsp;</td>
+								<?php $s_image = "/img/spacer.gif"; ?>
+								<td width=10><img src="<?php echo $s_image?>" height="1"
+									width="1"></td>
+								<td valign=top width=""><!-- MAin Content Starts From Here -->
+
+								<form name="frmAddSchool" action="" method="post"
+									enctype="multipart/form-data" onsubmit="return validate()">
+
+								<table width="100%" border="1" cellpadding="1" cellspacing="0"
+									bordercolor="#808080" style="border-collapse: collapse">
+
+									<tr height="20">
+
+										<td align="center" class="normalblack_12" width="90%"
+											valign="top">
+
+										<table width="100%" border="0" cellpadding="0" cellspacing="0"
+											bgcolor="#FFFFFF">
+											<tr>
+												<!-- Display the message on heading of the page -->
+												<td valign="top" class="normalwhite_14" colspan=3
+													bgcolor="#808080" align="center"><b>Add HS/AAU Team Info</b>
+												</td>
+											</tr>
+											<tr>
+												<!-- Display the message on heading of the page -->
+												<td valign="top" colspan=3 align="center">&nbsp;</td>
+											</tr>
+											<tr>
+												<td valign="top" colspan=3 align="center"
+													class="normalblack_12"><font color="Red"></font></td>
+											</tr>
+											<tr>
+												<td height="35" colspan="3" align="right"
+													class="normalblack_12"><FONT color="Red">Fields marked with
+												* are mandatory&nbsp;</FONT></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Name<font color="red">*</font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><input
+													type="text" name="school_name" value="" maxlength="30"
+													style="width: 200px"></td>
+											</tr>
+											<tr height="20">
+
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Enrollment<font color="red"></font></td>
+
+												<td valign="top" align="center" class="normalblack_12">:</td>
+
+												<td valign="top" align="left" class="normalblack_12"><input
+													type="text" name="enrollment" value="" maxlength="30"
+													style="width: 200px"></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Address<font color="red">*</font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+
+												<td valign="top" align="left" class="normalblack_12"><textarea
+													name="address" id="address" rows="5" cols="9"
+													style="width: 200px;"
+													onKeyDown="textCounter(document.frmAddSchool.fldAddress,document.frmPage.remLen2,100000)"
+													onKeyUp="textCounter(document.frmAddSchool.fldAddress,document.frmPage.remLen2,100000)"
+													class="txt"></textarea></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+											<tr height="20">
+
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">City<font color="red">*</font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><input
+													type="text" name="city" value="" maxlength="40"
+													style="width: 200px"></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">State<font color="red">*</font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+
+												<td valign="top" align="left" class="normalblack_12"><input
+													type="text" name="state" value="" maxlength="40"
+													style="width: 200px"></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Zip Code<font color="red">*</font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><input
+													type="text" name="zip" value="" maxlength="30"
+													style="width: 200px"></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Status<font color="red">*</font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><?php echo $this->Form->input('status', array('type'=>'select', 'label' => false, 'style' => 'width: 220px',  
+															 							  'options' => array('1' => 'ACTIVE', '0' => 'DE-ACTIVE'))); ?>
+												</td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" colspan=3 align="center"
+													class="normalblack_12">&nbsp;</td>
+											</tr>
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">&nbsp</td>
+												<td valign="top" align="center" class="normalblack_12">
+												&nbsp</td>
+												<td valign="top" align="left" class="normalblack_12"><input
+													type="hidden" name="isSubmit" value="save"> <input
+													type="submit" name="submit" value="Submit">&nbsp;&nbsp;<input
+													type="reset" name="Submit2" value="Reset"></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" colspan=3 align="center"
+													class="normalblack_12">&nbsp;</td>
+											</tr>
+										</table>
+										</td>
+									</tr>
+								</table>
+								</form>
+
+								<!--Main Center Content END --></td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<?php echo $this->element('admin_footer');?>
+</table>
+
+<script type="text/javascript">
+function validate(){
+	var error_msg = "";
+
+	if(trimString(document.frmAddSchool.school_name.value) == ""){
+		error_msg += "Please Enter HS/AAU Team name! \n";
+	}
+	else{
+		if(hasSpecialCharaters(document.frmAddSchool.school_name.value)){
+			error_msg += "Enter HS/AAU Team name with no SpecialCharaters! \n";
+		}
+	}
+
+	if(trimString(document.frmAddSchool.address.value) == ""){
+		error_msg += "Please Enter address! \n";
+	}
+	else{
+		if(hasSpecialCharaters(document.frmAddSchool.address.value)){
+			error_msg += "Enter address! \n";
+		}
+	}
+
+
+	if(trimString(document.frmAddSchool.city.value) == ""){
+		error_msg += "Please Enter city Name! \n";
+	}
+	else{
+		if(hasSpecialCharaters(document.frmAddSchool.city.value)){
+			error_msg += "Enter Valid City Name! \n";
+		}
+		else if(isNumeric(document.frmAddSchool.city.value))
+		{
+		error_msg += "Enter Valid City Name! \n";
+		}
+	}
+
+	if(trimString(document.frmAddSchool.state.value) == ""){
+		error_msg += "Please Enter State Name! \n";
+	}
+	else{
+		if(hasSpecialCharaters(document.frmAddSchool.state.value)){
+			error_msg += "Enter Valid State Name! \n";
+		}
+		else if(isNumeric(document.frmAddSchool.state.value))
+		{
+			error_msg += "Enter Valid State Name! \n";
+		}
+	}
+
+	if(trimString(document.frmAddSchool.zip.value) == ""){
+		error_msg += "Please Enter Zipcode! \n";
+	}
+	else{
+		if(trimString(document.frmAddSchool.zip.value) != ""){
+		if(!isNumeric(document.frmAddSchool.zip.value)){
+			error_msg += "Please Enter numeric Zipcode! \n";
+		}
+
+		if(document.frmAddSchool.zip.value.length > 15){
+			error_msg += "Zipcode should be less then 16 characters! \n";
+		}
+	}
+	}
+
+	if(trimString(document.frmAddSchool.status.value) == ""){
+
+		error_msg += "Please Enter status! \n";
+	}
+	else{
+		if(hasSpecialCharaters(document.frmAddSchool.status.value)){
+			error_msg += "Enter valid status! \n";
+		}
+	}
+
+	if(error_msg!=''){
+		alert(error_msg);
+		return false;
+	} else {
+		return true;
+	}
+}
+
+</script>
