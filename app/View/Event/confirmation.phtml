@@ -18,11 +18,11 @@
 			</tr>
 
 			<tr style="line-height:20px;">
-				<?php if(isset($eventDetail['SpecialEvent']['transportation_discount_id']) && $eventDetail['SpecialEvent']['transportation_discount_id']):?>
+				<?php if(isset($userDetail['SpecialEventUser']['transportation_discount_id']) && $userDetail['SpecialEventUser']['transportation_discount_id']):?>
 					<td style="color:#33CC00;padding-left:5px;"> + Transportation Charge </td>
-					<td style="padding-left:5px;">$<?php echo $eventDetail['TransportationDiscount']['transport_charge'];?></td>
+					<td style="padding-left:5px;">$<?php echo $userDetail['TransportationDiscount']['transport_charge'];?></td>
 					
-					<?php $total_price += $eventDetail['TransportationDiscount']['transport_charge']; ?>
+					<?php $total_price += $userDetail['TransportationDiscount']['transport_charge']; ?>
 				<?php else:?>
 					<td style="color:#FF0000;padding-left:5px;"> + Transportation Charge </td>
 					<td style="padding-left:5px;">$0</td>
@@ -56,7 +56,7 @@
 	       </tr>
 
 		   <tr style="line-height:20px;">
-			   <?php if(isset($coupon_detail) && $coupon_detail['Coupon']['amount'] != ''):?>
+			   <?php if(isset($coupon_detail['Coupon']) && $coupon_detail['Coupon']['amount'] != ''):?>
 					<td style="color:#33CC00;padding-left:5px;"> - Coupon Discount </td>
 					<td style="padding-left:5px;">$<?php echo $coupon_detail['Coupon']['amount'];?></td>
 

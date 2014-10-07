@@ -25,10 +25,10 @@ class EventController extends AppController{
 
 	public function registration(){
 		$this->set("title_for_layout","College Prospect Network - Event Registration");
-		
+
 		if(isset($this->request->data['SpecialEventUser'])){
 			if(isset($_FILES['transcript']['tmp_name'])){
-				$file_parts = explode(".",$_FILES['transcript']['tmp_name']);
+				$file_parts = explode(".",$_FILES['transcript']['name']);
 				$extension  = end($file_parts);
 				$filename = $this->uniqueCode(20).".$extension";
 
@@ -60,30 +60,63 @@ class EventController extends AppController{
 			$this->redirect(array("controller"=>"Event","action"=>"registration"));
 			exit;
 		}
-		
-		if(isset($this->request->data['SpecialEventUser'])){
-			
-			
-		}
 
 		$this->set("userDetail",$userDetail);
-
 		$eventDetail = $this->SpecialEvent->read(null,$userDetail['SpecialEventUser']['special_event_id']);
 		$this->set("eventDetail",$eventDetail);
 
 		$early_discount_rate = 0;
-		$start_date = $eventDetail['SpecialEvent']['start_date'];
+		$total_price = $eventDetail['SpecialEvent']['current_price'];
 
+		if(isset($userDetail['TransportationDiscount']) AND $userDetail['TransportationDiscount']['transport_charge'] > 0){
+			$total_price += $eventDetail['TransportationDiscount']['transport_charge'];
+		}
+
+		if($eventDetail['SpecialEvent']['transcript_discount'] > 0){
+			$total_price -= $eventDetail['SpecialEvent']['transcript_discount'];
+		}
+
+		$start_date  = $eventDetail['SpecialEvent']['start_date'];
 		$pastDays = (time() - strtotime($start_date))/(24*60*60);
 		if($pastDays <= $eventDetail['SpecialEvent']['early_discount_day']){
 			$early_discount_rate = $eventDetail['SpecialEvent']['early_discount_rate'];
+			$total_price -= $early_discount_rate;
 		}
 		$this->set("early_discount_rate",$early_discount_rate);
-		
+
 		//process discount
 		$coupon_code = $userDetail['SpecialEventUser']['coupon_number'];
 		$coupon_detail = $this->Coupon->find("first",array("conditions"=>"Coupon.name = '$coupon_code' AND Coupon.event_id = '{$userDetail['SpecialEventUser']['special_event_id']}'"));
 		$this->set("coupon_detail",$coupon_detail);
+
+		if(isset($coupon_detail['Coupon']) AND $coupon_detail['Coupon']['amount'] > 0){
+			$total_price -= $coupon_detail['Coupon']['amount'];
+		}
+
+		if(isset($this->request->data['SpecialEventUser'])){
+			App::import('Lib','Authnet');
+			$Authnet = new Authnet();
+
+			try{
+				$this->request->data['SpecialEventUser']['event_name'] = $eventDetail['SpecialEvent']['event_name'];
+				$this->request->data['SpecialEventUser']['total'] = $total_price;
+				$this->request->data['SpecialEventUser']['email'] = $userDetail['SpecialEventUser']['email'];
+				$this->request->data['SpecialEventUser']['country'] = "USA";
+
+				$transaction_id = $Authnet->processPayment($this->request->data['SpecialEventUser']);
+				$this->SpecialEventUser->updateAll(array("SpecialEventUser.payment_status"=>"1","SpecialEventUser.transaction_id"=>"'$transaction_id'"),array("SpecialEventUser.id"=>$event_user_id));
+				
+				$userDetail['SpecialEventUser']['transaction_id'] = $transaction_id;
+				$this->sendEventConfirmationMail($userDetail , $eventDetail , $early_discount_rate , $coupon_detail , $total_price);
+				
+				$this->Session->setFlash("Event Registration is Successfull");
+				$this->redirect(array("controller"=>"Home","action"=>"index"));
+				exit;
+			}
+			catch(Exception $e){
+				$this->Session->setFlash($e->getMessage());
+			}
+		}
 	}
 
 	public function getTransportationDiscount(){
@@ -140,5 +173,24 @@ class EventController extends AppController{
 		}
 
 		$this->render("/User/getAddressInfo","ajax");
+	}
+
+	public function sendEventConfirmationMail($userDetail , $eventDetail , $early_discount_rate , $coupon_detail , $total_price){
+		$subject   = "College Prospect Network - Event Registration is Successfull";
+		$template  = 'event_confirmation_mail';
+		$cakeEmail = new CakeEmail();
+		try {
+			$cakeEmail->template($template);
+			$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+			$cakeEmail->to(array("admin@collegeprospectnetwork.com" => "Admin"));
+			$cakeEmail->subject($subject);
+			$cakeEmail->emailFormat('html');
+			$cakeEmail->viewVars(array('userDetail' => $userDetail, 'eventDetail' => $eventDetail));
+			// Send email
+			$cakeEmail->send();
+		}
+		catch (Exception $e){
+			$this->Session->setFlash('Error while sending email');
+		}
 	}
 }

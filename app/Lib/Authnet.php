@@ -207,19 +207,59 @@ class Authnet {
 			$e = $response->xml->messages->message->code . ': ' .$response->xml->messages->message->text;
 			throw new Exception($e);
 		}
-		
+
 		return 1;
 	}
 
 	public function cancelProfile($data , $payment_profile_id , $customer_profile_id){
 		$request  = new AuthorizeNetCIM;
 		$response = $request->deleteCustomerProfile($customer_profile_id);
-		
+
 		if ($response->xml->messages->resultCode == 'Error') {
 			$e = $response->xml->messages->message->code . ': ' .$response->xml->messages->message->text;
 			throw new Exception($e);
 		}
-		
+
 		return 1;
+	}
+
+	public function processPayment($data){
+		$auth = new AuthorizeNetAIM;
+
+		$data['event_name'] = preg_replace("/[^A-Za-z0-9]/","",$data['event_name']);
+		$auth->addLineItem("1" , $data['event_name'] , $data['event_name'] , '1', $data['total'], 'N');
+		$auth->amount = $data['total'];
+
+		$data['expire_date'] = $data['month'] ."-".$data['year'];
+		$auth->card_num   = $data['card_number'];
+		$auth->exp_date   = $data['expire_date'];
+		$auth->card_code  = $data['cvv'];
+
+		$auth->email  = trim($data['email']);
+		$auth->first_name  = trim($data['firstname']);
+		$auth->last_name   = trim($data['lastname']);
+		$auth->address   = trim($data['address']);
+		$auth->city      = trim($data['city']);
+		$auth->state     = trim($data['state']);
+		$auth->zip       = trim($data['zip']);
+		$auth->country   = trim($data['country']);
+
+		$auth->ship_to_first_name  = trim($data['firstname']);
+		$auth->ship_to_last_name   = trim($data['lastname']);
+		$auth->ship_to_city   = trim($data['city']);
+		$auth->ship_to_state  = trim($data['state']);
+		$auth->ship_to_zip    = trim($data['zip']);
+		$auth->ship_to_address  = trim($data['address']);
+		$auth->ship_to_country  = trim($data['country']);
+		
+		$response = $auth->authorizeAndCapture();
+		if($response->approved){
+			return $response->transaction_id;
+		}
+		else{
+			throw new Exception($response->response_reason_code.":".$response->response_reason_text);
+		}
+
+		return $response;
 	}
 }
