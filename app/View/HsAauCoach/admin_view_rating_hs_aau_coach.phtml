@@ -15,45 +15,45 @@
 						<td width="100%" valign="top">
 						<table width="100%" cellspacing="0" cellpadding="3">
 
-						<?php if($db3->num_rows()>0){ ?>
+						<?php if(sizeof($hsAauCoachRating) > 0 && isset($hsAauCoachRating['0']['HsAauCoachRating']['college_coach_id'])){ ?>
 							<tr>
 								<td class="normalblack_12" valign="top" height="25" width="40%"
 									nowrap>How accurate was this coach in projecting the level at
 								which the athlete can contribute?</td>
-								<td class="normalblack_12" valign="top" nowrap><?php echo $db2->f('fldAthlete_contribue'); ?>
-								with <?php echo $db3->num_rows();?> votes</td>
+								<td class="normalblack_12" valign="top" nowrap><?php echo $hsAauCoachRating['0']['0']['contribute']; ?>
+								with <?php echo sizeof($hsAauCoachRating);?> votes</td>
 							</tr>
 
 							<tr>
 								<td class="normalblack_12" valign="top" height="25" width="40%"
 									nowrap>How prompt was this coach in responding to your
 								communications?</td>
-								<td class="normalblack_12" valign="top" nowrap><?php echo $db2->f('fldComunication'); ?>
-								with <?php echo $db3->num_rows();?> votes</td>
+								<td class="normalblack_12" valign="top" nowrap><?php echo $hsAauCoachRating['0']['0']['comunication']; ?>
+								with <?php echo sizeof($hsAauCoachRating);?> votes</td>
 							</tr>
 														
 							<tr>
 								<td class="normalblack_12" valign="top" height="25" width="40%"
 									nowrap>How prompt was this coach in responding to your requests
 								for game tape?</td>
-								<td class="normalblack_12" valign="top" nowrap><?php echo $db2->f('fldRequest_Game_Tape'); ?>
-								with <?php echo $db3->num_rows();?> votes</td>
+								<td class="normalblack_12" valign="top" nowrap><?php echo $hsAauCoachRating['0']['0']['request_game_tape']; ?>
+								with <?php echo sizeof($hsAauCoachRating);?> votes</td>
 							</tr>
 
 							<tr>
 								<td class="normalblack_12" valign="top" height="25" width="40%"
 									nowrap>How honest was the coach in your interactions with
 								him/her?</td>
-								<td class="normalblack_12" valign="top" nowrap><?php echo $db2->f('fldHonest'); ?>
-								with <?php echo $db3->num_rows();?> votes</td>
+								<td class="normalblack_12" valign="top" nowrap><?php echo $hsAauCoachRating['0']['0']['honest']; ?>
+								with <?php echo sizeof($hsAauCoachRating);?> votes</td>
 							</tr>
 
 							<tr>
 								<td class="normalblack_12" valign="top" height="25" width="40%"
 									nowrap>How well does this coach prepare his/her athlete's for
 								college sports?</td>
-								<td class="normalblack_12" valign="top" nowrap><?php echo $db2->f('fldPrepration'); ?>
-								with <?php echo $db3->num_rows();?> votes</td>
+								<td class="normalblack_12" valign="top" nowrap><?php echo $hsAauCoachRating['0']['0']['prepration']; ?>
+								with <?php echo sizeof($hsAauCoachRating);?> votes</td>
 							</tr>
 
 							<?php } else {?>

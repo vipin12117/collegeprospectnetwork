@@ -1,0 +1,485 @@
+<?php $error_msg = '';?>
+<table cellSpacing=0 cellPadding=0 width="100%" border=0>
+
+	<tr>
+		<td height=120><?php echo $this->element('admin_header');?></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="heading">
+		<table cellSpacing=0 cellPadding=1 width="95%" align=center border=0>
+			<tr>
+				<td>
+				<table cellSpacing=0 cellPadding=1 width=780 border=0>
+					<tr>
+						<td bgColor=#ffffff>
+						<table cellSpacing=0 cellPadding=0 width=900 border=0>
+							<tr>
+								<td vAlign=top width=20%><?php echo $this->element('admin_menu');?></td>
+								<td valign=top width=1%>&nbsp;</td>
+								<?php $s_image = "/img/spacer.gif"; ?>
+								<td width=10><img src="<?php echo $s_image?>" height="1"
+									width="1"></td>
+								<td valign=top width=""><!-- MAin Content Starts From Here -->
+
+								<form name="frmEditCoach" action="" method="post"
+									enctype="multipart/form-data" onsubmit="return validate()">
+
+								<table width="100%" border="1" cellpadding="1" cellspacing="0"
+									bordercolor="#808080" style="border-collapse: collapse">
+									<tr height="20">
+										<td align="center" class="normalblack_12" width="90%"
+											valign="top">
+										<table width="100%" border="0" cellpadding="0" cellspacing="0"
+											bgcolor="#FFFFFF">
+											<tr>
+												<!-- Display the message on heading of the page -->
+												<td valign="top" class="normalwhite_14" colspan=3
+													bgcolor="#808080" align="center"><b>Edit High School / AAU
+												Coach Info</b></td>
+											</tr>
+											<tr>
+												<!-- Display the message on heading of the page -->
+												<td valign="top" colspan=3 align="center">&nbsp;</td>
+											</tr>
+											<tr>
+												<td valign="top" colspan=3 align="center"
+													class="normalblack_12"><font color="Red"></font></td>
+											</tr>
+											<tr>
+												<td height="35" colspan="3" align="right"
+													class="normalblack_12"><FONT color="Red">Fields marked with
+												* are mandatory&nbsp;</FONT></td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">User Name<font color="red">*</font></td>
+												<td valign="top" align="center" class="normalblack_12">:
+												&nbsp;</td>
+												<td valign="top" align="left" class="normalblack_12"
+													colspan=2><input type="text" name="username"
+													id="username"
+													value="<?php echo $hsAauCoach['HsAauCoach']['username']?>"
+													maxlength="50" style="width: 220px" readonly></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=4
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">First Name<font color="red">*</font></td>
+												<td valign="top" align="center" class="normalblack_12">
+												:&nbsp;</td>
+												<td valign="top" align="left" class="normalblack_12"
+													colspan=2><input type="text" name="firstname" id="firstname"
+													value="<?php echo $hsAauCoach['HsAauCoach']['firstname']?>"
+													maxlength="50" style="width: 220px"></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=4
+													align="center">&nbsp;</td>
+											</tr>
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Last Name</td>
+												<td valign="top" align="center" class="normalblack_12">:
+												&nbsp;</td>
+												<td valign="top" align="left" class="normalblack_12"
+													colspan=2><input type="text" name="lastname"
+													id="lastname"
+													value="<?php echo $hsAauCoach['HsAauCoach']['lastname']?>"
+													maxlength="50" style="width: 220px"></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=4
+													align="center">&nbsp;</td>
+											</tr>
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Email<font color="red">*</font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><input
+													type="text" name="email"
+													value="<?php echo $hsAauCoach['HsAauCoach']['email']?>"
+													maxlength="30" style="width: 220px"></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Alternate Email</td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><input
+													type="text" name="email2"
+													value="<?php echo $hsAauCoach['HsAauCoach']['email2']?>"
+													maxlength="30" style="width: 220px"></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Phone<font color="red">*</font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><input
+													type="text" name="phone"
+													value="<?php echo $hsAauCoach['HsAauCoach']['phone']?>"
+													maxlength="40" style="width: 220px"></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Alternate Phone</td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><input
+													type="text" name="phone2"
+													value="<?php echo $hsAauCoach['HsAauCoach']['phone2']?>"
+													maxlength="40" style="width: 220px"></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">High School/AAU Team <font color="red">*</font></td>
+
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><?php echo $this->Form->input('hs_aau_team_id', array('type'=>'select', 'empty' => array('select' => 'Select HS / AAU Team'), 'label' => false, 'style' => 'width: 220px;', 'value' => $hsAauCoach['HsAauTeam']['id'], 'options' => $categoryList)); ?>
+												</td>
+											</tr>
+											</p>
+
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan="3"
+													align="center">&nbsp;</td>
+											</tr>
+																						
+											<?php 
+												$sportsCount=count($sportsList);
+												if($sportsCount == 0)
+												{
+													$sportsCount = 1;
+												}											
+											?>
+											
+											<?php for ($k=0; $k < $sportsCount; $k++){ ?>
+											<?php if ($k==0) {?>
+												<tr>
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Sport <font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12">
+														<?php echo $this->Form->input('sport_id', array('type'=>'select', 'empty' => array('select' => 'Select Sport'), 'label' => false, 'style' => 'width: 220px;', 'value' => $hsAauCoach['Sport']['id'], 'options' => $sportOptions)); ?>
+													</td>
+												</tr>
+	
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan="3"
+														align="center">&nbsp;</td>
+												</tr>
+	
+												<tr height="20">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Position <font color="red">*</font></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"><input
+														type="text" name="position" style="width: 220px"
+														value="<?php echo $hsAauCoach['HsAauCoach']['position']?>">
+													</td>
+												</tr>
+												
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+											<?php } else {?>
+											
+											<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=3
+														align="center">&nbsp;</td>
+												</tr>
+											
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Sport <?php echo $k ;?></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><?php echo $this->Form->input('sport_id'.$k, array('type'=>'select', 'empty' => array('select' => 'Select Sport'), 'label' => false, 'style' => 'width: 220px;', 'value' => $hsAauCoach['Sport']['id'], 'options' => $sportOptions)); ?>
+												</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan="3"
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Position <?php echo $k ;?></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><input
+													type="text" name="position<?php echo $k ;?>"
+													style="width: 220px"
+													value="<?php echo $sportsList[$k]['HsAauCoachSportposition']['position']?>">
+												</td>
+											</tr>
+											
+											
+											<?php }?>
+											
+											<?php }?>
+											
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan="3"
+													align="center">&nbsp;</td>
+											</tr>
+											
+											<?php for ($k = $sportsCount;$k<=25;$k++) { ?>												
+												
+												<tr height="20" style="display: none"
+													id="trs_<?php echo $k ;?>">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Sport <?php echo $k ;?></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"><?php echo $this->Form->input('sport_id'.$k, array('type'=>'select', 'empty' => array('select' => 'Select Sport'), 'label' => false, 'style' => 'width: 220px;', 'value' => $hsAauCoach['Sport']['id'], 'options' => $sportOptions)); ?>
+													</td>
+												</tr>
+																																			
+												<tr height="20" style="display:none" id="trsb_<?php echo $k ;?>">																		
+													<td valign="top" class="normalwhite_14" colspan=3 align="center">																		
+													&nbsp;																	
+													</td>																		
+												</tr>
+	
+												<tr height="20" style="display: none"
+													id="trc_<?php echo $k ;?>">
+													<td valign="top" align="right" class="normalblack_12"
+														width="30%">Position <?php echo $k ;?></td>
+													<td valign="top" align="center" class="normalblack_12">:</td>
+													<td valign="top" align="left" class="normalblack_12"><input
+														type="text" name="position<?php echo $k ;?>"
+														style="width: 220px">
+													</td>
+												</tr>
+												
+												<tr height="20" style="display:none" id="trcb_<?php echo $k ;?>">
+													<td valign="top" class="normalwhite_14" colspan=3 align="center">																		
+													&nbsp;																		
+													</td>																		
+												</tr>
+											<?php }?>
+											
+											
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">&nbsp;</td>
+												<td valign="top" align="center" class="normalblack_12">
+												&nbsp;</td>
+												<td valign="top" align="left" class="normalblack_12"><input
+													type="hidden" name="currentrow"
+													value="<?php echo count($sportsList); ?>" id="currentrow">
+												<input type="hidden" name="totalcount" value="25"
+													id="totalcount"> <a href="javascript:return void(0);"
+													onclick="javascript:addfields()"
+													style="text-decoration: none"> Add Fields </a>&nbsp;&nbsp;
+
+												<span id="remfield" style="display: none"><a
+													href="javascript:return void(0);"
+													onclick="javascript:removefields()"
+													style="text-decoration: none"> Remove Fields </a></span></td>
+											</tr>
+
+
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Status<font color="red"></font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<?php 
+													if ($hsAauCoach['HsAauCoach']['status']){
+														$value = 1;
+													} else {
+														$value = 0;
+													}
+												?>
+												<td valign="top" align="left" class="normalblack_12">
+													<?php echo $this->Form->input('status', array('type' => 'select', 'style' => 'width: 220px', 'label' => false, 'value' => $value, 
+															'options' => array('1' => 'ACTIVE', '0' => 'DE-ACTIVE'))); ?>
+												</td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" colspan=3 align="center"
+													class="normalblack_12">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+
+
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">&nbsp</td>
+
+
+												<td valign="top" align="center" class="normalblack_12">
+												&nbsp</td>
+
+
+												<td valign="top" align="left" class="normalblack_12">
+													<input type="hidden"
+													name="isSubmit" value="save"> <input type="submit"
+													name="submit" value="Submit">&nbsp;&nbsp; <input
+													type="reset" name="Submit2" value="Reset">&nbsp;&nbsp; <input
+													type="button" name="backtolist" value="Back"
+													onClick="window.location.href='/admin/HsAauCoach/coachList"></td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" colspan=3 align="center"
+													class="normalblack_12">&nbsp;</td>
+											</tr>
+											<!-- Upoad File END-->
+
+										</table>
+										</td>
+									</tr>
+								</table>
+								</form>
+								<!--Main Center Content END --></td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<?php echo $this->element('admin_footer');?>
+</table>
+
+<script type="text/javascript">
+function validate(){
+	var error_msg = "";
+
+	if(trimString(document.frmEditCoach.username.value) == ""){
+		error_msg += "Please Enter User Name! \n";
+	}
+	else{
+		if(hasSpecialCharaters(document.frmEditCoach.username.value)){
+			error_msg += "Enter valid User Name! \n";
+		}
+	} 
+
+    if(trimString(document.frmEditCoach.firstname.value) == ""){
+		error_msg += "Please Enter Name! \n";
+	}
+	else{
+		if(hasSpecialCharaters(document.frmEditCoach.firstname.value)){
+			error_msg += "Enter valid Name! \n";
+		}
+	} 
+
+	if(trimString(document.frmEditCoach.email.value) == ""){
+		error_msg += "Please Enter Email! \n";
+	}
+	else{
+		if(!isValid(document.frmEditCoach.email.value)){
+			error_msg += "Enter Valid Email! \n";
+		}
+	}
+
+	if(trimString(document.frmEditCoach.phone.value) == ""){
+		error_msg += "Please Enter Phone Number! \n";
+	}
+	else{
+
+	if(trimString(document.frmEditCoach.phone.value) != ""){
+		if(!isPhone(document.frmEditCoach.phone.value)){
+			error_msg += "Enter valid Phone Number! \n";
+		}
+		if(document.frmEditCoach.phone.value.length > 15){
+			error_msg += "Phone number should be less then 16 characters! \n";
+		}
+	}
+	}
+
+	if(trimString(document.frmEditCoach.hs_aau_team_id.value) == 0){
+		error_msg += "Please Select School! \n";
+	}
+
+	if(trimString(document.frmEditCoach.sport_id.value) == 0){
+		error_msg += "Please Select Sport! \n";
+	}
+
+	if(trimString(document.frmEditCoach.position.value) == ''){
+		error_msg += "Please Enter Position! \n";
+	}	
+
+	if(error_msg!=''){
+		alert(error_msg);
+		return false;
+	}else{
+		return true;
+	}
+}
+
+function addfields() {
+	var currentrow	= parseInt(document.frmEditCoach.currentrow.value);
+	document.getElementById('trs_'+currentrow).style.display= "";
+	document.getElementById('trc_'+currentrow).style.display= "";
+	document.getElementById('trsb_'+currentrow).style.display= "";
+	document.getElementById('trcb_'+currentrow).style.display= "";
+	document.getElementById('currentrow').value=currentrow+1;
+	if(document.getElementById('currentrow').value >= 1)
+	{
+		document.getElementById('remfield').style.display= "";
+    }
+}
+
+function removefields() {
+	var currentrow	= parseInt(document.frmEditCoach.currentrow.value);
+	currentrow--;
+	document.getElementById('trs_'+currentrow).style.display= "none";
+	document.getElementById('trc_'+currentrow).style.display= "none";
+	document.getElementById('trsb_'+currentrow).style.display= "none";
+	document.getElementById('trcb_'+currentrow).style.display= "none";
+	if(currentrow == 1)
+	{
+		document.getElementById('remfield').style.display= "none";
+		document.getElementById('currentrow').value=currentrow;
+    } else {
+    	currentrow++;
+    	document.getElementById('currentrow').value=currentrow-1;	
+    }
+}
+
+</script>
