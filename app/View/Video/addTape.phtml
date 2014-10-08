@@ -3,7 +3,7 @@
 	 <div class="registerPage">
 		    <h1>Add New Game Tape</h1>
 		
-			<?php echo $this->Form->create("Video",array("url"=>array("controller"=>"Video","action"=>"addTape")));?>
+			<?php echo $this->Form->create("AthleteVideo",array("url"=>array("controller"=>"Video","action"=>"addTape"),"type"=>"file"));?>
 			
 			<p>
 				<label>Title:</label>
@@ -30,7 +30,7 @@
 			<p>
 				<label>Status:</label>
 				<span>
-					<?php echo $this->Form->input("video_path",array("div"=>false,"label"=>false,"type"=>"select","options"=>array("1"=>"Active","0"=>"Inactive (hide on profile)"),"empty"=>"Select One","required"));?>
+					<?php echo $this->Form->input("status",array("div"=>false,"label"=>false,"type"=>"select","options"=>array("1"=>"Active","0"=>"Inactive (hide on profile)"),"empty"=>"Select One","required"));?>
 				</span>
 			</p>
 			
@@ -47,13 +47,6 @@
                  </span>
             </p>
                                     
-			<p class="loading" style="margin:0;padding-top:10px;line-height:18px;display:none;">
-                  <label style="line-height:18px;">&nbsp;</label>
-                  <span style="line-height:18px;">
-                        <img src="/img/ajax-loader.gif" style="margin:0;vertical-align:middle;" />
-                  </span>
-            </p>
-            
             <p class="loading" style="margin:0;padding-top:10px;padding-bottom:0px;line-height:18px;display:none;">
                   <label>&nbsp;</label>
                   <font style="font-size:12px;font-style:normal;color:#C12626;">*Upload may take several minutes depending on filesize, do not leave page until upload finishes.</font>

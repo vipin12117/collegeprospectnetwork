@@ -105,10 +105,11 @@ class EventController extends AppController{
 
 				$transaction_id = $Authnet->processPayment($this->request->data['SpecialEventUser']);
 				$this->SpecialEventUser->updateAll(array("SpecialEventUser.payment_status"=>"1","SpecialEventUser.transaction_id"=>"'$transaction_id'"),array("SpecialEventUser.id"=>$event_user_id));
-				
+
 				$userDetail['SpecialEventUser']['transaction_id'] = $transaction_id;
+				$this->sendEventConfirmationAdminMail($userDetail , $eventDetail , $early_discount_rate , $coupon_detail , $total_price);
 				$this->sendEventConfirmationMail($userDetail , $eventDetail , $early_discount_rate , $coupon_detail , $total_price);
-				
+
 				$this->Session->setFlash("Event Registration is Successfull");
 				$this->redirect(array("controller"=>"Home","action"=>"index"));
 				exit;
@@ -175,7 +176,7 @@ class EventController extends AppController{
 		$this->render("/User/getAddressInfo","ajax");
 	}
 
-	public function sendEventConfirmationMail($userDetail , $eventDetail , $early_discount_rate , $coupon_detail , $total_price){
+	public function sendEventConfirmationAdminMail($userDetail , $eventDetail , $early_discount_rate , $coupon_detail , $total_price){
 		$subject   = "College Prospect Network - Event Registration is Successfull";
 		$template  = 'event_confirmation_mail';
 		$cakeEmail = new CakeEmail();
@@ -183,6 +184,25 @@ class EventController extends AppController{
 			$cakeEmail->template($template);
 			$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
 			$cakeEmail->to(array("admin@collegeprospectnetwork.com" => "Admin"));
+			$cakeEmail->subject($subject);
+			$cakeEmail->emailFormat('html');
+			$cakeEmail->viewVars(array('userDetail' => $userDetail, 'eventDetail' => $eventDetail));
+			// Send email
+			$cakeEmail->send();
+		}
+		catch (Exception $e){
+			$this->Session->setFlash('Error while sending email');
+		}
+	}
+
+	public function sendEventConfirmationMail($userDetail , $eventDetail , $early_discount_rate , $coupon_detail , $total_price){
+		$subject   = "College Prospect Network - Event Registration is Successfull";
+		$template  = 'event_confirmation_mail';
+		$cakeEmail = new CakeEmail();
+		try {
+			$cakeEmail->template($template);
+			$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+			$cakeEmail->to(array($userDetail['SpecialEventUser']['email'] => $userDetail['SpecialEventUser']['firstname']));
 			$cakeEmail->subject($subject);
 			$cakeEmail->emailFormat('html');
 			$cakeEmail->viewVars(array('userDetail' => $userDetail, 'eventDetail' => $eventDetail));

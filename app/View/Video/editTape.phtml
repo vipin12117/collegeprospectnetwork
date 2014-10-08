@@ -1,0 +1,54 @@
+<div class="cantener">
+  <div class="register-main">
+	 <div class="registerPage">
+		    <h1>Edit Game Tape</h1>
+		
+			<?php echo $this->Form->create("AthleteVideo",array("url"=>array("controller"=>"Video","action"=>"editTape"),"type"=>"file"));?>
+			
+			<p>
+				<label>Title:</label>
+				<span>
+					<?php echo $this->Form->input("title",array("div"=>false,"label"=>false,"required"));?>
+				</span><font color="#0000ff">&nbsp;*</font>
+			</p>
+			
+			<p>
+				<label>Replace Video File:</label>
+				<span>
+					<?php echo $this->Form->input("video_path",array("div"=>false,"label"=>false,"type"=>"file"));?>
+				</span>
+			</p>
+			
+			<p>
+                <label>&nbsp;</label>
+                <span>                                            
+                    <font style="color:#777;">*Supported Video Types:</font>&nbsp; .mov .flv .avi .mp4 .wmv .mpeg .mpg<br />
+                    <font style="color:#777;">*Max Filesize:</font>&nbsp; 200 MB (204,800KB)
+                </span>                              
+            </p>
+            
+			<p>
+				<label>Status:</label>
+				<span>
+					<?php echo $this->Form->input("status",array("div"=>false,"label"=>false,"type"=>"select","options"=>array("1"=>"Active","0"=>"Inactive (hide on profile)"),"empty"=>"Select One","required"));?>
+				</span>
+			</p>
+			
+            <p class="loading" style="margin:0;padding-top:10px;padding-bottom:0px;line-height:18px;display:none;">
+                  <label>&nbsp;</label>
+                  <font style="font-size:12px;font-style:normal;color:#C12626;">*Upload may take several minutes depending on filesize, do not leave page until upload finishes.</font>
+            </p>
+                                    
+			<p style="padding-top:15px;">
+				<label>&nbsp;</label>
+				<span>
+					<?php echo $this->Form->submit("Submit",array("type"=>"submit","div"=>false,"label"=>false));?>
+						
+					<?php echo $this->Form->submit("Back",array("type"=>"button","div"=>false,"label"=>false,"onclick"=>"window.location.href='".$this->Html->url(array("controller"=>"Video","action"=>"index"))."'"));?>
+				</span>
+			</p>	
+			
+			<?php echo $this->Form->end();?>
+	  </div>
+  </div>
+</div>

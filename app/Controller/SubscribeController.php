@@ -62,6 +62,17 @@ class SubscribeController extends AppController{
 						$this->CollegeCoach->id = $user_id;
 						$this->CollegeCoach->saveField('subscription_id',$subscriotion_id);
 
+						//insert payment history
+						$paymentHistory = array();
+						$paymentHistory['college_coach_id'] = $user_id;
+						$paymentHistory['transaction_id'] = $result[0];
+						$paymentHistory['profile_id'] = $result[1];
+						$paymentHistory['amount'] = $subscription['Subscription']['cost'];
+						$paymentHistory['date_added'] = date('Y-m-d H:i:s');
+
+						$this->loadModel('PaymentHistory');
+						$this->PaymentHistory->save(array("PaymentHistory"=>$paymentHistory));
+
 						$this->Session->setFlash("Subscription profile created successfully.");
 						$this->redirect(array("controller"=>"Profile","action"=>"index"));
 					}
@@ -119,7 +130,7 @@ class SubscribeController extends AppController{
 
 		$user_id = $this->Session->read('user_id');
 		$username  = $this->Session->read("username");
-		
+
 		$result = $this->CollegeSubscription->find("all",array("conditions"=>"CollegeSubscription.college_coach_id = '$user_id'"));
 		$this->set("subscriptions",$result);
 	}
