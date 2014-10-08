@@ -44,6 +44,17 @@ class CronController extends AppController{
 				// gets the transaction ID to save in the subscription table
 				$transactionResponse = $response->getTransactionResponse();
 				$transactionId = $transactionResponse->transaction_id;
+				
+				//insert payment history
+				$paymentHistory = array();
+				$paymentHistory['college_coach_id'] = $user_id;
+				$paymentHistory['transaction_id'] = $transactionId;
+				$paymentHistory['profile_id'] = $transactionId;
+				$paymentHistory['amount'] = $subscription['Subscription']['cost'];
+				$paymentHistory['date_added'] = date('Y-m-d H:i:s');
+				
+				$this->loadModel('PaymentHistory');
+				$this->PaymentHistory->save(array("PaymentHistory"=>$paymentHistory));
 
 				$this->renewSubscriptionEmail($subscription['CollegeCoach']['first_name'],$subscription['CollegeCoach']['last_name'],$subscription['CollegeCoach']['email'],$transactionId);
 
