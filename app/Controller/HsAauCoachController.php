@@ -110,25 +110,44 @@ class HsAauCoachController extends AppController{
 				$hsAauCoachs['HsAauCoach']['status'] 		= $this->request->data['status'];
 				
 				// Get HsAauCoachSportposition
-				/*$this->loadModel('HsAauCoachSportposition');
-				$countSports = $this->HsAauCoachSportposition->find('count', array(																		
+				$this->loadModel('HsAauCoachSportposition');
+				$countHsAuCoSpPo = $this->HsAauCoachSportposition->find('count', array(																		
 																		'conditions' => array('HsAauCoachSportposition.hs_aau_coach_id' => $id)
-																	));			
-				for ($i = 1; $i <= $countSports; $i++){
-					$hsACSportPos = array();
-					$hsACSportPos['HsAauCoachSportposition']['hs_aau_coach_id'] = $id;
-					if (($this->request->data['sport_id'.$i] != 'select') && ($this->request->data['position'.$i] != '')){
-						$hsACSportPos['HsAauCoachSportposition']['sport_id'] = $this->request->data['sport_id'.$i];
-						$hsACSportPos['HsAauCoachSportposition']['position'] = $this->request->data['position'.$i];
+																	));
+				if ($countHsAuCoSpPo == 0){
+					$countHsAuCoSpPo = 1;
+				}
+
+				// Update current record.
+				for ($i = 1; $i < $countHsAuCoSpPo; $i++){															
+					$data = array('id' => $this->request->data['hsAuCoSpPo'.$i],
+								  'sport_id' => $this->request->data['sport_id'.$i],
+								  'position' => $this->request->data['position'.$i]);				              
+					$this->HsAauCoachSportposition->save($data);					
+				}
+
+
+				// Create new record.
+				for ($j = $countHsAuCoSpPo; $j <= 25; $j++){
+					$hsACSportPos = array();															
+					if (($this->request->data['sport_id'.$j] != 'select') && ($this->request->data['position'.$j] != '')){						
+						$hsACSportPos['HsAauCoachSportposition']['hs_aau_coach_id'] = $id;
+						$hsACSportPos['HsAauCoachSportposition']['sport_id'] = $this->request->data['sport_id'.$j];
+						$hsACSportPos['HsAauCoachSportposition']['position'] = $this->request->data['position'.$j];
+						$this->HsAauCoachSportposition->create();
 						$this->HsAauCoachSportposition->save($hsACSportPos);
-					} elseif (($this->request->data['position'.$i] != '') && ($this->request->data['sport_id'.$i] == 'select')){					
-						$hsACSportPos['HsAauCoachSportposition']['position'] = $this->request->data['position'.$i];
+					} elseif (($this->request->data['position'.$j] != '') && ($this->request->data['sport_id'.$j] == 'select')){
+						$hsACSportPos['HsAauCoachSportposition']['hs_aau_coach_id'] = $id;					
+						$hsACSportPos['HsAauCoachSportposition']['position'] = $this->request->data['position'.$j];
+						$this->HsAauCoachSportposition->create();
 						$this->HsAauCoachSportposition->save($hsACSportPos);
-					} elseif (($this->request->data['sport_id'.$i] != 'select') && ($this->request->data['position'.$i] == '')){
-						$hsACSportPos['HsAauCoachSportposition']['sport_id'] = $this->request->data['sport_id'.$i];
+					} elseif (($this->request->data['sport_id'.$j] != 'select') && ($this->request->data['position'.$j] == '')){
+						$hsACSportPos['HsAauCoachSportposition']['hs_aau_coach_id'] = $id;
+						$hsACSportPos['HsAauCoachSportposition']['sport_id'] = $this->request->data['sport_id'.$j];
+						$this->HsAauCoachSportposition->create();
 						$this->HsAauCoachSportposition->save($hsACSportPos);
-					}
-				}*/
+					}					
+				}
 								
 				$this->HsAauCoach->id = $id;
 				if ($this->HsAauCoach->save($hsAauCoachs)){
@@ -158,7 +177,7 @@ class HsAauCoachController extends AppController{
 																						  ),
 																		'conditions' => array('HsAauCoachSportposition.hs_aau_coach_id' => $id)
 																	));
-				
+									
 				$hsAauCoach = $this->HsAauCoach->findById($id);
 				
 				// Get category list.
@@ -233,5 +252,102 @@ class HsAauCoachController extends AppController{
 			}
 		}
 		$this->redirect($this->referer());
+	}
+	
+	public function admin_addCoach(){
+		if ($this->request->is('post')){
+			//debug($this->request->data);
+			//die();
+			$hsAauCoach = $this->HsAauCoach->find('all', array('conditions' => array('HsAauCoach.username' => $this->request->data['username'])));
+			if (!empty($hsAauCoach)){
+				$this->Session->setFlash('This High School / AAU Coach is Already Exists!', 'flash_error');
+			} else {						
+				// Get HsAauCoach
+				$hsAauCoachs = array();
+				$hsAauCoachs['HsAauCoach']['username'] 		= $this->request->data['username'];
+				$hsAauCoachs['HsAauCoach']['firstname'] 	= $this->request->data['firstname'];
+				$hsAauCoachs['HsAauCoach']['lastname'] 		= $this->request->data['lastname'];
+				$hsAauCoachs['HsAauCoach']['email'] 		= $this->request->data['email'];
+				$hsAauCoachs['HsAauCoach']['email2'] 		= $this->request->data['email2'];
+				$hsAauCoachs['HsAauCoach']['phone'] 		= $this->request->data['phone'];
+				$hsAauCoachs['HsAauCoach']['phone2'] 		= $this->request->data['phone2'];
+				$hsAauCoachs['HsAauCoach']['position'] 		= $this->request->data['position'];
+				$hsAauCoachs['HsAauCoach']['status'] 		= $this->request->data['status'];
+				
+				if ($this->HsAauCoach->save($hsAauCoachs)){
+					$this->Session->setFlash('Added Successfully', 'flash_success');	
+					$this->redirect(array('controller' => 'HsAauCoach', 'action' => 'coachList'));
+				} else {
+					$this->Session->setFlash('Can not add this Coach', 'flash_error');
+				}
+				$hs_aau_coach_id = $this->HsAauCoach->getLastInsertId();
+				$this->loadModel('HsAauCoachSportposition');
+				// Create new record.
+				for ($j = 1; $j <= 25; $j++){
+					$hsACSportPos = array();															
+					if (($this->request->data['sport_id'.$j] != 'select') && ($this->request->data['position'.$j] != '')){						
+						$hsACSportPos['HsAauCoachSportposition']['hs_aau_coach_id'] = $hs_aau_coach_id;
+						$hsACSportPos['HsAauCoachSportposition']['sport_id'] = $this->request->data['sport_id'.$j];
+						$hsACSportPos['HsAauCoachSportposition']['position'] = $this->request->data['position'.$j];
+						$this->HsAauCoachSportposition->create();
+						$this->HsAauCoachSportposition->save($hsACSportPos);
+					} elseif (($this->request->data['position'.$j] != '') && ($this->request->data['sport_id'.$j] == 'select')){
+						$hsACSportPos['HsAauCoachSportposition']['hs_aau_coach_id'] = $hs_aau_coach_id;					
+						$hsACSportPos['HsAauCoachSportposition']['position'] = $this->request->data['position'.$j];
+						$this->HsAauCoachSportposition->create();
+						$this->HsAauCoachSportposition->save($hsACSportPos);
+					} elseif (($this->request->data['sport_id'.$j] != 'select') && ($this->request->data['position'.$j] == '')){
+						$hsACSportPos['HsAauCoachSportposition']['hs_aau_coach_id'] = $hs_aau_coach_id;
+						$hsACSportPos['HsAauCoachSportposition']['sport_id'] = $this->request->data['sport_id'.$j];
+						$this->HsAauCoachSportposition->create();
+						$this->HsAauCoachSportposition->save($hsACSportPos);
+					}					
+				}
+				
+				// Get sport list.
+				$this->loadModel('Sport');
+				$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'), 
+															 'order' => array('Sport.name')));						
+				$sportOptions = array();
+				foreach ($sports as $sport){
+					$sportOptions[$sport['Sport']['id']] = $sport['Sport']['name'];
+				}
+																				
+				// Get category list.
+				$this->loadModel('HsAauTeam');
+				$hsAauTeams = $this->HsAauTeam->find('all', array('fields' => array('HsAauTeam.id', 'HsAauTeam.school_name'), 
+															 'order' => array('HsAauTeam.id')));
+				
+				$categoryList = array();
+				foreach ($hsAauTeams as $hsAauTeam){
+					$categoryList[$hsAauTeam['HsAauTeam']['id']] = $hsAauTeam['HsAauTeam']['school_name'];
+				}
+				
+				$this->set(compact('sportOptions', 'categoryList'));
+												
+			}
+			
+		} else {
+			// Get sport list.
+			$this->loadModel('Sport');
+			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'), 
+														 'order' => array('Sport.name')));						
+			$sportOptions = array();
+			foreach ($sports as $sport){
+				$sportOptions[$sport['Sport']['id']] = $sport['Sport']['name'];
+			}
+																			
+			// Get category list.
+			$this->loadModel('HsAauTeam');
+			$hsAauTeams = $this->HsAauTeam->find('all', array('fields' => array('HsAauTeam.id', 'HsAauTeam.school_name'), 
+														 'order' => array('HsAauTeam.id')));
+			
+			$categoryList = array();
+			foreach ($hsAauTeams as $hsAauTeam){
+				$categoryList[$hsAauTeam['HsAauTeam']['id']] = $hsAauTeam['HsAauTeam']['school_name'];
+			}
+			
+			$this->set(compact('sportOptions', 'categoryList'));
+		}
 	}
 }
