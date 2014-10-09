@@ -1,0 +1,225 @@
+<?php $error_msg = '';?>
+<table cellSpacing=0 cellPadding=0 width="100%" border=0>
+
+	<tr>
+		<td height=120><?php echo $this->element('admin_header');?></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="heading">
+		<table cellSpacing=0 cellPadding=1 width="95%" align=center border=0>
+			<tr>
+				<td>
+				<table cellSpacing=0 cellPadding=1 width=780 border=0>
+					<tr>
+						<td bgColor=#ffffff>
+						<table cellSpacing=0 cellPadding=0 width=900 border=0>
+							<tr>
+								<td vAlign=top width=20%><?php echo $this->element('admin_menu');?></td>
+								<td valign=top width=1%>&nbsp;</td>
+								<?php $s_image = "/img/spacer.gif"; ?>
+								<td width=10><img src="<?php echo $s_image?>" height="1"
+									width="1"></td>
+								<td valign=top width=""><!-- MAin Content Starts From Here -->
+
+								<form name="frmBanner" action="" method="post"
+									enctype="multipart/form-data" onsubmit="return validate()">
+
+								<table width="100%" border="1" cellpadding="1" cellspacing="0"
+									bordercolor="#808080" style="border-collapse: collapse">
+
+									<tr height="20">
+
+										<td align="center" class="normalblack_12" width="90%"
+											valign="top">
+
+										<table width="100%" border="0" cellpadding="0" cellspacing="0"
+											bgcolor="#FFFFFF">
+											<tr>
+												<!-- Display the message on heading of the page -->
+
+												<td valign="top" class="normalwhite_14" colspan=3
+													bgcolor="#808080" align="center"><b>Add Banner</b></td>
+											</tr>
+
+											<tr>
+												<!-- Display the message on heading of the page -->
+												<td valign="top" colspan=3 align="center">&nbsp;</td>
+											</tr>
+
+											<tr>
+												<td valign="top" colspan=3 align="center"
+													class="normalblack_12"><font color="Red"><?=$error_msg?> </font>
+												</td>
+											</tr>
+
+											<tr>
+												<td height="35" colspan="3" align="right"
+													class="normalblack_12"><FONT color="Red">Fields marked with
+												* are mandatory&nbsp;</FONT></td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Banner Title<font color="red"> *</font></td>
+												<td valign="top" align="center" class="normalblack_12">
+												:&nbsp;</td>
+												<td valign="top" align="left" class="normalblack_12"
+													colspan=2><input type="text" name="title" id="title"
+													value="" maxlength="30" style="width: 220px;"></td>
+											</tr>
+
+											<tr height="20">
+
+												<td valign="top" class="normalwhite_14" colspan=4
+													align="center">&nbsp;</td>
+
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Third Party Code<font color="red"> *</font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><textarea
+													name="third_party" id="third_party" rows="10" cols="25"></textarea>
+												</td>
+											</tr>
+
+											<tr height="20">
+												<td align="center" valign="top" colspan="3"
+													class="normalwhite_14">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Position<font color="red"></font></td>
+
+												<td valign="top" align="center" class="normalblack_12">:</td>
+
+												<td valign="top" align="left" class="normalblack_12"><?php echo $this->Form->input('position', array('type'=>'select', 'empty' => array('select' => 'Please Select Position'), 'label' => false, 'style' => 'width: 220px',  
+															 							  'options' => array('bottom-left' => 'Bottom Left', 'bottom-right' => 'Bottom Right'))); ?>
+
+												</td>
+
+											</tr>
+
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+											</tr>
+
+											<tr height="20">
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">Status<font color="red"></font></td>
+												<td valign="top" align="center" class="normalblack_12">:</td>
+												<td valign="top" align="left" class="normalblack_12"><?php echo $this->Form->input('status', array('type'=>'select', 'label' => false, 'style' => 'width: 220px',  
+															 							  'options' => array('1' => 'ACTIVE', '0' => 'DE-ACTIVE'))); ?>
+												</td>
+
+											</tr>
+
+											<tr height="20">
+
+												<td valign="top" class="normalwhite_14" colspan=3
+													align="center">&nbsp;</td>
+
+											</tr>
+
+											<tr height="20">
+
+												<td valign="top" align="right" class="normalblack_12"
+													width="30%">&nbsp</td>
+
+												<td valign="top" align="center" class="normalblack_12">
+												&nbsp</td>
+
+												<td valign="top" align="left" class="normalblack_12"><input
+													type="hidden" name="isSubmit" value="save"> <input
+													type="submit" name="submit" value="Submit">&nbsp;&nbsp;<input
+													type="reset" name="Submit2" value="Reset"></td>
+
+											</tr>
+
+											<tr height="20">
+
+												<td valign="top" colspan=3 align="center"
+													class="normalblack_12">&nbsp;</td>
+
+											</tr>
+
+										</table>
+
+										</td>
+
+									</tr>
+
+								</table>
+
+								</form>
+
+								<!--Main Center Content END --></td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<?php echo $this->element('admin_footer');?>
+</table>
+
+<script type="text/javascript">
+function validate(){	
+	var error_msg = "";
+		
+	if(trimString(document.frmAddEvent.sport_id.value) == "select"){	
+		error_msg += "Please Select Sport! \n";	
+	}
+	
+	if(trimString(document.frmAddEvent.home_team.value) == "select"){	
+		error_msg += "Please Select Home Team! \n";	
+	}
+	
+	if(trimString(document.frmAddEvent.away_team.value) == "select"){	
+		error_msg += "Please Select Away Team! \n";	
+	}
+
+	if(trimString(document.frmAddEvent.event_name.value) == ""){	
+		error_msg += "Please Enter Event Name! \n";
+	} else {	
+		if(hasSpecialCharaters(document.frmAddEvent.event_name.value)){	
+			error_msg += "Enter valid Event Name! \n";	
+		}	
+	}
+	
+	if(trimString(document.frmAddEvent.location.value) == ""){	
+		error_msg += "Please Enter Event Loacation! \n";	
+	}
+	
+	if(trimString(document.frmAddEvent.start_date.value) == ""){	
+		error_msg += "Please Enter Event Start Date! \n";	
+	}
+	
+	if(trimString(document.frmAddEvent.end_date.value) == ""){	
+		error_msg += "Please Enter End Event Date! \n";	
+	}
+
+	if(error_msg!=''){	
+		alert(error_msg);	
+		return false;	
+	} else {	
+		return true;	
+	}
+}
+
+</script>
