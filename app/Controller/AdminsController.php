@@ -96,6 +96,25 @@ class AdminsController extends AppController{
 		} 
 	}
 	
+	public function changePassword(){
+		if ($this->request->is('post')){
+			$userName = $this->Session->read('Admin.username');
+			$this->loadModel('Admin');
+			$admin = $this->Admin->find('first', array('conditions' => array('Admin.username' => $userName, 
+											'Admin.password' => $this->request->data['oldpassword'])));
+			if (empty($admin)){
+				$this->Session->setFlash('Please enter correct old password!', 'flash_error');
+			} else {
+				$this->Admin->id = $admin['Admin']['id'];
+				if($this->Admin->saveField('password', $this->request->data['newpassword'])){
+					$this->Session->setFlash('Admin password changed successfully!', 'flash_success');
+				} else {
+					$this->Session->setFlash('Can not change admin password', 'flash_error');
+				}				
+			}
+		}
+	}
+	
 	private function getRandId($length)
 	{
 	  	if($length>0) 
