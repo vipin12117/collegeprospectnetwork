@@ -42,10 +42,10 @@
 		
 		     <h2>Games & Events</h2>
 		
-		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Event","action"=>"stats"));?>">Add Game Stats</a></p>
-		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Event","action"=>"addNew"));?>">Add New Game or Event</a></p>									
-		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Event","action"=>"index"));?>">View All Games & Events</a></p>
-		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Event","action"=>"upcoming"));?>">View Upcoming Games & Events</a></p>
+		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Game","action"=>"index"));?>">Add Game Stats</a></p>
+		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Game","action"=>"addStat"));?>">Add New Game or Event</a></p>									
+		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Game","action"=>"index"));?>">View All Games & Events</a></p>
+		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Game","action"=>"upcoming"));?>">View Upcoming Games & Events</a></p>
 		</div>
     </div>
   <?php elseif($this->Session->read('user_type') == 'coach'):?>	

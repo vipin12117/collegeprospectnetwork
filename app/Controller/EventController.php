@@ -20,17 +20,10 @@ class EventController extends AppController{
         	} else {
         		$this->redirect(array('controller'=>'admins','action'=>'login'));
         	}
-		} else {
+		} 
+		else {
 			$this->checkSession();
 		}
-	}
-
-	public function index(){
-
-	}
-
-	public function stats(){
-
 	}
 
 	public function registration(){
@@ -384,5 +377,4 @@ class EventController extends AppController{
 			$this->set(compact('categoryList', 'sportList'));
 		}
 	}
-	
 }
