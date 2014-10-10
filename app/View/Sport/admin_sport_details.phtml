@@ -1,0 +1,62 @@
+<table width="100%" cellpadding="3" cellspacing="5">
+	<tr>
+		<td width="100%" align="center">
+		<table width="95%" cellpadding="0" cellspacing="3">
+			<tr>
+				<td width="100%" class="SearchHead"><b>Sports Details</b></td>
+			</tr>
+			<tr>
+				<td width="100%" class="GeneralFont">&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="100%">
+				<table width="100%" cellspacing="0" cellpadding="2">
+					<tr>
+						<td width="100%" valign="top">
+						<table width="100%" cellspacing="0" cellpadding="3">
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Sports
+								Name</b></td>
+								<td class="normalblack_12" valign="top"><?php echo $sport['Sport']['name']?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Description</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $sport['Sport']['description']?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Status</b>
+								</td>
+								<td class="normalblack_12" valign="top">
+									<?php if ($sport['Sport']['status'] == 1) 
+										  { echo 'ACTIVE';} 
+										  else { echo 'DE-ACTIVE'; }									
+									?>
+								</td>
+							</tr>
+							<tr>
+								<td class="normalblack_12" valign="top" colspan="2">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"
+									colspan="2"><input type=button value="Close"
+									onClick="javascript:window.close();"></td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+
+		<td width="100%" align="center">&nbsp;</td>
+
+	</tr>
+
+</table>

@@ -1,0 +1,240 @@
+<?php $error_msg = '';?>
+<table cellSpacing=0 cellPadding=0 width="100%" border=0>
+
+	<tr>
+		<td height=120><?php echo $this->element('admin_header');?></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="heading">
+		<table cellSpacing=0 cellPadding=1 width="95%" align=center border=0>
+			<tr>
+				<td>
+				<table cellSpacing=0 cellPadding=1 width=780 border=0>
+					<tr>
+						<td bgColor=#ffffff>
+						<table cellSpacing=0 cellPadding=0 width=900 border=0>
+							<tr>
+								<td vAlign=top width=20%><?php echo $this->element('admin_menu');?></td>
+								<td valign=top width=1%>&nbsp;</td>
+								<?php $s_image = "/img/spacer.gif"; ?>
+								<td width=10><img src="<?php echo $s_image?>" height="1"
+									width="1"></td>
+								<td valign=top width=""><!-- MAin Content Starts From Here -->
+								<form name="frmEditTransDiscount" action="" method="post"
+									enctype="multipart/form-data" onSubmit="return validate()">
+								<table width="100%" border="1" cellpadding="1" cellspacing="0"
+									bordercolor="#808080" style="border-collapse: collapse">
+									<tr height="20">
+										<td align="center" class="normalblack_12" width="90%"
+											valign="top">
+										<table width="100%" border="0" cellpadding="0" cellspacing="0"
+											bgcolor="#FFFFFF">
+											<tr>
+												<!-- Display the message on heading of the page -->
+												<td valign="top" class="normalwhite_14" colspan=3
+													bgcolor="#808080" align="center"><b>Edit Transportation
+												Discount Information</b></td>
+											</tr>
+											<tr>
+												<!-- Display the message on heading of the page -->
+												<td valign="top" colspan=3 align="center">&nbsp;</td>
+											</tr>
+											<tr>
+												<td valign="top" colspan=3 align="center"
+													class="normalblack_12"><font color="Red"></font></td>
+											</tr>
+											<tr>
+												<td height="35" colspan="3" align="right"
+													class="normalblack_12"><FONT color="Red">Fields marked with
+												* are mandatory&nbsp;</FONT></td>
+											</tr>
+											<tr height="20">
+												<td valign="top" class="normalwhite_14" colspan=4
+													align="center">
+
+												<tr height="20">
+													<td valign="top" class="normalwhite_14" colspan=4
+														align="center">&nbsp;</td>
+													<tr height="20" id="txtEvent">
+														<td valign="top" align="right" class="normalblack_12"
+															width="30%">Special Event<font color="red">*</font></td>
+														<td valign="top" align="center" class="normalblack_12">:
+														&nbsp;</td>
+														<td valign="top" align="left" class="normalblack_12"
+															colspan=2><?php echo $this->Form->input('event_id', array('type' => 'select', 'empty' => array('select' => 'Select Event'), 'style' => 'width: 220px', 'label' => false, 
+																								'value' => $transportationDiscount['TransportationDiscount']['event_id'], 
+																								'options' => $eventList)); ?></td>
+													</tr>
+													<tr height="20">
+														<td valign="top" class="normalwhite_14" colspan=4
+															align="center">&nbsp;</td>
+														<tr height="20" id="txtEvent">
+															<td valign="top" align="right" class="normalblack_12"
+																width="30%">Diparture City <font color="red">*</font></td>
+															<td valign="top" align="center" class="normalblack_12">:
+															&nbsp;</td>
+															<td valign="top" align="left" class="normalblack_12"
+																colspan=2><input type="text" name="departure_city"
+																id="departure_city"
+																value="<?php echo $transportationDiscount['TransportationDiscount']['departure_city']?>"
+																maxlength="30" style="width: 220px;"></td>
+														</tr>
+														<tr height="20">
+															<td valign="top" class="normalwhite_14" colspan=4
+																align="center">&nbsp;</td>
+															<tr height="20">
+																<td valign="top" align="right" class="normalblack_12"
+																	width="30%">Departure Time<font color="red">*</font></td>
+																<td valign="top" align="center" class="normalblack_12">
+																:</td>
+																<?php 
+																	$time = explode(":", $transportationDiscount['TransportationDiscount']['departure_time']);
+																	$hour = $time[0];
+																	$option1 = explode(" ",$time[1]);
+																	$minute = $option1[0];
+																	$option = $option1[1];
+																?>
+																<td valign="top" align="left" class="normalblack_12"><select
+																	name="hours" id="hours">
+																	<option value="">Select Hours</option>
+																	<?php for($i=1;$i<=12;$i++){
+																		if($i<10)
+																		{ $i="0".$i;}?>
+																	<option value="<?php echo $i;?>" <?php if($i==$hour){?>
+																		selected="selected" <?php }?>><?php echo $i;?></option>
+																		<?php } ?>
+																</select> <select name="minute" id="minute">
+																	<option value="">Select Minute</option>
+																	<?php for($i=1;$i<=60;$i++){
+																		if($i<10)
+																		{ $i="0".$i;}?>
+																	<option value="<?php echo $i;?>"
+																	<?php if($i==$minute){?> selected="selected" <?php }?>><?php echo $i;?></option>
+																	<?php } ?>
+																</select> <select name="option" id="option">
+																	<option value="">Select AM/PM</option>
+																	<option value="AM" <?php if($option=='AM'){?>
+																		selected="selected" <?php }?>>AM</option>
+																	<option value="PM" <?php if($option=='PM'){?>
+																		selected="selected" <?php }?>>PM</option>
+																</select></td>
+															</tr>
+
+															<tr height="20">
+																<td valign="top" class="normalwhite_14" colspan=4
+																	align="center">&nbsp;</td>
+																<tr height="20">
+																	<td valign="top" align="right" class="normalblack_12"
+																		width="30%">Transportation Charge<font color="red">*</font>
+																	</td>
+																	<td valign="top" align="center" class="normalblack_12">
+																	:</td>
+																	<td valign="top" align="left" class="normalblack_12"><input
+																		type="text" name="transportation_charge"
+																		id="transportation_charge"
+																		value="<?php echo $transportationDiscount['TransportationDiscount']['transport_charge']?>"
+																		style="width: 220px;"
+																		onKeyPress="return isNumber(event)"></td>
+																</tr>
+
+																<tr height="20">
+																	<td valign="top" class="normalwhite_14" colspan=4
+																		align="center">&nbsp;</td>
+																</tr>
+																<tr height="20">
+																	<td valign="top" align="right" class="normalblack_12"
+																		width="30%">Status <font color="red">*</font></td>
+																	<td valign="top" align="center" class="normalblack_12">
+																	:</td>
+																	<td valign="top" align="left" class="normalblack_12"><select
+																		name="status" id="status"
+																		style="width: 220px; font-size: 12px;">
+																		<option value="1"
+																		<?php if($transportationDiscount['TransportationDiscount']['status']=="1"){ echo "selected"; }?>>ACTIVE</option>
+																		<option value="0"
+																		<?php if($transportationDiscount['TransportationDiscount']['status']=="0"){ echo "selected"; }?>>DEACTIVE</option>
+																	</select></td>
+																</tr>
+																<tr height="20">
+																	<td valign="top" colspan=3 align="center"
+																		class="normalblack_12">&nbsp;</td>
+																</tr>
+																<tr height="20">
+																	<td valign="top" align="right" class="normalblack_12"
+																		width="30%">&nbsp</td>
+																	<td valign="top" align="center" class="normalblack_12">
+																	&nbsp</td>
+																	<td valign="top" align="left" class="normalblack_12"><input
+																		type="hidden" name="isSubmit" value="save"> <input
+																		type="submit" name="submit" value="Submit"><!--&nbsp;&nbsp;<input type="reset" name="Submit2" value="Reset">--></td>
+																</tr>
+
+																<tr height="20">
+																	<td valign="top" colspan=3 align="center"
+																		class="normalblack_12">&nbsp;</td>
+																</tr>
+																<!-- Upoad File END-->
+										
+										</table>
+										</td>
+									</tr>
+								</table>
+								</form>
+								<!--Main Center Content END --></td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<?php echo $this->element('admin_footer');?>
+</table>
+
+<script type="text/javascript">
+function validate(){
+	
+	if(trimString(document.frmEditTransDiscount.event_id.value) == "select"){
+		alert("Please Enter Event!");
+		return false;
+		document.frmEditTransDiscount.event_id.focus();
+	}
+	
+	if(trimString(document.frmEditTransDiscount.departure_city.value) == ""){
+		alert("Please Enter Diparture City!");
+		return false;
+		document.frmEditTransDiscount.diparture_city.focus();
+	}
+	
+	if(trimString(document.frmEditTransDiscount.hours.value) == ""){
+		alert("Please Enter Departure Hour!");
+		return false;
+		document.frmEditTransDiscount.hours.focus();
+	}
+	
+	if(trimString(document.frmEditTransDiscount.minute.value) == ""){
+		alert("Please Enter Departure Minute!");
+		return false;
+		document.frmEditTransDiscount.minute.focus();
+	}
+	
+	if(trimString(document.frmEditTransDiscount.option.value) == ""){
+		alert("Please Enter AM/PM!");
+		return false;
+		document.frmEditTransDiscount.option.focus();
+	}
+	
+	if(trimString(document.frmEditTransDiscount.transportation_charge.value) == ""){
+		alert("Please Enter Transportation Charge!");
+		return false;
+		document.frmEditTransDiscount.transportation_charge.focus();
+	}
+}
+
+</script>

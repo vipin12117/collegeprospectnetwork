@@ -6,7 +6,7 @@ class SpecialEventUser extends AppModel{
 
 	public $useTable = 'special_event_users';
 	
-	public $belongsTo = array('TransportationDiscount');
+	//public $belongsTo = array('TransportationDiscount');
 
 	public function __construct(){
 		parent::__construct();
