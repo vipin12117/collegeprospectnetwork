@@ -74,12 +74,15 @@ class RegisterHelper extends AppHelper{
 		return $options;
 	}
 
-	public function getHsAauSchools(){
+	public function getHsAauSchools($team_id = false , $team_name = false){
 		App::import("Model","HsAauTeam");
 		$this->HsAauTeam = new HsAauTeam();
 
 		$options = array();
-
+		if($team_id and $team_name){
+			$options[$team_id] = $team_name;
+		}
+		
 		$states = $this->HsAauTeam->find("list",array("fields"=>"state,state","order"=>"state ASC","group"=>"state"));
 		foreach($states as $state){
 			$options[$state] = $this->HsAauTeam->find("list",array("conditions"=>"state='$state'","fields"=>"id,school_name","order"=>"school_name ASC"));

@@ -1,5 +1,7 @@
 <?php
 
+App::uses('CakeEmail', 'Network/Email');
+
 class AthleteController extends AppController{
 
 	public $name = 'Athlete';
@@ -9,12 +11,12 @@ class AthleteController extends AppController{
 	public function beforeFilter(){
 		parent::beforeFilter();
 		if (isset($this->params['prefix']) && $this->params['prefix'] == 'admin') ////for admin section template
-        {
-        	if ($this->checkAdminSession()){
-            	$this->layout = 'admin';
-        	} else {
-        		$this->redirect(array('controller'=>'admins','action'=>'login'));
-        	}
+		{
+			if ($this->checkAdminSession()){
+				$this->layout = 'admin';
+			} else {
+				$this->redirect(array('controller'=>'admins','action'=>'login'));
+			}
 		} else {
 			$this->checkSession();
 		}
@@ -43,15 +45,85 @@ class AthleteController extends AppController{
 	}
 
 	public function approval(){
+		$userId = $this->Session->read('user_id');
 
+		$this->loadModel('HsAauCoach');
+		$this->loadModel('HsAauCoachSportposition');
+
+		$hsAauCoach = $this->HsAauCoach->read(null,$userId);
+		$hs_aau_team_id = $hsAauCoach['HsAauCoach']['hs_aau_team_id'];
+
+		$sports = $this->HsAauCoachSportposition->find("list",array("conditions"=>"hs_aau_coach_id = '$userId'","fields"=>"sport_id"));
+		if($sports){
+			$this->paginate = array("Athlete" => array("conditions"=>array("Athlete.sport_id"=>$sports,"Athlete.status"=>0,"Athlete.hs_aau_team_id"=>$hs_aau_team_id)));
+			$athletes = $this->paginate("Athlete");
+			$this->set("athletes",$athletes);
+		}
+	}
+
+	public function markApprove($id = false){
+		$id = (int)$id;
+		if($id){
+			$this->Athlete->id = $id;
+			$athlete = $this->Athlete->read(null,$id);
+				
+			$this->Athlete->saveField("status",1);
+			$this->Session->setFlash("Thank you. The athlete has been approved and a confirmation email has been sent to &nbsp;".$athlete['Athlete']['email']);
+
+			$template = 'athlete_approval_notification';
+			$cakeEmail = new CakeEmail();
+			try {
+				$cakeEmail->template($template);
+				$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+				$cakeEmail->to(array($athlete['Athlete']['email'] => $athlete['Athlete']['firstname']));
+				$cakeEmail->subject("College Prospect Network - Approval Notification");
+				$cakeEmail->emailFormat('html');
+				$cakeEmail->viewVars(array('athlete' => $athlete));
+				// Send email
+				$cakeEmail->send();
+			}
+			catch (Exception $e){
+				$this->Session->setFlash('Error while sending email');
+			}
+		}
+
+		$this->redirect(array('controller' => 'Athlete', 'action' => 'approval'));
+	}
+
+	public function markReject($id = false){
+		$id = (int)$id;
+		if($id){
+			$this->Athlete->id = $id;
+			$athlete = $this->Athlete->read(null,$id);
+				
+			$this->Athlete->saveField("status",2);
+			$this->Session->setFlash("You have rejected this Athlete and Notification Email send to ".$athlete['Athlete']['email']);
+
+			$template = 'athlete_reject_notification';
+			$cakeEmail = new CakeEmail();
+			try {
+				$cakeEmail->template($template);
+				$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+				$cakeEmail->to(array($athlete['Athlete']['email'] => $athlete['Athlete']['firstname']));
+				$cakeEmail->subject("College Prospect Network - Approval Notification");
+				$cakeEmail->emailFormat('html');
+				// Send email
+				$cakeEmail->send();
+			}
+			catch (Exception $e){
+				$this->Session->setFlash('Error while sending email');
+			}
+		}
+
+		$this->redirect(array('controller' => 'Athlete', 'action' => 'approval'));
 	}
 
 	public function stats(){
-
+		$userId = $this->Session->read('user_id');
 	}
 
 	public function invite(){
-
+		$userId = $this->Session->read('user_id');
 	}
 
 	public function search(){
@@ -108,7 +180,7 @@ class AthleteController extends AppController{
 			$this->redirect(array('controller' => 'Home', 'action' => 'login'));
 		}
 	}
-	
+
 	public function admin_list(){
 		if ($this->request->is('post')){
 			$searchName =  $this->request->data['searchname'];
@@ -117,7 +189,7 @@ class AthleteController extends AppController{
 			} else {
 				$conditions = array();
 			}
-			
+
 			$limit = 100;
 			$this->loadModel('Athlete');
 			$this->paginate = array('Athlete'=>array('fields' => array('Athlete.id', 'Athlete.username', 'Athlete.email', 'Athlete.firstname', 'Athlete.lastname', 'Athlete.sport_id', 'Athlete.status'),
@@ -128,7 +200,7 @@ class AthleteController extends AppController{
 			$this->set(compact('athletes', 'limit'));
 
 		} else {
-			
+
 			$limit = 100;
 			$this->loadModel('Athlete');
 			$this->paginate = array('Athlete'=>array('fields' => array('Athlete.id', 'Athlete.username', 'Athlete.email', 'Athlete.firstname', 'Athlete.lastname', 'Athlete.sport_id', 'Athlete.status'),
@@ -138,64 +210,64 @@ class AthleteController extends AppController{
 			$this->set(compact('athletes', 'limit'));
 		}
 	}
-	
+
 	public function admin_edit($id){
-		if (!empty($id)) {	
+		if (!empty($id)) {
 			$athlete = $this->Athlete->findById($id);
 			// Get class list.
 			$this->loadModel('Classes');
-			$classes = $this->Classes->find('all', array('fields' => array('Classes.id', 'Classes.name'), 
+			$classes = $this->Classes->find('all', array('fields' => array('Classes.id', 'Classes.name'),
 														 'order' => array('Classes.id')));
 			$classList = array();
 			foreach ($classes as $class){
 				$classList[$class['Classes']['name']] = $class['Classes']['name'];
 			}
-			
+
 			// Get category list.
 			$this->loadModel('HsAauTeam');
-			$hsAauTeams = $this->HsAauTeam->find('all', array('fields' => array('HsAauTeam.id', 'HsAauTeam.school_name'), 
+			$hsAauTeams = $this->HsAauTeam->find('all', array('fields' => array('HsAauTeam.id', 'HsAauTeam.school_name'),
 														 'order' => array('HsAauTeam.id')));						
 			$categoryList = array();
 			foreach ($hsAauTeams as $hsAauTeam){
 				$categoryList[$hsAauTeam['HsAauTeam']['school_name']] = $hsAauTeam['HsAauTeam']['school_name'];
 			}
-			
+
 			// Get sport list.
 			$this->loadModel('Sport');
-			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'), 
+			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
 														 'order' => array('Sport.id')));						
 			$sportList = array();
 			foreach ($sports as $sport){
 				$sportList[$sport['Sport']['name']] = $sport['Sport']['name'];
 			}
-						
+
 			$this->set(compact('athlete', 'classList', 'categoryList', 'sportList'));
-								
-			if ($this->request->is('post')) {							
+
+			if ($this->request->is('post')) {
 				$this->Athlete->id = $id;
 				if ($this->Athlete->save($this->request->data)){
-					
+
 					// Save school name
 					$this->loadModel('HsAauTeam');
 					$this->HsAauTeam->id = $athlete['Athlete']['hs_aau_team_id'];
 					$this->HsAauTeam->saveField('school_name', $this->request->data['HsAauTeam']['school_name']);
-					
+
 					// Save sport name
 					$this->loadModel('Sport');
-					$this->Sport->id = $athlete['Athlete']['sport_id'];					
+					$this->Sport->id = $athlete['Athlete']['sport_id'];
 					$this->Sport->saveField('name', $this->request->data['Sport']['name']);
 					$this->Session->setFlash('Athlete Updated Successfully!', 'flash_success');
-					$this->redirect(array('controller' => 'Athlete', 'action' => 'list'));																				
-					} else {
-						$this->Session->setFlash('Can not update this athlete.', 'flash_error');
-					}
-			} 						
+					$this->redirect(array('controller' => 'Athlete', 'action' => 'list'));
+				} else {
+					$this->Session->setFlash('Can not update this athlete.', 'flash_error');
+				}
+			}
 		} else {
 			$this->Session->setFlash('Do not exits this athlete', 'flash_error');
 			$this->redirect($this->referer());
 		}
 	}
-	
+
 	public function admin_delete($id){
 		if (!empty($id)) {
 			if ($this->Athlete->delete($id)){
@@ -204,87 +276,86 @@ class AthleteController extends AppController{
 				$this->Session->setFlash('Can not delete this athlete', 'flash_error');
 			}
 		} else {
-			$this->Session->setFlash('Do not exits this athlete', 'flash_error');			
+			$this->Session->setFlash('Do not exits this athlete', 'flash_error');
 		}
 		$this->redirect($this->referer());
 	}
-	
+
 	public function admin_activeRecord($id){
 		if (!empty($id)) {
 			$this->Athlete->id = $id;
 			$this->Athlete->saveField('status', 1);
 			$this->Session->setFlash('Athelete Approved Successfully!', 'flash_success');
-			$this->redirect($this->referer());		
+			$this->redirect($this->referer());
 		} else {
 			$this->Session->setFlash('Do not exits this athlete', 'flash_error');
 			$this->redirect($this->referer());
 		}
 	}
-	
+
 	public function admin_deactiveRecord($id){
 		if (!empty($id)) {
 			$this->Athlete->id = $id;
 			$this->Athlete->saveField('status', 0);
 			$this->Session->setFlash('Athelete Non-Approved Successfully!', 'flash_success');
-			$this->redirect($this->referer());		
+			$this->redirect($this->referer());
 		} else {
 			$this->Session->setFlash('Do not exits this athlete', 'flash_error');
 			$this->redirect($this->referer());
 		}
 	}
-	
+
 	public function admin_details($id){
 		if (!empty($id)) {
 			$athlete = $this->Athlete->findById($id);
-			$this->set('athlete', $athlete);	
+			$this->set('athlete', $athlete);
 		} else {
 			$this->Session->setFlash('Do not exits this athlete', 'flash_error');
 			$this->redirect($this->referer());
 		}
 	}
-	
+
 	public function admin_viewRating($id){
-		if (!empty($id)) {			
+		if (!empty($id)) {
 			$this->loadModel('Rating');
 			$ratingAthlete = $this->Rating->find('first', array(
 								'fields' => array(
-												    'ROUND(avg(Rating.leadership), 1) as leadership',
-													'ROUND(avg(Rating.work_ethic), 1) as work_ethic',
-													'ROUND(avg(Rating.primacy_go_to_guy), 1) as primacy_go_to_guy',
-													'ROUND(avg(Rating.mental_toughness), 1) as mental_toughness',
-													'ROUND(avg(Rating.composure), 1) as composure',
-													'ROUND(avg(Rating.awareness), 1) as awareness',
-													'ROUND(avg(Rating.instincts), 1) as instincts',
-													'ROUND(avg(Rating.vision), 1) as vision',
-													'ROUND(avg(Rating.conditioning), 1) as conditioning',
-													'ROUND(avg(Rating.physical_toughness), 1) as physical_toughness',
-													'ROUND(avg(Rating.tenacity), 1) as tenacity',
-													'ROUND(avg(Rating.hustle), 1) as hustle',
-													'ROUND(avg(Rating.strength), 1) as strength'			
-												 ),
-								'conditions' => array('Rating.athlete_id' => $id)
-							 ));
+								    'ROUND(avg(Rating.leadership), 1) as leadership',
+									'ROUND(avg(Rating.work_ethic), 1) as work_ethic',
+									'ROUND(avg(Rating.primacy_go_to_guy), 1) as primacy_go_to_guy',
+									'ROUND(avg(Rating.mental_toughness), 1) as mental_toughness',
+									'ROUND(avg(Rating.composure), 1) as composure',
+									'ROUND(avg(Rating.awareness), 1) as awareness',
+									'ROUND(avg(Rating.instincts), 1) as instincts',
+									'ROUND(avg(Rating.vision), 1) as vision',
+									'ROUND(avg(Rating.conditioning), 1) as conditioning',
+									'ROUND(avg(Rating.physical_toughness), 1) as physical_toughness',
+									'ROUND(avg(Rating.tenacity), 1) as tenacity',
+									'ROUND(avg(Rating.hustle), 1) as hustle',
+									'ROUND(avg(Rating.strength), 1) as strength'			
+								 ),
+								'conditions' => array('Rating.athlete_id' => $id)));
 
-			$this->set('ratingAthlete', $ratingAthlete);
+								 $this->set('ratingAthlete', $ratingAthlete);
 		} else {
 			$this->Session->setFlash('Do not exits this athlete', 'flash_error');
 			$this->redirect($this->referer());
 		}
 	}
-	
+
 	public function admin_deleteSelected(){
-		if(isset($this->request->data['check_delete'])) {	
-					
+		if(isset($this->request->data['check_delete'])) {
+
 			foreach ($this->request->data['check_delete'] as $id){
 				$this->Athlete->delete($id);
-				$this->Session->setFlash('Athlete Deleted Successfully!', 'flash_success');				
-			}			
+				$this->Session->setFlash('Athlete Deleted Successfully!', 'flash_success');
+			}
 		}
 		$this->redirect(array('controller' => 'Athlete', 'action' => 'list'));
 	}
-	
+
 	public function admin_stateList(){
-		$limit = 10;		
+		$limit = 10;
 		$this->loadModel('AthleteStat');
 		$this->AthleteStat->recursive = -1;
 		$this->paginate = array('AthleteStat' => array(
@@ -299,31 +370,31 @@ class AthleteController extends AppController{
 			// Get event name
 			$event = $this->Event->findById($value['AthleteStat']['event_id']);
 			$tmpAthleteStats[$key]['Event']['event_name'] = $event['Event']['event_name'];
-			
+
 			// Get athlete name
 			$athlete = $this->Athlete->findById($value['AthleteStat']['athlete_id']);
-			$tmpAthleteStats[$key]['Athlete']['firstname'] = $athlete['Athlete']['firstname']; 			
+			$tmpAthleteStats[$key]['Athlete']['firstname'] = $athlete['Athlete']['firstname'];
 			$tmpAthleteStats[$key]['Athlete']['lastname'] = $athlete['Athlete']['lastname'];
-			
+
 			// Get coach name
 			$hsAauCoach = $this->HsAauCoach->findById($value['AthleteStat']['hs_aau_coach_id']);
-			$tmpAthleteStats[$key]['HsAauCoach']['firstname'] = $hsAauCoach['HsAauCoach']['firstname']; 			
+			$tmpAthleteStats[$key]['HsAauCoach']['firstname'] = $hsAauCoach['HsAauCoach']['firstname'];
 			$tmpAthleteStats[$key]['HsAauCoach']['lastname'] = $hsAauCoach['HsAauCoach']['lastname'];
 		}
 		$athleteStats = $tmpAthleteStats;
 		$this->set(compact('athleteStats', 'limit'));
-	} 
-	
+	}
+
 	public function admin_athleteStatView(){
 		if (isset($this->params['named']['eventId']) && isset($this->params['named']['athId'])) {
 			$eventId = $this->params['named']['eventId'];
 			$athId = $this->params['named']['athId'];
-			
+
 			// Get athlete state
 			$this->loadModel('AthleteStat');
-			$this->AthleteStat->recursive = -1;		
+			$this->AthleteStat->recursive = -1;
 			$athleteStats = $this->AthleteStat->find('all', array('conditions' => array('AthleteStat.event_id' => $eventId, 'AthleteStat.athlete_id' => $athId)));
-			
+
 			// Get event name
 			$this->loadModel('Event');
 			$event = $this->Event->findById($eventId);
@@ -332,17 +403,17 @@ class AthleteController extends AppController{
 			$this->redirect($this->referer());
 		}
 	}
-	
+
 	public function admin_deleteAthleteStat($id){
 		$this->loadModel('AthleteStat');
 		if($this->AthleteStat->delete($id)){
 			$this->Session->setFlash('Athlete Stat Deleted Successfully!', 'flash_success');
 		} else {
-			$this->Session->setFlash('Can not delete this Athlete', 'flash_error');	
+			$this->Session->setFlash('Can not delete this Athlete', 'flash_error');
 		}
 		$this->redirect($this->referer());
 	}
-	
+
 	/**
 	 * Delete selected Athlete Stat
 	 */
@@ -351,12 +422,12 @@ class AthleteController extends AppController{
 		if(isset($this->request->data['check_delete'])) {
 			foreach ($this->request->data['check_delete'] as $id){
 				$this->AthleteStat->delete($id);
-				$this->Session->setFlash('Athlete Stat Deleted Successfully!', 'flash_success');				
-			}			
+				$this->Session->setFlash('Athlete Stat Deleted Successfully!', 'flash_success');
+			}
 		}
 		$this->redirect($this->referer());
 	}
-	
+
 	/**
 	 * It is use to perform the operation for add for Catagory.
 	 */
@@ -366,12 +437,12 @@ class AthleteController extends AppController{
 			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
 													  'order' => array('Sport.name'),
 			                                          'conditions' => array('Sport.status' => '1')));
-														 
+
 			$sportList = array();
 			foreach ($sports as $sport){
 				$sportList[$sport['Sport']['id']] = $sport['Sport']['name'];
-			}											 
-			
+			}
+
 			$this->set('sportList', $sportList);
 		} else {
 			$athStatCat = array();
@@ -381,25 +452,25 @@ class AthleteController extends AppController{
 			$athStatCat['AthleteStatCategory']['status'] = $this->request->data['status'];
 			$this->loadModel('AthleteStatCategory');
 			if($this->AthleteStatCategory->save($athStatCat)){
-				$this->Session->setFlash('Category is Added Successfully', 'flash_success');				
+				$this->Session->setFlash('Category is Added Successfully', 'flash_success');
 			} else {
 				$this->Session->setFlash('Can not add this category', 'flash_error');
 			}
-			
+
 			$this->loadModel('Sport');
 			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
 													  'order' => array('Sport.name'),
 			                                          'conditions' => array('Sport.status' => '1')));
-														 
+
 			$sportList = array();
 			foreach ($sports as $sport){
 				$sportList[$sport['Sport']['id']] = $sport['Sport']['name'];
-			}											 
-			
+			}
+
 			$this->set('sportList', $sportList);
 		}
 	}
-	
+
 	/**
 	 * It is use to show the list of Page.
 	 */
@@ -408,8 +479,8 @@ class AthleteController extends AppController{
 			$searchName =  $this->request->data['searchname'];
 
 			if (!empty($searchName)){
-				if (isset($sportId) && $sportId > 0){				
-					$conditions = array('AthleteStatCategory.name LIKE ' => '%'.$searchName.'%', 
+				if (isset($sportId) && $sportId > 0){
+					$conditions = array('AthleteStatCategory.name LIKE ' => '%'.$searchName.'%',
 										'AthleteStatCategory.parent_id' => $sportId,
 										'AthleteStatCategory.status' => '1');
 				} else {
@@ -418,37 +489,37 @@ class AthleteController extends AppController{
 				}
 			} else {
 				if (isset($sportId)){
-					$conditions = array( 
+					$conditions = array(
 										'AthleteStatCategory.parent_id' => $sportId,
 										'AthleteStatCategory.status' => '1');
 				} else {
 					$conditions = array('AthleteStatCategory.status' => '1');
-										
+
 				}
 			}
-			
+
 			$limit = 100;
 			$this->loadModel('AthleteStatCategory');
 			$this->paginate = array('AthleteStatCategory'=>array(
 														 'conditions' => $conditions,
 														 'limit' => $limit));
 			$athStatCats = $this->paginate('AthleteStatCategory');
-			
+
 			$this->loadModel('Sport');
 			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
 													  'order' => array('Sport.id')
-			                                          ));
+			));
 
 			$sportList = array();
 			foreach ($sports as $sport){
 				$sportList[$sport['Sport']['id']] = $sport['Sport']['name'];
 			}
-			
+
 			$this->set(compact('athStatCats', 'limit', 'sportList', 'sportId'));
-			
+
 		} else {
-					
-			if (isset($sportId) && $sportId > 0){				
+
+			if (isset($sportId) && $sportId > 0){
 				$conditions = array(
 									'AthleteStatCategory.parent_id' => $sportId,
 									'AthleteStatCategory.status' => '1');
@@ -456,44 +527,43 @@ class AthleteController extends AppController{
 				$conditions = array(
 									'AthleteStatCategory.status' => '1');
 			}
-			
-			
+
 			$limit = 100;
 			$this->loadModel('AthleteStatCategory');
 			$this->paginate = array('AthleteStatCategory'=>array('conditions' => $conditions,
 																 'limit' => $limit));
-																			 
+
 			$athStatCats = $this->paginate('AthleteStatCategory');
-			
+
 			$this->loadModel('Sport');
 			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
 													  'order' => array('Sport.id')
-			                                          ));
+			));
 
 			$sportList = array();
 			foreach ($sports as $sport){
 				$sportList[$sport['Sport']['id']] = $sport['Sport']['name'];
 			}
-			
+
 			$this->set(compact('athStatCats', 'limit', 'sportList', 'sportId'));
 
 		}
 	}
-	
-	public function admin_categoryEdit($id){		
+
+	public function admin_categoryEdit($id){
 		if (!$this->request->is('post')){
 			$this->loadModel('AthleteStatCategory');
 			$athStatCat = $this->AthleteStatCategory->findById($id);
 
 			$this->loadModel('Sport');
-				$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
+			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
 														  'order' => array('Sport.id')
-				                                          ));
-	
-				$sportList = array();
-				foreach ($sports as $sport){
-					$sportList[$sport['Sport']['id']] = $sport['Sport']['name'];
-				}
+			));
+
+			$sportList = array();
+			foreach ($sports as $sport){
+				$sportList[$sport['Sport']['id']] = $sport['Sport']['name'];
+			}
 			$this->set(compact('athStatCat', 'sportList'));
 		} else {
 			$athStatCat = array();
@@ -504,37 +574,37 @@ class AthleteController extends AppController{
 			$this->loadModel('AthleteStatCategory');
 			$this->AthleteStatCategory->id = $id;
 			if($this->AthleteStatCategory->save($athStatCat)){
-				$this->Session->setFlash('Category Updated Successfully!', 'flash_success');								
+				$this->Session->setFlash('Category Updated Successfully!', 'flash_success');
 			} else {
 				$this->Session->setFlash('Can not update this category', 'flash_error');
 			}
-			
+
 			$this->loadModel('Sport');
 			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
 													  'order' => array('Sport.name'),
 			                                          'conditions' => array('Sport.status' => '1')));
-														 
+
 			$sportList = array();
 			foreach ($sports as $sport){
 				$sportList[$sport['Sport']['id']] = $sport['Sport']['name'];
-			}											 
-						
+			}
+
 			$this->set(compact('athStatCat', 'sportList'));
 			$this->redirect(array('controller' => 'Athlete', 'action' => 'categoryList'));
 		}
 	}
-	
+
 	public function admin_deleteCategory($id){
 		if (isset($id)){
 			$this->loadModel('AthleteStatCategory');
 			$this->AthleteStatCategory->delete($id);
-			$this->Session->setFlash('Category Deleted Successfully!', 'flash_success');			
+			$this->Session->setFlash('Category Deleted Successfully!', 'flash_success');
 		} else {
 			$this->Session->setFlash('Do not exits this category.', 'flash_error');
 		}
 		$this->redirect($this->referer());
 	}
-	
+
 	public function admin_categoryDetails($id){
 		if (isset($id)){
 			$this->loadModel('AthleteStatCategory');
@@ -546,7 +616,7 @@ class AthleteController extends AppController{
 			$this->Session->setFlash('Do not exits this category.', 'flash_error');
 		}
 	}
-	
+
 	/**
 	 * Delete selected Category.
 	 */
@@ -558,52 +628,51 @@ class AthleteController extends AppController{
 					$this->Session->setFlash('Category Deleted Successfully!', 'flash_success');
 				} else {
 					$this->Session->setFlash('Delete error.', 'flash_error');
-				}								
+				}
 			}
 		}
 		$this->redirect($this->referer());
 	}
-	
+
 	public function admin_classList(){
 		if ($this->request->is('post')){
 			$searchName =  $this->request->data['searchname'];
 
 			if (!empty($searchName)){
-				$conditions = array('Classes.name LIKE ' => '%'.$searchName.'%');				
+				$conditions = array('Classes.name LIKE ' => '%'.$searchName.'%');
 			} else {
 				$conditions = array();
 			}
-			
+
 			$limit = 100;
 			$this->loadModel('Classes');
 			$this->paginate = array('Classes'=>array('conditions' => $conditions,
 													 'order' => 'Classes.name',
 													 'limit' => $limit));	 														 
-			$classes = $this->paginate('Classes');						
+			$classes = $this->paginate('Classes');
 			$this->set(compact('classes', 'limit'));
-			
+
 		} else {
-			
+
 			$limit = 100;
 			$this->loadModel('Classes');
-			$this->paginate = array('Classes'=>array('order' => 'Classes.name', 'limit' => $limit));													 	 														
+			$this->paginate = array('Classes'=>array('order' => 'Classes.name', 'limit' => $limit));
 			$classes = $this->paginate('Classes');
-			$this->set(compact('classes', 'limit'));			
+			$this->set(compact('classes', 'limit'));
 		}
 	}
-	
+
 	public function admin_deleteClass($id){
 		if (isset($id)){
 			$this->loadModel('Classes');
 			$this->Classes->delete($id);
-			$this->Session->setFlash('Class Deleted Successfully!', 'flash_success');			
+			$this->Session->setFlash('Class Deleted Successfully!', 'flash_success');
 		} else {
 			$this->Session->setFlash('Do not exits this class.', 'flash_error');
 		}
 		$this->redirect($this->referer());
-		
 	}
-	
+
 	/**
 	 * Delete selected Class.
 	 */
@@ -615,19 +684,19 @@ class AthleteController extends AppController{
 					$this->Session->setFlash('Category Deleted Successfully!', 'flash_success');
 				} else {
 					$this->Session->setFlash('Delete error.', 'flash_error');
-				}								
+				}
 			}
 		}
 		$this->redirect($this->referer());
 	}
-	
+
 	/**
 	 * Add Class.
 	 */
 	public function admin_classAdd(){
 		if ($this->request->is('post')){
-			$this->loadModel('Classes');			
-			$className = $this->request->data['class'];						
+			$this->loadModel('Classes');
+			$className = $this->request->data['class'];
 			//Check class is already exists!
 			$count = $this->Classes->find('count', array('conditions' => array('Classes.name' => $className)));
 			if ($count > 0) {
@@ -639,12 +708,11 @@ class AthleteController extends AppController{
 				if($this->Classes->save($class)){
 					$this->Session->setFlash('Class is Added Successfully', 'flash_success');
 				} else {
-					$this->Session->setFlash('Can not add this class', 'flash_error');	
-					$this->redirect($this->referer());				
+					$this->Session->setFlash('Can not add this class', 'flash_error');
+					$this->redirect($this->referer());
 				}
 			}
 			$this->redirect(array('controller' => 'Athlete', 'action' => 'classList'));
-		} 
+		}
 	}
-
 }

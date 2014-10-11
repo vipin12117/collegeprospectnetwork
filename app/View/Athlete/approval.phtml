@@ -1,1 +1,48 @@
-<?php
+<div class="cantener">
+  <div class="register-main">
+	 <h1>Athlete Approval</h1>
+	 
+	 <div class="registerPage">
+       <form name="frmUsers" action="" method="post" onsubmit="">
+       		  <?php if(count($athletes) > 0):?>
+			     	<table cellpadding="2" cellspacing="1" width="100%" align="center">
+		                 <tr>
+		                    <td align="center" class="normalblack_12" width="60%">&nbsp;<strong>Athlete Name</strong></td>
+		                    <td align="center" class="normalblack_12" width="15%"><strong>Approve</strong></td>
+		                    <td align="center" class="normalblack_12" width="15%"><strong>Reject</strong></td>
+		                    <td align="center" class="normalblack_12" width="10%"><strong>View Profile</strong></td>
+		                 </tr>
+		                 
+		                 <?php foreach($athletes as $athlete):?>
+		                 	<tr>
+			                    <td align="center" class="normalblack_12" width="60%">&nbsp;<strong><?php echo $athlete['Athlete']['firstname']. " ".$athlete['Athlete']['lastname'];?></strong></td>
+			                   
+			                    <td align="center" class="normalblack_12" width="15%">
+			                    	<?php echo $this->Html->link("Approve",array("controller"=>"Athlete","action"=>"markApprove",$athlete['Athlete']['id']),null,array("Are you sure you want to approve this Athlete?"));?>
+			                    </td>
+			                    
+			                    <td align="center" class="normalblack_12" width="15%">
+			                    	<?php echo $this->Html->link("Reject",array("controller"=>"Athlete","action"=>"markReject",$athlete['Athlete']['id']),null,array("Are you sure to de-active this Athlete?"));?>
+			                    </td>
+			                    
+			                    <td align="center" class="normalblack_12" width="10%">
+			                    	<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$athlete['Athlete']['id']));?>">
+			                    		<?php echo $this->Html->image("view.gif")?>
+			                    	</a>
+			                    </td>
+			                 </tr>
+		                 <?php endforeach;?>
+		            </table>       
+		      <?php else:?>              
+					<div class="thankyoumessage">
+						You currently have no athletes awaiting approval. Thank you for checking. 
+						
+						<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"index"));?>" style='text-decoration:underline;'>
+							Return to My Account
+						</a>
+					</div>
+			 <?php endif;?>
+	    </form>		
+	</div>  	
+ </div>
+</div>

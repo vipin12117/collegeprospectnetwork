@@ -1,10 +1,19 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
 <script type="text/javascript">
   function updateEventDetails(resonse){
 	  var resonse_arr = resonse.split("@@");
 	  jQuery("#event_name").val(resonse_arr[0]);
 	  jQuery("#location").html(resonse_arr[1]);
   }
+
+  jQuery(function() {
+	  jQuery( "#start_date" ).datepicker(); 
+	  jQuery( "#end_date" ).datepicker(); 
+  });
 </script>
+
 <div class="cantener">
   <div class="register-main">
 	 <div class="registerPage">
@@ -12,7 +21,7 @@
 		
 		<?php if($this->Session->read('user_type') == 'athlete'):?>
 
-			<?php echo $this->Form->create("Event",array("url"=>array("controller"=>"Game","action"=>"addStat"),"id"=>"editStat"));?>
+			<?php echo $this->Form->create("Event",array("url"=>array("controller"=>"Game","action"=>"editStat"),"id"=>"editStat"));?>
 				<p>
 				   <label>Home Team:</label>
 				   <span>
@@ -23,7 +32,7 @@
 				
 				<?php $this->Js->get("#home_team_id"); ?>
 		    	<?php $this->Js->event('change',$this->Js->request(array('controller' => 'Game','action' => 'getEventDetails'),
-		    					   array('async' => true,'data' => '$("#addStat").serialize()','dataExpression' => true ,
+		    					   array('async' => true,'data' => '$("#editStat").serialize()','dataExpression' => true ,
 		    					   'complete' => "updateEventDetails(XMLHttpRequest.responseText)"
 		               		 ))); 
 		     	?>
@@ -38,7 +47,7 @@
 				
 				<?php $this->Js->get("#away_team_id"); ?>
 		    	<?php $this->Js->event('change',$this->Js->request(array('controller' => 'Game','action' => 'getEventDetails'),
-		    					   array('async' => true,'data' => '$("#addStat").serialize()','dataExpression' => true ,
+		    					   array('async' => true,'data' => '$("#editStat").serialize()','dataExpression' => true ,
 		    					   'complete' => "updateEventDetails(XMLHttpRequest.responseText)"
 		               		 ))); 
 		     	?>
@@ -69,14 +78,14 @@
 				<p>
 				   <label>Start Date:</label>
 				   <span>
-				   	   <?php echo $this->Form->input("end_date",array("type"=>"text","div"=>false,"label"=>false,"required"));?>
+				   	   <?php echo $this->Form->input("start_date",array("type"=>"text","div"=>false,"label"=>false,"required","id"=>"start_date"));?>
 				   </span>
 				</p>
 				
 				<p>
 				   <label>End Date:</label>
 				   <span>
-				   	   <?php echo $this->Form->input("event_desc",array("type"=>"textarea","div"=>false,"label"=>false,"required"));?>
+				   	   <?php echo $this->Form->input("end_date",array("type"=>"text","div"=>false,"label"=>false,"required","id"=>"end_date"));?>
 				   </span>
 				</p>
 									

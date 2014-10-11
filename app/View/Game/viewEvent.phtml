@@ -1,0 +1,50 @@
+<div class="cantener">
+	<div class="register-main">
+		<h1>View Event</h1>
+		<div class="registerPage popup">
+			<p>
+				<label><b>Event Name:</b> </label>
+				<span><?php echo $eventDetail['Event']['event_name'];?></span>
+			</p>
+			<p>
+				<label><b>Sport:</b></label>
+				<span><?php echo $eventDetail['Sport']['name'];?></span>
+			</p>
+			<p>
+				<label><b>Home Team:</b></b> </label>
+				<span><?php echo $eventDetail['Event']['home_team_name'];?></span>
+			</p>
+			<p>
+				<label><b>Away Team:</b></label>
+				<span><?php echo $eventDetail['Event']['away_team_name'];?></span>
+			</p>
+			<p>
+				<label><b>Event Details:</b></label>									
+			</p>
+			<div class="details"><?php echo $eventDetail['Event']['event_desc'];?></div>
+			
+			<p>
+				<label><b>Event Location:</b></label>
+				<span><?php echo $eventDetail['Event']['location'];?></span>
+			</p>
+			<p>
+				<label><b>Start Date:</b></label>
+				<span><?php echo $eventDetail['Event']['start_date'];?></span>
+			</p>
+			<p>
+				<label><b>End date:</b></label>
+				<span><?php echo $eventDetail['Event']['end_date'];?></span>
+			</p>
+			<p>
+				<label><b>Status:</b></label>
+				<span><?php echo ($eventDetail['Event']['status']) ? 'Active' : 'Inactive';?></span>
+			</p>
+			<p>
+				<label>&nbsp;</label>
+				<span>
+					<input type=button value="Close" onClick="javascript:window.close();">
+				</span>
+			</p>
+		</div>
+	</div>
+</div>		

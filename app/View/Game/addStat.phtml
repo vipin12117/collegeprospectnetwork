@@ -1,10 +1,19 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
 <script type="text/javascript">
   function updateEventDetails(resonse){
 	  var resonse_arr = resonse.split("@@");
 	  jQuery("#event_name").val(resonse_arr[0]);
 	  jQuery("#location").html(resonse_arr[1]);
   }
+
+  jQuery(function() {
+	  jQuery( "#start_date" ).datepicker(); 
+	  jQuery( "#end_date" ).datepicker(); 
+  });
 </script>
+
 <div class="cantener">
   <div class="register-main">
 	 <div class="registerPage">
@@ -16,7 +25,7 @@
 				<p>
 				   <label>Home Team:</label>
 				   <span>
-				   		<?php echo $this->Form->input("home_team",array("id"=>"home_team_id","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getHsAauSchools(),"empty"=>"Select One"));?>
+				   		<?php echo $this->Form->input("home_team",array("id"=>"home_team_id","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getHsAauSchools($profileDetail['HsAauTeam']['id'],$profileDetail['HsAauTeam']['school_name']),"empty"=>"Select One"));?>
 				   </span>
 				   <font color="#0000ff">*</font>
 				</p>   
@@ -31,7 +40,7 @@
 		     	<p>
 				   <label>Away Team:</label>
 				   <span>
-				   		<?php echo $this->Form->input("away_team",array("id"=>"away_team_id","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getHsAauSchools(),"empty"=>"Select One"));?>
+				   		<?php echo $this->Form->input("away_team",array("id"=>"away_team_id","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getHsAauSchools($profileDetail['HsAauTeam']['id'],$profileDetail['HsAauTeam']['school_name']),"empty"=>"Select One"));?>
 				   </span>
 				   <font color="#0000ff">*</font>
 				</p>   
@@ -69,14 +78,14 @@
 				<p>
 				   <label>Start Date:</label>
 				   <span>
-				   	   <?php echo $this->Form->input("end_date",array("type"=>"text","div"=>false,"label"=>false,"required"));?>
+				   	   <?php echo $this->Form->input("start_date",array("type"=>"text","div"=>false,"label"=>false,"required","id"=>"start_date"));?>
 				   </span>
 				</p>
 				
 				<p>
 				   <label>End Date:</label>
 				   <span>
-				   	   <?php echo $this->Form->input("event_desc",array("type"=>"textarea","div"=>false,"label"=>false,"required"));?>
+				   	   <?php echo $this->Form->input("end_date",array("type"=>"text","div"=>false,"label"=>false,"required","id"=>"end_date"));?>
 				   </span>
 				</p>
 									

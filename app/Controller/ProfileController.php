@@ -60,6 +60,18 @@ class ProfileController extends AppController{
 		else{
 			$profileDetail = $this->HsAauCoach->getByUsername($username);
 			$this->set("profileDetail",$profileDetail);
+
+			$hs_aau_team_id = $profileDetail['HsAauCoach']['hs_aau_team_id'];
+			$sports = $this->HsAauCoachSportposition->find("list",array("conditions"=>"hs_aau_coach_id = '$user_id'","fields"=>"sport_id"));
+			if($sports){
+				$athleteApproval = $this->Athlete->find("count",array("conditions"=>array("Athlete.sport_id"=>$sports,"Athlete.status"=>0,"Athlete.hs_aau_team_id"=>$hs_aau_team_id)));
+			}
+			else{
+				$athleteApproval = 0;
+			}
+				
+			$this->set("athleteApproval",$athleteApproval);
+			$this->set("athleteStatApproval",0);
 		}
 
 		$this->set("is_trial_mode",$is_trial_mode);

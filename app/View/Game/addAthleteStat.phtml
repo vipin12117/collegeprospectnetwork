@@ -1,0 +1,57 @@
+<div class="cantener">
+  <div class="register-main">
+    <div class="registerPage smaller">
+      	<?php echo $this->Form->create("AthleteStat",array("url"=>array("controller"=>"Game","action"=>"addAthleteStat",$eventDetail['Event']['id'])));?>
+      
+	        <h1>Athlete Stats</h1>
+	                                    
+	        <?php if(isset($message)):?>
+	                <div class="thankyoumessage">
+	                	You have successfully added Game Stats for this event, your Coach has been notified to review them.  
+	                	<a href="<?php echo $this->Html->url(array("controller"=>"Game","action"=>"index"));?>">Return to Games & Events</a>
+	                </div>
+	                
+	        <?php elseif(isset($exist_message)):?>
+	                <div class="thankyoumessage">
+	                	<?php echo $exist_message;?>
+	                	
+	                	<a href="<?php echo $this->Html->url(array("controller"=>"Game","action"=>"index"));?>">Return to Games & Events</a>
+	                </div>
+	        <?php else:?>
+	        
+	             <p>
+	                <label style="width:240px;font-size:15px;">Game / Event :</label>
+	                <span style="line-height:26px;font-size:15px;"><?php echo $eventDetail['Event']['event_name'];?></span>
+	                <br /><br />
+	             </p>
+	             
+	             <?php foreach($athleteStatCategories as $i => $athleteStatCategory):?>
+	              	<p>
+	                   <label style="width:240px;"><?php echo $athleteStatCategory['AthleteStatCategory']['name'];?>:</label>
+	                   <span>
+	                       <input type="number" name="data[AthleteStat][<?php echo $i;?>][value]" value="0" onfocus="if(this.value == this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" />
+	                       
+	                       <?php echo $this->Form->input("athlete_stat_category_id",array("name"=>"data[AthleteStat][$i][athlete_stat_category_id]","type"=>"hidden","value"=>$athleteStatCategory['AthleteStatCategory']['id']));?>
+	                       
+	                       <?php echo $this->Form->input("label_name",array("name"=>"data[AthleteStat][$i][label_name]","type"=>"hidden","value"=>$athleteStatCategory['AthleteStatCategory']['name']));?>
+	                       
+	                       <?php echo $this->Form->input("group",array("name"=>"data[AthleteStat][$i][group]","type"=>"hidden","value"=>$athleteStatCategory['AthleteStatCategory']['group']));?>
+	                      
+	                       <?php echo $this->Form->input("sort_order",array("name"=>"data[AthleteStat][$i][sort_order]","type"=>"hidden","value"=>$athleteStatCategory['AthleteStatCategory']['sort_order']));?>
+	                   </span>
+	                </p>
+	             <?php endforeach;?>
+	             
+	             <p>
+					<label>&nbsp;</label>
+					<span>
+						<?php echo $this->Form->submit("Submit",array("type"=>"submit","div"=>false,"label"=>false));?>
+							
+						<?php echo $this->Form->submit("Back",array("type"=>"button","div"=>false,"label"=>false,"onclick"=>"window.location.href='".$this->Html->url(array("controller"=>"User","action"=>"register"))."'"));?>
+					</span>
+				</p>
+		   <?php endif;?>	
+	   <?php echo $this->Form->end();?>	   
+     </div>
+  </div>
+</div>	

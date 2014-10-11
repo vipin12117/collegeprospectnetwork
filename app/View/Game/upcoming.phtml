@@ -1,1 +1,102 @@
-<?php
+<script type="text/javascript" src="<?php echo Router::fullBaseUrl().$this->base;?>/fancybox/jquery.fancybox.js"></script>
+<link type="text/css" rel="stylesheet" href="<?php echo Router::fullBaseUrl().$this->base;?>/fancybox/jquery.fancybox.css" />
+<script type="text/javascript">
+   jQuery(document).ready(function() {
+	   jQuery(".fancybox").fancybox({fitToView:true,width:'600px',height:'100%',autoSize:true});
+   });
+</script>
+
+<div class="cantener">
+  <div class="register-main">
+	 <div class="registerPage">
+		 <h1>Upcoming Games &amp; Events</h1>
+		 
+		 <table cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" width="100%" class="tablePadd" style="border-collapse: collapse;">
+			<tr>
+				<td align="right" colspan="1" height="30" valign="middle">
+					<?php echo $this->Form->create("Event",array("url"=>array("controller"=>"Game","action"=>"index"),"class"=>"searchform"));?>
+							<?php echo $this->Form->input("keyword",array("label"=>false,"div"=>false));?>
+							
+							<?php echo $this->Form->submit("Search",array("div"=>false,"label"=>false));?>
+					<?php echo $this->Form->end();?>
+				</td>
+
+				<td colspan='5' style="text-align:right;">
+					<a href="<?php echo $this->Html->url(array("controller"=>"Game","action"=>"addStat"));?>" class="bluelarge">Add New Game / Event</a>
+				</td>
+			</tr>					
+			
+			<tr><td colspan="5">
+				 <form name="frmCatagory" action="" method="post" onsubmit="">
+				 <table width="100%">
+					<?php if(count($events) > 0):?>
+			                 <tr>
+			                    <td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Event Name</strong></td>
+			                    <td align="left" class="normalblack_12" width="12%">&nbsp;<strong>Event date</strong></td>
+			                    <td class="normalblack_12" width="4%" align="center" style="text-align:center;"><strong>Edit</strong></td>
+			                    <td class="normalblack_12" width="4%" align="center" style="text-align:center;"><strong>View</strong></td>
+			                    <td class="normalblack_12" width="8%" align="center" style="text-align:center;"><strong>Upload Stats</strong></td>
+			                    <td class="normalblack_12" width="5%" align="center" style="text-align:center;"><strong>Delete</strong></td>
+			                 </tr>
+		                 
+			                 <?php foreach($events as $event):?>
+								  <?php if($event['Event']['user_type'] == 'athlete' and ( $event['Event']['username'] == 'admin' || $event['Event']['username'] == $this->Session->read('username') )):?>
+			
+			                          <tr>
+										  <td align="left" class="normalblack_12"><?php echo $event['Event']['event_name'];?></td>
+			                              <td align="left" class="normalblack_12"><?php echo $event['Event']['start_date'];?></td>
+			                              
+										  <?php if($event['Event']['user_type'] == 'athlete' and ( $event['Event']['username'] == $this->Session->read('username') )):?>
+			                                    <td class="normalblack_12" align="center" style="text-align:center;">
+			                                    	<a href="<?php echo $this->Html->url(array("controller"=>"Game","action"=>"editStat",$event['Event']['id']));?>">
+			                                    		<?php echo $this->Html->image('b_edit.png',array("border"=>0,"title"=>"Edit"));?>
+			                                    	</a>
+			                                    </td>
+										  <?php else:?>
+			                                      <td  class="normalblack_12" align="center" style="text-align:center;">Not Allowed</td>
+										  <?php endif;?>
+			                              
+			                              <td  class="normalblack_12" align="center" style="text-align:center;">
+			                              		<a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Game","action"=>"viewEvent",$event['Event']['id']));?>">
+		                                    		<?php echo $this->Html->image('view.gif',array("border"=>0,"title"=>"View"));?>
+		                                    	</a>
+			                              </td>
+			
+										  <?php if (time() > strtotime($event['Event']['start_date'])):?>
+			                                     <td class="normalblack_12 fancybox fancybox.iframe" align="center" style="text-align: center;">
+			                                     	<a href="<?php echo $this->Html->url(array("controller"=>"Game","action"=>"addAthleteStat",$event['Event']['id']));?>">
+			                                    		Add Game Stats
+			                                    	</a>
+			                                     </td>
+										  <?php else:?>
+			                                     <td class="normalblack_12" align="center" style="text-align: center;">Upcoming Game</td>
+										  <?php endif;?>
+			                                            
+										  <?php if($event['Event']['user_type'] == 'athlete' and ( $event['Event']['username'] == $this->Session->read('username') )):?>
+			                                    <td  class="normalblack_12" align="center" style="text-align:center;">
+			                                    	<a onclick="if(!confirm('Are you sure?')){ return false; }" href="<?php echo $this->Html->url(array("controller"=>"Game","action"=>"deleteStat",$event['Event']['id']));?>">
+			                                    		<?php echo $this->Html->image('b_drop.png',array("border"=>0,"title"=>"Delete"));?>
+			                                    	</a>
+			                                    </td>
+										  <?php else:?>
+			                                      <td  class="normalblack_12" align="center" style="text-align:center;">Not Allowed</td>
+										  <?php endif;?>
+			                          </tr>
+			                  <?php endif;?>        
+			                <?php endforeach;?>         
+		             <?php else:?>
+			             	<tr>
+			             		<td align="center" class="normalblack_12" colspan="10" height="50" style="padding:20px;">
+			                       <span class="large">No Records Available, please 
+			                       		<a href="<?php echo $this->Html->url(array("controller"=>"Game","action"=>"addStat"));?>" class="bluelargest">Add New Game / Event</a> 
+			                       </span>
+			                    </td>
+			                </tr>
+		             <?php endif;?>   
+		        </table>
+		        </form>
+		     </td></tr>     
+        </table>
+	 </div>
+  </div>
+</div>		 
