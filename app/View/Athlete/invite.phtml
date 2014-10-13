@@ -1,1 +1,24 @@
-<?php
+<div class="cantener">
+	<div class="register-main">
+		<h1>Invite An Athlete to Join Site</h1>
+		<div class="registerPage">
+			<?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Athlete","action"=>"invite")));?>
+				<p>
+					<label>Enter Athlete's Email:</label>
+					<span>
+						<?php echo $this->Form->input("email",array("type"=>"text","div"=>false,"label"=>false))?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				<p>
+					<label>&nbsp;</label>
+					<span>
+						<?php echo $this->Form->submit("Submit",array("type"=>"submit","div"=>false,"label"=>false));?>
+						
+						<?php echo $this->Form->submit("Back",array("type"=>"button","div"=>false,"label"=>false,"onclick"=>"window.location.href='".$this->Html->url(array("controller"=>"User","action"=>"register"))."'"));?>
+					</span>
+				</p>
+		    <?php echo $this->Form->end();?>		
+		</div>
+	</div>
+</div>

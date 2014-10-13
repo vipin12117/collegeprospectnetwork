@@ -7,7 +7,7 @@ Please take a couple of minutes to login and review <?php echo ucfirst($first_na
 <br />
 We also ask that you project the top level of competition at which you can contribute and look over the information he/she has entered to confirm accuracy. It is a simple process and will only take a couple of minutes.<br />
 <br />
-If <?php echo ucfirst($first_name)?> &nbsp;<?php echoucfirst($last_name)?> lacks the talent necessary or is not one of your athletes, please deny the application. <?php echo ucfirst($first_name)?> &nbsp;<?php echo ucfirst($last_name)?> will be notified that the application has been denied but there will be no mention that you have had any part in the process.<br />
+If <?php echo ucfirst($first_name)?> &nbsp;<?php echo ucfirst($last_name)?> lacks the talent necessary or is not one of your athletes, please deny the application. <?php echo ucfirst($first_name)?> &nbsp;<?php echo ucfirst($last_name)?> will be notified that the application has been denied but there will be no mention that you have had any part in the process.<br />
 <br />
 Please do not reply to this email. If you have any questions or concerns, please use the Contact Us page on the website or email us at contact@collegeprospectnetwork.com.<br />
 <br />

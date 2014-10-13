@@ -101,8 +101,8 @@ class UserController extends AppController{
 			$username = strtolower($this->request->data['Athlete']['username']);
 			$email = strtolower($this->request->data['Athlete']['email']);
 
-			$checkUsernameExist = $this->Athlete->find("first",array("conditions"=>"Athlete.username = '$username'"));
-			$checkEmailExist = $this->Athlete->find("first",array("conditions"=>"Athlete.email = '$email'"));
+			$checkUsernameExist = $this->Athlete->find("first",array("conditions"=>"Lower(Athlete.username) = Lower('$username')"));
+			$checkEmailExist = $this->Athlete->find("first",array("conditions"=>"Lower(Athlete.email) = Lower('$email')"));
 
 			if($checkUsernameExist){
 				$this->Session->setFlash("This username is already exist, please try another one");
@@ -148,8 +148,8 @@ class UserController extends AppController{
 			$username = strtolower($this->request->data['HsAauCoach']['username']);
 			$email = strtolower($this->request->data['HsAauCoach']['email']);
 
-			$checkUsernameExist = $this->HsAauCoach->find("first",array("conditions"=>"HsAauCoach.username = '$username'"));
-			$checkEmailExist = $this->HsAauCoach->find("first",array("conditions"=>"HsAauCoach.email = '$email'"));
+			$checkUsernameExist = $this->HsAauCoach->find("first",array("conditions"=>"Lower(HsAauCoach.username) = Lower('$username')"));
+			$checkEmailExist = $this->HsAauCoach->find("first",array("conditions"=>"Lower(HsAauCoach.email) = Lower('$email')"));
 
 			if($checkUsernameExist){
 				$this->Session->setFlash("This username is already exist, please try another one");
@@ -207,7 +207,12 @@ class UserController extends AppController{
 				$message = "Thank you for your Registration";
 				$this->Session->setFlash($message);
 
-				$this->redirect(array("controller"=>"Home","action"=>"login"));
+				$this->Session->write("name",$this->request->data['HsAauCoach']['firstname']);
+				$this->Session->write("username",$this->request->data['HsAauCoach']['username']);
+				$this->Session->write("user_id",$hs_aau_coach_id);
+				$this->Session->write("user_type","coach");
+
+				$this->redirect(array("controller"=>"Profile","action"=>"index"));
 				exit;
 			}
 		}
@@ -222,8 +227,8 @@ class UserController extends AppController{
 			$username = strtolower($this->request->data['CollegeCoach']['username']);
 			$email = strtolower($this->request->data['CollegeCoach']['email']);
 
-			$checkUsernameExist = $this->CollegeCoach->find("first",array("conditions"=>"CollegeCoach.username = '$username'"));
-			$checkEmailExist = $this->CollegeCoach->find("first",array("conditions"=>"CollegeCoach.email = '$email'"));
+			$checkUsernameExist = $this->CollegeCoach->find("first",array("conditions"=>"Lower(CollegeCoach.username) = Lower('$username')"));
+			$checkEmailExist = $this->CollegeCoach->find("first",array("conditions"=>"Lower(CollegeCoach.email) = Lower('$email')"));
 
 			if($checkUsernameExist){
 				$this->Session->setFlash("This username is already exist, please try another one");
@@ -298,7 +303,7 @@ class UserController extends AppController{
 			$cakeEmail->viewVars(array('newSchool' => $newSchool, 'data' => $data, 'address' => $address, 'sportName' => $sportName, 'httpUserAgent' => $httpUserAgent));
 			// Send email
 			$cakeEmail->send();
-		} 
+		}
 		catch (Exception $e){
 			$this->Session->setFlash('Error while sending email');
 		}
@@ -324,7 +329,7 @@ class UserController extends AppController{
 				$cakeEmail->viewVars(array('hsAauCoach' => $hsAauCoach, 'first_name' => $first_name, 'last_name' => $last_name));
 				// Send email
 				$cakeEmail->send();
-			} 
+			}
 			catch (Exception $e){
 				$this->Session->setFlash('Error while sending email');
 			}
@@ -357,7 +362,7 @@ class UserController extends AppController{
 			$cakeEmail->viewVars(array('newSchool' => $newSchool, 'data' => $data, 'address' => $address, 'sportPositions' => $sportPositions, 'httpUserAgent' => $httpUserAgent));
 			// Send email
 			$cakeEmail->send();
-		} 
+		}
 		catch (Exception $e){
 			$this->Session->setFlash('Error while sending email');
 		}
@@ -375,7 +380,7 @@ class UserController extends AppController{
 		$this->loadModel('College');
 		$college = $this->College->find("first",array("conditions"=>"College.id = '".$data['college_id']."'","fields"=>"College.name"));
 		$collegeName = $college['College']['name'];
-		
+
 		// Get Sport Name
 		$this->loadModel('Sport');
 		$sport = $this->Sport->find("first",array("conditions"=>"Sport.id = '".$data['sport_id']."'","fields"=>"Sport.name"));
@@ -393,7 +398,7 @@ class UserController extends AppController{
 			$cakeEmail->viewVars(array('newCollege' => $newCollege, 'data' => $data, 'address' => $address, 'collegeName' => $collegeName, 'sportName' => $sportName, 'httpUserAgent' => $httpUserAgent));
 			// Send email
 			$cakeEmail->send();
-		} 
+		}
 		catch (Exception $e){
 			$this->Session->setFlash('Error while sending email');
 		}

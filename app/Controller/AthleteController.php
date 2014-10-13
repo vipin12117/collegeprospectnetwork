@@ -66,7 +66,7 @@ class AthleteController extends AppController{
 		if($id){
 			$this->Athlete->id = $id;
 			$athlete = $this->Athlete->read(null,$id);
-				
+
 			$this->Athlete->saveField("status",1);
 			$this->Session->setFlash("Thank you. The athlete has been approved and a confirmation email has been sent to &nbsp;".$athlete['Athlete']['email']);
 
@@ -95,7 +95,7 @@ class AthleteController extends AppController{
 		if($id){
 			$this->Athlete->id = $id;
 			$athlete = $this->Athlete->read(null,$id);
-				
+
 			$this->Athlete->saveField("status",2);
 			$this->Session->setFlash("You have rejected this Athlete and Notification Email send to ".$athlete['Athlete']['email']);
 
@@ -124,6 +124,35 @@ class AthleteController extends AppController{
 
 	public function invite(){
 		$userId = $this->Session->read('user_id');
+
+		if(isset($this->request->data['Athlete'])){
+			$email = $this->request->data['Athlete']['email'];
+			
+			$this->loadModel('HsAauCoach');
+			$HsAauCoach = $this->HsAauCoach->getById($userId);
+
+			$cakeEmail = new CakeEmail();
+			$subject  = "Coach  " . $HsAauCoach['HsAauCoach']['firstname'] . " " . $HsAauCoach['HsAauCoach']['lastname'] . " Has Invited You to Join Our Site!";
+			$template = 'athlete_invite_email';
+			try {
+				$cakeEmail->template($template);
+				$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+				$cakeEmail->to(array($email => $email));
+				$cakeEmail->subject($subject);
+				$cakeEmail->emailFormat('html');
+				$cakeEmail->viewVars(array('HsAauCoach' => $HsAauCoach));
+				// Send email
+				$cakeEmail->send();
+			}
+			catch (Exception $e){
+				//$this->Session->setFlash('Error while sending email');
+			}
+
+			$this->Session->setFlash("Athlete has been invited. Please also notify the athlete that he/she has been invited, as they may not check their email frequently. Once you confirm that the athlete's entered information is accurate, his/her profile will be activated. Thank you.");
+
+			$this->redirect(array('controller' => 'Athlete', 'action' => 'invite'));
+			exit;
+		}
 	}
 
 	public function search(){

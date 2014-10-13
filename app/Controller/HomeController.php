@@ -94,7 +94,7 @@ class HomeController extends AppController{
 			$user_type = $this->request->data['Admin']['user_type'];
 			if($user_type == 'Athlete'){
 				$username  = $this->filterKeyword($this->request->data['Admin']['username']);
-				$userExist = $this->Athlete->find("first" , array("conditions" => "Athlete.username = '$username'" , "recursive" => -1));
+				$userExist = $this->Athlete->find("first" , array("conditions" => "Lower(Athlete.username) = Lower('$username')" , "recursive" => -1));
 
 				if($userExist){
 					$password = $this->filterKeyword($this->request->data['Admin']['password']);
@@ -118,7 +118,7 @@ class HomeController extends AppController{
 			}
 			elseif($user_type == 'HsAauCoach'){
 				$username  = $this->filterKeyword($this->request->data['Admin']['username']);
-				$userExist = $this->HsAauCoach->find("first" , array("conditions" => "HsAauCoach.username = '$username'" , "recursive" => -1));
+				$userExist = $this->HsAauCoach->find("first" , array("conditions" => "Lower(HsAauCoach.username) = Lower('$username')" , "recursive" => -1));
 
 				if($userExist){
 					$password = $this->filterKeyword($this->request->data['Admin']['password']);
@@ -142,7 +142,7 @@ class HomeController extends AppController{
 			}
 			else{
 				$username  = $this->filterKeyword($this->request->data['Admin']['username']);
-				$userExist = $this->CollegeCoach->find("first" , array("conditions" => "CollegeCoach.username = '$username'" , "recursive" => -1));
+				$userExist = $this->CollegeCoach->find("first" , array("conditions" => "Lower(CollegeCoach.username) = Lower('$username')" , "recursive" => -1));
 
 				if($userExist){
 					$password = $this->filterKeyword($this->request->data['Admin']['password']);
