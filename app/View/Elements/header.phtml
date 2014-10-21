@@ -94,4 +94,33 @@
 
 		<div class="clr"></div>
 	</div>
-</div>					
+</div>		
+
+<style type="text/css">
+  .validationError {
+      border: solid 2px pink;
+      border-radius:5px;
+  }
+</style>
+<?php echo $this->Html->script("jquery.h5validate.js");?>
+<script type="text/javascript">
+function hasFormValidation() {
+    return (typeof document.createElement( 'input' ).checkValidity == 'function');
+};
+try{
+	if(!hasFormValidation()){
+		jQuery(document).ready(function(){
+		    jQuery("form").h5Validate({
+		        errorClass: "validationError"
+		    });
+		
+		    jQuery("form").submit(function (evt) {
+		        if (jQuery("form").h5Validate("allValid") === false){
+			        //alert("Please fill the all required fields");
+		            evt.preventDefault();
+		        }
+		    });
+		});
+	}
+}catch(e){}
+</script>			

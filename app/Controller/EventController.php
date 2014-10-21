@@ -12,17 +12,15 @@ class EventController extends AppController{
 
 	public function beforeFilter(){
 		parent::beforeFilter();
-		
+
 		if (isset($this->params['prefix']) && $this->params['prefix'] == 'admin') ////for admin section template
-        {
-        	if ($this->checkAdminSession()){
-            	$this->layout = 'admin';
-        	} else {
-        		$this->redirect(array('controller'=>'admins','action'=>'login'));
-        	}
-		} 
-		else {
-			$this->checkSession();
+		{
+			if ($this->checkAdminSession()){
+				$this->layout = 'admin';
+			}
+			else {
+				$this->redirect(array('controller'=>'admins','action'=>'login'));
+			}
 		}
 	}
 
@@ -216,21 +214,21 @@ class EventController extends AppController{
 			$this->Session->setFlash('Error while sending email');
 		}
 	}
-	
+
 	public function admin_eventList(){
 		if ($this->request->is('post')){
 			$searchName =  $this->request->data['searchname'];
-			
+				
 			if (!empty($searchName)){
-				$conditions = array('Event.event_name LIKE ' => '%'.$searchName.'%');				
+				$conditions = array('Event.event_name LIKE ' => '%'.$searchName.'%');
 			} else {
 				$conditions = array();
 			}
 			$limit = 100;
-			$this->loadModel('Event');			
+			$this->loadModel('Event');
 			$this->paginate = array('Event'=>array('conditions' => $conditions,
 												   'limit' => $limit));
-												   
+				
 			$events = $this->paginate('Event');
 			$this->set(compact('events', 'limit'));
 		} else {
@@ -238,54 +236,54 @@ class EventController extends AppController{
 			$this->loadModel('Event');
 			$this->paginate = array('Event' => array('limit' => $limit));
 			$events = $this->paginate('Event');
-			
+				
 			// Get sport list.
 			$this->loadModel('Sport');
-			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'), 
+			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
 														 'order' => array('Sport.id')));						
 			$sportList = array();
 			foreach ($sports as $sport){
 				$sportList[$sport['Sport']['id']] = $sport['Sport']['name'];
 			}
-			
+				
 			$this->set(compact('events', 'limit', 'sportList'));
 		}
 	}
-	
+
 	public function admin_deleteEvent($id){
 		if (isset($id)){
 			$this->loadModel('Event');
 			if($this->Event->delete($id)){
-				$this->Session->setFlash('Event Deleted Successfully!', 'flash_success');					
+				$this->Session->setFlash('Event Deleted Successfully!', 'flash_success');
 			} else {
 				$this->Session->setFlash('Can not delete this Event', 'flash_error');
 			}
 		} else {
 			$this->Session->setFlash('Do not exits this Event', 'flash_error');
-		}	
+		}
 		$this->redirect($this->referer());
 	}
-	
+
 	public function admin_eventDetails($id){
 		if (isset($id)){
 			$this->loadModel('Event');
 			$eventDet = $this->Event->findById($id);
-			
-			// Get Sport Name			
-			$this->loadModel('Sport');	
+				
+			// Get Sport Name
+			$this->loadModel('Sport');
 			$sportName = $this->Sport->findById($eventDet['Event']['sport_id']);
-			
+				
 			// Get Team Name
 			$this->loadModel('HsAauTeam');
-			$teamName = $this->HsAauTeam->findById($eventDet['Event']['home_team']);			
+			$teamName = $this->HsAauTeam->findById($eventDet['Event']['home_team']);
 			$awayTeam = $this->HsAauTeam->findById($eventDet['Event']['away_team']);
-			
+				
 			$this->set(compact('eventDet', 'sportName', 'teamName', 'awayTeam'));
 		} else {
 			$this->Session->setFlash('Do not exits this Event', 'flash_error');
-		}	
+		}
 	}
-	
+
 	public function admin_deleteSelectedEvent(){
 		$this->loadModel('Event');
 		if(isset($this->request->data['check_delete'])) {
@@ -294,19 +292,19 @@ class EventController extends AppController{
 					$this->Session->setFlash('Event Deleted Successfully!', 'flash_success');
 				} else {
 					$this->Session->setFlash('Delete error.', 'flash_error');
-				}								
+				}
 			}
 		}
 		$this->redirect($this->referer());
 	}
-	
+
 	public function admin_editEvent($id){
 		if (isset($id)){
-			if ($this->request->is('post')){				
+			if ($this->request->is('post')){
 				$this->loadModel('Event');
 				$this->Event->id = $id;
 				if ($this->Event->save($this->request->data)){
-					$this->Session->setFlash('Event Updated Successfully!', 'flash_success');	
+					$this->Session->setFlash('Event Updated Successfully!', 'flash_success');
 					$this->redirect(array('controller' => 'Event', 'action' => 'eventList'));
 				} else {
 					$this->Session->setFlash('Can not update this Event', 'flash_error');
@@ -314,20 +312,20 @@ class EventController extends AppController{
 			} else {
 				$this->loadModel('Event');
 				$event = $this->Event->findById($id);
-											
-				// Get Sport Name			
-				$this->loadModel('Sport');	
-				$sport = $this->Sport->findById($event['Event']['sport_id']);
-				
+					
+				// Get Sport Name
 				$this->loadModel('Sport');
-				$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'), 
+				$sport = $this->Sport->findById($event['Event']['sport_id']);
+
+				$this->loadModel('Sport');
+				$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
 															 'order' => array('Sport.name')));
-												
+
 				$sportList = array();
 				foreach ($sports as $sport){
 					$sportList[$sport['Sport']['id']] = $sport['Sport']['name'];
 				}
-											
+					
 				// Get category list.
 				$this->loadModel('HsAauTeam');
 				$hsAauTeams = $this->HsAauTeam->find('all', array('conditions' => array('HsAauTeam.status' => '1'),
@@ -337,33 +335,33 @@ class EventController extends AppController{
 				foreach ($hsAauTeams as $hsAauTeam){
 					$categoryList[$hsAauTeam['HsAauTeam']['id']] = $hsAauTeam['HsAauTeam']['school_name'];
 				}
-				
+
 				$this->set(compact('event', 'sport', 'categoryList', 'sportList'));
 			}
 		} else {
 			$this->Session->setFlash('Do not exits this Event', 'flash_error');
-		}	
+		}
 	}
-	
-	public function admin_addEvent(){	
+
+	public function admin_addEvent(){
 		if ($this->request->is('post')){
 			$this->loadModel('Event');
 			if ($this->Event->save($this->request->data)){
-				$this->Session->setFlash('Event is Added Successfully', 'flash_success');	
+				$this->Session->setFlash('Event is Added Successfully', 'flash_success');
 				$this->redirect(array('controller' => 'Event', 'action' => 'eventList'));
 			} else {
 				$this->Session->setFlash('Can not add this Event', 'flash_error');
 			}
 		} else {
 			$this->loadModel('Sport');
-			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'), 
+			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
 														 'order' => array('Sport.name')));
-											
+				
 			$sportList = array();
 			foreach ($sports as $sport){
 				$sportList[$sport['Sport']['id']] = $sport['Sport']['name'];
 			}
-			
+				
 			// Get category list.
 			$this->loadModel('HsAauTeam');
 			$hsAauTeams = $this->HsAauTeam->find('all', array('conditions' => array('HsAauTeam.status' => '1'),
@@ -373,7 +371,7 @@ class EventController extends AppController{
 			foreach ($hsAauTeams as $hsAauTeam){
 				$categoryList[$hsAauTeam['HsAauTeam']['id']] = $hsAauTeam['HsAauTeam']['school_name'];
 			}
-			
+				
 			$this->set(compact('categoryList', 'sportList'));
 		}
 	}

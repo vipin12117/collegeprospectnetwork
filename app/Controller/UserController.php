@@ -129,7 +129,7 @@ class UserController extends AppController{
 				}
 
 				$this->Athlete->save($this->request->data);
-				$message = "Thank you for submitting your application. Your profile will be reviewed by the College Prospect Network staff and you will be notified via email whether you are approved. Please allow 10 business days for us to process your request before contacting us.<br /><br />From, <br />College Prospect Network, LLC.";
+				$message = "Thank you for submitting your application. Your profile will be reviewed by the College Prospect Network staff and you will be notified via email whether you are approved. Please allow 10 business days for us to process your request before contacting us.<br /><br />From, <br />College Prospect Network.";
 				$this->Session->setFlash($message);
 
 				$this->athleteRegisterEmail($this->request->data['Athlete'],$this->request->data['HsAauTeam'],$newSchool);

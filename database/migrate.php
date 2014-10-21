@@ -14,8 +14,9 @@ select
   `fldState`, `fldJerseyNumber`, `fldNotificationSent` , `fldNoteID` , `fldLastweekcounter`, `fldWeeklycounter`, 
   `fldTotalcounter`, `fldYoutubelink`, `fldYoutubeModifiedDate`, `fldIntangible_rating`, `fldTotal_points` , `fldApproveCoachId`,
   `fldAddDate`, `fldDateLastUpdated`
-  
   from  db142079_cpn.tbl_athelete_register;
+  
+update `athletes` a SET status = (select IF(fldStatus = 'Active', 1 , IF(fldStatus = 'DEACTIVE' , 0 , 2)) from db142079_cpn.tbl_athelete_register where fldId = a.id)  
   
 truncate table `athlete_stats`;
 INSERT INTO `athlete_stats` 
