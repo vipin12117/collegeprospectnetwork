@@ -1,0 +1,14 @@
+<p>
+   <label>College:</label>
+   <span>
+   		<?php echo $this->Form->input("CollegeCoach.college_id",array("id"=>"college_id","div"=>false,"label"=>false,"required"=>"true","options"=>$colleges,"empty"=>"Select One"));?>
+   </span>
+   <font color="#0000ff">*</font>
+</p>   
+<?php $this->Js->get("#college_id"); ?>
+<?php $this->Js->event('change',$this->Js->request(array('controller' => 'User','action' => 'getCollegeInfo'),
+	       array('async' => true,'update' => '#school_address','data' => '$("#college_id").serialize()','dataExpression' => true
+	  ))); 
+?>
+
+<?php echo $this->Js->writeBuffer();?>

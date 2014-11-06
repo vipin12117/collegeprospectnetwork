@@ -1,0 +1,20 @@
+<p>
+   <label><?php echo $col_title;?>:</label>
+   <span>
+   		<?php echo $this->Form->input("SpecialEventUser.$hs_aau_team_col",array("name"=>"data[SpecialEventUser][$column]","id"=>"$hs_aau_team_col","div"=>false,"label"=>false,"required"=>"true","options"=>$colleges,"empty"=>"Select One"));?>
+   </span>
+   <font color="#0000ff">*</font>
+</p>   
+
+<?php $this->Js->get("#$hs_aau_team_col"); ?>
+<?php $this->Js->event('change',$this->Js->request(array('controller' => 'User','action' => 'getAddressInfo'),
+  	  		 array('async' => true,'update' => "#$school_address_col",'data' => '$("#'.$hs_aau_team_col.'").serialize()','dataExpression' => true
+       ))); 
+?>
+
+<div id="<?php echo $school_address_col;?>">
+		     	
+		     	
+</div>
+
+<?php echo $this->Js->writeBuffer();?>

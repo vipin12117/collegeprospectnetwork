@@ -218,7 +218,7 @@ class EventController extends AppController{
 	public function admin_eventList(){
 		if ($this->request->is('post')){
 			$searchName =  $this->request->data['searchname'];
-				
+
 			if (!empty($searchName)){
 				$conditions = array('Event.event_name LIKE ' => '%'.$searchName.'%');
 			} else {
@@ -228,7 +228,7 @@ class EventController extends AppController{
 			$this->loadModel('Event');
 			$this->paginate = array('Event'=>array('conditions' => $conditions,
 												   'limit' => $limit));
-				
+
 			$events = $this->paginate('Event');
 			$this->set(compact('events', 'limit'));
 		} else {
@@ -236,7 +236,7 @@ class EventController extends AppController{
 			$this->loadModel('Event');
 			$this->paginate = array('Event' => array('limit' => $limit));
 			$events = $this->paginate('Event');
-				
+
 			// Get sport list.
 			$this->loadModel('Sport');
 			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
@@ -245,7 +245,7 @@ class EventController extends AppController{
 			foreach ($sports as $sport){
 				$sportList[$sport['Sport']['id']] = $sport['Sport']['name'];
 			}
-				
+
 			$this->set(compact('events', 'limit', 'sportList'));
 		}
 	}
@@ -268,16 +268,16 @@ class EventController extends AppController{
 		if (isset($id)){
 			$this->loadModel('Event');
 			$eventDet = $this->Event->findById($id);
-				
+
 			// Get Sport Name
 			$this->loadModel('Sport');
 			$sportName = $this->Sport->findById($eventDet['Event']['sport_id']);
-				
+
 			// Get Team Name
 			$this->loadModel('HsAauTeam');
 			$teamName = $this->HsAauTeam->findById($eventDet['Event']['home_team']);
 			$awayTeam = $this->HsAauTeam->findById($eventDet['Event']['away_team']);
-				
+
 			$this->set(compact('eventDet', 'sportName', 'teamName', 'awayTeam'));
 		} else {
 			$this->Session->setFlash('Do not exits this Event', 'flash_error');
@@ -356,12 +356,12 @@ class EventController extends AppController{
 			$this->loadModel('Sport');
 			$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
 														 'order' => array('Sport.name')));
-				
+
 			$sportList = array();
 			foreach ($sports as $sport){
 				$sportList[$sport['Sport']['id']] = $sport['Sport']['name'];
 			}
-				
+
 			// Get category list.
 			$this->loadModel('HsAauTeam');
 			$hsAauTeams = $this->HsAauTeam->find('all', array('conditions' => array('HsAauTeam.status' => '1'),
@@ -371,8 +371,46 @@ class EventController extends AppController{
 			foreach ($hsAauTeams as $hsAauTeam){
 				$categoryList[$hsAauTeam['HsAauTeam']['id']] = $hsAauTeam['HsAauTeam']['school_name'];
 			}
-				
+
 			$this->set(compact('categoryList', 'sportList'));
 		}
+	}
+
+	public function getHsAauSchools($id = 1){
+		$this->autoLayout = false;
+		$this->autoRender = false;
+
+		$state_id = @$this->request->query['data']['SpecialEventUser']['state_id1'];
+		if(!$state_id){
+			$state_id = @$this->request->query['data']['SpecialEventUser']['state_id2'];
+		}
+
+		if(!$state_id){
+			return false;
+		}
+
+		if(!$this->RequestHandler->isAjax()){
+			$this->redirect(array("controller"=>"Home","action"=>"index"));
+			exit;
+		}
+
+		$this->loadModel('HsAauTeam');
+		$colleges = $this->HsAauTeam->find("list",array("conditions"=>"state='$state_id'","fields"=>"id,school_name","order"=>"school_name ASC"));
+		$this->set("colleges",$colleges);
+
+		if($id == 1){
+			$this->set("column","school");
+			$this->set("hs_aau_team_col","hs_aau_team_id1");
+			$this->set("school_address_col","school_address1");
+			$this->set("col_title","High School");
+		}
+		else{
+			$this->set("column","hs_aau_team_id");
+			$this->set("hs_aau_team_col","hs_aau_team_id2");
+			$this->set("school_address_col","school_address2");
+			$this->set("col_title","High School/AAU Team");
+		}
+
+		$this->render("/Event/getSchools","ajax");
 	}
 }

@@ -10,14 +10,16 @@ class AthleteController extends AppController{
 
 	public function beforeFilter(){
 		parent::beforeFilter();
-		if (isset($this->params['prefix']) && $this->params['prefix'] == 'admin') ////for admin section template
-		{
+
+		if (isset($this->params['prefix']) && $this->params['prefix'] == 'admin'){ ////for admin section template
 			if ($this->checkAdminSession()){
 				$this->layout = 'admin';
-			} else {
+			}
+			else{
 				$this->redirect(array('controller'=>'admins','action'=>'login'));
 			}
-		} else {
+		}
+		else{
 			$this->checkSession();
 		}
 	}
@@ -127,7 +129,7 @@ class AthleteController extends AppController{
 
 		if(isset($this->request->data['Athlete'])){
 			$email = $this->request->data['Athlete']['email'];
-			
+
 			$this->loadModel('HsAauCoach');
 			$HsAauCoach = $this->HsAauCoach->getById($userId);
 
@@ -161,7 +163,7 @@ class AthleteController extends AppController{
 		$conditions = array();
 		if(isset($this->request->data['Athlete'])){
 			foreach($this->request->data['Athlete'] as $key => $value){
-				if(strlen($value) > 0){
+				if((is_string($value) && strlen($value) > 0) || $value){
 					if($key == 'weight_min'){
 						$conditions[] = "Athlete.weight <= '$value'";
 					}
@@ -173,6 +175,17 @@ class AthleteController extends AppController{
 					}
 					elseif($key == 'athlete_stat_category_id'){
 						//$conditions[] = "Athlete.weight >= '$value'";
+					}
+					elseif($key == 'state'){
+						$cond = array();
+						foreach($value as $val){
+							$cond[] = " Athlete.state like '%$val%' ";
+						}
+						$conditions[] = "(". implode(" OR ",$cond). " ) ";
+					}
+					elseif($key == 'firstname'){
+						$value = strtolower($value);
+						$conditions[] = "( Lower(Athlete.firstname) like '%$value%' OR Lower(Athlete.lastname) like '%$value%' )";
 					}
 					else{
 						$conditions[] = "Athlete.$key = '$value'";
@@ -194,6 +207,13 @@ class AthleteController extends AppController{
 		}
 		else{
 			$this->paginate = array('Athlete'=>array("limit"=>10));
+		}
+
+		if($this->Session->read('user_type') == 'college' AND !$this->Session->read("is_trial_mode")){
+			$this->set("user_id",$this->Session->read('user_id'));
+		}
+		else{
+			$this->set("user_id",0);
 		}
 
 		$athletes = $this->paginate('Athlete');

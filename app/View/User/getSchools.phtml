@@ -1,0 +1,15 @@
+<p>
+   <label>High School/AAU Team:</label>
+   <span>
+   		<?php echo $this->Form->input("Athlete.hs_aau_team_id",array("id"=>"hs_aau_team_id","div"=>false,"label"=>false,"required"=>"true","options"=>$colleges,"empty"=>"Select One"));?>
+   </span>
+   <font color="#0000ff">*</font>
+</p>   
+
+<?php $this->Js->get("#hs_aau_team_id"); ?>
+<?php $this->Js->event('change',$this->Js->request(array('controller' => 'User','action' => 'getAddressInfo'),
+  	  		 array('async' => true,'update' => '#school_address','data' => '$("#hs_aau_team_id").serialize()','dataExpression' => true
+       ))); 
+?>
+
+<?php echo $this->Js->writeBuffer();?>

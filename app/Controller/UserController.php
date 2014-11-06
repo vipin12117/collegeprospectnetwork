@@ -55,8 +55,7 @@ class UserController extends AppController{
 		}
 
 		if($hs_aau_team_id != 'Other'){
-			App::import("Model","HsAauTeam");
-			$this->HsAauTeam = new HsAauTeam();
+			$this->loadModel('HsAauTeam');
 
 			$hsAauTeamDetail = $this->HsAauTeam->find("first",array("conditions"=>"HsAauTeam.id = '$hs_aau_team_id'"));
 			$this->set("hsAauTeamDetail",$hsAauTeamDetail);
@@ -84,14 +83,63 @@ class UserController extends AppController{
 		}
 
 		if($college_id != 'Other'){
-			App::import("Model","College");
-			$this->College = new College();
+			$this->loadModel('College');
 
 			$CollegeDetail = $this->College->find("first",array("conditions"=>"College.id = '$college_id'"));
 			$this->set("CollegeDetail",$CollegeDetail);
 		}
 
 		$this->render("/User/getCollegeInfo","ajax");
+	}
+
+	public function getHsAauSchools(){
+		$this->autoLayout = false;
+		$this->autoRender = false;
+
+		$state_id = @$this->request->query['data']['Athlete']['state_id'];
+		if(!$state_id){
+			$state_id = @$this->request->query['data']['HsAauCoach']['state_id'];
+		}
+
+		if(!$state_id){
+			return false;
+		}
+
+		if(!$this->RequestHandler->isAjax()){
+			$this->redirect(array("controller"=>"Home","action"=>"index"));
+			exit;
+		}
+
+		$this->loadModel('HsAauTeam');
+
+		$colleges = $this->HsAauTeam->find("list",array("conditions"=>"state='$state_id'","fields"=>"id,school_name","order"=>"school_name ASC"));
+		$colleges['Other'] = array("Other"=>"Add your school");
+		$this->set("colleges",$colleges);
+
+		$this->render("/User/getSchools","ajax");
+	}
+
+	public function getColleges(){
+		$this->autoLayout = false;
+		$this->autoRender = false;
+
+		$state_id = @$this->request->query['data']['CollegeCoach']['state_id'];
+		if(!$state_id){
+			return false;
+		}
+
+		if(!$this->RequestHandler->isAjax()){
+			$this->redirect(array("controller"=>"Home","action"=>"index"));
+			exit;
+		}
+
+		$this->loadModel('College');
+
+		$colleges = $this->College->find("list",array("conditions"=>"state='$state_id'","fields"=>"id,name","order"=>"name ASC"));
+		$colleges['Other'] = array("Other"=>"Add your college");
+		$this->set("colleges",$colleges);
+
+		$this->render("/User/getColleges","ajax");
 	}
 
 	public function registerAthlete(){
@@ -159,7 +207,7 @@ class UserController extends AppController{
 			}
 			else{
 				$newSchool = false;
-				if($this->request->data['HsAauCoach']['hs_aau_team_id'] == 'Other'){
+				if($this->request->data['Athlete']['hs_aau_team_id'] == 'Other'){
 					$this->request->data['HsAauTeam']['coach_name'] = $username;
 					$this->request->data['HsAauTeam']['sport_id'] = $this->request->data['HsAauCoach']['sport_id'][0];
 					$this->request->data['HsAauTeam']['added_date'] = date('Y-m-d H:i:s');
@@ -171,7 +219,8 @@ class UserController extends AppController{
 					$newSchool = 1;
 				}
 				else{
-					$hs_aau_team_id = $this->request->data['HsAauCoach']['hs_aau_team_id'];
+					$hs_aau_team_id = $this->request->data['Athlete']['hs_aau_team_id'];
+					$this->request->data['HsAauCoach']['hs_aau_team_id'] = $hs_aau_team_id;
 				}
 
 				$sports = $this->request->data['HsAauCoach']['sport_id'];

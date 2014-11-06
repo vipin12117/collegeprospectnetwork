@@ -10,7 +10,7 @@
 <p>
     <label>State:</label>
     <span>
-    	<?php echo $this->Form->input("state",array("div"=>false,"label"=>false,"options"=>$this->Register->getStates(),"empty"=>"Select One"));?>
+    	<?php echo $this->Form->input("state",array("div"=>false,"label"=>false,"options"=>$this->Register->getStates(),"empty"=>"Select States","multiple"=>true,"size"=>4));?>
     </span>
 </p>
 

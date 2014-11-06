@@ -29,7 +29,6 @@ class ProfileController extends AppController{
 		$networkCount = $this->Network->find('count',array('conditions'=>array('Network.receiver_id' => $user_id, 'Network.status' => 'Pending')));
 		$this->set("networkCount",$networkCount);
 
-		$is_trial_mode = false;
 		if($this->user_type == 'athlete'){
 			$profileDetail = $this->Athlete->getByUsername($username);
 			$this->set("profileDetail",$profileDetail);
@@ -37,25 +36,6 @@ class ProfileController extends AppController{
 		elseif($this->user_type == 'college'){
 			$profileDetail = $this->CollegeCoach->getByUsername($username);
 			$this->set("profileDetail",$profileDetail);
-
-			$this->loadModel('CollegeSubscription');
-			$collegeSubscription = $this->CollegeSubscription->getDetailByCollegeCoachId($user_id);
-			if($collegeSubscription){
-				$this->set("collegeSubscription",$collegeSubscription);
-
-				if((strtotime($collegeSubscription['CollegeSubscription']['next_billdate']) - time()) <= 0){
-					$total_days = time() - strtotime($profileDetail['CollegeCoach']['added_date']);
-					if($total_days > (5*24*60*60)){
-						$is_trial_mode = true;
-					}
-				}
-			}
-			else{
-				$total_days = time() - strtotime($profileDetail['CollegeCoach']['added_date']);
-				if($total_days > (5*24*60*60)){
-					$is_trial_mode = true;
-				}
-			}
 		}
 		else{
 			$profileDetail = $this->HsAauCoach->getByUsername($username);
@@ -69,12 +49,11 @@ class ProfileController extends AppController{
 			else{
 				$athleteApproval = 0;
 			}
-				
+
 			$this->set("athleteApproval",$athleteApproval);
 			$this->set("athleteStatApproval",0);
 		}
 
-		$this->set("is_trial_mode",$is_trial_mode);
 		$this->render("/Profile/index");
 	}
 
@@ -178,6 +157,10 @@ class ProfileController extends AppController{
 
 			$this->request->data['HsAauCoach']['sport_id'] = $this->request->data['HsAauCoach']['sport_id'][0];
 			$this->request->data['HsAauCoach']['position'] = $this->request->data['HsAauCoach']['position'][0];
+				
+			if(isset($this->request->data['Athlete']['hs_aau_team_id'])){
+				$this->request->data['HsAauCoach']['hs_aau_team_id'] = $this->request->data['Athlete']['hs_aau_team_id'];
+			}
 
 			$this->HsAauCoach->save($this->request->data);
 
@@ -206,6 +189,15 @@ class ProfileController extends AppController{
 		}
 		else{
 			$this->request->data = $this->HsAauCoach->getById($user_id);
+
+			$this->loadModel('HsAauTeam');
+			$state_id = $this->HsAauTeam->field("state","HsAauTeam.id = '".$this->request->data['HsAauCoach']['hs_aau_team_id']."'");
+			$this->request->data['HsAauCoach']['state_id'] = $state_id;
+
+			$colleges = $this->HsAauTeam->find("list",array("conditions"=>"state='$state_id'","fields"=>"id,school_name","order"=>"school_name ASC"));
+			$colleges['Other'] = array("Other"=>"Add your school");
+			$this->set("colleges",$colleges);
+
 			$this->render("/Profile/editHsAauCoachProfile");
 		}
 	}
@@ -248,6 +240,15 @@ class ProfileController extends AppController{
 		}
 		else{
 			$this->request->data = $this->CollegeCoach->getById($user_id);
+				
+			$this->loadModel('College');
+			$state_id = $this->request->data['CollegeCoach']['state'];
+			$this->request->data['CollegeCoach']['state_id'] = $state_id;
+
+			$colleges = $this->College->find("list",array("conditions"=>"state='$state_id'","fields"=>"id,name","order"=>"name ASC"));
+			$colleges['Other'] = array("Other"=>"Add your college");
+			$this->set("colleges",$colleges);
+				
 			$this->render("/Profile/editCollegeCoachProfile");
 		}
 	}

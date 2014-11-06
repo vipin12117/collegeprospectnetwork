@@ -30,6 +30,7 @@ Router::connect('/', array('controller' => 'Home', 'action' => 'index'));
  */
 Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
+Router::connect('/admin', array('controller' => 'admins', 'action' => 'index'));
 
 Router::connect('/features', array('controller' => 'Home', 'action' => 'features'));
 Router::connect('/about-us', array('controller' => 'Home', 'action' => 'aboutus'));

@@ -5,7 +5,7 @@ Our website is designed to help high school athletes get recruited to play sport
 <br/><br/>
 
 The site costs you and your coach absolutely nothing so join today and start being seen by colleges! 
-Click this link <a href="<?php echo $this->Html->url(array("controller"=>"User","action"=>"registerAthlete"));?>" title="College Prospect Network">College Prospect Network</a> to get started. 
+Click this link <a href="<?php echo $this->Html->url(array("controller"=>"User","action"=>"registerAthlete"),true);?>" title="College Prospect Network">College Prospect Network</a> to get started. 
 If you have any questions, please use the Contact Us page located on the website.  
 <br/><br/>
 

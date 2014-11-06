@@ -104,13 +104,29 @@
 				<hr class="line" />
 				
 				<p>
-				   <label>High School/AAU Team:</label>
-				   <span>
-				   		<?php echo $this->Form->input("hs_aau_team_id",array("id"=>"hs_aau_team_id","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getHsAauSchools(),"empty"=>"Select One"));?>
-				   </span>
-				   <font color="#0000ff">*</font>
-				</p>   
+					<label>State:</label>
+					<span>
+						<?php echo $this->Form->input("state_id",array("id"=>"state_id","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getStates(),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
 				
+				<?php $this->Js->get("#state_id"); ?>
+		    	<?php $this->Js->event('change',$this->Js->request(array('controller' => 'User','action' => 'getHsAauSchools'),
+		    					   array('async' => true,'update' => '#schools','data' => '$("#state_id").serialize()','dataExpression' => true
+		               		 ))); 
+		     	?>
+				
+				<div id="schools">
+					<p>
+					   <label>High School/AAU Team:</label>
+					   <span>
+					   		<?php echo $this->Form->input("hs_aau_team_id",array("id"=>"hs_aau_team_id","div"=>false,"label"=>false,"required"=>"true","options"=>$colleges,"empty"=>"Select One"));?>
+					   </span>
+					   <font color="#0000ff">*</font>
+					</p>   
+		     	</div>
+		     	
 				<?php $this->Js->get("#hs_aau_team_id"); ?>
 		    	<?php $this->Js->event('change',$this->Js->request(array('controller' => 'User','action' => 'getAddressInfo'),
 		    					   array('async' => true,'update' => '#school_address','data' => '$("#hs_aau_team_id").serialize()','dataExpression' => true
@@ -121,6 +137,7 @@
 		     	
 		     	
 		     	</div>
+		     	
 		     	<div id="sportTable">
 		     		<div id='sport_position_0'>
 						<p>

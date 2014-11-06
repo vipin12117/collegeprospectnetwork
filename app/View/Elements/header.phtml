@@ -69,10 +69,12 @@
 					
 					&nbsp; | &nbsp;
 					
-					<?php if($this->Session->read('user_type') == 'Athlete'):?>
+					<?php if($this->Session->read('user_type') == 'athlete'):?>
 							<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile"),array("class"=>"bluelarge"));?>">View Profile</a>
-					<?php elseif($this->Session->read('user_type') == 'HsAauCoach'):?>
+					
+					<?php elseif($this->Session->read('user_type') == 'coach'):?>
 							<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile"),array("class"=>"bluelarge"));?>">View Profile</a>
+					
 					<?php else:?>
 							<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"collegeCoachProfile"),array("class"=>"bluelarge"));?>">View Profile</a>
 					<?php endif;?>		

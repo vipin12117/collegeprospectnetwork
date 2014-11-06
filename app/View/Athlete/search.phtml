@@ -1,3 +1,11 @@
+<script type="text/javascript" src="<?php echo Router::fullBaseUrl().$this->base;?>/fancybox/jquery.fancybox.js"></script>
+<link type="text/css" rel="stylesheet" href="<?php echo Router::fullBaseUrl().$this->base;?>/fancybox/jquery.fancybox.css" />
+<script type="text/javascript">
+   jQuery(document).ready(function() {
+	   jQuery(".fancybox").fancybox({fitToView:true,width:'600px',height:'100%',autoSize:true});
+   });
+</script>
+
 <div class="cantener">
   <div class="register-main">
       <div class="registerPage advancedsearch">
@@ -110,7 +118,7 @@
 			                        <tr>
 			                           <td><center>
                               				<div class="viewhim_" id="viewhim_<?php echo $athlete['Athlete']['id']; ?>"> 
-                              					<a href="<?php echo $this->Html->url(array("controller"=>"Profile","athleteProfile",$athlete['Athlete']['id']));?>" title="<?php   echo html_entity_decode($athlete['Athlete']['firstname']); ?>">
+                              					<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$athlete['Athlete']['id']));?>" title="<?php   echo html_entity_decode($athlete['Athlete']['firstname']); ?>">
 				                                	<?php echo $this->Html->image("athlete/".$athlete['Athlete']['image'],array("width"=>"88px","height"=>"119px","style"=>"margin:5px 5px 1px 5px;","title"=>$athlete['Athlete']['firstname']));?>
 				                                </a>
 				                               
@@ -118,8 +126,8 @@
 	                                  				<?php if(@$_SESSION['subscription_id'] == 2):?>         
 															<a href="javascript:void(0);" onclick="alert(\'Sorry, this feature is disabled in Trial Mode, please purchase a Subscription. \');">Send Message</a>
 	
-													<?php else:?>                                    
-	                                  						<a href="javascript:void(0);" onclick="window.open('sendmsgtoath.php?id=<?php  echo @$a->id;?>&usertype=athlete','windowname1', 'width=665, height=350'); return false;">Send Message</a>
+													<?php else:?>  
+															<a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"composePopup","type"=>"athlete","receiver"=>$athlete['Athlete']['username']));?>">Send Message</a>                                  
 	
 													<?php endif;?>
                                 				</div>

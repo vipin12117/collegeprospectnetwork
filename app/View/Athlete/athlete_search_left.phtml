@@ -2,7 +2,7 @@
 <p class="alt">
     <label>Sport:</label>
     <span>
-        <?php echo $this->Form->input("sport_id",array("div"=>false,"label"=>false,"options"=>$this->Register->getSports(),"empty"=>"Select Sport"));?>
+        <?php echo $this->Form->input("sport_id",array("div"=>false,"label"=>false,"options"=>$this->Register->getSports($user_id),"empty"=>"Select Sport"));?>
     </span>
 </p>
 

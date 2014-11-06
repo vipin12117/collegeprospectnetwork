@@ -58,11 +58,21 @@ class RegisterHelper extends AppHelper{
 		return $options;
 	}
 
-	public function getSports(){
+	public function getSports($college_coach_id = false){
 		App::import("Model","Sport");
 		$this->Sport = new Sport();
 
-		$options = $this->Sport->find("list",array("fields"=>"id,name"));
+		if($college_coach_id){
+			App::import("Model","CollegeSubscription");
+			$this->CollegeSubscription = new CollegeSubscription();
+
+			$sports = $this->CollegeSubscription->find("list",array("conditions"=>"college_coach_id = '$college_coach_id'","fields"=>"sport_id"));
+			$options = $this->Sport->find("list",array("fields"=>"id,name","conditions"=>array("Sport.id"=>$sports)));
+		}
+		else{
+			$options = $this->Sport->find("list",array("fields"=>"id,name"));
+		}
+
 		return $options;
 	}
 
@@ -82,7 +92,7 @@ class RegisterHelper extends AppHelper{
 		if($team_id and $team_name){
 			$options[$team_id] = $team_name;
 		}
-		
+
 		$states = $this->HsAauTeam->find("list",array("fields"=>"state,state","order"=>"state ASC","group"=>"state"));
 		foreach($states as $state){
 			$options[$state] = $this->HsAauTeam->find("list",array("conditions"=>"state='$state'","fields"=>"id,school_name","order"=>"school_name ASC"));
@@ -112,6 +122,7 @@ class RegisterHelper extends AppHelper{
 		$this->HsAauTeam = new HsAauTeam();
 
 		$states = $this->HsAauTeam->find("list",array("fields"=>"state,state","order"=>"state ASC","group"=>"state"));
+		$states['Other'] = "Other";
 		return $states;
 	}
 
@@ -217,13 +228,13 @@ class RegisterHelper extends AppHelper{
 		App::import("Model","Subscription");
 		$this->Subscription = new Subscription();
 
-		$options = $this->Subscription->find("list",array("fields"=>"id,name","order"=>"name ASC","group"=>"name"));
+		$options = $this->Subscription->find("list",array("fields"=>"id,name","order"=>"id DESC","group"=>"name"));
 		return $options;
 	}
 
 	public function getSubcribeMonths(){
 		$months = array('','January','February','March','April','May','June','July','August','September','October','November','December');
-		
+
 		$options = array();
 		for ($month = 1; $month <= 12; $month++){
 			$options[$month] = $months[$month];

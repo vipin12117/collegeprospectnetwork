@@ -58,12 +58,29 @@
 				<hr class="line" />
 				
 				<p>
-				   <label>College:</label>
-				   <span>
-				   		<?php echo $this->Form->input("college_id",array("id"=>"college_id","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getColleges(),"empty"=>"Select One"));?>
-				   </span>
-				   <font color="#0000ff">*</font>
-				</p>   
+					<label>State:</label>
+					<span>
+						<?php echo $this->Form->input("state_id",array("id"=>"state_id","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getStates(),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				
+				<?php $this->Js->get("#state_id"); ?>
+		    	<?php $this->Js->event('change',$this->Js->request(array('controller' => 'User','action' => 'getColleges'),
+		    					   array('async' => true,'update' => '#schools','data' => '$("#state_id").serialize()','dataExpression' => true
+		               		 ))); 
+		     	?>
+				
+				<div id="schools">
+					<p>
+					   <label>College:</label>
+					   <span>
+					   		<?php echo $this->Form->input("college_id",array("id"=>"college_id","div"=>false,"label"=>false,"required"=>"true","options"=>$colleges,"empty"=>"Select One"));?>
+					   </span>
+					   <font color="#0000ff">*</font>
+					</p>   
+		     	</div>
+				
 				<?php $this->Js->get("#college_id"); ?>
 		    	<?php $this->Js->event('change',$this->Js->request(array('controller' => 'User','action' => 'getCollegeInfo'),
 		    					   array('async' => true,'update' => '#school_address','data' => '$("#college_id").serialize()','dataExpression' => true

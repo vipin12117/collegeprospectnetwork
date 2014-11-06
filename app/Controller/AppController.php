@@ -61,6 +61,45 @@ class AppController extends Controller {
 
 		$this->set("keywords_for_layout","");
 		$this->set("description_for_layout","");
+
+		$is_trial_mode = false;
+		$can_access_website = true;
+		if($this->Session->read('user_type') == 'college'){
+			$this->loadModel('CollegeSubscription');
+			$user_id = $this->Session->read('user_id');
+
+			$collegeSubscription = $this->CollegeSubscription->getDetailByCollegeCoachId($user_id);
+			if($collegeSubscription){
+				$this->set("collegeSubscription",$collegeSubscription);
+
+				if((strtotime($collegeSubscription['CollegeSubscription']['next_billdate']) - time()) <= 0){
+					$can_access_website = false;
+					if($this->name != 'Subscribe'){
+						$this->redirect(array("controller"=>"Subscribe","action"=>"index"));
+						exit;
+					}
+				}
+			}
+			else{
+				$this->loadModel('CollegeCoach');
+				$username  = $this->Session->read("username");
+				$profileDetail = $this->CollegeCoach->getByUsername($username);
+				$total_days = time() - strtotime($profileDetail['CollegeCoach']['added_date']);
+				if($total_days <= (5*24*60*60)){
+					$is_trial_mode = true;
+				}
+				else{
+					$can_access_website = false;
+					if($this->name != 'Subscribe'){
+						$this->redirect(array("controller"=>"Subscribe","action"=>"index"));
+						exit;
+					}
+				}
+			}
+		}
+
+		$this->set("is_trial_mode",$is_trial_mode);
+		$this->Session->write("is_trial_mode",$is_trial_mode);
 	}
 
 	/**
