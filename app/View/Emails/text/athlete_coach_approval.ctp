@@ -13,7 +13,7 @@ Please do not reply to this email. If you have any questions or concerns, please
 <br />
 
 -------------------------------------------------------- <br />
-Login: <a href=http://www.collegeprospectnetwork.com/login.php>http://www.collegeprospectnetwork.com/login.php</a><br />
+Login: <a href="http://www.collegeprospectnetwork.com/login.php">http://www.collegeprospectnetwork.com/login.php</a><br />
 Username: <?php echo $hsAauCoach['HsAauCoach']['username']?> <br />;
 Password: <?php echo $hsAauCoach['HsAauCoach']['password']?> <br />;
 User Type: HS/AAU Coach <br />

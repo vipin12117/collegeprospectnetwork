@@ -44,7 +44,7 @@ class CronController extends AppController{
 				// gets the transaction ID to save in the subscription table
 				$transactionResponse = $response->getTransactionResponse();
 				$transactionId = $transactionResponse->transaction_id;
-				
+
 				//insert payment history
 				$paymentHistory = array();
 				$paymentHistory['college_coach_id'] = $user_id;
@@ -52,7 +52,7 @@ class CronController extends AppController{
 				$paymentHistory['profile_id'] = $transactionId;
 				$paymentHistory['amount'] = $subscription['Subscription']['cost'];
 				$paymentHistory['date_added'] = date('Y-m-d H:i:s');
-				
+
 				$this->loadModel('PaymentHistory');
 				$this->PaymentHistory->save(array("PaymentHistory"=>$paymentHistory));
 
@@ -92,6 +92,215 @@ class CronController extends AppController{
 		}
 		catch (Exception $e){
 			$this->Session->setFlash('Error while sending email');
+		}
+	}
+
+	public function statsNeededAlert(){
+		$this->loadModel('Event');
+		$this->loadModel('Athlete');
+		$this->loadModel('AthleteStat');
+
+		$events = $this->Event->find("all",array("conditions"=>"Event.start_date <= now() AND Event.end_date <= now() AND user_type = 'athlete'"));
+		if($events){
+			foreach($events as $event){
+				$event_id = $event['Event']['id'];
+				$username = $event['Event']['username'];
+
+				$athleteInfo = $this->Athlete->find("first",array("conditions"=>"Athlete.username = '$username'"));
+				$user_id = $athleteInfo['Athlete']['id'];
+				$athleteStats = $this->AthleteStat->find("first",array("conditions"=>"Athlete.event_id = '$event_id' AND athlete_id = '$user_id'"));
+
+				if(!$athleteStats){
+					$email = $athleteInfo['Athlete']['email'];
+					$this->statsNeededAlertEmail($username , $event['Event']['event_name'],$email);
+				}
+			}
+		}
+	}
+
+	private function statsNeededAlertEmail($username , $event_title , $email){
+		$subject = "College Prospect Network  - Request for post Game Stats";
+		$template = 'stats_needed_alert_email';
+		$cakeEmail = new CakeEmail('default');
+		try {
+			$cakeEmail->template($template);
+			$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+			$cakeEmail->to($email);
+			$cakeEmail->subject($subject);
+			$cakeEmail->emailFormat('html');
+			$cakeEmail->viewVars(array('username' => $username, 'event_title' => $event_title));
+			// Send email
+			$cakeEmail->send();
+		}
+		catch (Exception $e){
+			$this->Session->setFlash('Error while sending email');
+		}
+	}
+
+
+	/**
+	 * send notification email to athlees if request pending, unread email OR profile is not completed
+	 */
+	public function athleteNotification(){
+		$this->loadModel("Athlete");
+		$this->loadModel("Mail");
+		$this->loadModel("Network");
+		$this->loadModel("AthleteVideo");
+		$this->loadModel("Event");
+		
+		$athletes = $this->Athlete->find("all",array("conditions"=>"Athlete.status = 1"));
+
+		if($athletes){
+			foreach($athletes as $athlete){
+				$athlete_id  = $athlete['Athlete']['id'];
+				$username  = $athlete['Athlete']['username'];
+				$password  = $athlete['Athlete']['password'];
+				$firstname = $athlete['Athlete']['first_name'];
+				$lastname  = $athlete['Athlete']['last_name'];
+					
+				$unreadMails = $this->Mail->find("count",array("conditions"=>"usertype_to = 'athlete' AND receiver = '$username' AND status = 'unread'"));
+				if($unreadMails > 0){
+					$this->unreadMailAlertEmail($username, $password , $firstname , $lastname,$athlete['Athlete']['email']);
+				}
+
+				$requests = $this->Network->find("all",array("conditions"=>"Network.status = 'Pending' AND  receiver_id = '$athlete_id' AND receiver_type = 'athlete'"));
+				if($requests){
+					$this->pendingRequestAlertEmail($username, $password , $firstname , $lastname,$athlete['Athlete']['email']);
+				}
+
+				$pending_tasks = array();
+				if($athlete['Athlete']['image']){
+					$pending_tasks[] = 'ADDING_PROFILE_PICTURE';
+				}
+
+				$data = $athlete['Athlete'];
+				$checkData = array('gpa','sat_score','act_score','class_rank','clearing_house_eligible','intended_major');
+				foreach($checkData as $check){
+					if(!$data[$check]){
+						$pending_tasks[] = 'COMPLETING_ACADEMIC_STATE';
+						break;
+					}
+				}
+
+				$checkData = array('class','height','weight','sport_id','primary_position','secondary_position','vertical','yarddash_40','shuttle_run','bench_press_max','squat_max');
+				foreach($checkData as $check){
+					if(!$data[$check]){
+						$pending_tasks[] = 'COMPLETING_PHYSICAL_SECTION';
+						break;
+					}
+				}
+
+				$videoExist = $this->AthleteVideo->field("video_path","AthleteVideo.athlete_id = '$athlete_id'");
+				if(!$videoExist){
+					$pending_tasks[] = 'UPLOADING_GAME_TAPE';
+				}
+
+				$gameStats = $this->Event->field("video_path","Event.user_type = 'athlete' AND Event.username = '".$data['username']."'");
+				if(!$gameStats){
+					$pending_tasks[] = 'UPLOADING_GAME_SHEDULE';
+				}
+
+				if($pending_tasks){
+					$this->pendingProfileAlertEmail($username, $password , $firstname , $lastname,$athlete['Athlete']['email']);
+				}
+			}
+		}
+	}
+
+	private function unreadMailAlertEmail($username, $password , $firstname , $lastname,$email){
+		$subject = "College Prospect Network - Athlete Unreaded Email";
+		$template = 'unread_mail_alert_email';
+		$cakeEmail = new CakeEmail('default');
+		try {
+			$cakeEmail->template($template);
+			$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+			$cakeEmail->to($email);
+			$cakeEmail->subject($subject);
+			$cakeEmail->emailFormat('html');
+			$cakeEmail->viewVars(array('username' => $username, 'password' => $password , 'firstname' => $firstname , 'lastname' => $lastname));
+			// Send email
+			$cakeEmail->send();
+		}
+		catch (Exception $e){
+			$this->Session->setFlash('Error while sending email');
+		}
+	}
+
+	private function pendingRequestAlertEmail($username, $password , $firstname , $lastname,$email){
+		$subject = "College Prospect Network - Athlete Pending Network Request";
+		$template = 'pending_request_alert_email';
+		$cakeEmail = new CakeEmail('default');
+		try {
+			$cakeEmail->template($template);
+			$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+			$cakeEmail->to($email);
+			$cakeEmail->subject($subject);
+			$cakeEmail->emailFormat('html');
+			$cakeEmail->viewVars(array('username' => $username, 'password' => $password , 'firstname' => $firstname , 'lastname' => $lastname));
+			// Send email
+			$cakeEmail->send();
+		}
+		catch (Exception $e){
+			$this->Session->setFlash('Error while sending email');
+		}
+	}
+
+	private function pendingProfileAlertEmail($username, $password , $firstname , $lastname,$email){
+		$subject = "College Prospect Network - Athlete Pending Task";
+		$template = 'pending_profile_alert_email';
+		$cakeEmail = new CakeEmail('default');
+		try {
+			$cakeEmail->template($template);
+			$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+			$cakeEmail->to($email);
+			$cakeEmail->subject($subject);
+			$cakeEmail->emailFormat('html');
+			$cakeEmail->viewVars(array('username' => $username, 'password' => $password , 'firstname' => $firstname , 'lastname' => $lastname));
+			// Send email
+			$cakeEmail->send();
+		}
+		catch (Exception $e){
+			$this->Session->setFlash('Error while sending email');
+		}
+	}
+
+	/**
+	 * send alerts to hsAAucoaches to approve the athlete profiles
+	 */
+	public function pendingApprovalAlert(){
+		$this->loadModel("Athlete");
+		$athletes = $this->Athlete->find("all",array("conditions"=>"Athlete.status = 0"));
+
+		if($athletes){
+			foreach($athletes as $athlete){
+				$hs_aau_team_id = $athlete['Athlete']['hs_aau_team_id'];
+				$hsAauCoaches = $this->HsAauCoach->find('all',array('conditions'=>array('HsAauCoach.hs_aau_team_id' => $hs_aau_team_id)));
+				if(!$hsAauCoaches){
+					continue;
+				}
+
+				$first_name = $athlete['Athlete']['firstname'];
+				$last_name  = $athlete['Athlete']['last_name'];
+
+				$cakeEmail = new CakeEmail();
+				$subject = "College Prospect Network - Athlete Pending Approval";
+				$template = 'athlete_coach_approval';
+				foreach($hsAauCoaches as $hsAauCoach){
+					try {
+						$cakeEmail->template($template);
+						$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+						$cakeEmail->to(array($hsAauCoach['HsAauCoach']['email'] => $hsAauCoach['HsAauCoach']['firstname']));
+						$cakeEmail->subject($subject);
+						$cakeEmail->emailFormat('html');
+						$cakeEmail->viewVars(array('hsAauCoach' => $hsAauCoach, 'first_name' => $first_name, 'last_name' => $last_name));
+						// Send email
+						$cakeEmail->send();
+					}
+					catch (Exception $e){
+						//$this->Session->setFlash('Error while sending email');
+					}
+				}
+			}
 		}
 	}
 }
