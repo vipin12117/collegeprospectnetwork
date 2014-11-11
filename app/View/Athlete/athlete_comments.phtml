@@ -1,0 +1,52 @@
+<div class="cantener">
+  <div class="register-main">
+	 <h1>Project the Athlete's Ceiling</h1>
+							
+	 <div class="registerPage">
+		<div class="registerPage">
+			<p align="right">
+				<?php echo $this->Html->link("Rate This Approval Athlete",array("controller"=>"Athlete","action"=>"addRating",$athlete_id),array());?>
+			</p>
+			
+			<p>Please select the top at which this athlete can contribute and write a short comment about their strengths</p>
+			
+			<?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Athlete","action"=>"athleteComments",$athlete_id)));?>
+			
+			 <p>
+				<label>Projected Division:</label>
+				<span>
+					<?php echo $this->Form->input("division",array("div"=>false,"label"=>false,"empty"=>"Select One","type"=>"select","required","options"=>$this->Register->getDivisions()))?>
+				</span>
+				<font color="#0000ff">&nbsp;*</font>
+			 </p>
+			 
+			 <p style="padding-top:0px;padding-bottom:0px;;">
+                <label>&nbsp;</label>
+                <span>*Projected Division is only visible to College Coaches</span>
+             </p>
+			
+			 <p>
+				<label>Comments:</label>
+				<span>
+					<?php echo $this->Form->input("comments",array("type"=>"textarea","div"=>false,"label"=>false,"required"))?>
+				</span>
+				<font color="#0000ff">&nbsp;*</font>
+			  </p>
+			  
+			  <p style="padding-top:0px;padding-bottom:0px;;">
+				 <label>&nbsp;</label>
+				 <span>*Comments are visible to all users.</span>
+			  </p>
+			  
+			  <p>
+				 <label>&nbsp;</label>
+				 <span>
+				 	  <?php echo $this->Form->submit("Submit",array("type"=>"submit","div"=>false,"label"=>false));?>
+			     </span>
+			  </p>
+			
+			<?php echo $this->Form->end();?>
+		</div>
+	 </div>
+  </div>
+</div>  		

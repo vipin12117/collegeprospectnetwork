@@ -1,5 +1,7 @@
 <?php
 
+App::uses('CakeEmail', 'Network/Email');
+
 class CronController extends AppController{
 
 	public $name = "Cron";
@@ -19,7 +21,7 @@ class CronController extends AppController{
 
 	public function renewSubscription(){
 		$today = date('Y-m-d H:i:s');
-		$subscriptions = $this->CollegeSubscription->find("all",array("conditions"=>"CollegeSubscription.status = 1 AND CollegeSubscription.nextbill_date <= '$today'"));
+		$subscriptions = $this->CollegeSubscription->find("all",array("conditions"=>"CollegeSubscription.status = 1 AND CollegeSubscription.next_billdate <= '$today'"));
 
 		foreach($subscriptions as $subscription){
 			// attempts to charge the user for the subscription
@@ -74,6 +76,9 @@ class CronController extends AppController{
 				$this->CollegeSubscription->saveField("next_billdate",$next_billdate);
 			}
 		}
+
+		echo "success";
+		exit;
 	}
 
 	private function renewSubscriptionEmail($first_name , $last_name , $email , $transaction_id){
@@ -91,7 +96,7 @@ class CronController extends AppController{
 			$cakeEmail->send();
 		}
 		catch (Exception $e){
-			$this->Session->setFlash('Error while sending email');
+			//$this->Session->setFlash('Error while sending email');
 		}
 	}
 
@@ -107,15 +112,20 @@ class CronController extends AppController{
 				$username = $event['Event']['username'];
 
 				$athleteInfo = $this->Athlete->find("first",array("conditions"=>"Athlete.username = '$username'"));
-				$user_id = $athleteInfo['Athlete']['id'];
-				$athleteStats = $this->AthleteStat->find("first",array("conditions"=>"Athlete.event_id = '$event_id' AND athlete_id = '$user_id'"));
+				if($athleteInfo){
+					$user_id = $athleteInfo['Athlete']['id'];
+					$athleteStats = $this->AthleteStat->find("first",array("conditions"=>"AthleteStat.event_id = '$event_id' AND athlete_id = '$user_id'"));
 
-				if(!$athleteStats){
-					$email = $athleteInfo['Athlete']['email'];
-					$this->statsNeededAlertEmail($username , $event['Event']['event_name'],$email);
+					if(!$athleteStats){
+						$email = $athleteInfo['Athlete']['email'];
+						$this->statsNeededAlertEmail($username , $event['Event']['event_name'],$email);
+					}
 				}
 			}
 		}
+
+		echo "success";
+		exit;
 	}
 
 	private function statsNeededAlertEmail($username , $event_title , $email){
@@ -133,8 +143,10 @@ class CronController extends AppController{
 			$cakeEmail->send();
 		}
 		catch (Exception $e){
-			$this->Session->setFlash('Error while sending email');
+			//$this->Session->setFlash('Error while sending email');
 		}
+
+		return 1;
 	}
 
 
@@ -147,7 +159,7 @@ class CronController extends AppController{
 		$this->loadModel("Network");
 		$this->loadModel("AthleteVideo");
 		$this->loadModel("Event");
-		
+
 		$athletes = $this->Athlete->find("all",array("conditions"=>"Athlete.status = 1"));
 
 		if($athletes){
@@ -155,8 +167,8 @@ class CronController extends AppController{
 				$athlete_id  = $athlete['Athlete']['id'];
 				$username  = $athlete['Athlete']['username'];
 				$password  = $athlete['Athlete']['password'];
-				$firstname = $athlete['Athlete']['first_name'];
-				$lastname  = $athlete['Athlete']['last_name'];
+				$firstname = $athlete['Athlete']['firstname'];
+				$lastname  = $athlete['Athlete']['lastname'];
 					
 				$unreadMails = $this->Mail->find("count",array("conditions"=>"usertype_to = 'athlete' AND receiver = '$username' AND status = 'unread'"));
 				if($unreadMails > 0){
@@ -195,7 +207,7 @@ class CronController extends AppController{
 					$pending_tasks[] = 'UPLOADING_GAME_TAPE';
 				}
 
-				$gameStats = $this->Event->field("video_path","Event.user_type = 'athlete' AND Event.username = '".$data['username']."'");
+				$gameStats = $this->Event->field("id","Event.user_type = 'athlete' AND Event.username = '".$data['username']."'");
 				if(!$gameStats){
 					$pending_tasks[] = 'UPLOADING_GAME_SHEDULE';
 				}
@@ -205,6 +217,9 @@ class CronController extends AppController{
 				}
 			}
 		}
+
+		echo "success";
+		exit;
 	}
 
 	private function unreadMailAlertEmail($username, $password , $firstname , $lastname,$email){
@@ -222,7 +237,7 @@ class CronController extends AppController{
 			$cakeEmail->send();
 		}
 		catch (Exception $e){
-			$this->Session->setFlash('Error while sending email');
+			//$this->Session->setFlash('Error while sending email');
 		}
 	}
 
@@ -241,7 +256,7 @@ class CronController extends AppController{
 			$cakeEmail->send();
 		}
 		catch (Exception $e){
-			$this->Session->setFlash('Error while sending email');
+			//$this->Session->setFlash('Error while sending email');
 		}
 	}
 
@@ -260,7 +275,7 @@ class CronController extends AppController{
 			$cakeEmail->send();
 		}
 		catch (Exception $e){
-			$this->Session->setFlash('Error while sending email');
+			//$this->Session->setFlash('Error while sending email');
 		}
 	}
 
@@ -269,6 +284,8 @@ class CronController extends AppController{
 	 */
 	public function pendingApprovalAlert(){
 		$this->loadModel("Athlete");
+		$this->loadModel("HsAauCoach");
+
 		$athletes = $this->Athlete->find("all",array("conditions"=>"Athlete.status = 0"));
 
 		if($athletes){
@@ -280,7 +297,7 @@ class CronController extends AppController{
 				}
 
 				$first_name = $athlete['Athlete']['firstname'];
-				$last_name  = $athlete['Athlete']['last_name'];
+				$last_name  = $athlete['Athlete']['lastname'];
 
 				$cakeEmail = new CakeEmail();
 				$subject = "College Prospect Network - Athlete Pending Approval";
@@ -302,5 +319,8 @@ class CronController extends AppController{
 				}
 			}
 		}
+
+		echo "success";
+		exit;
 	}
 }

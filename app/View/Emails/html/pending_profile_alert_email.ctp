@@ -1,4 +1,4 @@
-Hi <?php ucfirst($firstname) . '&nbsp;' . ucfirst($lastname);?>,<br /><br />
+Hi <?php echo ucfirst($firstname) . '&nbsp;' . ucfirst($lastname);?>,<br /><br />
 
    You are receiving this email because your profile is not fully updated and pending some tasks <a href=http://www.CollegeProspectNetwork.com>www.CollegeProspectNetwork.com.</a> <br />
 

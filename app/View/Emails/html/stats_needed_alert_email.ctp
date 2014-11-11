@@ -1,4 +1,4 @@
-Hello <?php $username;?>, <br /><br />
+Hello <?php echo $username;?>, <br /><br />
 
  You are receiving this email because you have not posted Game Stats for a particular game/event. Please login to your Account at www.collegeprospectnetwork.com, and post Game Stats.
 
@@ -10,7 +10,7 @@ Hello <?php $username;?>, <br /><br />
 
   <b>Game / Event:</b> <?php echo $event_title;?> <br /><br />     
 
-  Thank you in advance <?php $username;?>,<br />
+  Thank you in advance <?php echo $username;?>,<br />
 
   College Prospect Network<br />
   www.CollegeProspectNetwork.com

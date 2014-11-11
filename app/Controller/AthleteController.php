@@ -69,8 +69,29 @@ class AthleteController extends AppController{
 			$this->Athlete->id = $id;
 			$athlete = $this->Athlete->read(null,$id);
 
+			$this->Athlete->saveField("approve_hs_aau_coach_id",$this->Session->read('user_id'));
 			$this->Athlete->saveField("status",1);
 			$this->Session->setFlash("Thank you. The athlete has been approved and a confirmation email has been sent to &nbsp;".$athlete['Athlete']['email']);
+
+			//send network request
+			$isExist = $this->Network->isExist($this->Session->read('user_id'),$id,"coach","athlete");
+			if(!$isExist){
+				$isExist = $this->Network->isExist($id,$this->Session->read('user_id'),"athlete","coach");
+			}
+				
+			if(!$isExist){
+				$network = array();
+				$network['sender_id']   = $this->Session->read('user_id');
+				$network['receiver_id'] = $id;
+				$network['sender_type'] = "coach";
+				$network['receiver_type'] = "athlete";
+				$network['status'] = "Active";
+				$network['date_added']  = date('Y-m-d H:i:s');
+				$network['modify_date'] = date('Y-m-d H:i:s');
+
+				$this->Network->create();
+				$this->Network->save(array("Network"=>$network));
+			}
 
 			$template = 'athlete_approval_notification';
 			$cakeEmail = new CakeEmail();
@@ -89,7 +110,25 @@ class AthleteController extends AppController{
 			}
 		}
 
-		$this->redirect(array('controller' => 'Athlete', 'action' => 'approval'));
+		$this->redirect(array('controller' => 'Athlete', 'action' => 'athleteComments'));
+	}
+	
+	public function athleteComments($athlete_id = false){
+		if(!$athlete_id){
+			$this->redirect(array('controller' => 'Athlete', 'action' => 'approval'));
+			exit;
+		}
+		
+		if(isset($this->request->data['Athlete'])){
+			$this->Athlete->id = $athlete_id;
+			$this->Athlete->save($this->request->data);
+			
+			$this->Session->setFlash("Athlete's Division Projection and Comment has been succesfully posted.");
+			$this->redirect(array('controller' => 'Athlete', 'action' => 'approval'));
+			exit;
+		}
+		
+		$this->set("athlete_id",$athlete_id);
 	}
 
 	public function markReject($id = false){
@@ -220,14 +259,12 @@ class AthleteController extends AppController{
 		$this->set("athletes",$athletes);
 	}
 
-	public function addRating($networkId, $athleteId, $isAdded){
-		$userId = $this->Session->read('user_id');
-		if (isset($userId)){
+	public function addRating($athlete_id = false){
+		if (!isset($athlete_id)){
 			$this->redirect(array('controller' => 'Network', 'action' => 'requests'));
 		}
-		else {
-			$this->redirect(array('controller' => 'Home', 'action' => 'login'));
-		}
+		
+		
 	}
 
 	public function admin_list(){
