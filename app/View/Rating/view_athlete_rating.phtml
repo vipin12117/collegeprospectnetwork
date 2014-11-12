@@ -22,76 +22,15 @@
 		.stars({
 		    inputType: "select",
 		    cancelValue: 0,
-		    cancelShow: true,
+		    cancelShow: false,
 		});
 	});
-	
-	function validate() {
-        var error_msg = "";
-        
-        if(jQuery("#RatingLeadership").val() == "0") {
-            error_msg += "Please Select LeaderShip. \n";
-        }
-        if(jQuery("#RatingWorkEthic").val() == "0") {
-            error_msg += "Please Select Work Ethic. \n";
-        }
-        if(jQuery("#RatingPrimacyGoToGuy").val() == "0") {
-            error_msg += "Please Select Primacy Go To Guy. \n";
-        }
-        if(jQuery("#RatingMentalToughness").val()== "0") {
-            error_msg += "Please Select Mental Toughness. \n";
-        }
-        if(jQuery("#RatingComposure").val() == "0") {
-            error_msg += "Please Select Composure. \n";
-        }
-        if(jQuery("#RatingAwareness").val() == "0") {
-            error_msg += "Please Select Awareness. \n";
-        }
-        if(jQuery("#RatingInstincts").val()== "0") {
-            error_msg += "Please Select Instincts. \n";
-        }
-        if(jQuery("#RatingVision").val() == "0") {
-            error_msg += "Please Select Vision. \n";
-        }
-        if(jQuery("#RatingConditioning").val()== "0") {
-            error_msg += "Please Select Conditioning. \n";
-        }
-        if(jQuery("#RatingPhysicalToughness").val()== "0") {
-            error_msg += "Please Select Physical Toughness. \n";
-        }
-        if(jQuery("#RatingTenacity").val() == "0") {
-            error_msg += "Please Select Tenacity. \n";
-        }
-        if(jQuery("#RatingHustle").val() == "0") {
-            error_msg += "Please Select Hustle. \n";
-        }
-        if(jQuery("#RatingStrength").val() == "0") {
-            error_msg += "Please Select Strength. \n";
-        }
-        
-        if(error_msg != '') {
-            alert(error_msg);
-            return false;
-        } 
-        else {
-            return true;
-        }
-    }
 </script>
 
 <div class="cantener">
-  <div class="register-main">							
-	<div class="registerPage smallest">			
-	   <?php if(@$ratingSaved):?>
-	   
-	   		<div class="thankyoumessage">Thank you, your Rating was successfully added.</div>	
-	   		
-	   <?php elseif(!$ratingExist):?>
-			<h1>Rate Athlete</h1>
-			
-			<?php echo $this->Form->create("Rating",array("url"=>array("controller"=>"Athlete","action"=>"addRating",$athlete_id),"onsubmit"=>"return validate();","id"=>"rating","name"=>"rating"))?>
-                
-                <p>
+    <div class="register-main">							
+	    <div class="registerPage smallest">	
+				<p>
                    <label>Leadership:</label>                     
                    <span class="multiField">     
                    	  <?php echo $this->Form->input("leadership",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
@@ -181,22 +120,6 @@
                    	  <?php echo $this->Form->input("strength",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
                     </span>                  
                 </p>
-                  
-             	<p style="height:20px;">&nbsp;</p>
-             	
-            	<p>
-           		  <label>&nbsp;</label>
-            	  <span>
-            	  	  <?php echo $this->Form->submit("Submit Rating",array("div"=>false,"label"=>false))?>
-                  </span>
-                </p>
-		<?php echo $this->Form->end();?>
-		
-	<?php else:?>
-			
-			<?php echo "Sorry, you have already voted for this Athlete.  Please <a href='".$this->Html->url(array("controller"=>"Rating","action"=>"viewAthleteRating",$athlete_id))."'>Click Here</a> to view Ratings";?>
-	
-	<?php endif;?>		
-  </div>
-</div>
-</div>
+         </div>
+     </div>
+</div>                

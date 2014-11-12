@@ -78,7 +78,7 @@ class AthleteController extends AppController{
 			if(!$isExist){
 				$isExist = $this->Network->isExist($id,$this->Session->read('user_id'),"athlete","coach");
 			}
-				
+
 			if(!$isExist){
 				$network = array();
 				$network['sender_id']   = $this->Session->read('user_id');
@@ -112,22 +112,22 @@ class AthleteController extends AppController{
 
 		$this->redirect(array('controller' => 'Athlete', 'action' => 'athleteComments'));
 	}
-	
+
 	public function athleteComments($athlete_id = false){
 		if(!$athlete_id){
 			$this->redirect(array('controller' => 'Athlete', 'action' => 'approval'));
 			exit;
 		}
-		
+
 		if(isset($this->request->data['Athlete'])){
 			$this->Athlete->id = $athlete_id;
 			$this->Athlete->save($this->request->data);
-			
+
 			$this->Session->setFlash("Athlete's Division Projection and Comment has been succesfully posted.");
 			$this->redirect(array('controller' => 'Athlete', 'action' => 'approval'));
 			exit;
 		}
-		
+
 		$this->set("athlete_id",$athlete_id);
 	}
 
@@ -260,11 +260,35 @@ class AthleteController extends AppController{
 	}
 
 	public function addRating($athlete_id = false){
+		$this->layout = 'popup';
 		if (!isset($athlete_id)){
 			$this->redirect(array('controller' => 'Network', 'action' => 'requests'));
+			exit;
 		}
+
+		$athlete_id = (int)$athlete_id;
+		$userId = $this->Session->read('user_id');
+
+		$this->loadModel('Rating');
 		
-		
+		//print_r($this->request->data); exit;
+
+		if(isset($this->request->data['Rating'])){
+			$this->request->data['Rating']['add_date'] = date('Y-m-d H:i:s');
+			$this->request->data['Rating']['athlete_id'] = $athlete_id;
+			$this->request->data['Rating']['hs_aau_coach_id'] = $userId;
+			
+			$this->Rating->create();
+			$this->Rating->save($this->request->data);
+			
+			$this->Session->setFlash();
+			$this->set("ratingSaved",1);
+		}
+		else{
+			$ratingExist = $this->Rating->find("first",array("conditions"=>"Rating.athlete_id = '$athlete_id' AND Rating.hs_aau_coach_id = '$userId'"));
+			$this->set("ratingExist",$ratingExist);
+			$this->set("athlete_id",$athlete_id);
+		}
 	}
 
 	public function admin_list(){

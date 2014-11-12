@@ -2,9 +2,10 @@
 <link type="text/css" rel="stylesheet" href="<?php echo Router::fullBaseUrl().$this->base;?>/fancybox/jquery.fancybox.css" />
 <script type="text/javascript">
    jQuery(document).ready(function() {
-	   jQuery(".fancybox").fancybox({fitToView:true,width:'600px',height:'100%',autoSize:true});
+	   jQuery(".fancybox").fancybox({fitToView:true,width:'500px',height:'100%',autoSize:true});
    });
 </script>
+<?php echo $this->Html->script("/jwplayer/jwplayer.js");?>
 
 <div class="profile">
      <div style="float:left;width:400px;">
@@ -42,7 +43,7 @@
 							<div class="btnclass1">
 								<p>
 								   <span>
-								   	  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"addRating","type"=>"athlete","id"=>$profileDetail['Athlete']['id']));?>">Add Rating</a>
+								   	  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"addRating",$profileDetail['Athlete']['id']));?>">Add Rating</a>
 								   </span>
 								</p>
 							</div>
@@ -298,22 +299,22 @@
 			  </div>
               <div class="clear"></div>
 
- 			  <div class="right-boxesfirst" <?php if (($this->Session->read('user_type') == 'CollegeCoach')) { ?>style="margin-bottom:0px;" <?php } ?> >
+ 			  <div class="right-boxesfirst" <?php if (($this->Session->read('user_type') == 'college')) { ?>style="margin-bottom:0px;" <?php } ?> >
 			      <?php if(isset($video) AND @$video['AthleteVideo']['video_path']):?>
 					  <?php $imagename = str_replace(".flv", ".jpg", $video['AthleteVideo']['video_path']); ?>
 				  
 				  	  <div id="jwplayer">Loading the Video Player ...</div>
-	                  <script type="text/javascript">
-	                         jwplayer("jwplayer").setup({
-	                             flashplayer: "/jwplayer/player.swf",
-	                             file: "video/<?php echo $video['AthleteVideo']['video_path'];?>",
-	                             image: "video/<?php echo $imagename;?>",
-	                             skin: "skins/stormtrooper/stormtrooper.zip",
-	                             controlbar: "bottom",
-	                             height: 220,
-	                             width: 300
-	                          });
-	                   </script>
+				  	  <script type="text/javascript">
+                                jwplayer("jwplayer").setup({
+                                    flashplayer: "<?php echo Router::fullBaseUrl().$this->base; ?>/jwplayer/player.swf",
+                                    file:  "<?php echo Router::fullBaseUrl().$this->base; ?>/video/<?php echo $video['AthleteVideo']['video_path'];?>",
+                                    image: "<?php echo Router::fullBaseUrl().$this->base; ?>/video/<?php echo str_ireplace(".flv", ".jpg",$video['AthleteVideo']['video_path']);?>",
+                                    skin:  "<?php echo Router::fullBaseUrl().$this->base; ?>/skins/stormtrooper/stormtrooper.zip",
+                                    controlbar: "bottom",
+                                    height: 200,
+                                    width: 300
+                                });
+                       </script>   
 				   <?php else: ?>
 							User has not added any videos yet.
 				   <?php endif; ?>
