@@ -45,10 +45,11 @@
     							<font class="title">Position: </font><?php echo $profileDetail['HsAauCoach']['position'];?>
     						</p>
 
-    						<?php if($this->Session->read('user_type') != 'CollegeCoach'):?>
+    						<?php if($this->Session->read('user_type') == 'college'):?>
     								 <div class="btnclass1">
         								<p style="margin:30px 0 8px; 3px;">
-											<?php echo $this->Html->link('Rate This Coach',array("controller"=>"Rating","action"=>"add",$profileDetail['HsAauCoach']['id']));?>
+											<?php echo $this->Html->link('Rate This Coach',array("controller"=>"Rating","action"=>"coachRating",$profileDetail['HsAauCoach']['id']));?>
+											&nbsp;
 											<?php echo $this->Html->link('View Coach Ratings',array("controller"=>"Rating","action"=>"viewCoachRating",$profileDetail['HsAauCoach']['id']));?>
     								   	</p>	        		
     							    </div>

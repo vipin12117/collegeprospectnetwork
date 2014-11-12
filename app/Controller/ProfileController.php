@@ -135,7 +135,7 @@ class ProfileController extends AppController{
 		$banners = $this->Banner->getBannerByPosition('bottom-left');
 		$this->set("banners",$banners);
 
-		$this->paginate = array('Athlete' => array("conditions"=>array("Athlete.sport_id"=>$profileDetail['HsAauCoach']['sport_id'],"Athlete.hs_aau_team_id"=>$profileDetail['HsAauTeam']['id'])));
+		$this->paginate = array('Athlete' => array("conditions"=>array("Athlete.status"=>"1","Athlete.sport_id"=>$profileDetail['HsAauCoach']['sport_id'],"Athlete.hs_aau_team_id"=>$profileDetail['HsAauTeam']['id'])));
 		$athletes = $this->paginate('Athlete');
 		$this->set("athletes",$athletes);
 

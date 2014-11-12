@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<?php echo $this->Html->css("jquery.datetimepicker.css")?>
+<?php echo $this->Html->script("jquery.datetimepicker.js")?>
 
 <script type="text/javascript">
   function updateEventDetails(resonse){
@@ -9,8 +9,8 @@
   }
 
   jQuery(function() {
-	  jQuery( "#start_date" ).datepicker(); 
-	  jQuery( "#end_date" ).datepicker(); 
+	  jQuery( "#start_date" ).datetimepicker(); 
+	  jQuery( "#end_date" ).datetimepicker(); 
   });
 </script>
 
