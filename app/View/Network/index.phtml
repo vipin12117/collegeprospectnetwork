@@ -208,7 +208,7 @@
 				                    	 <a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"confirmRequest",$network['Network']['id']));?>">Approve</a> /
 				                    <?php endif; ?>
 				                    
-				                    <a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"deleteRequest",$network['Network']['id']));?>">Delete</a>   
+				                    <a onclick="if(!confirm('Are you sure?')){ return false}" href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"deleteRequest",$network['Network']['id']));?>">Delete</a>   
 				                </td>
 			                </tr>
 				      <?php  endif; endforeach; ?>
@@ -244,7 +244,7 @@
 			                    	 <a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"confirmRequest",$network['Network']['id']));?>">Approve</a> /
 			                    <?php endif; ?>
 			                    
-			                    <a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"deleteRequest",$network['Network']['id']));?>">Delete</a>   
+			                    <a onclick="if(!confirm('Are you sure?')){ return false}" href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"deleteRequest",$network['Network']['id']));?>">Delete</a>   
 			                </td>
 			            </tr>
 			        <?php endforeach; ?>

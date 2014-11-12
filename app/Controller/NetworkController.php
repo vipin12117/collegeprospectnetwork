@@ -28,10 +28,10 @@ class NetworkController extends AppController{
 			$this->set("title_for_layout","College Prospect Network - $type in my network");
 
 			if($type == 'college'){
-				$pageTitle = 'My College Coach';
+				$pageTitle = 'My College Coaches';
 			}
 			elseif($type == 'coach'){
-				$pageTitle = 'My HS/AAU Coach';
+				$pageTitle = 'My HS/AAU Coaches';
 			}
 			elseif($type == 'athlete'){
 				$pageTitle = 'My Athletes';
@@ -58,7 +58,7 @@ class NetworkController extends AppController{
 			$this->paginate = array('Network' =>
 			array('conditions'=>
 			array('OR' => array(array('AND' => array ('Network.receiver_id' => $userId, 'Network.sender_type' => $type)),
-			array('AND' => array ('Network.sender_id' => $userId,  'Network.sender_type' => $type))),
+			array('AND' => array ('Network.sender_id' => $userId,  'Network.receiver_type' => $type))),
 								'Network.status' => 'Active')));
 
 			$networks = $this->paginate('Network');
