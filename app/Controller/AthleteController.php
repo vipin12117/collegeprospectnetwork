@@ -271,8 +271,6 @@ class AthleteController extends AppController{
 
 		$this->loadModel('Rating');
 		
-		//print_r($this->request->data); exit;
-
 		if(isset($this->request->data['Rating'])){
 			$this->request->data['Rating']['add_date'] = date('Y-m-d H:i:s');
 			$this->request->data['Rating']['athlete_id'] = $athlete_id;
@@ -281,7 +279,6 @@ class AthleteController extends AppController{
 			$this->Rating->create();
 			$this->Rating->save($this->request->data);
 			
-			$this->Session->setFlash();
 			$this->set("ratingSaved",1);
 		}
 		else{
