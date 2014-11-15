@@ -29,51 +29,52 @@
 	function validate() {
         var error_msg = "";
         
-        if(jQuery("#RatingLeadership").val() == "0") {
+        if(jQuery("#leadership").find("input").val() == "0") {
             error_msg += "Please Select LeaderShip. \n";
         }
-        if(jQuery("#RatingWorkEthic").val() == "0") {
+        if(jQuery("#work_ethic").find("input").val() == "0") {
             error_msg += "Please Select Work Ethic. \n";
         }
-        if(jQuery("#RatingPrimacyGoToGuy").val() == "0") {
+        if(jQuery("#primacy_go_to_guy").find("input").val() == "0") {
             error_msg += "Please Select Primacy Go To Guy. \n";
         }
-        if(jQuery("#RatingMentalToughness").val()== "0") {
+        if(jQuery("#mental_toughness").find("input").val()== "0") {
             error_msg += "Please Select Mental Toughness. \n";
         }
-        if(jQuery("#RatingComposure").val() == "0") {
+        if(jQuery("#composure").find("input").val() == "0") {
             error_msg += "Please Select Composure. \n";
         }
-        if(jQuery("#RatingAwareness").val() == "0") {
+        if(jQuery("#awareness").find("input").val() == "0") {
             error_msg += "Please Select Awareness. \n";
         }
-        if(jQuery("#RatingInstincts").val()== "0") {
+        if(jQuery("#instincts").find("input").val()== "0") {
             error_msg += "Please Select Instincts. \n";
         }
-        if(jQuery("#RatingVision").val() == "0") {
+        if(jQuery("#vision").find("input").val() == "0") {
             error_msg += "Please Select Vision. \n";
         }
-        if(jQuery("#RatingConditioning").val()== "0") {
+        if(jQuery("#conditioning").find("input").val()== "0") {
             error_msg += "Please Select Conditioning. \n";
         }
-        if(jQuery("#RatingPhysicalToughness").val()== "0") {
+        if(jQuery("#physical_toughness").find("input").val()== "0") {
             error_msg += "Please Select Physical Toughness. \n";
         }
-        if(jQuery("#RatingTenacity").val() == "0") {
+        if(jQuery("#tenacity").find("input").val() == "0") {
             error_msg += "Please Select Tenacity. \n";
         }
-        if(jQuery("#RatingHustle").val() == "0") {
+        if(jQuery("#hustle").find("input").val() == "0") {
             error_msg += "Please Select Hustle. \n";
         }
-        if(jQuery("#RatingStrength").val() == "0") {
+        if(jQuery("#strength").find("input").val() == "0") {
             error_msg += "Please Select Strength. \n";
         }
-        
+
         if(error_msg != '') {
             alert(error_msg);
             return false;
         } 
         else {
+        	jQuery(".multiField").find("input").removeAttr("disabled");
             return true;
         }
     }
@@ -89,95 +90,95 @@
 	   <?php elseif(!$ratingExist):?>
 			<h1>Rate Athlete</h1>
 			
-			<?php echo $this->Form->create("Rating",array("url"=>array("controller"=>"Athlete","action"=>"addRating",$athlete_id),"onsubmit"=>"return validate();","id"=>"rating","name"=>"rating"))?>
+			<?php echo $this->Form->create("Rating",array("url"=>array("controller"=>"Athlete","action"=>"addRating",$athlete_id),"onsubmit"=>"return validate();"))?>
                 
                 <p>
                    <label>Leadership:</label>                     
-                   <span class="multiField">     
+                   <span class="multiField" id="leadership">     
                    	  <?php echo $this->Form->input("leadership",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
                     </span>                  
                 </p>
                 
                 <p>
                    <label>Work Ethic:</label>                     
-                   <span class="multiField">     
+                   <span class="multiField" id="work_ethic">     
                    	  <?php echo $this->Form->input("work_ethic",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
                     </span>                  
                 </p>
                 
                 <p>
                    <label>Primacy (Go-To Guy):</label>                     
-                   <span class="multiField">     
+                   <span class="multiField" id="primacy_go_to_guy">     
                    	  <?php echo $this->Form->input("primacy_go_to_guy",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
                     </span>                  
                 </p>
                 
                 <p>
                    <label>Mental Toughness:</label>                     
-                   <span class="multiField">     
+                   <span class="multiField" id="mental_toughness">     
                    	  <?php echo $this->Form->input("mental_toughness",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
                     </span>                  
                 </p>
                 
                 <p>
                    <label>Composure:</label>                     
-                   <span class="multiField">     
+                   <span class="multiField" id="composure">     
                    	  <?php echo $this->Form->input("composure",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
                     </span>                  
                 </p>
                 
                 <p>
                    <label>Awareness:</label>                     
-                   <span class="multiField">     
+                   <span class="multiField" id="awareness">     
                    	  <?php echo $this->Form->input("awareness",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
                     </span>                  
                 </p>
                 
                 <p>
                    <label>Instincts:</label>                     
-                   <span class="multiField">     
+                   <span class="multiField" id="instincts">     
                    	  <?php echo $this->Form->input("instincts",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
                     </span>                  
                 </p>
                 
                 <p>
                    <label>Vision:</label>                     
-                   <span class="multiField">     
+                   <span class="multiField" id="vision">     
                    	  <?php echo $this->Form->input("vision",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
                     </span>                  
                 </p>
                 
                 <p>
                    <label>Conditioning:</label>                     
-                   <span class="multiField">     
+                   <span class="multiField" id="conditioning">     
                    	  <?php echo $this->Form->input("conditioning",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
                     </span>                  
                 </p>
                 
                 <p>
                    <label>Physical Toughness:</label>                     
-                   <span class="multiField">     
+                   <span class="multiField" id="physical_toughness">     
                    	  <?php echo $this->Form->input("physical_toughness",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
                     </span>                  
                 </p>
                 
                 <p>
                    <label>Tenacity:</label>                     
-                   <span class="multiField">     
+                   <span class="multiField" id="tenacity">     
                    	  <?php echo $this->Form->input("tenacity",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
                     </span>                  
                 </p>
                 
                 <p>
                    <label>Hustle:</label>                     
-                   <span class="multiField">     
+                   <span class="multiField" id="hustle">     
                    	  <?php echo $this->Form->input("hustle",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
                     </span>                  
                 </p>
                 
                 <p>
                    <label>Strength:</label>                     
-                   <span class="multiField">     
+                   <span class="multiField" id="strength">     
                    	  <?php echo $this->Form->input("strength",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options,"empty"=>"Reset Rating","required"));?>    
                     </span>                  
                 </p>
