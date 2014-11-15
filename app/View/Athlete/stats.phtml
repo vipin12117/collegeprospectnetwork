@@ -1,1 +1,23 @@
-<?php
+<div class="cantener">
+  <div class="register-main">
+	  <div class="registerPage">
+		  <h1>View Game Log</h1>
+		  
+		  <?php if($athleteStats):?>
+				  <?php foreach($athleteStats as $athleteStat):?>
+				  
+				  		<h2><?php echo $athleteStat['Event']['event_name'];?></h2>
+				  		
+				  		<p><?php echo $athleteStat['AthleteStat']['label_name']. " : ". $athleteStat['AthleteStat']['value'];?></p>
+				  		
+				  		<br /><br />
+				  
+				  <?php endforeach;?>
+		 <?php else:?>
+		 
+		 	<div class='thankyoumessage'>No Records Available</div><br><br>
+		 
+		 <?php endif;?>				  
+	  </div>
+   </div>
+</div>   

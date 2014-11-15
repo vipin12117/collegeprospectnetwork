@@ -133,8 +133,8 @@
 				<h3 style="float:left;"><?php echo $profileDetail['Sport']['name']; ?> Stats Summary</h3>
 					
 				<div style="float:right;">
-					<?php if(@$profileDetail['Athlete']['subscribe_id']):?>
-						  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"addRating"));?>">View Game Log</a>	
+					<?php if(!$is_trial_mode):?>
+						  <a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"stats",$profileDetail['Athlete']['id']));?>">View Game Log</a>	
 					<?php endif;?>	
 				</div>
 
@@ -262,7 +262,7 @@
               <h3>HS / AAU Coach Quick Glance:</h3>
 
               <div class="right-boxes">
-                    <?php if (@$_SESSION['subscription_id'] != 2): ?>
+                    <?php if (!$is_trial_mode): ?>
                    			<?php include_once ROOT. '/app/View/Profile/athleteProfileQuickGlance.phtml'; ?>
                     <?php else: ?>
                              Sorry, this feature is disabled in Trial Mode, please <a href="<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"index"));?>">Purchase a Subscription</a>.
@@ -325,10 +325,10 @@
 				<div class="btnclass2" style="margin-bottom:20px;">
 					<p>
 					   <span>
-					      <?php if(@$_SESSION['subscription_id'] == 2):?>
+					      <?php if($is_trial_mode):?>
                               	    <a onclick="alert('Sorry, this feature is disabled in Trial Mode, please purchase a Subscription.');">Request Game Tape</a>
                           <?php else:?>
-                          			<a href="<?php echo $this->Html->url(array("controller"=>"Video","action"=>"request",$profileDetail['CollegeCoach']['id']));?>" title="Request Game Tape">Request Game Tape</a>
+                          			<a href="<?php echo $this->Html->url(array("controller"=>"Video","action"=>"request",$profileDetail['Athlete']['id']));?>" title="Request Game Tape">Request Game Tape</a>
                           <?php endif;?> 			
 					    </span>
 					</p>
@@ -379,7 +379,7 @@
 				<h3>Upcoming Games</h3>
 
 				<div class="right-boxesfirst">
-			       <?php if(@$_SESSION['subscription_id'] != 2) {
+			       <?php if(!$is_trial_mode) {
                       if(count($events) > 0) {?>
         				  <table width="100%" cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" style="border-collapse: collapse;" class="tablePadd">
 							  <?php for ($i = 0; $i < count($events); $i++):?>
@@ -399,7 +399,7 @@
 						  <?php
                                }
                                else{
-                                  echo "Sorry, this feature is disabled in Trial Mode, please <a href='subscribe.php'>Purchase a Subscription</a>";
+                                  echo "Sorry, this feature is disabled in Trial Mode, please ";?><a href="<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"index"));?>"><?php 
                                }
                           ?>
 					</div>

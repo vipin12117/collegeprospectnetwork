@@ -6,7 +6,7 @@ class AthleteStat extends AppModel{
 
 	public $useTable  = 'athlete_stats';
 
-	public $belongsTo = array('AthleteStatCategory');
+	public $belongsTo = array('AthleteStatCategory',"Event");
 
 	public function __construct(){
 		parent::__construct();

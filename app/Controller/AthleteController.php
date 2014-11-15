@@ -159,8 +159,15 @@ class AthleteController extends AppController{
 		$this->redirect(array('controller' => 'Athlete', 'action' => 'approval'));
 	}
 
-	public function stats(){
-		$userId = $this->Session->read('user_id');
+	public function stats($athlete_id = false){
+		$this->layout = 'popup';
+		if(!$athlete_id){
+			$athlete_id = $this->Session->read('user_id');
+		}
+		
+		$this->loadModel('AthleteStat');
+		$athleteStats = $this->AthleteStat->find("all",array("conditions"=>"AthleteStat.athlete_id = '$athlete_id'"));
+		$this->set("athleteStats",$athleteStats);
 	}
 
 	public function invite(){
