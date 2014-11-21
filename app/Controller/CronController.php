@@ -323,4 +323,49 @@ class CronController extends AppController{
 		echo "success";
 		exit;
 	}
+
+	public function sendNeedAlert($college_need_id = false){
+		$this->loadModel("Athlete");
+
+		$college_need_id = (int)$college_need_id;
+		if(!$college_need_id){
+			$needsMatchs = $this->Athlete->query("select college_id ,firstname , lastname from athletes as Athlete inner join college_needs as CollegeNeed
+							 on (Athlete.sport_id = CollegeNeed.sport_id AND Athlete.class = CollegeNeed.grade_class)");
+		}
+		else{
+			$needsMatchs = $this->Athlete->query("select college_id ,firstname , lastname from athletes as Athlete inner join college_needs as CollegeNeed
+							 on (Athlete.sport_id = CollegeNeed.sport_id AND Athlete.class = CollegeNeed.grade_class) where CollegeNeed.id = '$college_need_id'");	
+		}
+
+		if($needsMatchs){
+			$cakeEmail = new CakeEmail();
+			$subject  = "College Prospect Network - We've found an athlete who matches your needs!";
+			$template = 'college_need_alert_mail';
+
+			foreach($needsMatchs as $needsMatch){
+				$first_name  = $needsMatch['Athlete']['firstname'];
+				$last_name   = $needsMatch['Athlete']['lastname'];
+				$college_id  = $needsMatch['Athlete']['college_id'];
+
+				$collegeCoach = $this->CollegCoach->find("first",array("conditions"=>"CollegCoach.college_id = '$college_id'"));
+				$coach_name  = $collegeCoach['CollegCoach']['firstname']." ".$collegeCoach['CollegCoach']['lastname'];
+				$coach_email = $collegeCoach['CollegCoach']['email'];
+					
+				try {
+					$cakeEmail->template($template);
+					$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
+					$cakeEmail->to(array($coach_email => $coach_name));
+					$cakeEmail->to(array("admin@collegeprospectnetwork.com" => "Admin"));
+					$cakeEmail->subject($subject);
+					$cakeEmail->emailFormat('html');
+					$cakeEmail->viewVars(array('first_name' => $first_name, 'last_name' => $last_name, 'coach_name' => $coach_name));
+					// Send email
+					$cakeEmail->send();
+				}
+				catch (Exception $e){
+					//$this->Session->setFlash('Error while sending email');
+				}
+			}
+		}
+	}
 }
