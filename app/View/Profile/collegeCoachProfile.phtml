@@ -3,6 +3,7 @@
 <script type="text/javascript">
    jQuery(document).ready(function() {
 	   jQuery(".fancybox").fancybox({fitToView:true,width:'600px',height:'100%',autoSize:true});
+	   jQuery(".fancybox2").fancybox({fitToView:true,width:'950px;',height:'100%',autoSize:true});
    });
 </script>
 
@@ -18,8 +19,8 @@
 							<span>
 								<?php echo $this->Html->link("Add To Network",array("controller"=>"Network","action"=>"sendRequest",$profileDetail['CollegeCoach']['id'],"college"));?>
 							</span>
-							<div class="clear"></div>
 						</p>
+						<div class="clear"></div>
 					</div>
 
 					<div class="btnclass1" style="float:right;margin-right:20px;">
@@ -27,8 +28,8 @@
                           <span>
                           	 <?php echo $this->Html->link("Send Message",array("controller"=>"Mail","action"=>"composePopup","type"=>"college","receiver"=>$profileDetail['CollegeCoach']['username']),array("class"=>"fancybox fancybox.iframe"));?>
                           </span>
-                          <div class="clear"></div>
                         </p>
+                        <div class="clear"></div>
                     </div>
 			 <?php endif;?>									
 
@@ -36,16 +37,15 @@
 
 			 <!--START-ROW1-->
 			 <div style="width: 890px;background#000;">
-				<!--START-LEFTCOL-->
 				<div style="width: 286px;float:left;background#ccc;">
 					 <h3>General Information</h3>
 					 <div class="boxes">
 						<p>
-                               <font class="title">Username:</font><?php echo $profileDetail['CollegeCoach']['username'];?>
-                            </p>
+                             <font class="title">Username:</font><?php echo $profileDetail['CollegeCoach']['username'];?>
+                        </p>
                             
-                            <p>
-						   <font class="title">Name:</font> <?php echo $profileDetail['CollegeCoach']['firstname'] . " " . $profileDetail['CollegeCoach']['lastname']?>
+                        <p>
+						     <font class="title">Name:</font> <?php echo $profileDetail['CollegeCoach']['firstname'] . " " . $profileDetail['CollegeCoach']['lastname']?>
 						</p>
 						
 						<p>
@@ -69,10 +69,6 @@
 						</p>
 					</div><!--//end-box-->
 			    </div>
-
-				<!--//END-LEFTCOL-->
-
-				<!--START-RIGHTCOL-->
 
 				<div style="width: 555px;float:right;background#ff8000;">
 					<h3>College Information</h3>
@@ -109,8 +105,8 @@
 
 					<h3 style="float:left;">College Coach Needs</h3>
 						<div style="float:right;">
-							 <?php if ($this->Session->read('user_type') == 'CollegeCoach'): ?>
-										<a href="" class="">Add Need</a>
+							 <?php if ($this->Session->read('user_type') == 'college' && $is_trial_mode == false): ?>
+								   <a href="<?php echo $this->Html->url(array("controller"=>"CollegeCoach","action"=>"addNeed"));?>" class="fancybox2 fancybox.iframe">Add Need</a>
 							 <?php endif; ?>
 						</div>
 
@@ -121,31 +117,25 @@
 									You have not posted any needs. Click "Add Need" to post a need.
 									
   					        <?php else: ?>
-									<?php foreach ($collegeNeeds as $id => $collegeNeed): ?>
+									<?php foreach ($collegeNeeds as $i => $collegeNeed): ?>
 										   <p>
 							                 <b>
-												Need #<?php echo $i++; ?> - 
-							                    <a href="javascript:Showcomments('collegeNeed.php?action=edit&id=<?php echo $id; ?>','collegeNeed','width=1024,height=650')">Edit</a> /
-	
-											    <a href="javascript:deleteRecord(<?php echo $id; ?>);">Delete</a>
+												Need #<?php echo ++$i; ?> - 
+												
+												<a href="<?php echo $this->Html->url(array("controller"=>"CollegeCoach","action"=>"editNeed",$collegeNeed['CollegeNeed']['id']));?>" class="fancybox2 fancybox.iframe">Edit</a>
+												
+												|
+												
+												<?php echo $this->Html->link("Delete",array("controller"=>"CollegeCoach","action"=>"deleteNeed",$collegeNeed['CollegeNeed']['id']),null,"Are you sure?");?>
 											 </b>
-											 <br />
-											 <?php echo $summary; ?>
 										   </p>
-	
 									<?php endforeach; ?>
 							<?php endif; ?>												
 						</div><!--//END-box-->
 				   </div>
-
-				   <!--//END-RIGHTCOL-->
 				   <div class="clear"></div>
-
-				   <!--//CLEAR-LEFTandRIGHTcols-->
-				   <!--//END-ROW1-->
 			 </div>
 
-			 <!--START-ROW2-->
 			 <div style="width: 880px;display:block;">
 				<h3>Your Network</h3>
 				
@@ -163,12 +153,11 @@
 									<?php foreach ($networkRequests as $request): ?>
 										   <tr>
 										      <td class="normalblack_12">
-										      		<?php if($request['Network'][''])?>
-										            <?php echo $func->GetUserProfileURLbyID($request['memberId'], $request['memberType']); ?>
+										      		<?php echo $this->Profile->url($request['Network']['sender_id'],$request['sender_type']);?>
 							                  </td>
 
 										      <td class="normalblack_12">
-										            <?php echo $request['memberType']; ?>
+										            <?php echo $request['sender_type']; ?>
 										      </td>
 
 										      <td class="normalblack_12">

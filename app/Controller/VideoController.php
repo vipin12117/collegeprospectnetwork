@@ -125,6 +125,40 @@ class VideoController extends AppController{
 
 	public function trimTape($id = false){
 		$user_id = $this->Session->read('user_id');
+	}
 
+	public function request($athlete_id = false){
+		$this->layout = 'popup';
+
+		if(!$athlete_id){
+			$this->set("message","Athlete is not found. Please follow the correct link.");
+		}
+
+		if(isset($this->request->data['Mail'])){
+			$this->request->data['Mail']['sender'] = $this->Session->read('username');
+			$this->request->data['Mail']['usertype_from'] = $this->Session->read('user_type');
+
+			$this->loadModel('Mail');
+			$this->Mail->save($this->request->data['Mail']);
+			$this->set("message","Message is sent successfully");
+		}
+		else{
+			$this->loadModel('Athlete');
+			$userDetail = $this->Athlete->getById($athlete_id);
+			$this->set("userDetail",$userDetail['Athlete']);
+
+			$user_id = $this->Session->read('user_id');
+			$this->loadModel('CollegeCoach');
+			$coachDetail = $this->CollegeCoach->getById($user_id);
+			$this->set("CollegeCoach",$coachDetail['CollegeCoach']);
+				
+			$this->loadModel('College');
+			$College = $this->College->getById($coachDetail['CollegeCoach']['college_id']);
+			$this->set("College",$College['College']);
+
+			$this->set("athlete_id",$athlete_id);
+			$this->set("receiver","college");
+			$this->set("usertype_to","athlete");
+		}
 	}
 }

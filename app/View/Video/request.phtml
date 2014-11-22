@@ -1,0 +1,62 @@
+<?php
+if(!isset($message)){
+	$mail_message  = "This is Coach ".$CollegeCoach['firstname']." ".$CollegeCoach['lastname']." from Blinn College, <br /><br />";
+	$mail_message .= "I would like to see some more game tape of ".$userDetail['firstname']." ".$userDetail['lastname'].".  Please make copies of a couple of game tapes and mail them to:<br /><br />";
+				
+	$mail_message .= "----------------------------------------------<br />";
+	$mail_message .= $College['name']."<br />";
+	$mail_message .= "Attn: Coach ".$CollegeCoach['firstname']." ".$CollegeCoach['lastname']."<br />";
+	$mail_message .= $College['address_1']."<br />";
+	$mail_message .= $College['city']." ".$College['state']." ".$College['zip']."<br />";
+	$mail_message .= "----------------------------------------------<br /><br />";
+	
+	$mail_message .= "Thank you,<br />";
+	$mail_message .= "Coach ".$CollegeCoach['firstname']." ".$CollegeCoach['lastname']."<br />";
+	$mail_message .= $College['name'];
+	
+	$mail_message = str_replace("<br />", "\n", $mail_message); 
+}
+?>
+<div class="cantener">
+	<div class="register-main">
+		<h1>Request For Game Tape</h1>
+		<div class="registerPage popupsmall">
+		
+		 <?php if(isset($message)):?>
+				
+				<h4 align="center" class="thankyoumessage"><?php echo $message;?></h4>
+				<script type="text/javascript">
+					setTimeout(function(){window.close();},"5000");
+				</script>
+		 <?php else:?>
+				<?php echo $this->Form->create("Mail",array("url"=>array("controller"=>"Video","request",$athlete_id),"type"=>"post"));?>
+						<p>
+							<label>To:</label><span class="displaynormal">
+								<input type="text" name="too" size="40" value="<?php echo $userDetail['firstname'];?>" readonly style="width:265px;">
+								<?php echo $this->Form->input("receiver",array("type"=>"hidden","value"=>$receiver));?>
+								<?php echo $this->Form->input("usertype_to",array("type"=>"hidden","value"=>$usertype_to));?>
+							</span>
+						</p>
+						<p>
+							<label>Subject:</label>
+							<span>
+								<?php echo $this->Form->input("subject",array("type"=>"text","label"=>false,"div"=>false,'required','value'=>'Request for Additional Game Tape'));?>
+							</span>
+						</p>
+						<p>
+							<label>Message:</label>
+							<span>
+							    <?php echo $this->Form->input("message",array("type"=>"textarea","label"=>false,"div"=>false,'required','value'=>$mail_message,'class'=>'ta2'));?>
+						    </span>
+						</p>
+						<p>
+							<label>&nbsp;</label>
+							<span>
+								<?php echo $this->Form->submit('Send Message',array('div'=>false));?>
+							</span>
+						</p>
+					<?php echo $this->Form->end();?>
+			<?php endif;?>			
+		</div>
+	</div>
+</div>

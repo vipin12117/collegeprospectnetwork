@@ -9,15 +9,26 @@ class ProfileHelper extends AppHelper{
 			case 'athlete':
 				$profile = $this->getAthleteInfo($user_id);
 				return $profile;
-				break;
 			case 'college':
 				$profile = $this->getCollegeCoachInfo($user_id);
 				return $profile;
-				break;
 			default:
 				$profile = $this->getHsAauCoachInfo($user_id);
 				return $profile;
-				break;
+		}
+	}
+
+	public function getUrl($user_id , $type){
+		switch ($type) {
+			case 'athlete':
+				$profile = $this->getAthleteInfo($user_id);
+				return Router::url(array("controller"=>"Profile","athleteProfile",$user_id));
+			case 'college':
+				$profile = $this->getCollegeCoachInfo($user_id);
+				return Router::url(array("controller"=>"Profile","collegeCoachProfile",$user_id));
+			default:
+				$profile = $this->getHsAauCoachInfo($user_id);
+				return Router::url(array("controller"=>"Profile","hsAauCoachProfile",$user_id));
 		}
 	}
 

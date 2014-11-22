@@ -14,7 +14,7 @@ class CollegeNeed extends AppModel{
 	}
 	
 	public function getByCollegeId($college_id){
-		$row = $this->find("first",array("conditions"=>"CollegeNeed.college_id = '$college_id'"));
-		return $row;
+		$rows = $this->find("all",array("conditions"=>"CollegeNeed.college_id = '$college_id'"));
+		return $rows;
 	}
 }

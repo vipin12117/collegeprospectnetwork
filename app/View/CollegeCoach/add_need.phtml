@@ -1,0 +1,96 @@
+<div class="cantener">
+  <div class="register-main">
+   <div class="registerPage advancedsearch">
+     <?php if(@$message):?>
+     
+     	 <p class="thankyoumessage"><?php echo $message;?></p>
+     
+     <?php else:?>
+     
+     	 <?php echo $this->Form->create("CollegeNeed",array("url"=>array("controller"=>"CollegeCoach","action"=>"addNeed")));?>
+                        
+          <h1 style="float:left;margin-bottom:15px;">Add Need</h1>
+          
+          <div style="color:#777;font-size:13px;margin-left:147px;padding-top:7px;">
+               *All Search Fields are optional
+          </div>
+          <div class="clear"></div>
+          
+          <fieldset>
+	          <legend>Athletic Stats</legend>
+	          <div class="formarea">
+	              <div class="col-left">
+	                  <?php include_once ROOT. '/app/View/Athlete/athlete_search_left.phtml'; ?>
+	              </div>
+	              
+	              <div class="col-right">
+	                  <?php include_once ROOT. '/app/View/Athlete/athlete_search_right.phtml'; ?>
+	              </div>
+	
+	              <div class="clear"></div>
+	          </div>
+	     </fieldset>
+          
+         <div class="col-fieldset-left">
+	         <fieldset>
+	             <legend>Academic Stats</legend>
+	             
+				 <?php include_once ROOT. '/app/View/Athlete/athlete_search_acadstats.phtml'; ?>
+	         </fieldset>
+	      </div> 
+	     
+	      <div class="col-fieldset-left" style="margin-left:22px">
+	           <fieldset>
+	               <legend>Stats Category</legend>
+				   <p id="statsBtn">
+				   	  <label>Stats Category:</label> 
+					  <span>
+					      <?php echo $this->Form->input("athlete_stat_category_id",array("div"=>false,"label"=>false,"options"=>$this->Register->getStatsCategories(),"empty"=>"Select One"));?>
+					  </span>
+				   </p>	     
+	           </fieldset>
+	           
+	           <fieldset>
+	             <legend>Location</legend>
+	
+				 <!-- HS/AAU Team -->
+				 <p class="alt">
+				    <label>HS/AAU Team:</label>
+				    <span>
+				    	<?php echo $this->Form->input("hs_aau_team_id",array("div"=>false,"label"=>false,"options"=>$this->Register->getHsAauSchools(),"empty"=>"Select One"));?>
+				    </span>
+				</p>
+				
+				<!-- State -->
+				<p>
+				    <label>State:</label>
+				    <span>
+				    	<?php echo $this->Form->input("state",array("div"=>false,"label"=>false,"options"=>$this->Register->getStates(),"empty"=>"Select States"));?>
+				    </span>
+				</p>
+				
+				<!-- ZIP code and Distance -->
+				<p class="alt">
+				    <label>ZIP Code:</label>
+				    <span>
+				    	<?php echo $this->Form->input("zip",array("div"=>false,"label"=>false,"style"=>"width:80px;margin-right:3px;"));?>
+				        within
+				        
+				        <?php echo $this->Form->input("distance",array("div"=>false,"label"=>false,"options"=>$this->Register->getDistanceList(),"empty"=>"Select One","style"=>"width: 95px;margin-right:5px;"));?>
+				    </span>
+				</p>
+	           </fieldset>
+	      </div>
+       
+          <div class="clear"></div>
+          <div style="margin-left: auto; margin-right: auto;">
+              <p>
+                 <span><?php echo $this->Form->submit("Save",array("label"=>false,"div"=>false));?></span>
+              </p>
+          </div>
+        <?php echo $this->Form->end();?>
+           
+    <?php endif;?>    
+  </div>
+ </div>
+</div>           

@@ -3,6 +3,7 @@
 <script type="text/javascript">
    jQuery(document).ready(function() {
 	   jQuery(".fancybox").fancybox({fitToView:true,width:'500px',height:'100%',autoSize:true});
+	   jQuery(".fancybox2").fancybox({fitToView:true,width:'650px',height:'100%',autoSize:true});
    });
 </script>
 <?php echo $this->Html->script("/jwplayer/jwplayer.js");?>
@@ -328,7 +329,7 @@
 					      <?php if($is_trial_mode):?>
                               	    <a onclick="alert('Sorry, this feature is disabled in Trial Mode, please purchase a Subscription.');">Request Game Tape</a>
                           <?php else:?>
-                          			<a href="<?php echo $this->Html->url(array("controller"=>"Video","action"=>"request",$profileDetail['Athlete']['id']));?>" title="Request Game Tape">Request Game Tape</a>
+                          			<a class="fancybox2 fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Video","action"=>"request",$profileDetail['Athlete']['id']));?>" title="Request Game Tape">Request Game Tape</a>
                           <?php endif;?> 			
 					    </span>
 					</p>

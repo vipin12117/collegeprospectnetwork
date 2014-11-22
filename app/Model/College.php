@@ -10,4 +10,9 @@ class College extends AppModel{
 		parent::__construct();
 		$this->primaryKey = 'id';
 	}
+
+	public function getById($id){
+		$row = $this->find("first",array("conditions"=>"College.id = '$id'"));
+		return $row;
+	}
 }
