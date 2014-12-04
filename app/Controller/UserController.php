@@ -325,10 +325,10 @@ class UserController extends AppController{
 	private function athleteRegisterEmail($data,$address,$newSchool){
 		$subject = "College Prospect Network - Athlete Welcome";
 		if($newSchool) {
-			$subjectStre = "[CPN] - New Athlete Registration + New School";
+			$subjectStre = "[CPN] - New Athlete ". $data['firstname']." ".$data['lastname']. " Registration + New School";
 		}
 		else{
-			$subjectStre = "[CPN] - New Athlete Registration";
+			$subjectStre = "[CPN] - New Athlete ". $data['firstname']." ".$data['lastname']. " Registration";
 		}
 
 		// HS/AAU Name
@@ -349,6 +349,7 @@ class UserController extends AppController{
 			$cakeEmail->template($template);
 			$cakeEmail->from(array('no-reply@collegeprospectnetwork.com' => 'College Prospect Network'));
 			$cakeEmail->to(array($data['email'] => $data['firstname']));
+			$cakeEmail->to(array("admin@collegeprospectnetwork.com" => "Admin"));
 			$cakeEmail->subject($subject);
 			$cakeEmail->emailFormat('html');
 			$cakeEmail->viewVars(array('newSchool' => $newSchool, 'data' => $data, 'address' => $address, 'sportName' => $sportName, 'httpUserAgent' => $httpUserAgent));
@@ -368,7 +369,7 @@ class UserController extends AppController{
 		}
 
 		$cakeEmail = new CakeEmail();
-		$subject = "College Prospect Network - Athlete Pending Approval";
+		$subject = "College Prospect Network - Athlete $first_name $last_name Pending Approval";
 		$template = 'athlete_coach_approval';
 		foreach($hsAauCoaches as $hsAauCoach){
 			try {
