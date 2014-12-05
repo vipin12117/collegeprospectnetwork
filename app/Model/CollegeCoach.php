@@ -14,7 +14,7 @@ class CollegeCoach extends AppModel{
 	}
 
 	public function getByUsername($username){
-		$row = $this->find("first",array("conditions"=>"CollegeCoach.username = '$username'"));
+		$row = $this->find("first",array("conditions"=>"Lower(CollegeCoach.username) = Lower('$username')"));
 		return $row;
 	}
 

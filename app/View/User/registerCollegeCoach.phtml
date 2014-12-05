@@ -5,6 +5,19 @@
 		     username = username.toLowerCase();
 		     username = username.replace(/[^\w\s]/gi,""); 
 		     jQuery('#username').val(username);
+
+		     requestUrl = '<?php echo Router::url(array("controller"=>"User","action"=>"checkUsername"))?>';
+		     jQuery.ajax({
+			     url: requestUrl+"/"+username+"/CollegeCoach" ,
+			     success: function(res){
+			    	 if(res == 'Yes'){
+			     		 jQuery("#errorMessage").html("Username is not available.");
+				     }
+			     	 else{
+				     	 jQuery("#errorMessage").html("Username is available.");
+				     }
+			     }
+			 });
 	   });
    });
 </script>
@@ -21,6 +34,7 @@
 						<?php echo $this->Form->input("username",array("div"=>false,"label"=>false,"required"=>"true",'id'=>'username'));?>
 					</span>
 					<font color="#0000ff">&nbsp;*</font>
+					<b id="errorMessage"></b>
 				</p>
 				<p>
 					<label>Password:</label>

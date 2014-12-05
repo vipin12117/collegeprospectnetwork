@@ -9,7 +9,7 @@ class Athlete extends AppModel{
 	public $belongsTo = array('Sport','HsAauTeam');
 
 	public function getByUsername($username){
-		$row = $this->find("first",array("conditions"=>"Athlete.username = '$username'"));
+		$row = $this->find("first",array("conditions"=>"Lower(Athlete.username) = Lower('$username')"));
 		return $row;
 	}
 

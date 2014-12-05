@@ -14,7 +14,7 @@ class HsAauCoach extends AppModel{
 	}
 
 	public function getByUsername($username){
-		$row = $this->find("first",array("conditions"=>"HsAauCoach.username = '$username'"));
+		$row = $this->find("first",array("conditions"=>"Lower(HsAauCoach.username) = Lower('$username')"));
 		return $row;
 	}
 

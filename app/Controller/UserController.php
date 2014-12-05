@@ -455,4 +455,31 @@ class UserController extends AppController{
 			$this->Session->setFlash('Error while sending email');
 		}
 	}
+
+	public function checkUsername($username,$type='Athlete'){
+		$this->layout = false;
+		$this->autoRender = false;
+		
+		$isExist = false;
+		
+		if($type == 'Athlete'){
+			$this->loadModel('Athlete');
+			$isExist = $this->Athlete->getByUsername($username);
+		}
+		elseif($type == 'CollegeCoach'){
+			$this->loadModel('CollegeCoach');
+			$isExist = $this->CollegeCoach->getByUsername($username);
+		}
+		elseif($type == 'HsAauCoach'){
+			$this->loadModel('HsAauCoach');
+			$isExist = $this->HsAauCoach->getByUsername($username);
+		}
+		
+		if($isExist){
+			echo "Yes";
+		}
+		else{
+			echo "No";
+		}
+	}
 }
