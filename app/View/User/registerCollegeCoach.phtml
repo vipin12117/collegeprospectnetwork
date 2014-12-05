@@ -1,3 +1,13 @@
+<script type="text/javascript">
+   jQuery(document).ready(function(){
+	   jQuery('#username').change(function(){
+		     username = jQuery('#username').val();
+		     username = username.toLowerCase();
+		     username = username.replace(/[^\w\s]/gi,""); 
+		     jQuery('#username').val(username);
+	   });
+   });
+</script>
 <div class="cantener">
 	<div class="register-main">
 		<?php echo $this->Form->create("CollegeCoach",array("url"=>array("controller"=>"User","action"=>"registerCollegeCoach")));?>
@@ -8,7 +18,7 @@
 				<p>
 					<label>User Name:</label>
 					<span>
-						<?php echo $this->Form->input("username",array("div"=>false,"label"=>false,"required"=>"true"));?>
+						<?php echo $this->Form->input("username",array("div"=>false,"label"=>false,"required"=>"true",'id'=>'username'));?>
 					</span>
 					<font color="#0000ff">&nbsp;*</font>
 				</p>
