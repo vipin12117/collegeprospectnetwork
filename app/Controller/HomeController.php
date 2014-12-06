@@ -1,13 +1,14 @@
 <?php
 
 App::uses('CakeEmail', 'Network/Email');
+
 class HomeController extends AppController{
 
 	public $name = 'Home';
 
 	public $uses = array('Athlete','HsAauCoach','CollegeCoach');
 
-	public $components = array("Session","RequestHandler","Email");
+	public $components = array("Session","RequestHandler","Email","Captcha");
 
 	public function beforeFilter(){
 		parent::beforeFilter();
@@ -40,13 +41,28 @@ class HomeController extends AppController{
 		$this->set("title_for_layout",$page_detail['Page']['meta_title']);
 		$this->set("title_for_keywords",$page_detail['Page']['meta_keywords']);
 		$this->set("title_for_description",$page_detail['Page']['meta_desc']);
-
+		
 		if(isset($this->request->data['Admin'])){
-			$this->contactUsEmail($this->request->data['Admin']['name'],$this->request->data['Admin']['email'],$this->request->data['Admin']['comments']);
-
-			$this->Session->setFlash("Your email has been sent to the appropriate team to best address your needs, and you should receive a response shortly.");
-			$this->redirect(array("controller"=>"Home","action"=>"contactus"));
+	        if($this->request->data['Admin']['code'] == $this->Session->read('Catcha.code')){
+				$this->contactUsEmail($this->request->data['Admin']['name'],$this->request->data['Admin']['email'],$this->request->data['Admin']['comments']);
+	
+				$this->Session->setFlash("Your email has been sent to the appropriate team to best address your needs, and you should receive a response shortly.");
+				$this->redirect(array("controller"=>"Home","action"=>"contactus"));
+	        }
+	        else{
+	       		$this->Session->setFlash("Please enter the correct code.");
+      		}
 		}
+		
+		$this->Captcha->create(
+		    array(
+		        'images_url'=>'/img/captcha/',
+		        'images_path'=>WWW_ROOT.DS.'img/captcha/',
+		        'assets_path'=>WWW_ROOT.DS.'img/'
+		    )
+		);
+		$this->Session->write('Catcha.code',$this->Captcha->code());
+		$this->set('captcha_url',$this->Captcha->store());
 
 		$this->set("page_detail",$page_detail);
 	}

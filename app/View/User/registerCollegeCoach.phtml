@@ -152,6 +152,18 @@
                    <span><?php echo $this->Form->input("answer",array("div"=>false,"label"=>false,"required"=>"true"));?></span>
                    <font color="#0000ff">&nbsp;*</font>
 			    </p>
+			    
+			     <p align="center">
+			   		<img src="<?php echo $this->Html->webroot($captcha_url); ?>" alt="captcha">
+			     </p>
+			   
+			     <p>
+			   	    <label>Code:</label>
+			   	    <span>
+			   	  		<?php echo $this->Form->input('code',array("div"=>false,'label'=>false,"required",'type'=>'text','value'=>'')); ?>
+			   	  		<font color="#0000ff">*</font>
+			   	    </span>
+			     </p>
 				
 				<p>
 					<label>&nbsp;</label>

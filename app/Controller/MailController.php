@@ -210,30 +210,32 @@ class MailController extends AppController{
 				if ($value == 'coach'){
 					$this->loadModel('HsAauCoach');
 					$coachList = $this->HsAauCoach->find('all', array('fields' => array('HsAauCoach.id', 'HsAauCoach.firstname', 'HsAauCoach.lastname', 'HsAauCoach.username'),
-																	  'order' => array('HsAauCoach.lastname')));
-
+																	  'order' => array('HsAauCoach.lastname'),
+					));
 				}
 				elseif ($value == 'athlete') {
 					$this->loadModel('Athlete');
 					$coachList = $this->Athlete->find('all', array('fields' => array('Athlete.id', 'Athlete.firstname', 'Athlete.lastname', 'Athlete.username'),
-																	  'order' => array('Athlete.lastname')));				
+																   'order' => array('Athlete.lastname'),
+																   'conditions' => 'Athlete.status = 1'
+					));				
 				}
 				elseif ($value == 'college') {
 					$this->loadModel('CollegeCoach');
 					$coachList = $this->CollegeCoach->find('all', array('fields' => array('CollegeCoach.id', 'CollegeCoach.firstname', 'CollegeCoach.lastname', 'CollegeCoach.username'),
-																	  'order' => array('CollegeCoach.lastname')));																			
+																	    'order' => array('CollegeCoach.lastname')));																			
 				}
 			}
 			else {
 				$this->request->data['sender'] = $username;
 				$this->request->data['receiver'] = $this->request->data['to'];
-				if ($this->Session->read('user_type') == 'Athlete') {
+				if ($this->Session->read('user_type') == 'athlete') {
 					$this->request->data['usertype_from'] = 'athlete';
 				}
-				elseif ($this->Session->read('user_type') == 'CollegeCoach') {
+				elseif ($this->Session->read('user_type') == 'college') {
 					$this->request->data['usertype_from'] = 'college';
 				}
-				elseif ($this->Session->read('user_type') == 'HsAauCoach') {
+				elseif ($this->Session->read('user_type') == 'coach') {
 					$this->request->data['usertype_from'] = 'coach';
 				}
 				$this->request->data['usertype_to'] = $this->params['named']['value'];

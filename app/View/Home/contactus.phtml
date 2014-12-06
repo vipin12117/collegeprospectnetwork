@@ -38,6 +38,18 @@
 			      </span>
 			   </p>
 			   
+			   <p align="center">
+			   		<img src="<?php echo $this->Html->webroot($captcha_url); ?>" alt="captcha">
+			   </p>
+			   
+			   <p>
+			   	  <label style="width:100px;">Code:</label>
+			   	  <span>
+			   	  		<?php echo $this->Form->input('code',array("div"=>false,'label'=>false,"required",'type'=>'text','value'=>'')); ?>
+			   	  		<font color="#0000ff">*</font>
+			   	  </span>
+			   </p>
+			   
 			   <p>
 				  <label style="width:100px;">&nbsp;</label>
 				  <span>

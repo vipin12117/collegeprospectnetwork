@@ -6,7 +6,7 @@ class UserController extends AppController{
 
 	public $name = "User";
 
-	public $components = array('Email','RequestHandler');
+	public $components = array('Email','RequestHandler','Captcha');
 
 	public $helpers = array('Html','Form','Js' => array('Jquery'));
 
@@ -146,47 +146,60 @@ class UserController extends AppController{
 		$this->set("title_for_layout","Athlete Registration");
 
 		if(isset($this->request->data['Athlete'])){
-			$username = strtolower($this->request->data['Athlete']['username']);
-			$email = strtolower($this->request->data['Athlete']['email']);
+			if($this->request->data['Athlete']['code'] == $this->Session->read('Catcha.code')){
+				$username = strtolower($this->request->data['Athlete']['username']);
+				$email = strtolower($this->request->data['Athlete']['email']);
 
-			$checkUsernameExist = $this->Athlete->find("first",array("conditions"=>"Lower(Athlete.username) = Lower('$username')"));
-			$checkEmailExist = $this->Athlete->find("first",array("conditions"=>"Lower(Athlete.email) = Lower('$email')"));
+				$checkUsernameExist = $this->Athlete->find("first",array("conditions"=>"Lower(Athlete.username) = Lower('$username')"));
+				$checkEmailExist = $this->Athlete->find("first",array("conditions"=>"Lower(Athlete.email) = Lower('$email')"));
 
-			if($checkUsernameExist){
-				$this->Session->setFlash("This username is already exist, please try another one");
-			}
-			elseif($checkEmailExist){
-				$this->Session->setFlash("This email is already assigned to another user");
-			}
-			else{
-				$newSchool = false;
-				if($this->request->data['Athlete']['hs_aau_team_id'] == 'Other'){
-					$this->request->data['HsAauTeam']['athlete_username'] = $username;
-					$this->request->data['HsAauTeam']['sport_id'] = $this->request->data['Athlete']['sport_id'];
-					$this->request->data['HsAauTeam']['added_date'] = date('Y-m-d H:i:s');
-					$this->request->data['HsAauTeam']['status'] = 0;
-
-					$this->HsAauTeam->save($this->request->data);
-					$hs_aau_team_id = $this->HsAauTeam->getLastInsertID();
-					$this->request->data['Athlete']['hs_aau_team_id'] = $hs_aau_team_id;
-					$newSchool = 1;
+				if($checkUsernameExist){
+					$this->Session->setFlash("This username is already exist, please try another one");
+				}
+				elseif($checkEmailExist){
+					$this->Session->setFlash("This email is already assigned to another user");
 				}
 				else{
-					$hs_aau_team_id = $this->request->data['Athlete']['hs_aau_team_id'];
-					$this->athleteCoachApproval($hs_aau_team_id, $this->request->data['Athlete']['firstname'],$this->request->data['Athlete']['lastname']);
+					$newSchool = false;
+					if($this->request->data['Athlete']['hs_aau_team_id'] == 'Other'){
+						$this->request->data['HsAauTeam']['athlete_username'] = $username;
+						$this->request->data['HsAauTeam']['sport_id'] = $this->request->data['Athlete']['sport_id'];
+						$this->request->data['HsAauTeam']['added_date'] = date('Y-m-d H:i:s');
+						$this->request->data['HsAauTeam']['status'] = 0;
+
+						$this->HsAauTeam->save($this->request->data);
+						$hs_aau_team_id = $this->HsAauTeam->getLastInsertID();
+						$this->request->data['Athlete']['hs_aau_team_id'] = $hs_aau_team_id;
+						$newSchool = 1;
+					}
+					else{
+						$hs_aau_team_id = $this->request->data['Athlete']['hs_aau_team_id'];
+						$this->athleteCoachApproval($hs_aau_team_id, $this->request->data['Athlete']['firstname'],$this->request->data['Athlete']['lastname']);
+					}
+
+					$this->Athlete->save($this->request->data);
+					$message = "Thank you for submitting your application. Your profile will be reviewed by the College Prospect Network staff and you will be notified via email whether you are approved. Please allow 10 business days for us to process your request before contacting us.<br /><br />
+								Please print this page and take it to your coach. We will need him/her to answer two quick questions as part of your application process.			
+								<br /><br />From, <br />College Prospect Network.";
+					$this->Session->setFlash($message);
+
+					$this->athleteRegisterEmail($this->request->data['Athlete'],$this->request->data['HsAauTeam'],$newSchool);
+					$this->redirect(array("controller"=>"Home","action"=>"login"));
+					exit;
 				}
-
-				$this->Athlete->save($this->request->data);
-				$message = "Thank you for submitting your application. Your profile will be reviewed by the College Prospect Network staff and you will be notified via email whether you are approved. Please allow 10 business days for us to process your request before contacting us.<br /><br />
-				Please print this page and take it to your coach. We will need him/her to answer two quick questions as part of your application process.			
-				<br /><br />From, <br />College Prospect Network.";
-				$this->Session->setFlash($message);
-
-				$this->athleteRegisterEmail($this->request->data['Athlete'],$this->request->data['HsAauTeam'],$newSchool);
-				$this->redirect(array("controller"=>"Home","action"=>"login"));
-				exit;
+			}
+			else{
+				$this->Session->setFlash("Please enter the correct code.");
 			}
 		}
+
+		$this->Captcha->create(
+		array(
+		        'images_url'=>'/img/captcha/',
+		        'images_path'=>WWW_ROOT.DS.'img/captcha/',
+		        'assets_path'=>WWW_ROOT.DS.'img/'));
+		$this->Session->write('Catcha.code',$this->Captcha->code());
+		$this->set('captcha_url',$this->Captcha->store());
 
 		$this->render("/User/registerAthlete");
 	}
@@ -195,78 +208,91 @@ class UserController extends AppController{
 		$this->set("title_for_layout","High School / AAU Coach Registration");
 
 		if(isset($this->request->data['HsAauCoach'])){
-			$username = strtolower($this->request->data['HsAauCoach']['username']);
-			$email = strtolower($this->request->data['HsAauCoach']['email']);
+			if($this->request->data['HsAauCoach']['code'] == $this->Session->read('Catcha.code')){
+				$username = strtolower($this->request->data['HsAauCoach']['username']);
+				$email = strtolower($this->request->data['HsAauCoach']['email']);
 
-			$checkUsernameExist = $this->HsAauCoach->find("first",array("conditions"=>"Lower(HsAauCoach.username) = Lower('$username')"));
-			$checkEmailExist = $this->HsAauCoach->find("first",array("conditions"=>"Lower(HsAauCoach.email) = Lower('$email')"));
+				$checkUsernameExist = $this->HsAauCoach->find("first",array("conditions"=>"Lower(HsAauCoach.username) = Lower('$username')"));
+				$checkEmailExist = $this->HsAauCoach->find("first",array("conditions"=>"Lower(HsAauCoach.email) = Lower('$email')"));
 
-			if($checkUsernameExist){
-				$this->Session->setFlash("This username is already exist, please try another one");
-			}
-			elseif($checkEmailExist){
-				$this->Session->setFlash("This email is already assigned to another user");
-			}
-			else{
-				$newSchool = false;
-				if($this->request->data['Athlete']['hs_aau_team_id'] == 'Other'){
-					$this->request->data['HsAauTeam']['coach_name'] = $username;
-					$this->request->data['HsAauTeam']['sport_id'] = $this->request->data['HsAauCoach']['sport_id'][0];
-					$this->request->data['HsAauTeam']['added_date'] = date('Y-m-d H:i:s');
-					$this->request->data['HsAauTeam']['status'] = 0;
-
-					$this->HsAauTeam->save($this->request->data);
-					$hs_aau_team_id = $this->HsAauTeam->getLastInsertID();
-					$this->request->data['HsAauCoach']['hs_aau_team_id'] = $hs_aau_team_id;
-					$newSchool = 1;
+				if($checkUsernameExist){
+					$this->Session->setFlash("This username is already exist, please try another one");
+				}
+				elseif($checkEmailExist){
+					$this->Session->setFlash("This email is already assigned to another user");
 				}
 				else{
-					$hs_aau_team_id = $this->request->data['Athlete']['hs_aau_team_id'];
-					$this->request->data['HsAauCoach']['hs_aau_team_id'] = $hs_aau_team_id;
-				}
+					$newSchool = false;
+					if($this->request->data['Athlete']['hs_aau_team_id'] == 'Other'){
+						$this->request->data['HsAauTeam']['coach_name'] = $username;
+						$this->request->data['HsAauTeam']['sport_id'] = $this->request->data['HsAauCoach']['sport_id'][0];
+						$this->request->data['HsAauTeam']['added_date'] = date('Y-m-d H:i:s');
+						$this->request->data['HsAauTeam']['status'] = 0;
 
-				$sports = $this->request->data['HsAauCoach']['sport_id'];
-				$positions = $this->request->data['HsAauCoach']['position'];
-
-				$this->request->data['HsAauCoach']['sport_id'] = $this->request->data['HsAauCoach']['sport_id'][0];
-				$this->request->data['HsAauCoach']['position'] = $this->request->data['HsAauCoach']['position'][0];
-
-				$this->HsAauCoach->save($this->request->data);
-				$hs_aau_coach_id = $this->HsAauCoach->getLastInsertID();
-
-				$sportPositions = array();
-				//insert all sports
-				foreach($sports as $i => $value){
-					$sportPosition = array();
-					$sportPosition['sport_id'] = $value;
-					$sportPosition['position'] = $positions[$i];
-					$sportPosition['hs_aau_coach_id'] = $hs_aau_coach_id;
-
-					try{
-						$this->HsAauCoachSportposition->create();
-						$this->HsAauCoachSportposition->save(array("HsAauCoachSportposition"=>$sportPosition));
+						$this->HsAauTeam->save($this->request->data);
+						$hs_aau_team_id = $this->HsAauTeam->getLastInsertID();
+						$this->request->data['HsAauCoach']['hs_aau_team_id'] = $hs_aau_team_id;
+						$newSchool = 1;
 					}
-					catch(Exception $e){
-
+					else{
+						$hs_aau_team_id = $this->request->data['Athlete']['hs_aau_team_id'];
+						$this->request->data['HsAauCoach']['hs_aau_team_id'] = $hs_aau_team_id;
 					}
 
-					$sportPositions[] = $sportPosition;
+					$sports = $this->request->data['HsAauCoach']['sport_id'];
+					$positions = $this->request->data['HsAauCoach']['position'];
+
+					$this->request->data['HsAauCoach']['sport_id'] = $this->request->data['HsAauCoach']['sport_id'][0];
+					$this->request->data['HsAauCoach']['position'] = $this->request->data['HsAauCoach']['position'][0];
+
+					$this->HsAauCoach->save($this->request->data);
+					$hs_aau_coach_id = $this->HsAauCoach->getLastInsertID();
+
+					$sportPositions = array();
+					//insert all sports
+					foreach($sports as $i => $value){
+						$sportPosition = array();
+						$sportPosition['sport_id'] = $value;
+						$sportPosition['position'] = $positions[$i];
+						$sportPosition['hs_aau_coach_id'] = $hs_aau_coach_id;
+
+						try{
+							$this->HsAauCoachSportposition->create();
+							$this->HsAauCoachSportposition->save(array("HsAauCoachSportposition"=>$sportPosition));
+						}
+						catch(Exception $e){
+
+						}
+
+						$sportPositions[] = $sportPosition;
+					}
+
+					$this->hSCoachAdminNotifiction($this->request->data['HsAauCoach'],$this->request->data['HsAauTeam'],$sportPositions,$newSchool);
+
+					$message = "Thank you for your Registration";
+					$this->Session->setFlash($message);
+
+					$this->Session->write("name",$this->request->data['HsAauCoach']['firstname']);
+					$this->Session->write("username",$this->request->data['HsAauCoach']['username']);
+					$this->Session->write("user_id",$hs_aau_coach_id);
+					$this->Session->write("user_type","coach");
+
+					$this->redirect(array("controller"=>"Profile","action"=>"index"));
+					exit;
 				}
-
-				$this->hSCoachAdminNotifiction($this->request->data['HsAauCoach'],$this->request->data['HsAauTeam'],$sportPositions,$newSchool);
-
-				$message = "Thank you for your Registration";
-				$this->Session->setFlash($message);
-
-				$this->Session->write("name",$this->request->data['HsAauCoach']['firstname']);
-				$this->Session->write("username",$this->request->data['HsAauCoach']['username']);
-				$this->Session->write("user_id",$hs_aau_coach_id);
-				$this->Session->write("user_type","coach");
-
-				$this->redirect(array("controller"=>"Profile","action"=>"index"));
-				exit;
+			}
+			else{
+				$this->Session->setFlash("Please enter the correct code.");
 			}
 		}
+
+		$this->Captcha->create(
+		array(
+		        'images_url'=>'/img/captcha/',
+		        'images_path'=>WWW_ROOT.DS.'img/captcha/',
+		        'assets_path'=>WWW_ROOT.DS.'img/'));
+		$this->Session->write('Catcha.code',$this->Captcha->code());
+		$this->set('captcha_url',$this->Captcha->store());
 
 		$this->render("/User/registerHSCoach");
 	}
@@ -275,43 +301,56 @@ class UserController extends AppController{
 		$this->set("title_for_layout","College Coach Registration");
 
 		if(isset($this->request->data['CollegeCoach'])){
-			$username = strtolower($this->request->data['CollegeCoach']['username']);
-			$email = strtolower($this->request->data['CollegeCoach']['email']);
+			if($this->request->data['CollegeCoach']['code'] == $this->Session->read('Catcha.code')){
+				$username = strtolower($this->request->data['CollegeCoach']['username']);
+				$email = strtolower($this->request->data['CollegeCoach']['email']);
 
-			$checkUsernameExist = $this->CollegeCoach->find("first",array("conditions"=>"Lower(CollegeCoach.username) = Lower('$username')"));
-			$checkEmailExist = $this->CollegeCoach->find("first",array("conditions"=>"Lower(CollegeCoach.email) = Lower('$email')"));
+				$checkUsernameExist = $this->CollegeCoach->find("first",array("conditions"=>"Lower(CollegeCoach.username) = Lower('$username')"));
+				$checkEmailExist = $this->CollegeCoach->find("first",array("conditions"=>"Lower(CollegeCoach.email) = Lower('$email')"));
 
-			if($checkUsernameExist){
-				$this->Session->setFlash("This username is already exist, please try another one");
-			}
-			elseif($checkEmailExist){
-				$this->Session->setFlash("This email is already assigned to another user");
-			}
-			else{
-				$newCollege = false;
-				if($this->request->data['CollegeCoach']['college_id'] == 'Other'){
-					$this->request->data['College']['username']  = $username;
-					$this->request->data['College']['join_date'] = date('Y-m-d H:i:s');
-					$this->request->data['College']['status'] = 0;
-
-					$this->College->save($this->request->data);
-					$college_id = $this->College->getLastInsertID();
-					$this->request->data['CollegeCoach']['college_id'] = $college_id;
-					$newCollege = 1;
+				if($checkUsernameExist){
+					$this->Session->setFlash("This username is already exist, please try another one");
+				}
+				elseif($checkEmailExist){
+					$this->Session->setFlash("This email is already assigned to another user");
 				}
 				else{
-					$college_id = $this->request->data['CollegeCoach']['college_id'];
+					$newCollege = false;
+					if($this->request->data['CollegeCoach']['college_id'] == 'Other'){
+						$this->request->data['College']['username']  = $username;
+						$this->request->data['College']['join_date'] = date('Y-m-d H:i:s');
+						$this->request->data['College']['status'] = 0;
+
+						$this->College->save($this->request->data);
+						$college_id = $this->College->getLastInsertID();
+						$this->request->data['CollegeCoach']['college_id'] = $college_id;
+						$newCollege = 1;
+					}
+					else{
+						$college_id = $this->request->data['CollegeCoach']['college_id'];
+					}
+
+					$this->CollegeCoach->save($this->request->data);
+					$message = "Thank you for your registration";
+					$this->Session->setFlash($message);
+
+					$this->collegeCoachAdminNotifiction($this->request->data['CollegeCoach'],$this->request->data['College'],$newCollege);
+					$this->redirect(array("controller"=>"Home","action"=>"login"));
+					exit;
 				}
-
-				$this->CollegeCoach->save($this->request->data);
-				$message = "Thank you for your registration";
-				$this->Session->setFlash($message);
-
-				$this->collegeCoachAdminNotifiction($this->request->data['CollegeCoach'],$this->request->data['College'],$newCollege);
-				$this->redirect(array("controller"=>"Home","action"=>"login"));
-				exit;
+			}
+			else{
+				$this->Session->setFlash("Please enter the correct code.");
 			}
 		}
+
+		$this->Captcha->create(
+		array(
+		        'images_url'=>'/img/captcha/',
+		        'images_path'=>WWW_ROOT.DS.'img/captcha/',
+		        'assets_path'=>WWW_ROOT.DS.'img/'));
+		$this->Session->write('Catcha.code',$this->Captcha->code());
+		$this->set('captcha_url',$this->Captcha->store());
 
 		$this->render("/User/registerCollegeCoach");
 	}
@@ -459,9 +498,9 @@ class UserController extends AppController{
 	public function checkUsername($username,$type='Athlete'){
 		$this->layout = false;
 		$this->autoRender = false;
-		
+
 		$isExist = false;
-		
+
 		if($type == 'Athlete'){
 			$this->loadModel('Athlete');
 			$isExist = $this->Athlete->getByUsername($username);
@@ -474,7 +513,7 @@ class UserController extends AppController{
 			$this->loadModel('HsAauCoach');
 			$isExist = $this->HsAauCoach->getByUsername($username);
 		}
-		
+
 		if($isExist){
 			echo "Yes";
 		}
