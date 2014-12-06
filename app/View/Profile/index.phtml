@@ -70,7 +70,12 @@
 
 			<h2>Athlete Approval Requests</h2>
 
-			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href=<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"approval"));?>>Athlete Approval(<?php echo @$athleteApproval; ?>)</a></p>
+			<?php if($athleteApproval > 0):?>
+					<p><?php echo $this->Html->image('bullet-grey.gif');?><a style="color:#900000" href=<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"approval"));?>>Athlete Approval(<?php echo @$athleteApproval; ?>)</a></p>
+			<?php else:?>		
+					<p><?php echo $this->Html->image('bullet-grey.gif');?><a href=<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"approval"));?>>Athlete Approval(<?php echo @$athleteApproval; ?>)</a></p>
+			<?php endif;?>			
+			
 			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"stats"));?>">Athlete Stats Approval(<?php echo @$athleteStatApproval; ?>)</a></p>
 
             <h2>My Network</h2>

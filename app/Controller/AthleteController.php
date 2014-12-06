@@ -74,6 +74,7 @@ class AthleteController extends AppController{
 			$this->Session->setFlash("Thank you. The athlete has been approved and a confirmation email has been sent to &nbsp;".$athlete['Athlete']['email']);
 
 			//send network request
+			$this->loadModel('Network');
 			$isExist = $this->Network->isExist($this->Session->read('user_id'),$id,"coach","athlete");
 			if(!$isExist){
 				$isExist = $this->Network->isExist($id,$this->Session->read('user_id'),"athlete","coach");
@@ -106,7 +107,7 @@ class AthleteController extends AppController{
 				$cakeEmail->send();
 			}
 			catch (Exception $e){
-				$this->Session->setFlash('Error while sending email');
+				//$this->Session->setFlash('Error while sending email');
 			}
 		}
 
@@ -164,7 +165,7 @@ class AthleteController extends AppController{
 		if(!$athlete_id){
 			$athlete_id = $this->Session->read('user_id');
 		}
-		
+
 		$this->loadModel('AthleteStat');
 		$athleteStats = $this->AthleteStat->find("all",array("conditions"=>"AthleteStat.athlete_id = '$athlete_id'"));
 		$this->set("athleteStats",$athleteStats);
@@ -262,7 +263,14 @@ class AthleteController extends AppController{
 			$this->set("user_id",0);
 		}
 
+		$this->loadModel('Rating');
 		$athletes = $this->paginate('Athlete');
+		if($athletes){
+			foreach($athletes as $index => $athlete){
+				$athletes[$index]['Athlete']['avg_rating'] = $this->Rating->getAverageRating($athlete['Athlete']['id']);
+			}
+		}
+
 		$this->set("athletes",$athletes);
 	}
 
@@ -277,15 +285,15 @@ class AthleteController extends AppController{
 		$userId = $this->Session->read('user_id');
 
 		$this->loadModel('Rating');
-		
+
 		if(isset($this->request->data['Rating'])){
 			$this->request->data['Rating']['add_date'] = date('Y-m-d H:i:s');
 			$this->request->data['Rating']['athlete_id'] = $athlete_id;
 			$this->request->data['Rating']['hs_aau_coach_id'] = $userId;
-			
+				
 			$this->Rating->create();
 			$this->Rating->save($this->request->data);
-			
+				
 			$this->set("ratingSaved",1);
 		}
 		else{

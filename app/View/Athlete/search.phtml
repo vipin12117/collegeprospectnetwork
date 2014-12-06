@@ -6,239 +6,181 @@
    });
 </script>
 
+<?php echo $this->Html->css("jquery.ui.stars.css?v=3.0.0b38");?>   
+<?php echo $this->Html->script("jquery-ui.custom.min.js?v=1.8");?>
+<?php echo $this->Html->script("jquery.ui.stars.js?v=3.0.0b38");?>
+
+<?php 
+  $options = array();
+  for($i=1;$i<=5;$i++){
+  	  if($i == 1){
+  	  	 $options[$i] = " (Lowest)";
+  	  }	
+  	  elseif($i == 5){
+  	  	 $options[$i] = " (Highest)";
+  	  }
+  	  else{
+  	   	 $options[$i] = $i; 
+  	  }
+  }
+$values = array('leadership','work_ethic','primacy_go_to_guy','mental_toughness','composure','awareness','instincts','vision','conditioning','physical_toughness','tenacity','hustle','strength');  
+?>
+<script type="text/javascript">
+	jQuery(function(){
+		jQuery(".multiField")
+		.stars({
+		    inputType: "select",
+		    cancelValue: 0,
+		    cancelShow: false,
+		    disabled : true
+		});
+	});
+</script>
 <div class="cantener">
   <div class="register-main">
-      <div class="registerPage advancedsearch">
+    <div class="registerPage advancedsearch">
        
       <?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Athlete","action"=>"search")));?>  
-      
-      <h1 style="float:left;margin-bottom:15px;">Athlete Search</h1>
-
-      <div class="form-footnote" style="float:right;color:#777;font-size:13px;margin-left:15px;padding-top:7px;"> * All Search Fields are optional </div>
-
-      <div class="clear"></div>
-
-	  <div class="col-fieldset-left">
-		  <fieldset>
-				<legend>Basic Details</legend>
-				<p class="alt">
-					 <label>Athlete Name:</label>
-					 <span>
-					 	  <?php echo $this->Form->input("firstname",array("div"=>false,"label"=>false,"style"=>"width:80px;margin-right:3px;"));?>
-					 </span>
-				</p>
+	      <h1 style="float:left;margin-bottom:15px;">Athlete Search</h1>
+	
+	      <div class="form-footnote" style="float:right;color:#777;font-size:13px;margin-left:15px;padding-top:7px;"> * All Search Fields are optional </div>
+	
+	      <div class="clear"></div>
+	
+		  <div class="col-fieldset-left">
+			  <fieldset>
+					<legend>Basic Details</legend>
+					<p class="alt">
+						 <label>Athlete Name:</label>
+						 <span>
+						 	  <?php echo $this->Form->input("firstname",array("div"=>false,"label"=>false,"style"=>"width:80px;margin-right:3px;"));?>
+						 </span>
+					</p>
+			  </fieldset>
+		  </div>
+	
+	      <fieldset>
+	          <legend>Athletic Stats</legend>
+	          <div class="formarea">
+	              <div class="col-left">
+	                  <?php include_once ROOT. '/app/View/Athlete/athlete_search_left.phtml'; ?>
+	              </div>
+	              
+	              <div class="col-right">
+	                  <?php include_once ROOT. '/app/View/Athlete/athlete_search_right.phtml'; ?>
+	              </div>
+	
+	              <div class="clear"></div>
+	          </div>
+	     </fieldset>
+	
+	     <fieldset>
+	         <legend>Athletic Points and Intangible Ratings</legend>
+	         <div class="formarea">
+	             <div class="col-left">
+				    <p>
+	                  <label>Points:</label>
+	                  <span>
+	                  	 <?php echo $this->Form->input("total_points",array("div"=>false,"label"=>false,"options"=>$this->Register->getPoints(),"empty"=>"Select One"));?>
+					  </span>
+				   </p>	     
+				 </div>
+				 
+				 <div class="col-right">
+	                <p>
+	                   <label>Ratings:</label>
+	
+	                    <span style="padding-top:3px;">
+	                    	<?php echo $this->Form->input("rating",array("div"=>false,"label"=>false,"options"=>$this->Register->getRatings(),"empty"=>"Select One"));?>
+	                    </span>
+	                </p>
+	             </div>
+		     </div>
 		  </fieldset>
-	  </div>
-
-      <fieldset>
-          <legend>Athletic Stats</legend>
-          <div class="formarea">
-              <div class="col-left">
-                  <?php include_once ROOT. '/app/View/Athlete/athlete_search_left.phtml'; ?>
-              </div>
-              
-              <div class="col-right">
-                  <?php include_once ROOT. '/app/View/Athlete/athlete_search_right.phtml'; ?>
-              </div>
-
-              <div class="clear"></div>
-          </div>
-     </fieldset>
-
-     <fieldset>
-         <legend>Athletic Points and Intangible Ratings</legend>
-         <div class="formarea">
-             <div class="col-left">
-			    <p>
-                  <label>Points:</label>
-                  <span>
-                  	 <?php echo $this->Form->input("total_points",array("div"=>false,"label"=>false,"options"=>$this->Register->getPoints(),"empty"=>"Select One"));?>
-				  </span>
-			   </p>	     
-			 </div>
-			 
-			 <div class="col-right">
-                <p>
-                   <label>Ratings:</label>
-
-                    <span style="padding-top:3px;">
-                    	<?php echo $this->Form->input("rating",array("div"=>false,"label"=>false,"options"=>$this->Register->getRatings(),"empty"=>"Select One"));?>
-                    </span>
-                </p>
-             </div>
-	     </div>
-	  </fieldset>
-	  
-	  <div class="col-fieldset-left">
-         <fieldset>
-             <legend>Academic Stats</legend>
-             
-			 <?php include_once ROOT. '/app/View/Athlete/athlete_search_acadstats.phtml'; ?>
-         </fieldset>
-
-         <fieldset>
-             <legend>Location</legend>
-
-			 <?php include_once ROOT. '/app/View/Athlete/athlete_search_location.phtml'; ?>
-         </fieldset>
-       </div>
-
-       <div class="col-fieldset-right">
-           <fieldset>
-               <legend>Stats Category</legend>
-			   <p id="statsBtn">
-			   	  <label>Stats Category:</label> 
-				  <span>
-				      <?php echo $this->Form->input("athlete_stat_category_id",array("div"=>false,"label"=>false,"options"=>$this->Register->getStatsCategories(),"empty"=>"Select One"));?>
-				  </span>
-			   </p>	     
-           </fieldset>
-       </div>
-       
-       <div class="clear"></div>
-
-       <p style="padding-top:10px;padding-bottom:10px;"> 
-       	  <span>
-                <input type="submit" name="submit" value="Search"/>
-                <input type="button" value="Back" onclick='goBack()'>
-           </span>
-       </p>
-
+		  
+		  <div class="col-fieldset-left">
+	         <fieldset>
+	             <legend>Academic Stats</legend>
+	             
+				 <?php include_once ROOT. '/app/View/Athlete/athlete_search_acadstats.phtml'; ?>
+	         </fieldset>
+	       </div>
+	
+	       <div class="col-fieldset-right">
+	           <fieldset>
+	               <legend>Stats Category</legend>
+				   <p id="statsBtn">
+				   	  <label>Stats Category:</label> 
+					  <span>
+					      <?php echo $this->Form->input("athlete_stat_category_id",array("div"=>false,"label"=>false,"options"=>$this->Register->getStatsCategories(),"empty"=>"Select One"));?>
+					  </span>
+				   </p>	     
+	           </fieldset>
+	           
+	           <fieldset>
+	              <legend>Location</legend>
+	
+				  <?php include_once ROOT. '/app/View/Athlete/athlete_search_location.phtml'; ?>
+	           </fieldset>
+	       </div>
+	       
+	       <div class="clear"></div>
+	
+	       <p style="padding-bottom:10px;"> 
+	       	  <span>
+	                <input type="submit" name="submit" value="Search"/>
+	                <input type="button" value="Back" onclick='goBack()'>
+	           </span>
+	       </p>
 	<?php echo $this->Form->end();?>
 
 	
 	<?php if(count(@$athletes) > 0):?>
-         <ul class="box_list" style="list-style:none;">
-              <?php foreach ($athletes as $athlete): ?>
-              		<li style="width:420px;float:left;">
-						<table cellpadding="5" cellspacing="5" class="table_main">
-			               <tr>
-			                  <td class="table_main_td1">
-			                  	 <table cellpadding="2" cellspacing="2" class="table_main_first">
-			                        <tr>
-			                           <td><center>
-                              				<div class="viewhim_" id="viewhim_<?php echo $athlete['Athlete']['id']; ?>"> 
-                              					<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$athlete['Athlete']['id']));?>" title="<?php   echo html_entity_decode($athlete['Athlete']['firstname']); ?>">
-				                                	<?php echo $this->Html->image("athlete/".$athlete['Athlete']['image'],array("width"=>"88px","height"=>"119px","style"=>"margin:5px 5px 1px 5px;","title"=>$athlete['Athlete']['firstname']));?>
-				                                </a>
-				                               
-				                                <div class="view_" id="view_<?php echo $athlete['Athlete']['id']; ?>">
-	                                  				<?php if(@$_SESSION['subscription_id'] == 2):?>         
-															<a href="javascript:void(0);" onclick="alert(\'Sorry, this feature is disabled in Trial Mode, please purchase a Subscription. \');">Send Message</a>
-	
-													<?php else:?>  
-															<a class="fancybox fancybox.iframe" href="<?php echo $this->Html->url(array("controller"=>"Mail","action"=>"composePopup","type"=>"athlete","receiver"=>$athlete['Athlete']['username']));?>">Send Message</a>                                  
-	
-													<?php endif;?>
-                                				</div>
-
-												<div>
-													<?php echo $this->Html->image("Coins.png/",array("width"=>"20px","height"=>"20px","style"=>"margin:0px 5px 0px 5px;float:left;"));?>
-													<div class="totpoint" style="color:#0066CC;"><?php echo $athlete['Athlete']['total_points']; ?></div>
-												</div>
-                              				</div>
-                            			</center></td>
-			                        </tr>
-		                         </table>
+		<div style="background:#fff;">
+			  <?php if(count(@$athletes) > 0):?>
+		         <table cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" width="100%" class="tablePadd" style="border-collapse: collapse;">
+		         	  <tr>
+		                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Name</strong></td>
+		                  <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>Location</strong></td>
+		                  <td align="center" class="normalblack_12" width="5%">&nbsp;<strong>Height</strong></td>
+		                  <td align="center" class="normalblack_12" width="10%">&nbsp;<strong>Weight</strong></td>
+		                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Sport</strong></td>
+		                  <td align="center" class="normalblack_12" width="12%">&nbsp;<strong>Stars</strong></td>
+		                  <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>School</strong></td>
+		              </tr>
+		                    
+		              <?php foreach ($athletes as $athlete): ?>
+		              	 <tr>
+		                      <td align="center" class="normalblack_12">
+		                      		<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$athlete['Athlete']['id']));?>">
+		                      			<?php echo $athlete['Athlete']['firstname']." ".$athlete['Athlete']['lastname']?>
+		                      		</a>
 		                      </td>
-
-                    		  <td class="table_main_td2"><div class="showbutton_" id="showbutton_<?php echo $athlete['Athlete']['id']; ?>">
-                        		  <table cellpadding="2" border="0" cellspacing="2" class="table_second">
-			                          <tr>
-			                             <td>
-			                             	<div class="td_div">
-                                				<label class="lbl_name">Athlete Name:</label>
-												<label class="lbl_value">
-													<a href="<?php echo $this->Html->url(array("controller"=>"Profile","athleteProfile",$athlete['Athlete']['id']));?>" title="<?php   echo html_entity_decode($athlete['Athlete']['firstname']); ?>">
-				                               			<?php echo $athlete['Athlete']['firstname']." ".$athlete['Athlete']['lastname']?>
-				                               		</a>
-												</label>
-											</div>
-										</td>
-			                          </tr>
-			                          <tr>
-			                             <td>
-			                             	 <div class="td_div">
-				                                <label class="lbl_name">Athlete Team:</label>
-				                                <label class="lbl_value"><?php echo $athlete['HsAauTeam']['school_name']; ?></label>
-				                              </div>
-				                         </td>
-			                          </tr>
-			                          <tr>
-			                             <td>
-			                                <div class="td_div">
-				                                <label class="lbl_name">Sport:</label>
-				                                <label class="lbl_value"><?php echo $athlete['Sport']['name']; ?></label>
-			                                </div>
-			                            </td>
-			                          </tr>
-			                          <tr>
-			                             <td>
-			                             	<div class="td_div">
-				                                <label class="lbl_name">Athlete Height:</label>
-				                                <label class="lbl_value"><?php echo $athlete['Athlete']['height']; ?></label>
-				                           </div>
-				                        </td>
-			                          </tr>
-			                          <tr>
-				                          <td>
-				                          	 <div class="td_div">
-				                                <label class="lbl_name">Primary Position:</label>
-				                                <label class="lbl_value"><?php echo $athlete['Athlete']['primary_position']; ?></label>
-				                             </div>
-				                          </td>
-			                          </tr>
-			                          <tr>
-			                             <td>
-			                             	<div class="td_div">
-				                                <label class="lbl_name">Secondary Position:</label>
-				                                <label class="lbl_value"><?php echo $athlete['Athlete']['secondary_position']; ?></label>
-				                           </div>
-
-                              			   <div id="showbox_<?php echo $athlete['Athlete']['id']; ?>" class="showbox_"> 
-                              			   		<?php echo $this->Html->link("Send Request",array("controller"=>"Network","action"=>"sendRequest",$athlete['Athlete']['id']));?>
-                              			   </div>
-                              			 </td>
-			                         </tr>
-		                        </table>
-                      		</div></td>
-		                </tr>
-                </table>
-	            <script language="javascript" type="text/javascript">
-				    try{
-						$('#viewhim_<?php echo $athlete['Athlete']['id']; ?>').hover(function() {
-							$(this).find("img").animate(
-								{opacity:"0.5"},
-								{duration:300}
-							);
-	
-						    $("#view_<?php echo $athlete['Athlete']['id']; ?>").fadeIn(500);
-						}, function() {
-							 $(this).find("img").animate(
-								{opacity:"1"},
-								{duration:300}
-							 );
-	
-							 $("#view_<?php echo $athlete['Athlete']['id']; ?>").fadeOut(500);
-						 });
-	
-						 $('#showbutton_<?php echo $athlete['Athlete']['id']; ?>').hover(function() {
-								$("#showbox_<?php echo $athlete['Athlete']['id']; ?>").fadeIn(500);
-						  }, function() {
-								$("#showbox_<?php echo $athlete['Athlete']['id']; ?>").fadeOut(500);
-							});
-						}
-						catch(ex){
-							alert(ex.message);
-						}
-				</script>
-			</li>	
-	      <?php endforeach; ?>
-	     </ul>
+		                      <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['city']." , ".$athlete['Athlete']['state'];?></td>
+		                      <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['height'];?></td>
+		                      <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['weight'];?></td>
+		                      <td align="center" class="normalblack_12"><?php echo $athlete['Sport']['name']; ?></td>
+		                      <td align="center" class="normalblack_12">
+		                      		<span class="multiField" id="<?php echo "athlete_".$athlete['Athlete']['id'];?>">
+		                      			<?php echo $this->Form->input("rating",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options));?>
+		                      		</span>	
+		                      		
+		                      		<script type="text/javascript">
+		                      			 jQuery(document).ready(function(){
+										 	jQuery("#<?php echo "athlete_".$athlete['Athlete']['id'];?>").stars("select", <?php echo (int)($athlete['Athlete']['avg_rating']/2);?>);
+		                      			 });
+									</script>
+		                      </td>
+		                      <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['school_name'];?></td>
+		                 </tr>
+			          <?php endforeach; ?>
+			     </table>
+		     <?php endif;?> 	
+	   </div>	
 	     
-	     <div style="clear:both;"></div>
+	   <div style="clear:both;"></div>
 	     
-	     <?php echo $this->Element('pagination');?>
+	   <?php echo $this->Element('pagination');?>
 	     
      <?php endif;?> 	  
    </div>	   

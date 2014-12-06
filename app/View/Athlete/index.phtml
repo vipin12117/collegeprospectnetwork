@@ -30,7 +30,7 @@
 	              <?php foreach ($athletes as $athlete): ?>
 	              	 <tr>
 	                      <td align="center" class="normalblack_12">
-	                      		<a href="<?php echo $this->Html->url(array("controller"=>"Profile","athleteProfile",$athlete['Athlete']['id']));?>" title="<?php echo html_entity_decode($athlete['Athlete']['firstname']); ?>">
+	                      		<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$athlete['Athlete']['id']));?>" title="<?php echo html_entity_decode($athlete['Athlete']['firstname']); ?>">
 					                 <?php echo $this->Html->image("athlete/".$athlete['Athlete']['image'],array("width"=>"60px","title"=>$athlete['Athlete']['firstname']));?>
 					            </a>
 					      </td>

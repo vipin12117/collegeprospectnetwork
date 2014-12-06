@@ -75,8 +75,8 @@ class AppController extends Controller {
 				if((strtotime($collegeSubscription['CollegeSubscription']['next_billdate']) - time()) <= 0){
 					$can_access_website = false;
 					if($this->name != 'Subscribe'){
-						$this->redirect(array("controller"=>"Subscribe","action"=>"index"));
-						exit;
+						//$this->redirect(array("controller"=>"Subscribe","action"=>"index"));
+						//exit;
 					}
 				}
 			}
@@ -91,8 +91,8 @@ class AppController extends Controller {
 				else{
 					$can_access_website = false;
 					if($this->name != 'Subscribe'){
-						$this->redirect(array("controller"=>"Subscribe","action"=>"index"));
-						exit;
+						//$this->redirect(array("controller"=>"Subscribe","action"=>"index"));
+						//exit;
 					}
 				}
 			}
