@@ -165,9 +165,10 @@ class GameController extends AppController{
 			}
 				
 			//find coach details
+			$this->loadModel('HsAauCoach');
 			$hsAauCoach = $this->HsAauCoach->read(array("email"),$profileDetail['Athlete']['approve_hs_aau_coach_id']);
 			if($hsAauCoach){
-				$this->athleteStatEmail($hsAauCoach['HsAauCoach']['email'],$profileDetail['Athlete']['name'],$eventDetail['Event']['event_name']);
+				$this->athleteStatEmail($hsAauCoach['HsAauCoach']['email'],$profileDetail['Athlete']['firstname'],$eventDetail['Event']['event_name']);
 			}
 			
 			$this->set("message","1");

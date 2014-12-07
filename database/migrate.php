@@ -16,7 +16,7 @@ select
   `fldAddDate`, `fldDateLastUpdated`
   from  db142079_cpn.tbl_athelete_register;
   
-update `athletes` a SET status = (select IF(fldStatus = 'Active', 1 , IF(fldStatus = 'DEACTIVE' , 0 , 2)) from db142079_cpn.tbl_athelete_register where fldId = a.id)  
+update `athletes` a SET status = (select IF(fldStatus = 'Active', 1 , IF(fldStatus = 'DEACTIVE' , 0 , 2)) from db142079_cpn.tbl_athelete_register where fldId = a.id);  
   
 truncate table `athlete_stats`;
 INSERT INTO `athlete_stats` 
@@ -26,6 +26,15 @@ INSERT INTO `athlete_stats`
 select 
 `fldId`, `fldPrograme`, `fldAtheleteId`, `fldCategoryId`, `fldValue`, `fldLabelname`, `fldCoachId`, `fldSportid`, `fldGroup`, `fldStatus`, `fldSortOrder`, 
   `fldAddDate`, fldModifiedDate from db142079_cpn.`tbl_athelete_stat`;
+  
+
+truncate table `athlete_videos`;
+INSERT INTO `athlete_videos` 
+(`title`, `video_path`, `video_type`, `athlete_id`, `status`, `added_date`)
+
+select `fldTitle`, `fldVideo`, `fldVideoType`, `fldAthleteId`, `fldStatus`, `fldAddDate`
+ from db142079_cpn.`tbl_athlete_video`;  
+  
   
 truncate table block_messages;
 insert into block_messages (
@@ -84,5 +93,25 @@ select `fldId`, `fldUserName`, `fldPassword`, `fldSchoolname`, `fldCoachname`, `
 from db142079_cpn.`tbl_hs_aau_team`;
 
   
-  
+truncate table events;
+insert into events (`id`, `sport_id`, `event_name`, `event_desc`, `location`, `start_date`, `end_date`, `home_team`, `away_team`, `event_opponent`, 
+`status`, `user_type`, `username`)
+
+select `fldEventId`, `fldSport`, `fldEventName`, `fldEventDescription`, `fldEventLocation`, `fldEventStartDate`, `fldEventEndDate`, `fldHomeTeam`, 
+`fldAwayTeam`,`fldEventOpponent`, `fldEventStatus`, `fld_UserType` , `fldUserName` from db142079_cpn.`tbl_event`;
+
+truncate table networks;
+insert into networks(`sender_id`, `receiver_id`, `sender_type`, `receiver_type`, `status`, 
+`date_added`, `modify_date`)
+
+select `fldSenderid`, `fldReceiverid`, `fldSenderType`,  `fldReceiverType`, `fldStatus`, 
+ `fldSendingDate`, `fldDateModified` from db142079_cpn.`tbl_network`;
+
+
+truncate table mails;
+insert into mails(`sender`, `receiver`, `subject`, `message`, `status`, `sent_date`, 
+`usertype_from`, `usertype_to`)
+
+select `UserFrom`, `UserTo`, `Subject`, `Message`, `status`, `SentDate`, 
+`Usertypefrom` , `Usertypeto` from db142079_cpn.`tbl_mail`;
   

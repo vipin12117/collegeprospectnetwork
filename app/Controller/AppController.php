@@ -77,6 +77,7 @@ class AppController extends Controller {
 					if($this->name != 'Subscribe'){
 						//$this->redirect(array("controller"=>"Subscribe","action"=>"index"));
 						//exit;
+						$is_trial_mode = true;
 					}
 				}
 			}

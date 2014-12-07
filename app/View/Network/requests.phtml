@@ -21,7 +21,8 @@
 				<tbody>
 				<?php foreach ($receivedRequests as $receivedRequest):?>
 					<tr>
-						<?php if ($receivedRequest['Network']['sender_type'] == 'athlete') {	
+						<?php $action = '';
+							  if ($receivedRequest['Network']['sender_type'] == 'athlete') {	
 								  $action = 'athleteProfile';
 							  } elseif ($receivedRequest['Network']['sender_type'] == 'coach'){
 							  	  $action = 'hsAauCoachProfile';							  	  							  

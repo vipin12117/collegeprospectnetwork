@@ -1,0 +1,63 @@
+<script type="text/javascript" src="<?php echo Router::fullBaseUrl().$this->base;?>/fancybox/jquery.fancybox.js"></script>
+<link type="text/css" rel="stylesheet" href="<?php echo Router::fullBaseUrl().$this->base;?>/fancybox/jquery.fancybox.css" />
+<script type="text/javascript">
+   jQuery(document).ready(function() {
+	   jQuery(".fancybox").fancybox({fitToView:true,width:'500px',height:'100%',autoSize:true});
+   });
+</script>
+
+<div class="cantener">
+  <div class="register-main">
+  	  <h1>Athlete Stats Approval</h1>
+  	  	
+      <div class="registerPage">
+		  <?php if(count(@$athleteStats) > 0):?>
+	         <table cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" width="100%" class="tablePadd" style="border-collapse: collapse;">
+	         	  <tr>
+	                  <td align="center" class="normalblack_12" width="10%">&nbsp;<strong>Athlete Image</strong></td>
+	                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Athlete Name</strong></td>
+	                  <td align="center" class="normalblack_12" width="30%">&nbsp;<strong>Event Name</strong></td>
+	                  <td class="normalblack_12" width="10%" align="center"><strong>View Profile</strong></td>
+	                  <td class="normalblack_12" width="15%" align="center"><strong>Review Game Stats</strong></td>
+	              </tr>
+	                    
+	              <?php foreach ($athleteStats as $athleteStat): ?>
+	              	 <tr>
+	                      <td align="center" class="normalblack_12">
+	                      		<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$athleteStat['Athlete']['id']));?>" title="<?php echo html_entity_decode($athleteStat['Athlete']['firstname']); ?>">
+					                 <?php echo $this->Html->image("athlete/".$athleteStat['Athlete']['image'],array("width"=>"50px","title"=>$athleteStat['Athlete']['firstname']));?>
+					            </a>
+					      </td>
+	                      <td align="center" class="normalblack_12"><?php echo $athleteStat['Athlete']['firstname']." ".$athleteStat['Athlete']['lastname']?></td>
+	                      
+	                      <td align="center" class="normalblack_12"><?php echo $athleteStat['Event']['event_name']; ?></td>
+	                      
+	                      <td class="normalblack_12" align="center">
+	                      	 <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$athleteStat['Athlete']['id']));?>" title="<?php echo html_entity_decode($athleteStat['Athlete']['firstname']); ?>">
+	                      		<?php echo $this->Html->image("view.gif");?>
+	                      	 </a>
+	                      </td>
+	                      
+	                      <td align="center" class="normalblack_12" style="text-align:center;line-height:20px;">
+	                      	  <?php echo $this->Html->link("Review Game Stats",array("controller"=>"Athlete","action"=>"approveStat",$athleteStat['Athlete']['id'],$athleteStat['AthleteStat']['event_id']));?>
+	                      	  <br />
+	                      	  (confirm or reject)
+	                      </td>
+	                 </tr>
+		          <?php endforeach; ?>
+		     </table>
+		     
+		     <?php echo $this->Element('pagination');?>
+		     
+	   <?php else:?>
+	   
+	   		<p class="thankyoumessage">You currently have no Athletes Stats awaiting approval. Thank you for checking.</p>
+	   		     
+	   <?php endif;?> 	
+    </div>	   
+    
+    <br /><br />
+    <h3><a href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"events"));?>">Click Here</a> view recent events</h3>
+       
+  </div>
+</div>    		     

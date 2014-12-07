@@ -210,12 +210,10 @@ class NetworkController extends AppController{
 
 			$sentRequests = $tmpSentRequests;
 			$this->set(compact('sentRequests', 'receivedRequests'));
-
 		}
 		else {
 			$this->redirect(array('controller' => 'Home', 'action' => 'login'));
 		}
-
 	}
 
 	public function sendRequest($id=false,$type='athlete'){

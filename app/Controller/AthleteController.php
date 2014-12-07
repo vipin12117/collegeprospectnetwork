@@ -167,8 +167,95 @@ class AthleteController extends AppController{
 		}
 
 		$this->loadModel('AthleteStat');
-		$athleteStats = $this->AthleteStat->find("all",array("conditions"=>"AthleteStat.athlete_id = '$athlete_id'"));
+		$athleteStats = $this->AthleteStat->find("all",array("conditions"=>"AthleteStat.athlete_id = '$athlete_id' AND AthleteStat.event_id > 0",
+															 "group"=>"AthleteStat.event_id",
+															 "fields"=>"Event.event_name,AthleteStat.athlete_id,AthleteStat.event_id"));
+		foreach($athleteStats as $index => $athleteStat){
+			$athleteStats[$index]['stats'] = $this->AthleteStat->getStatsInfo($athleteStat['AthleteStat']['athlete_id'] , $athleteStat['AthleteStat']['event_id']);
+		}
 		$this->set("athleteStats",$athleteStats);
+	}
+
+	public function statsList(){
+		$this->set("title_for_layout","Athlete Stats Approval");
+
+		$userId = $this->Session->read('user_id');
+		$this->loadModel('AthleteStat');
+
+		$this->AthleteStat->unbindModelAll();
+		$this->AthleteStat->bindModel(array("belongsTo"=>array("Athlete","Event")));
+
+		$this->paginate = array("AthleteStat"=>array("conditions"=>"AthleteStat.hs_aau_coach_id = '$userId' and AthleteStat.status = 0 and Event.id > 0",
+													 "order"=>"label_name ASC","group"=>"AthleteStat.event_id","limit"=>10,
+													 "fields" => "AthleteStat.*,Event.event_name,Athlete.firstname,Athlete.lastname,Athlete.image,Athlete.id"));
+		$athleteStats = $this->paginate('AthleteStat');
+		$this->set("athleteStats",$athleteStats);
+	}
+
+	public function approveStat($athlete_id = false , $event_id = false){
+		$athlete_id = (int)$athlete_id;
+		$event_id = (int)$event_id;
+		if(!$athlete_id || !$event_id){
+			$this->redirect(array("controller"=>"Athlete","action"=>"statsList"));
+			exit;
+		}
+
+		$this->set("athlete_id",$athlete_id);
+		$this->set("event_id",$event_id);
+
+		$userId = $this->Session->read('user_id');
+		$this->loadModel('AthleteStat');
+
+		if(isset($this->request->data['AthleteStat'])){
+			$status = $this->request->data['AthleteStat']['status'];
+			foreach($this->request->data['AthleteStat'] as $AthleteStat){
+				$AthleteStat['status'] = $status;
+				$this->AthleteStat->save(array("AthleteStat"=>$AthleteStat));
+			}
+
+			if($status == 1){
+				$this->Session->setFlash("You have successfully Confirmed these Game Stats");
+			}
+			else{
+				$this->Session->setFlash("You have Rejected these Game Stats, you may review / modify them at anytime.");
+			}
+			
+			$this->redirect(array("controller"=>"Athlete","action"=>"statsList"));
+			exit;
+		}
+		else{
+			$athleteStats = $this->AthleteStat->find("all",array("conditions"=>"AthleteStat.status = 0 and AthleteStat.event_id = '$event_id' AND AthleteStat.athlete_id = '$athlete_id'"));
+			$this->set("athleteStats",$athleteStats);
+		}
+	}
+
+	public function events(){
+		$this->set("title_for_layout","Athlete Stats Events");
+
+		$userId = $this->Session->read('user_id');
+		$this->loadModel('AthleteStat');
+
+		$this->AthleteStat->unbindModelAll();
+		$this->AthleteStat->bindModel(array("belongsTo"=>array("Athlete","Event")));
+
+		$this->loadModel('HsAauCoachSportposition');
+		$sports = $this->HsAauCoachSportposition->getSportsByCoachId($userId);
+		$sport_str = implode(",",$sports);
+
+		//recent events
+		if($sport_str){
+			$this->paginate = array("AthleteStat"=>array("conditions"=>"AthleteStat.hs_aau_coach_id != '$userId' and AthleteStat.sport_id in ($sport_str) and AthleteStat.status = 1 and Event.id > 0",
+													 "order"=>"label_name ASC","group"=>"AthleteStat.event_id","limit"=>10,
+													 "fields" => "AthleteStat.*,Event.event_name,Athlete.firstname,Athlete.lastname,Athlete.image,Athlete.id"));
+		}
+		else{
+			$this->paginate = array("AthleteStat"=>array("conditions"=>"AthleteStat.hs_aau_coach_id != '$userId' and AthleteStat.status = 1 and Event.id > 0",
+													 "order"=>"label_name ASC","group"=>"AthleteStat.event_id","limit"=>10,
+													 "fields" => "AthleteStat.*,Event.event_name,Athlete.firstname,Athlete.lastname,Athlete.image,Athlete.id"));	
+		}
+
+		$events = $this->paginate('AthleteStat');
+		$this->set("events",$events);
 	}
 
 	public function invite(){
@@ -290,10 +377,10 @@ class AthleteController extends AppController{
 			$this->request->data['Rating']['add_date'] = date('Y-m-d H:i:s');
 			$this->request->data['Rating']['athlete_id'] = $athlete_id;
 			$this->request->data['Rating']['hs_aau_coach_id'] = $userId;
-				
+
 			$this->Rating->create();
 			$this->Rating->save($this->request->data);
-				
+
 			$this->set("ratingSaved",1);
 		}
 		else{

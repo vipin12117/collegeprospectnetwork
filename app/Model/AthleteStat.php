@@ -17,4 +17,11 @@ class AthleteStat extends AppModel{
 		$row = $this->find("all",array("conditions"=>"AthleteStat.athlete_id = '$athlete_id'","group"=>"label_name","fields"=>"label_name,SUM(value) as value,count(athlete_stat_category_id) as count, `code` as initial"));
 		return $row;
 	}
+
+	public function getStatsInfo($athlete_id , $event_id){
+		$this->unbindModelAll();
+		$rows = $this->find("all",array("conditions"=>"AthleteStat.athlete_id = '$athlete_id' AND AthleteStat.event_id = '$event_id'",
+										"order"=>"sort_order ASC","fields"=>"label_name,value"));
+		return $rows;
+	}
 }

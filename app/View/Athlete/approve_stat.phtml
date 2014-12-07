@@ -1,0 +1,43 @@
+<div class="cantener">
+  <div class="register-main">
+	<h1 style="margin-bottom:5px;">Review Athlete's Game Stats</h1>
+	
+	<h3 style="margin-bottom:16px;color:#333;font-size:13px;">Please review these Game Stats carefully & make your changes, then Confirm or Reject these game stats.</h3>
+	
+	<div class="registerPage smaller">
+	  	<?php echo $this->Form->create("AthleteStat",array("url"=>array("controller"=>"Athlete","action"=>"approveStat",$athlete_id,$event_id)));?>
+	  	
+	  	<?php foreach($athleteStats as $i => $athleteStat):?>
+		  	<p>
+				<label><?php  echo $athleteStat['AthleteStat']['label_name'];?>:</label>
+				<span>
+					<?php echo $this->Form->input("id",array("type"=>"hidden","name"=>"data[AthleteStat][$i][id]","value"=>$athleteStat['AthleteStat']['id']))?>
+					<?php echo $this->Form->input("event_id",array("type"=>"hidden","name"=>"data[AthleteStat][$i][event_id]","value"=>$athleteStat['AthleteStat']['event_id']))?>
+					<?php echo $this->Form->input("athlete_id",array("type"=>"hidden","name"=>"data[AthleteStat][$i][athlete_id]","value"=>$athleteStat['AthleteStat']['athlete_id']))?>
+					
+					<?php echo $this->Form->input("value",array("type"=>"text","div"=>false,"label"=>false,"name"=>"data[AthleteStat][$i][value]","value"=>$athleteStat['AthleteStat']['value']))?>
+				</span>
+			</p>
+		   
+  		<?php endforeach;?>
+  		
+  		<p>
+		   <label>Action: </label>
+		   
+		   <span>
+		  	  <?php echo $this->Form->input("status",array("type"=>"select","div"=>false,"label"=>false,"options"=>array("1"=>"Confirm (approve these stats)","0"=>"Reject (you may approve these later)")))?>
+		   </span>
+		   <font color="#0000ff">*</font>
+	   </p>
+	   
+	   <p style="padding-top:20px;">
+		   <label>&nbsp;</label>
+		   <span>
+		   		<?php echo $this->Form->submit("Submit",array("div"=>false))?>
+		   </span>
+	   </p>	   
+	  	
+	  <?php echo $this->Form->end();?>
+   </div>
+  </div>
+</div>

@@ -5,13 +5,13 @@
 		  
 		  <?php if($athleteStats):?>
 				  <?php foreach($athleteStats as $athleteStat):?>
-				  
-				  		<h2><?php echo $athleteStat['Event']['event_name'];?></h2>
+				  		<h4><?php echo $athleteStat['Event']['event_name'];?></h4>
 				  		
-				  		<p><?php echo $athleteStat['AthleteStat']['label_name']. " : ". $athleteStat['AthleteStat']['value'];?></p>
+				  		<?php foreach($athleteStat['stats'] as $stats):?>
+				  			<p><b><?php echo $stats['AthleteStat']['label_name']. " :</b> ". $stats['AthleteStat']['value'];?></p>
+				  		<?php endforeach;?>
 				  		
 				  		<br /><br />
-				  
 				  <?php endforeach;?>
 		 <?php else:?>
 		 

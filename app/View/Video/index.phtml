@@ -71,7 +71,7 @@
                                      </div>
                                      
                                       <div class="actions" style="text-align:left;">
-                                     	  <a href="<?php echo $this->Html->url(array("controller"=>"Video","action"=>"deleteTape",$AthleteVideo['AthleteVideo']['id']));?>" class="deletelink">
+                                     	  <a onclick="if(!confirm('Are you sure?')){ return false; }" href="<?php echo $this->Html->url(array("controller"=>"Video","action"=>"deleteTape",$AthleteVideo['AthleteVideo']['id']));?>" class="deletelink">
                                          	<?php echo $this->Html->image('b_drop.png',array("border"=>"0","title"=>"Delete Video"));?>
                                          	Delete this Video
                                          </a>

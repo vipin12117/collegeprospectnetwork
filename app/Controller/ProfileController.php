@@ -49,9 +49,12 @@ class ProfileController extends AppController{
 			else{
 				$athleteApproval = 0;
 			}
-
+			
+			$athleteStat = $this->AthleteStat->find("first",array("conditions"=>"AthleteStat.hs_aau_coach_id = '$user_id' AND AthleteStat.status = 0 and event_id > 0",
+																		  "group"=>"event_id","fields"=> "event_id"));
+			$athleteStatApproval = count($athleteStat);
 			$this->set("athleteApproval",$athleteApproval);
-			$this->set("athleteStatApproval",0);
+			$this->set("athleteStatApproval",$athleteStatApproval);
 		}
 
 		$this->render("/Profile/index");
