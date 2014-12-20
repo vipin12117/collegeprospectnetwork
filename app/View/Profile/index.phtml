@@ -114,6 +114,17 @@
 	    <h1 class="margin5">My Account</h1>
 
 	    <div class="registerPage" style="position:relative;">
+	    	<div class="event_scouting">
+	    		<h2>Event Scouting Report</h2>
+	    		
+	    		<?php if($profileDetail['CollegeCoach']['scouting_report']):?>
+					<a href="<?php echo Router::fullBaseUrl().$this->base."/".$profileDetail['CollegeCoach']['scouting_report'];?>">Download</a>
+				
+	    		<?php else:?>
+					<p>No report uploaded yet</p>
+				<?php endif;?>
+	    	</div>
+	    	
 		    <div class="subscriptionbox">
 			    <h2>Your Subscription</h2>
 					   

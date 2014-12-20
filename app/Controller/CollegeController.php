@@ -9,12 +9,12 @@ class CollegeController extends AppController{
 	public function beforeFilter(){
 		parent::beforeFilter();
 		if (isset($this->params['prefix']) && $this->params['prefix'] == 'admin') ////for admin section template
-        {
-        	if ($this->checkAdminSession()){
-            	$this->layout = 'admin';
-        	} else {
-        		$this->redirect(array('controller'=>'admins','action'=>'login'));
-        	}
+		{
+			if ($this->checkAdminSession()){
+				$this->layout = 'admin';
+			} else {
+				$this->redirect(array('controller'=>'admins','action'=>'login'));
+			}
 		} else {
 			$this->checkSession();
 		}
@@ -84,9 +84,9 @@ class CollegeController extends AppController{
 		$collegeCoaches = $this->paginate('CollegeCoach');
 		$this->set("collegeCoaches",$collegeCoaches);
 	}
-	
+
 	public function admin_addCollege(){
-		if ($this->request->is('post')){			
+		if ($this->request->is('post')){
 			// Check exits.
 			$college = $this->College->findByName($this->request->data['name']);
 			if (!empty($college)){
@@ -100,7 +100,7 @@ class CollegeController extends AppController{
 				$colleges['College']['zip'] = $this->request->data['zip'];
 				$colleges['College']['divison'] = $this->request->data['divison'];
 				$colleges['College']['status'] = $this->request->data['status'];
-				
+
 				if ($this->College->save($colleges)){
 					$this->Session->setFlash('College is Added Successfully', 'flash_success');
 					$this->redirect(array('controller' => 'College', 'action' => 'listCollege'));
@@ -108,34 +108,34 @@ class CollegeController extends AppController{
 					$this->Session->setFlash('Can not add this College', 'flash_error');
 				}
 			}
-		} 
+		}
 	}
-	
+
 	public function admin_listOther(){
 		if ($this->request->is('post')){
 			$searchName =  $this->request->data['searchname'];
-			
+				
 			if (!empty($searchName)){
-				$conditions = array('Other.name LIKE ' => '%'.$searchName.'%');				
+				$conditions = array('Other.name LIKE ' => '%'.$searchName.'%');
 			} else {
 				$conditions = array();
 			}
 			$limit = 100;
 			$this->loadModel('Other');
-			
+				
 			$this->paginate = array('Other'=>array('conditions' => $conditions,
 												   'limit' => $limit));
-			
+				
 			$others = $this->paginate('Other');
 			$this->set(compact('others', 'limit'));
 		} else {
 			$limit = 100;
-			$this->loadModel('Other');			
+			$this->loadModel('Other');
 			$others = $this->paginate('Other');
 			$this->set(compact('others', 'limit'));
 		}
 	}
-	
+
 	public function admin_updateOther($id){
 		if (isset($id)){
 			if ($this->request->is('post')){
@@ -143,10 +143,10 @@ class CollegeController extends AppController{
 				$this->Other->id = $id;
 				if($this->Other->saveField('status', $this->request->data['status'])){
 					$this->Session->setFlash('Other Updated Successfully!', 'flash_success');
-					$this->redirect(array('controller' => 'College', 'action' => 'listOther'));				
+					$this->redirect(array('controller' => 'College', 'action' => 'listOther'));
 				} else {
 					$this->Session->setFlash('Can not update this Other', 'flash_error');
-				}		
+				}
 			} else {
 				$this->loadModel('Other');
 				$other = $this->Other->findById($id);
@@ -154,23 +154,23 @@ class CollegeController extends AppController{
 			}
 		} else {
 			$this->Session->setFlash('Do not exits this Other', 'flash_error');
-		}		
+		}
 	}
-	
+
 	public function admin_deleteOther($id){
 		if (isset($id)){
 			$this->loadModel('Other');
 			if($this->Other->delete($id)){
-				$this->Session->setFlash('Other Deleted Successfully!', 'flash_success');				
+				$this->Session->setFlash('Other Deleted Successfully!', 'flash_success');
 			} else {
 				$this->Session->setFlash('Can not delete this Other', 'flash_error');
 			}
 		} else {
 			$this->Session->setFlash('Do not exits this Other', 'flash_error');
-		}	
+		}
 		$this->redirect($this->referer());
 	}
-	
+
 	public function admin_otherNameDetails($id){
 		if (isset($id)){
 			$this->loadModel('Other');
@@ -178,18 +178,18 @@ class CollegeController extends AppController{
 			$this->set('other', $other);
 		} else {
 			$this->Session->setFlash('Do not exits this Other', 'flash_error');
-		}	
-		
+		}
+
 	}
-	
+
 	public function admin_listCollege(){
 		if ($this->request->is('post')){
 			$searchName =  $this->request->data['searchname'];
-			
-			if (!empty($searchName)){							
-				$conditions = array('College.name LIKE ' => '%'.$searchName.'%', 
+				
+			if (!empty($searchName)){
+				$conditions = array('College.name LIKE ' => '%'.$searchName.'%',
 									'College.status' => '1');				
-			} else {				
+			} else {
 				$conditions = array('College.status' => '1');
 			}
 			$limit = 100;
@@ -197,7 +197,7 @@ class CollegeController extends AppController{
 													 'limit' => $limit));
 			$colleges = $this->paginate('College');
 			$this->set(compact('colleges', 'limit'));
-			
+				
 		} else {
 			$limit = 100;
 			$conditions = array('College.status' => '1');
@@ -205,9 +205,9 @@ class CollegeController extends AppController{
 													 'limit' => $limit));
 			$colleges = $this->paginate('College');
 			$this->set(compact('colleges', 'limit'));
-		}		
+		}
 	}
-	
+
 	public function admin_editCollege($id){
 		if (isset($id)){
 			if ($this->request->is('post')){
@@ -219,10 +219,10 @@ class CollegeController extends AppController{
 				$colleges['College']['zip'] 		= $this->request->data['zip'];
 				$colleges['College']['divison'] 	= $this->request->data['divison'];
 				$colleges['College']['status'] 		= $this->request->data['status'];
-				
+
 				$this->College->id = $id;
 				if ($this->College->save($colleges)){
-					$this->Session->setFlash('College Updated Successfully!', 'flash_success');	
+					$this->Session->setFlash('College Updated Successfully!', 'flash_success');
 					$this->redirect(array('controller' => 'College', 'action' => 'listCollege'));
 				} else {
 					$this->Session->setFlash('Can not update this College', 'flash_error');
@@ -233,31 +233,31 @@ class CollegeController extends AppController{
 			}
 		} else {
 			$this->Session->setFlash('Do not exits this College', 'flash_error');
-		}			
+		}
 	}
-	
+
 	public function admin_deleteCollege($id){
 		if (isset($id)){
 			if($this->College->delete($id)){
-				$this->Session->setFlash('College Deleted Successfully!', 'flash_success');					
+				$this->Session->setFlash('College Deleted Successfully!', 'flash_success');
 			} else {
 				$this->Session->setFlash('Can not delete this College', 'flash_error');
 			}
 		} else {
 			$this->Session->setFlash('Do not exits this College', 'flash_error');
-		}	
+		}
 		$this->redirect($this->referer());
-	}	
-	
+	}
+
 	public function admin_collegeNameDetails($id){
 		if (isset($id)){
 			$colNameDet = $this->College->findById($id);
 			$this->set('colNameDet', $colNameDet);
 		} else {
 			$this->Session->setFlash('Do not exits this College', 'flash_error');
-		}	
+		}
 	}
-	
+
 	/**
 	 * Delete selected College.
 	 */
@@ -268,20 +268,20 @@ class CollegeController extends AppController{
 					$this->Session->setFlash('College Deleted Successfully!', 'flash_success');
 				} else {
 					$this->Session->setFlash('Delete error.', 'flash_error');
-				}								
+				}
 			}
 		}
 		$this->redirect($this->referer());
 	}
-	
+
 	public function admin_listCoach() {
 		$this->loadModel('CollegeCoach');
 		if ($this->request->is('post')){
 			$searchName =  $this->request->data['searchname'];
-			
-			if (!empty($searchName)){							
-				$conditions = array('CollegeCoach.name LIKE ' => '%'.$searchName.'%');				
-			} else {				
+				
+			if (!empty($searchName)){
+				$conditions = array('CollegeCoach.name LIKE ' => '%'.$searchName.'%');
+			} else {
 				$conditions = array();
 			}
 			$limit = 100;
@@ -289,7 +289,7 @@ class CollegeController extends AppController{
 													 'limit' => $limit));
 			$colCoachs = $this->paginate('CollegeCoach');
 			$this->set(compact('colCoachs', 'limit'));
-			
+				
 		} else {
 			$limit = 100;
 			$conditions = array();
@@ -299,80 +299,96 @@ class CollegeController extends AppController{
 			$this->set(compact('colCoachs', 'limit'));
 		}
 	}
-	
+
 	public function admin_editCollegeCoach($id) {
 		if (isset($id)){
 			$this->loadModel('CollegeCoach');
 			if ($this->request->is('post')){
-				// Save post data.				
+				// Save post data.
 				$this->CollegeCoach->id = $id;
+				
+				$scouting_report = $this->request->data['scouting_report'];
+				if($scouting_report['tmp_name']){
+					// get extension
+					$exploded = explode('.', $scouting_report['name']);
+					$extension = end($exploded);
+
+					$path = 'files/' .md5(microtime()) . '.' . $extension;
+					if(move_uploaded_file($scouting_report['tmp_name'],WWW_ROOT.$path)){
+						$this->request->data['scouting_report'] = $path;
+					}
+				}
+				else{
+					unset($this->request->data['scouting_report']);
+				}
+
 				if ($this->CollegeCoach->save($this->request->data)){
-					$this->Session->setFlash('College Coach Updated Successfully!', 'flash_success');	
+					$this->Session->setFlash('College Coach Updated Successfully!', 'flash_success');
 					$this->redirect(array('controller' => 'College', 'action' => 'listCoach'));
 				} else {
 					$this->Session->setFlash('Can not update this College Coach', 'flash_error');
 				}
 			} else {
 				$collCoach = $this->CollegeCoach->findById($id);
-															
+					
 				// Get College.
 				$colleges = $this->College->find('all', array('conditions' => array('College.status' => '1'),
 															  'fields' => array('College.id', 'College.name'),
 															  'order' => array('College.id')));
-				$collegeList = array();													  
+				$collegeList = array();
 				foreach ($colleges as $college){
 					$collegeList[$college['College']['id']] = $college['College']['name'];
 				}
-				
+
 				// Get sport list.
 				$this->loadModel('Sport');
-				$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'), 
+				$sports = $this->Sport->find('all', array('fields' => array('Sport.id', 'Sport.name'),
 															 'order' => array('Sport.id')));						
 				$sportList = array();
 				foreach ($sports as $sport){
 					$sportList[$sport['Sport']['name']] = $sport['Sport']['name'];
 				}
-				
+
 				$this->set(compact('collCoach', 'collegeList', 'sportList'));
 			}
 		} else {
 			$this->Session->setFlash('Do not exits this College', 'flash_error');
-		}	
+		}
 	}
-	
+
 	public function admin_collegeAddressInfo($college_id){
 		if ($college_id != 'other'){
 			$collegeAddressInfo = $this->College->find('first', array('conditions' => array('College.status' => '1', 'College.id' => $college_id),
 																	  'fields' => array('College.id', 'College.name', 'College.address_1', 'College.city', 'College.state', 'College.zip'),
 																	  'order' => array('College.id') 	
-																	  ));
+			));
 		} else {
 			$otherInfo = $this->Other->find('first', array('conditions' => array('Other.user_id' => $college_id),
 														   'fields' => array('Other.id', 'Other.name'),
 			                                               'order' => array('Other.id')
-														   ));
+			));
 			$collegeAddressInfo = $this->College->find('first', array('conditions' => array('College.name' => $otherInfo['Other']['name']),
 																	  'fields' => array('College.id', 'College.name', 'College.address_1', 'College.city', 'College.state', 'College.zip'),
 			                                                          'order' => array('College.id')
-																	  ));
+			));
 		}
 		echo json_encode($collegeAddressInfo);
-		exit();		
+		exit();
 	}
-	
+
 	public function admin_deleteCollegeCoach($id) {
 		if (isset($id)){
 			if($this->CollegeCoach->delete($id)){
-				$this->Session->setFlash('College Coach Deleted Successfully!', 'flash_success');					
+				$this->Session->setFlash('College Coach Deleted Successfully!', 'flash_success');
 			} else {
 				$this->Session->setFlash('Can not delete this College Coach', 'flash_error');
 			}
 		} else {
 			$this->Session->setFlash('Do not exits this College Coach', 'flash_error');
-		}	
+		}
 		$this->redirect($this->referer());
 	}
-	
+
 	public function admin_collegeCoachDetails($id){
 		if (isset($id)){
 			$this->loadModel('CollegeCoach');
@@ -380,10 +396,10 @@ class CollegeController extends AppController{
 			$this->set('collegeCoach', $collegeCoach);
 		} else {
 			$this->Session->setFlash('Do not exits this College Coach', 'flash_error');
-		}	
-		
+		}
+
 	}
-	
+
 	/**
 	 * Delete selected College Coach.
 	 */
@@ -394,10 +410,10 @@ class CollegeController extends AppController{
 					$this->Session->setFlash('College Coach Deleted Successfully!', 'flash_success');
 				} else {
 					$this->Session->setFlash('Delete error.', 'flash_error');
-				}								
+				}
 			}
 		}
 		$this->redirect($this->referer());
 	}
-		
+
 }
