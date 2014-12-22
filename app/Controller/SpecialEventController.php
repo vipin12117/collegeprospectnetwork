@@ -166,4 +166,62 @@ class SpecialEventController extends AppController{
 		}
 	} 
 	
+	public function admin_specialEventReport(){
+		$this->loadModel('SpecialEventUser');
+		$this->loadModel('SpecialEvent');
+		
+        $specialEventReports = $this->SpecialEventUser->specialEventReport();
+        $this->set(compact('specialEventReports'));        			
+	}
+	
+	public function admin_specialReportExport() {
+		$specialEventReports = $this->SpecialEventUser->specialEventReport();		
+		$content = "No.,Special Event,First Name,Last Name,Email,Address,City,State,Phone,Referred By,Event Location,Start Date,Price,PaymentStatus,Register Date \n";		
+		$c=0;
+		
+		if (count($specialEventReports)>0)
+		{
+			foreach ($specialEventReports as $report)
+			{
+				$c++;
+				$no = $c.",";	
+				$fldEventName=	str_replace(","," ",$report['se']['event_name']).",";			
+				$fldFirstName = str_replace(","," ",$report['sr']['firstname']).",";
+				$fldLastName = str_replace(","," ",$report['sr']['lastname']).",";	
+				$fldEmail = str_replace(","," ",$report['sr']['email']).",";	
+				$fldAddress = str_replace(","," ",$report['sr']['address_1']).",";	
+				$fldCity = str_replace(","," ",$report['sr']['city']).",";	
+				$fldState = str_replace(","," ",$report['sr']['state']).",";	
+				$fldPhone = str_replace(","," ",$report['sr']['phone']).",";	
+				$fldReferredBy = str_replace(","," ",$report['sr']['referred_by']).",";
+				$fldEventLocation = str_replace(","," ",$report['se']['location']).",";	
+				$fldEventStartDate = str_replace(","," ",$report['se']['start_date']).",";	
+				$fldprice = str_replace(","," ",$report['sr']['price']).",";				
+				$fldpaymentstatus = str_replace(","," ",$report['sr']['payment_status']).",";	
+				$fldAddDate = str_replace(","," ",date("m-d-Y", strtotime($report['sr']['added_date'])))."\n";					
+				$content = $content.$no.$fldEventName.$fldFirstName.$fldLastName.$fldEmail.$fldAddress.$fldCity.$fldState.$fldPhone.$fldReferredBy.$fldEventLocation.$fldEventStartDate.$fldprice.$fldpaymentstatus.$fldAddDate;		
+			}
+		}
+		else
+		{
+			$content = "No Data Found !";
+		}
+		$tmp_file = "Exported_Special_Event_".date('m_d_Y').".csv";
+		header("Content-Disposition: attachment; filename=$tmp_file");
+		echo $content;
+		exit();
+	}
+	
+	public function admin_specialEventUserDetails($id) {
+		if (isset($id)){
+			$this->loadModel('SpecialEventUser');
+			$this->loadModel('SpecialEvent');
+			$specialEventUser = $this->SpecialEventUser->findById($id);
+			$specialEvent = $this->SpecialEvent->findById($specialEventUser['SpecialEventUser']['special_event_id']);						
+			$this->set(compact('specialEventUser', 'specialEvent'));
+		} else {
+			$this->Session->setFlash('Do not exits this Special Event User', 'flash_error');
+		}
+	}
+	
 }
