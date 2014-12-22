@@ -1,0 +1,176 @@
+<table width="130%" cellpadding="3" cellspacing="5">
+
+	<tr>
+
+		<td width="130%" align="center">
+
+		<table width="100%" cellpadding="0" cellspacing="3">
+
+			<tr>
+
+				<td width="130%" class="SearchHead"><b>Special Event Details Report</b></td>
+
+			</tr>
+
+			<tr>
+
+				<td width="130%" class="GeneralFont">&nbsp;</td>
+
+			</tr>
+
+			<tr>
+
+				<td width="130%">
+
+				<table width="130%" cellspacing="0" cellpadding="2">
+
+					<tr>
+
+						<td width="130%" valign="top">
+
+						<table width="130%" cellspacing="0" cellpadding="3">
+
+							<tr>
+								<td colspan="16"><input type="button" name="export"
+									value="Export"
+									onClick="window.location.href='specialReportExport'"
+									style="float: left;"></td>
+							</tr>
+
+							<tr>
+
+								<td class="normalblack_12" valign="top" height="25" width="3%"><b>No</b>
+								</td>
+
+								<td class="normalblack_12" valign="top" height="25" width="9%"><b>Special
+								Event Name</b></td>
+
+								<td class="normalblack_12" valign="top" height="25" width="5%"><b>First
+								Name</b></td>
+
+								<td class="normalblack_12" valign="top" height="25" width="5%"><b>Last
+								Name</b></td>
+
+								<td class="normalblack_12" valign="top" height="25" width="6%"><b>Email
+								Address(for Receipt)</b></td>
+
+								<td class="normalblack_12" valign="top" height="25" width="7%"><b>Address</b>
+								</td>
+
+								<td class="normalblack_12" valign="top" height="25" width="4%"><b>City</b>
+								</td>
+
+								<td class="normalblack_12" valign="top" height="25" width="4%"><b>State</b>
+								</td>
+
+								<td class="normalblack_12" valign="top" height="25" width="3%"><b>Zip
+								Code</b></td>
+
+								<td class="normalblack_12" valign="top" height="25" width="4%"><b>Phone
+								Number</b></td>
+
+								<td class="normalblack_12" valign="top" height="25" width="9%"><b>Referred
+								by</b></td>
+
+								<td class="normalblack_12" valign="top" height="25" width="5%"><b>Location</b>
+								</td>
+
+								<td class="normalblack_12" valign="top" height="25" width="5%"><b>Start
+								Date</b></td>
+
+								<?php /*?><td class="normalblack_12" valign="top" height="25" width="5%"><b>End Date</b> </td><?php */?>
+
+								<td class="normalblack_12" valign="top" height="25" width="4%"><b>Price</b>
+								</td>
+
+								<td class="normalblack_12" valign="top" height="25" width="5%"><b>Payment
+								Status</b></td>
+
+								<td class="normalblack_12" valign="top" height="25" width="5%"><b>Register
+								Date</b></td>
+
+							</tr>
+							
+							<?php 
+								$c=0;	
+								foreach ($specialEventReports as $report):
+									$c++;?>
+							<tr>
+
+								<td class="normalblack_12" valign="top"><?php echo $c?></td>
+
+								<td class="normalblack_12" valign="top"><?php echo $report['se']['event_name']?></td>
+
+								<td class="normalblack_12" valign="top"><?php echo $report['sr']['firstname']?></td>
+
+								<td class="normalblack_12" valign="top"><?php echo $report['sr']['lastname']?></td>
+
+								<td class="normalblack_12" valign="top"><?php echo $report['sr']['email']?></td>
+
+								<td class="normalblack_12" valign="top"><?php echo $report['sr']['address_1']?></td>
+
+								<td class="normalblack_12" valign="top"><?php echo $report['sr']['city']?></td>
+
+								<td class="normalblack_12" valign="top"><?php echo $report['sr']['state']?></td>
+
+								<td class="normalblack_12" valign="top"><?php echo $report['sr']['zip']?></td>
+
+								<td class="normalblack_12" valign="top"><?php echo $report['sr']['phone']?></td>
+
+								<td class="normalblack_12" valign="top"><?php echo $report['sr']['referred_by']?></td>
+
+								<td class="normalblack_12" valign="top"><?php echo $report['se']['location']?></td>
+
+								<td class="normalblack_12" valign="top"><?php echo $report['se']['start_date']?></td>
+
+								<?php /*?><td class="normalblack_12" valign="top"><?=$fldEventEndDate1?></td><?php */?>
+
+								<td class="normalblack_12" valign="top"><?php echo $report['sr']['price']?></td>
+
+								<td class="normalblack_12" valign="top"><?php echo (($report['sr']['payment_status'] == '1') ? 'PAID' : 'NOT PAID')?></td>
+
+								<td class="normalblack_12" valign="top"><?php echo $report['sr']['added_date']?></td>
+
+							</tr>
+							<?php endforeach;?>
+
+
+							<tr>
+
+								<td class="normalblack_12" valign="top" colspan="2">&nbsp;</td>
+
+							</tr>
+
+							<tr>
+
+								<td class="normalblack_12" valign="top" height="25" width="40%"
+									colspan="2"><input type=button value="Close"
+									onClick="javascript:window.close();"></td>
+
+							</tr>
+
+						</table>
+
+						</td>
+
+					</tr>
+
+				</table>
+
+				</td>
+
+			</tr>
+
+		</table>
+
+		</td>
+
+	</tr>
+
+	<tr>
+
+		<td width="100%" align="center">&nbsp;</td>
+
+	</tr>
+
+</table>

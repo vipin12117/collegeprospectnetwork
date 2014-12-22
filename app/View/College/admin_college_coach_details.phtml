@@ -90,18 +90,24 @@
 							</tr>
 							<tr>
 								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Payment Date</b></td>								
-								<td class="normalblack_12" valign="top"><?php if(!$collegeCoach['CollegeCoach']['last_payment_date']){echo "Payment not yet made";}if($collegeCoach['CollegeCoach']['last_payment_date']){echo $collegeCoach['CollegeCoach']['last_payment_date'];}?></td>
+								<td class="normalblack_12" valign="top">									
+									<?php echo (isset($collegeCoach['CollegeCoach']['last_payment_date']) ? $collegeCoach['CollegeCoach']['last_payment_date'] :  "Payment not yet made")?>
+								</td>
 							</tr>
 
 							<tr>
 								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Amount</b>
 								</td>
-								<td class="normalblack_12" valign="top"><?php if(!$collegeCoach['CollegeCoach']['last_pay_amount']){echo "Payment not yet made";}if($collegeCoach['CollegeCoach']['last_pay_amount']){echo $collegeCoach['CollegeCoach']['last_pay_amount'];}?></td>
+								<td class="normalblack_12" valign="top">
+									<?php echo (isset($collegeCoach['CollegeCoach']['last_pay_amount']) ? $collegeCoach['CollegeCoach']['last_pay_amount'] : "Payment not yet made")?>
+								</td>
 							</tr>
 							<tr>
 								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Status</b>
 								</td>
-								<td class="normalblack_12" valign="top"><?php if($collegeCoach['CollegeCoach']['status'] == 1) {echo "ACTIVE";} else {echo "DE-ACTIVE";} ?></td>
+								<td class="normalblack_12" valign="top">
+									<?php if($collegeCoach['CollegeCoach']['status'] == 1) {echo "ACTIVE";} else {echo "DE-ACTIVE";} ?>									
+								</td>
 							</tr>
 							<tr>
 								<td class="normalblack_12" valign="top" colspan="2">&nbsp;</td>
