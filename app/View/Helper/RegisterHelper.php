@@ -251,4 +251,12 @@ class RegisterHelper extends AppHelper{
 
 		return $options;
 	}
+
+	public function getWingspans(){
+		App::import("Model","Wingspan");
+		$this->Wingspan = new Wingspan();
+
+		$options = $this->Wingspan->getValues();
+		return $options;
+	}
 }

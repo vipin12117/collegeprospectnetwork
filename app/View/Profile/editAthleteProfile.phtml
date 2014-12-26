@@ -58,6 +58,14 @@
 				</p>
 				
 				<p>
+					<label>Wingspan:</label>
+					<span>
+						<?php echo $this->Form->input("wingspan",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getWingspans(),"empty"=>"Select One"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
+				
+				<p>
 					<label>Primary Position:</label>
 					<span>
 						<?php echo $this->Form->input("primary_position",array("div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getPositions($this->request->data['Athlete']['sport_id']),"empty"=>"Select One"));?>

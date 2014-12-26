@@ -56,11 +56,11 @@ from db142079_cpn.`tbl_college`;
 truncate table college_coaches;
 insert into college_coaches
 (`id`, `username`, `password`, `college_id`, `city`, `state`, `zip`, `address_1`, `sport_id`, `position`, `need_type_id`, 
-`email`, `email2`, `firstname`, `lastname`, `phone`, `phone2`, `division`, `question`, `answer`, `status`, `added_date`, `modified_date`, `subscription_id`)
+`email`, `email2`, `firstname`, `lastname`, `phone`, `phone2`, `division`, `question`, `answer`, enrollment_number, `status`, `added_date`, `modified_date`, `subscription_id`)
  
 select `fldId`, `fldUserName`, `fldPassword`,  `fldCollegename`, `fldCity`, `fldState`, `fldZipCode`, `fldAddress`, 
  `fldSport`, `fldPosition`, `fldNeedType`, `fldEmail`, `fldAlternativeEmail`, `fldFirstName`, `fldLastName`, `fldPhone`, 
- `fldAlternativePhone`, `fldDivison`, `fldQuestion`, `fldAnswer`, `fldStatus`, `fldAddDate`, `fldDateLastUpdated`, `fldANetCustomerProfileId`
+ `fldAlternativePhone`, `fldDivison`, `fldQuestion`, `fldAnswer`,  	fldEnrollmentNumber, `fldStatus`, `fldAddDate`, `fldDateLastUpdated`, `fldANetCustomerProfileId`
 from db142079_cpn.`tbl_college_coach_register`;
 
 
