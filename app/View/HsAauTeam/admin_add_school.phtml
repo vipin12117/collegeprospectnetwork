@@ -250,10 +250,7 @@ function validate(){
 	}
 	else{
 		if(trimString(document.frmAddSchool.zip.value) != ""){
-		if(!isNumeric(document.frmAddSchool.zip.value)){
-			error_msg += "Please Enter numeric Zipcode! \n";
-		}
-
+		
 		if(document.frmAddSchool.zip.value.length > 15){
 			error_msg += "Zipcode should be less then 16 characters! \n";
 		}
