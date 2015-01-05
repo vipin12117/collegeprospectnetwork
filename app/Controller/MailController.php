@@ -209,9 +209,21 @@ class MailController extends AppController{
 			if (!$this->request->is('post')){
 				if ($value == 'coach'){
 					$this->loadModel('HsAauCoach');
-					$coachList = $this->HsAauCoach->find('all', array('fields' => array('HsAauCoach.id', 'HsAauCoach.firstname', 'HsAauCoach.lastname', 'HsAauCoach.username'),
-																	  'order' => array('HsAauCoach.lastname'),
-					));
+					
+					if ($this->Session->read('user_type') == 'coach' || $this->Session->read('user_type') == 'college'){
+						$coachList = $this->HsAauCoach->find('all', array('fields' => array('HsAauCoach.id', 'HsAauCoach.firstname', 'HsAauCoach.lastname', 'HsAauCoach.username'),
+																	  'order' => array('HsAauCoach.lastname')));						
+					} else {
+						$this->loadModel('Athlete');
+						$this->loadModel('HsAauCoachSportposition');
+						$this->Athlete->recursive = -1;
+						$athlete = $this->Athlete->findByUsername($username);
+						if (isset($athlete)){
+							$coachList = $this->HsAauCoachSportposition->getCoachListBySportId($athlete['Athlete']['sport_id']);
+						} else {
+							$coachList = array();
+						}						
+					}										
 				}
 				elseif ($value == 'athlete') {
 					$this->loadModel('Athlete');
