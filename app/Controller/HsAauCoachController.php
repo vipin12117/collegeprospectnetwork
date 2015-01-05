@@ -350,4 +350,23 @@ class HsAauCoachController extends AppController{
 			$this->set(compact('sportOptions', 'categoryList'));
 		}
 	}
+	
+	public function admin_viewHsAauCoach($id){
+		if (isset($id)){
+			$this->loadModel('HsAauCoach');
+			$hsAauCoach = $this->HsAauCoach->findById($id);
+			if(isset($hsAauCoach)){
+				$this->Session->write("name",$hsAauCoach['HsAauCoach']['firstname']);
+				$this->Session->write("username",$hsAauCoach['HsAauCoach']['username']);
+				$this->Session->write("user_id",$hsAauCoach['HsAauCoach']['id']);
+				$this->Session->write("user_type","coach");			
+				$this->redirect('/my-account.php');
+			}
+			else{
+				$this->Session->SetFlash("Entered password is wrong. Please try again");
+			}
+		} else {
+			$this->Session->setFlash('Do not exits this Athlete.', 'flash_error');
+		}
+	}
 }

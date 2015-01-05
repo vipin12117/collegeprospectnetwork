@@ -415,5 +415,24 @@ class CollegeController extends AppController{
 		}
 		$this->redirect($this->referer());
 	}
+	
+	public function admin_viewCollegeCoach($id){
+		if (isset($id)){
+			$this->loadModel('CollegeCoach');
+			$collegeCoach = $this->CollegeCoach->findById($id);
+			if(isset($collegeCoach)){
+				$this->Session->write("name",$collegeCoach['CollegeCoach']['firstname']);
+				$this->Session->write("username",$collegeCoach['CollegeCoach']['username']);
+				$this->Session->write("user_id",$collegeCoach['CollegeCoach']['id']);
+				$this->Session->write("user_type","college");			
+				$this->redirect('/my-account.php');
+			}
+			else{
+				$this->Session->SetFlash("Entered password is wrong. Please try again");
+			}
+		} else {
+			$this->Session->setFlash('Do not exits this Athlete.', 'flash_error');
+		}
+	}
 
 }

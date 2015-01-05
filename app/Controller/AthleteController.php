@@ -578,17 +578,32 @@ class AthleteController extends AppController{
 		foreach ($athleteStats as $key => $value){
 			// Get event name
 			$event = $this->Event->findById($value['AthleteStat']['event_id']);
-			$tmpAthleteStats[$key]['Event']['event_name'] = $event['Event']['event_name'];
+			if (isset($event['Event']['event_name'])){
+				$tmpAthleteStats[$key]['Event']['event_name'] = $event['Event']['event_name'];
+			} else {
+				$tmpAthleteStats[$key]['Event']['event_name'] = "";
+			}
 
 			// Get athlete name
 			$athlete = $this->Athlete->findById($value['AthleteStat']['athlete_id']);
-			$tmpAthleteStats[$key]['Athlete']['firstname'] = $athlete['Athlete']['firstname'];
-			$tmpAthleteStats[$key]['Athlete']['lastname'] = $athlete['Athlete']['lastname'];
+			if (isset($athlete['Athlete']['firstname']) && isset($athlete['Athlete']['lastname'])){
+				$tmpAthleteStats[$key]['Athlete']['firstname'] = $athlete['Athlete']['firstname'];
+				$tmpAthleteStats[$key]['Athlete']['lastname'] = $athlete['Athlete']['lastname'];
+			} else {
+				$tmpAthleteStats[$key]['Athlete']['firstname'] = "";
+				$tmpAthleteStats[$key]['Athlete']['lastname'] = "";
+			}
 
 			// Get coach name
 			$hsAauCoach = $this->HsAauCoach->findById($value['AthleteStat']['hs_aau_coach_id']);
-			$tmpAthleteStats[$key]['HsAauCoach']['firstname'] = $hsAauCoach['HsAauCoach']['firstname'];
-			$tmpAthleteStats[$key]['HsAauCoach']['lastname'] = $hsAauCoach['HsAauCoach']['lastname'];
+			if (isset($hsAauCoach['HsAauCoach']['firstname']) && isset($hsAauCoach['HsAauCoach']['lastname'])){
+				$tmpAthleteStats[$key]['HsAauCoach']['firstname'] = $hsAauCoach['HsAauCoach']['firstname'];
+				$tmpAthleteStats[$key]['HsAauCoach']['lastname'] = $hsAauCoach['HsAauCoach']['lastname'];
+			} else {
+				$tmpAthleteStats[$key]['HsAauCoach']['firstname'] = "";
+				$tmpAthleteStats[$key]['HsAauCoach']['lastname'] = "";
+			}
+			
 		}
 		$athleteStats = $tmpAthleteStats;
 		$this->set(compact('athleteStats', 'limit'));
@@ -922,6 +937,25 @@ class AthleteController extends AppController{
 				}
 			}
 			$this->redirect(array('controller' => 'Athlete', 'action' => 'classList'));
+		}
+	}
+	
+	public function admin_viewAthlete($id){
+		if (isset($id)){
+			$this->loadModel('Athlete');
+			$athlete = $this->Athlete->findById($id);
+			if(isset($athlete)){
+				$this->Session->write("name",$athlete['Athlete']['firstname']);
+				$this->Session->write("username",$athlete['Athlete']['username']);
+				$this->Session->write("user_id",$athlete['Athlete']['id']);
+				$this->Session->write("user_type","athlete");			
+				$this->redirect('/my-account.php');								
+			}
+			else{
+				$this->Session->SetFlash("Entered password is wrong. Please try again");
+			}
+		} else {
+			$this->Session->setFlash('Do not exits this Athlete.', 'flash_error');
 		}
 	}
 }
