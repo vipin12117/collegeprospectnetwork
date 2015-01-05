@@ -24,7 +24,7 @@
 								<td valign=top width=""><!--Main Center Content BEGIN -->
 
 								<table border="1" cellpadding="1" cellspacing="0" width="100%"
-									bordercolor="#808080" style="border-collapse: collapse"
+									bordercolor="#808080" style="border-collapse: collapse; width: 1000px;"
 									class="tablePadd">
 									<tr>
 										<td align="center" class="normalwhite_14" colspan="11"
@@ -58,15 +58,15 @@
 									</tr>
 									<tr>
 										<td align="center" class="normalblack_12" width="4%">&nbsp;</td>
-										<td align="left" class="normalblack_12" width="8%">&nbsp;<strong>S.No.</strong></td>
-										<td align="left" class="normalblack_12" width="20%">&nbsp;<strong>User Name</strong></td>									
-										<td align="left" class="normalblack_12" width="25%">&nbsp;<strong>College Name</strong></td>										
-										<td align="left" class="normalblack_12" width="15%">&nbsp;<strong>City</strong></td>
+										<td align="left" class="normalblack_12" width="5%">&nbsp;<strong>S.No.</strong></td>
+										<td align="left" class="normalblack_12" width="15%">&nbsp;<strong>User Name</strong></td>									
+										<td align="left" class="normalblack_12" width="15%">&nbsp;<strong>College Name</strong></td>										
+										<td align="left" class="normalblack_12" width="10%">&nbsp;<strong>City</strong></td>
 										<td align="left" class="normalblack_12" width="10%">&nbsp;<strong>State</strong></td>
-										<td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Sports</strong></td>
+										<td align="left" class="normalblack_12" width="15%">&nbsp;<strong>Sports</strong></td>
 										<td class="normalblack_12" width="5%" align="center"><strong>Edit</strong></td>
 										<td class="normalblack_12" width="7%" align="center"><strong>Delete</strong></td>
-										<td class="normalblack_12" width="7%" align="center"><strong>Details</strong></td>
+										<td class="normalblack_12" width="20%" align="center"><strong>Details</strong></td>
 									</tr>
 									<?php $i = 1;?> 
 									<?php foreach ($colCoachs as $colCoach) : ?>
@@ -87,8 +87,10 @@
 											<?php echo $this->Html->link($this->Html->image('/img/b_drop.png'), array('controller' => 'College', 'action' => 'deleteCollegeCoach', $colCoach['CollegeCoach']['id']), array('escape' => false, 'title' => 'Delete'), "Are you sure to delete this College Coach?")?>	
 										</td>
 
-										<td class="normalblack_12" align="center"><a
-											href="javascript:ShowDetails('<?php echo '/admin/College/collegeCoachDetails/'.$colCoach['CollegeCoach']['id'] ?>','List Coach Details')">View</a></td>									
+										<td class="normalblack_12" align="center">
+											<a href="javascript:ShowDetails('<?php echo '/admin/College/collegeCoachDetails/'.$colCoach['CollegeCoach']['id'] ?>','List Coach Details')">View</a> /
+											<?php echo $this->Html->link('Login As College', array('controller' => 'College', 'action' => 'viewCollegeCoach', $colCoach['CollegeCoach']['id']), array('target' => 'blank'))?>										
+										</td>																				
 									</tr>
 									<?php $i++;?>
 									<?php endforeach;?> <?php } else { ?>																		

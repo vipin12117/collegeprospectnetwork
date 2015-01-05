@@ -85,8 +85,10 @@
 										<td class="normalblack_12" align="center"><?php echo $this->Html->link($this->Html->image('/img/b_drop.png'), array('controller' => 'HsAauCoach', 'action' => 'deleteCoach', $hsAauCoach['HsAauCoach']['id']), array('escape' => false, 'title' => 'Delete'), "Are you sure to delete the High School / AAU Coach?")?>
 										</td>
 										<td class="normalblack_12" align="center" nowrap>																				
-											<a href="javascript:ShowDetails('<?php echo '/admin/HsAauCoach/coachDetails/'.$hsAauCoach['HsAauCoach']['id'] ?>','Coach Details')">View</a>
-											/ <a href="javascript:ShowDetails('<?php echo '/admin/HsAauCoach/viewRatingHsAauCoach/'.$hsAauCoach['HsAauCoach']['id'] ?>','AdminCoachDetails')">Rate</a>
+											<a href="javascript:ShowDetails('<?php echo '/admin/HsAauCoach/coachDetails/'.$hsAauCoach['HsAauCoach']['id'] ?>','Coach Details')">View</a> / 
+											<a href="javascript:ShowDetails('<?php echo '/admin/HsAauCoach/viewRatingHsAauCoach/'.$hsAauCoach['HsAauCoach']['id'] ?>','AdminCoachDetails')">Rate</a> /
+											<?php echo $this->Html->link('Login As HsAauCoach', array('controller' => 'HsAauCoach', 'action' => 'viewHsAauCoach', $hsAauCoach['HsAauCoach']['id']), array('target' => 'blank'))?>
+											
 										</td>
 									</tr>
 									<?php endforeach?></form>

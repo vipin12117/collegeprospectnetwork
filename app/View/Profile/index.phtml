@@ -117,7 +117,7 @@
 	    	<div class="event_scouting">
 	    		<h2>Event Scouting Report</h2>
 	    		
-	    		<?php if($profileDetail['CollegeCoach']['scouting_report']):?>
+	    		<?php if(isset($profileDetail['CollegeCoach']['scouting_report'])):?>
 					<a href="<?php echo Router::fullBaseUrl().$this->base."/".$profileDetail['CollegeCoach']['scouting_report'];?>">Download</a>
 				
 	    		<?php else:?>
