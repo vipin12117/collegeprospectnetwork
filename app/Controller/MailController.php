@@ -223,19 +223,78 @@ class MailController extends AppController{
 						} else {
 							$coachList = array();
 						}						
-					}										
+					}
+					$this->loadModel('Network');
+					$networks = $this->Network->find('all', array('fields' => array('Network.receiver_id', 'Network.receiver_type'),
+																  'conditions' => array('Network.sender_id' => $this->Session->read('user_id'),
+																		  				'Network.sender_type' => $this->Session->read('user_type'),
+																						'Network.receiver_type' => 'coach'
+																						)));
+																				
+					$tempCoachList = $coachList;																																						
+					foreach ($tempCoachList as $key => $val){
+						foreach ($networks as $network){
+							if (in_array($network['Network']['receiver_id'], $val['HsAauCoach'])){
+								$temp = $tempCoachList[$key];
+								unset($tempCoachList[$key]);
+								array_unshift($tempCoachList, $temp);
+							}
+						}	
+						
+					}
+					$coachList = $tempCoachList;										
 				}
 				elseif ($value == 'athlete') {
 					$this->loadModel('Athlete');
 					$coachList = $this->Athlete->find('all', array('fields' => array('Athlete.id', 'Athlete.firstname', 'Athlete.lastname', 'Athlete.username'),
 																   'order' => array('Athlete.lastname'),
 																   'conditions' => 'Athlete.status = 1'
-					));				
+					));
+					$this->loadModel('Network');
+					$networks = $this->Network->find('all', array('fields' => array('Network.receiver_id', 'Network.receiver_type'),
+																  'conditions' => array('Network.sender_id' => $this->Session->read('user_id'),
+																		  				'Network.sender_type' => $this->Session->read('user_type'),
+																						'Network.receiver_type' => 'athlete'
+																						)));
+																				
+					$tempCoachList = $coachList;																																						
+					foreach ($tempCoachList as $key => $val){
+						foreach ($networks as $network){
+							if (in_array($network['Network']['receiver_id'], $val['Athlete'])){
+								$temp = $tempCoachList[$key];
+								unset($tempCoachList[$key]);
+								array_unshift($tempCoachList, $temp);
+							}
+						}	
+						
+					}
+					$coachList = $tempCoachList;
+
+									
 				}
 				elseif ($value == 'college') {
 					$this->loadModel('CollegeCoach');
 					$coachList = $this->CollegeCoach->find('all', array('fields' => array('CollegeCoach.id', 'CollegeCoach.firstname', 'CollegeCoach.lastname', 'CollegeCoach.username'),
-																	    'order' => array('CollegeCoach.lastname')));																			
+																	    'order' => array('CollegeCoach.lastname')));
+					$this->loadModel('Network');
+					$networks = $this->Network->find('all', array('fields' => array('Network.receiver_id', 'Network.receiver_type'),
+																  'conditions' => array('Network.sender_id' => $this->Session->read('user_id'),
+																		  				'Network.sender_type' => $this->Session->read('user_type'),
+																						'Network.receiver_type' => 'college'
+																						)));
+																				
+					$tempCoachList = $coachList;																																						
+					foreach ($tempCoachList as $key => $val){
+						foreach ($networks as $network){
+							if (in_array($network['Network']['receiver_id'], $val['CollegeCoach'])){
+								$temp = $tempCoachList[$key];
+								unset($tempCoachList[$key]);
+								array_unshift($tempCoachList, $temp);
+							}
+						}	
+						
+					}
+					$coachList = $tempCoachList;																			
 				}
 			}
 			else {
