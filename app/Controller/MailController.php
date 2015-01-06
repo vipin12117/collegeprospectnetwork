@@ -25,8 +25,8 @@ class MailController extends AppController{
 		// Get the number of emails.
 		$username = $this->Session->read("username");
 		if (!empty($username)){
-			$count = $this->Mail->find('count', array('conditions' => array('Mail.receiver' => $username, 'Mail.status' => 'unread')));
-			$inboxMassages = $this->Mail->find('all', array('conditions' => array('Mail.receiver' => $username , 'Mail.status <>' => 'delete'), 'order' => 'id DESC'));
+			$count = $this->Mail->find('count', array('conditions' => array('Mail.receiver' => $username, 'Mail.status' => 'unread', 'Mail.visible' => '1')));
+			$inboxMassages = $this->Mail->find('all', array('conditions' => array('Mail.receiver' => $username , 'Mail.status <>' => 'delete',  'Mail.visible' => '1'), 'order' => 'id DESC'));
 
 			// Get id of sender
 			$tmpInboxMassages = $inboxMassages;
@@ -67,7 +67,7 @@ class MailController extends AppController{
 	public function sent(){
 		$username = $this->Session->read("username");
 		if (!empty($username)){
-			$sentMassages = $this->Mail->find('all', array('conditions' => array('Mail.sender' => $username , 'Mail.status <>' => 'delete'), 'order' => 'id DESC'));
+			$sentMassages = $this->Mail->find('all', array('conditions' => array('Mail.sender' => $username , 'Mail.status <>' => 'delete', 'Mail.visible' => '1'), 'order' => 'id DESC'));
 
 			// Get id of receiver.
 			$tmpSentMassages = $sentMassages;
@@ -108,7 +108,7 @@ class MailController extends AppController{
 	public function trash(){
 		$username = $this->Session->read("username");
 		if (!empty($username)){
-			$trashMassages = $this->Mail->find('all', array('conditions' => array('OR' => array('Mail.sender' => $username, 'Mail.receiver' => $username) , 'Mail.status ' => 'delete'), 'order' => 'id DESC'));
+			$trashMassages = $this->Mail->find('all', array('conditions' => array('OR' => array('Mail.sender' => $username, 'Mail.receiver' => $username) , 'Mail.status ' => 'delete', 'Mail.visible' => '1'), 'order' => 'id DESC'));
 			$this->set('trashMassages', $trashMassages);
 		}
 		else {
@@ -127,7 +127,7 @@ class MailController extends AppController{
 			$this->Mail->saveField('status', 'read');
 
 			// View message
-			$viewMassage = $this->Mail->find('first', array('conditions' => array('Mail.receiver' => $username, 'Mail.id' => $id), 'order' => 'id DESC'));
+			$viewMassage = $this->Mail->find('first', array('conditions' => array('Mail.receiver' => $username, 'Mail.id' => $id, 'Mail.visible' => '1'), 'order' => 'id DESC'));
 
 			$fullName = "";
 			$userTypeFrom = $viewMassage['Mail']['usertype_from'];
@@ -335,7 +335,7 @@ class MailController extends AppController{
 	public function viewSent($id){
 		$username = $this->Session->read("username");
 		if (!empty($username) && !empty($id)){
-			$viewSent = $this->Mail->find('first', array('conditions' => array('Mail.sender' => $username, 'Mail.id' => $id), 'order' => 'id DESC'));
+			$viewSent = $this->Mail->find('first', array('conditions' => array('Mail.sender' => $username, 'Mail.id' => $id, 'Mail.visible' => '1'), 'order' => 'id DESC'));
 			$userTypeTo = $viewSent['Mail']['usertype_to'];
 
 			$fullName = "";
@@ -378,7 +378,7 @@ class MailController extends AppController{
 	public function viewTrash($id){
 		$username = $this->Session->read("username");
 		if (!empty($username) && !empty($id)){
-			$viewTrash = $this->Mail->find('first', array('conditions' => array('Mail.id' => $id, 'Mail.status' => 'delete'), 'order' => 'id DESC'));
+			$viewTrash = $this->Mail->find('first', array('conditions' => array('Mail.id' => $id, 'Mail.status' => 'delete', 'Mail.visible' => '1'), 'order' => 'id DESC'));
 			$userTypeTo = $viewTrash['Mail']['usertype_to'];
 			$fullName = "";
 			if ($userTypeTo == 'athlete') {
@@ -625,6 +625,32 @@ class MailController extends AppController{
 			} else {
 				$this->Session->setFlash('Can not add this Block Message.', 'flash_error');
 			}						
+		}
+	}
+	
+	public function admin_activeMessage($id){
+		if (!empty($id)) {
+			$this->loadModel('Mail');
+			$this->Mail->id = $id;
+			$this->Mail->saveField('visible', 1);
+			$this->Session->setFlash('Message Active Successfully!', 'flash_success');
+			$this->redirect($this->referer());
+		} else {
+			$this->Session->setFlash('Message Active Not Successfully!', 'flash_error');
+			$this->redirect($this->referer());
+		}
+	}
+
+	public function admin_dectiveMessage($id){
+		if (!empty($id)) {
+			$this->loadModel('Mail');
+			$this->Mail->id = $id;
+			$this->Mail->saveField('visible', 0);
+			$this->Session->setFlash('Message De-Active Successfully!', 'flash_success');
+			$this->redirect($this->referer());
+		} else {
+			$this->Session->setFlash('Message De-Active Not Successfully!', 'flash_error');
+			$this->redirect($this->referer());
 		}
 	}
 }

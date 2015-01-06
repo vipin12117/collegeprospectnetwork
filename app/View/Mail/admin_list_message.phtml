@@ -103,6 +103,7 @@
 										<td align="left" class="normalblack_12" width="15%">&nbsp;<strong>UserFrom</strong></td>
 										<td align="left" class="normalblack_12" width="15%">&nbsp;<strong>Subject</strong></td>
 										<td align="left" class="normalblack_12" width="10%">&nbsp;<strong>SentDate</strong></td>
+										<td class="normalblack_12" width="5%" align="center"><strong>Visible</strong></td>
 										<td class="normalblack_12" width="5%" align="center"><strong>View Message</strong></td>										
 									</tr>
 
@@ -111,7 +112,7 @@
 										<tr>
 											<td align="center" class="normalblack_12">&nbsp; <input
 												type="checkbox" id="check_delete[]" name="check_delete[]"
-												value="<?php echo $mail['Mail']['id']?>" onclick="return checkItSelf();">
+												value="<?php echo $mail['Mail']['id']?>" onclick="return checkItSelf();"></td>
 											<td align="left" class="normalblack_12">&nbsp;<?php echo ($i + $limit * ($this->Paginator->current() - 1));?></td>
 											<td align="left" class="normalblack_12"><?php echo ucfirst(wordwrap($mail['Mail']['receiver'],25,"\n",true)).'&nbsp;('.$mail['Mail']['usertype_to'].')'?>
 											</td>
@@ -120,7 +121,16 @@
 											<td align="left" class="normalblack_12"><?php echo wordwrap($mail['Mail']['subject'],50,"\n",true)?>
 											</td>
 											<td align="left" class="normalblack_12"><?php echo wordwrap($mail['Mail']['sent_date'],25,"\n",true)?>
-											</td>										
+											</td>
+											<td align="center" class="normalblack_12">			
+											<?php if ($mail['Mail']['visible'] == '0') {?>
+											
+												<?php echo $this->Html->link($this->Html->image('/img/red-point.gif'), array('controller' => 'Mail', 'action' => 'activeMessage', $mail['Mail']['id']), array('escape' => false, 'title' => 'Active'), "Are you sure to active this Message?")?>
+											
+											<?php } else {?>													
+													<?php echo $this->Html->link($this->Html->image('/img/green-point.gif'), array('controller' => 'Mail', 'action' => 'dectiveMessage', $mail['Mail']['id']), array('escape' => false, 'title' => 'Deactive'), "Are you sure to deactive this Message?")?>
+											<?php }?>
+											</td>							
 											<td class="normalblack_12" align="center"><a
 												href="javascript:ShowDetails('<?php echo '/admin/Mail/messageDetails/'.$mail['Mail']['id'] ?>','Message Details')">View</a>
 											</td>									
