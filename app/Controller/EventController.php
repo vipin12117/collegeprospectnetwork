@@ -6,7 +6,7 @@ class EventController extends AppController{
 
 	public $uses = array('SpecialEvent','SpecialEventUser','Coupon');
 
-	public $components = array('Email','RequestHandler');
+	public $components = array('Email','RequestHandler','Captcha');
 
 	public $helpers = array('Html','Form','Js' => array('Jquery'));
 
@@ -28,29 +28,45 @@ class EventController extends AppController{
 		$this->set("title_for_layout","College Prospect Network - Event Registration");
 
 		if(isset($this->request->data['SpecialEventUser'])){
-			if(isset($_FILES['transcript']['tmp_name'])){
-				$file_parts = explode(".",$_FILES['transcript']['name']);
-				$extension  = end($file_parts);
-				$filename = $this->uniqueCode(20).".$extension";
+			if($this->request->data['SpecialEventUser']['code'] == $this->Session->read('Captcha.code')){
+				if(isset($_FILES['transcript']['tmp_name'])){
+					$file_parts = explode(".",$_FILES['transcript']['name']);
+					$extension  = end($file_parts);
+					$filename = $this->uniqueCode(20).".$extension";
 
-				if(move_uploaded_file($_FILES['transcript']['tmp_name'],WWW_ROOT."/files/$filename")){
-					$this->request->data['SpecialEventUser']['transcript'] = $filename;
+					if(move_uploaded_file($_FILES['transcript']['tmp_name'],WWW_ROOT."/files/$filename")){
+						$this->request->data['SpecialEventUser']['transcript'] = $filename;
+					}
+					else{
+						unset($this->request->data['SpecialEventUser']['transcript']);
+					}
 				}
-				else{
-					unset($this->request->data['SpecialEventUser']['transcript']);
-				}
+
+				$this->SpecialEventUser->save($this->request->data);
+				$event_user_id = $this->SpecialEventUser->getLastInsertId();
+
+				$this->Session->write("event_user_id",$event_user_id);
+				$this->redirect(array("controller"=>"Event","action"=>"confirmation"));
+				exit;
 			}
-
-			$this->SpecialEventUser->save($this->request->data);
-			$event_user_id = $this->SpecialEventUser->getLastInsertId();
-
-			$this->Session->write("event_user_id",$event_user_id);
-			$this->redirect(array("controller"=>"Event","action"=>"confirmation"));
-			exit;
+			else{
+				$this->Session->setFlash("Please enter the correct code.");
+				
+				unset($this->request->data['SpecialEventUser']['state_id1']);
+				unset($this->request->data['SpecialEventUser']['state_id2']);
+			}
 		}
 
 		$events = $this->SpecialEvent->find("list",array("fields"=>"id,event_name","conditions"=>"start_date > '".date('Y-m-d')."'"));
 		$this->set("events",$events);
+
+		$this->Captcha->create(
+		array(
+		        'images_url'=>'/img/captcha/',
+		        'images_path'=>WWW_ROOT.DS.'img/captcha/',
+		        'assets_path'=>WWW_ROOT.DS.'img/'));
+		$this->Session->write('Captcha.code',$this->Captcha->code());
+		$this->set('captcha_url',$this->Captcha->store());
 	}
 
 	public function confirmation(){

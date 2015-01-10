@@ -23,4 +23,9 @@ class CollegeSubscription extends AppModel{
 		
 		return $row;
 	}
+	
+	public function getSportsList($college_coach_id){
+		return $this->find("list", array("conditions"=>"CollegeSubscription.college_coach_id = '$college_coach_id'",
+										 "fields"=>"CollegeSubscription.sport_id"));
+	}
 }

@@ -111,7 +111,7 @@ class AthleteController extends AppController{
 			}
 		}
 
-		$this->redirect(array('controller' => 'Athlete', 'action' => 'athleteComments'));
+		$this->redirect(array('controller' => 'Athlete', 'action' => 'athleteComments',$id));
 	}
 
 	public function athleteComments($athlete_id = false){
@@ -219,7 +219,7 @@ class AthleteController extends AppController{
 			else{
 				$this->Session->setFlash("You have Rejected these Game Stats, you may review / modify them at anytime.");
 			}
-			
+
 			$this->redirect(array("controller"=>"Athlete","action"=>"statsList"));
 			exit;
 		}
@@ -294,7 +294,23 @@ class AthleteController extends AppController{
 	public function search(){
 		$this->set("title_for_layout","College Prospect Network - Athlete Search");
 
+		$this->loadModel('Rating');
+
 		$conditions = array();
+		$default_conditions = array();
+		$college_coach_id = $this->Session->read('user_id');
+
+		$this->loadModel('CollegeSubscription');
+		$sportsList = $this->CollegeSubscription->getSportsList($college_coach_id);
+		if($sportsList){
+			$default_conditions[] = " Athlete.sport_id IN (".implode(",",$sportsList).") ";
+		}
+
+		if(!@($this->request->data['Athlete']['class'])){
+			$default_conditions[] = " ( abs(Athlete.class) > '".(date('Y') - 1)."' ) ";
+			// AND '".date('Y-m-d')."' <= '".date('Y-09-01')."' ) ";
+		}
+			
 		if(isset($this->request->data['Athlete'])){
 			foreach($this->request->data['Athlete'] as $key => $value){
 				if((is_string($value) && strlen($value) > 0) || $value){
@@ -317,9 +333,9 @@ class AthleteController extends AppController{
 						}
 						$conditions[] = "(". implode(" OR ",$cond). " ) ";
 					}
-					elseif($key == 'firstname'){
+					elseif($key == 'firstname' || $key == 'lastname'){
 						$value = strtolower($value);
-						$conditions[] = "( Lower(Athlete.firstname) like '%$value%' OR Lower(Athlete.lastname) like '%$value%' )";
+						$conditions[] = "( Lower(Athlete.$key) like '%$value%' )";
 					}
 					else{
 						$conditions[] = "Athlete.$key = '$value'";
@@ -336,11 +352,13 @@ class AthleteController extends AppController{
 		}
 
 		if($conditions){
+			$conditions = array_merge($conditions,$default_conditions);
 			$conditions_str = implode(" AND ",$conditions);
 			$this->paginate = array('Athlete'=>array("conditions"=>$conditions_str,"limit"=>10));
 		}
 		else{
-			$this->paginate = array('Athlete'=>array("limit"=>10));
+			$conditions_str = implode(" AND ",$default_conditions);
+			$this->paginate = array('Athlete'=>array("limit"=>10,"conditions"=>$conditions_str,));
 		}
 
 		if($this->Session->read('user_type') == 'college' AND !$this->Session->read("is_trial_mode")){
@@ -350,12 +368,30 @@ class AthleteController extends AppController{
 			$this->set("user_id",0);
 		}
 
-		$this->loadModel('Rating');
 		$athletes = $this->paginate('Athlete');
+		$ids = array();
 		if($athletes){
 			foreach($athletes as $index => $athlete){
 				$athletes[$index]['Athlete']['avg_rating'] = $this->Rating->getAverageRating($athlete['Athlete']['id']);
+				$ids[] = $athlete['Athlete']['id'];
 			}
+		}
+
+		// find you may also like
+		if($conditions){
+			$conditions_str = "(". implode(" OR ",$conditions) .")";
+			if($conditions_str){
+				$conditions_str .= " AND ( Athlete.id not in (".implode(",", $ids).") )";
+			}
+
+			$youMayAlsoLike = $this->Athlete->find("all",array("conditions"=>$conditions_str,"limit"=>5));
+			if($youMayAlsoLike){
+				foreach($youMayAlsoLike as $index => $athlete){
+					$youMayAlsoLike[$index]['Athlete']['avg_rating'] = $this->Rating->getAverageRating($athlete['Athlete']['id']);
+				}
+			}
+
+			$this->set("youMayAlsoLike",$youMayAlsoLike);
 		}
 
 		$this->set("athletes",$athletes);
@@ -603,7 +639,7 @@ class AthleteController extends AppController{
 				$tmpAthleteStats[$key]['HsAauCoach']['firstname'] = "";
 				$tmpAthleteStats[$key]['HsAauCoach']['lastname'] = "";
 			}
-			
+
 		}
 		$athleteStats = $tmpAthleteStats;
 		$this->set(compact('athleteStats', 'limit'));
@@ -939,7 +975,7 @@ class AthleteController extends AppController{
 			$this->redirect(array('controller' => 'Athlete', 'action' => 'classList'));
 		}
 	}
-	
+
 	public function admin_viewAthlete($id){
 		if (isset($id)){
 			$this->loadModel('Athlete');
@@ -948,8 +984,8 @@ class AthleteController extends AppController{
 				$this->Session->write("name",$athlete['Athlete']['firstname']);
 				$this->Session->write("username",$athlete['Athlete']['username']);
 				$this->Session->write("user_id",$athlete['Athlete']['id']);
-				$this->Session->write("user_type","athlete");			
-				$this->redirect('/my-account.php');								
+				$this->Session->write("user_type","athlete");
+				$this->redirect('/my-account.php');
 			}
 			else{
 				$this->Session->SetFlash("Entered password is wrong. Please try again");

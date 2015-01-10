@@ -1,0 +1,13 @@
+1. http://localhost/collegeprospectnetwork/admin/Athlete/edit/57
+
+status field does not save value
+
+2.  Bug: Unable to Assign School/Team to Player
+I am still trying to move forward with the testing of this player so that I can verify the
+Athlete Approval process, but I can't change the school/team for this player
+"december23athlete". This is critical because players move schools and change AAU
+teams often, so we need to be able to update the database to reflect that. On a related
+note, where is the list below coming from? There does not appear to be any sort of
+rhyme or reason to how these schools appear in the menu.
+
+3. 

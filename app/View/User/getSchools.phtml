@@ -7,7 +7,7 @@
 </p>   
 
 <?php $this->Js->get("#hs_aau_team_id"); ?>
-<?php $this->Js->event('change',$this->Js->request(array('controller' => 'User','action' => 'getAddressInfo'),
+<?php $this->Js->event('change',$this->Js->request(array('controller' => 'User','action' => 'getAddressInfo',$state_id),
   	  		 array('async' => true,'update' => '#school_address','data' => '$("#hs_aau_team_id").serialize()','dataExpression' => true
        ))); 
 ?>

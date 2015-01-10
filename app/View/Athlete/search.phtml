@@ -47,13 +47,19 @@ $values = array('leadership','work_ethic','primacy_go_to_guy','mental_toughness'
 	
 	      <div class="clear"></div>
 	
-		  <div class="col-fieldset-left">
-			  <fieldset>
+		  <div class="col-fieldset-left" style="width:100%">
+			  <fieldset style="width:96%;">
 					<legend>Basic Details</legend>
 					<p class="alt">
-						 <label>Athlete Name:</label>
+						 <label>Athlete First Name:</label>
 						 <span>
 						 	  <?php echo $this->Form->input("firstname",array("div"=>false,"label"=>false,"style"=>"width:80px;margin-right:3px;"));?>
+						 </span>
+						 
+						 
+						 <label>Athlete Last Name:</label>
+						 <span>
+						 	  <?php echo $this->Form->input("lastname",array("div"=>false,"label"=>false,"style"=>"width:80px;margin-right:3px;"));?>
 						 </span>
 					</p>
 			  </fieldset>
@@ -137,7 +143,54 @@ $values = array('leadership','work_ethic','primacy_go_to_guy','mental_toughness'
 	
 	<?php if(count(@$athletes) > 0):?>
 		<div style="background:#fff;">
-			  <?php if(count(@$athletes) > 0):?>
+	         <table cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" width="100%" class="tablePadd" style="border-collapse: collapse;">
+	         	  <tr>
+	                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Name</strong></td>
+	                  <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>Location</strong></td>
+	                  <td align="center" class="normalblack_12" width="5%">&nbsp;<strong>Height</strong></td>
+	                  <td align="center" class="normalblack_12" width="10%">&nbsp;<strong>Weight</strong></td>
+	                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Sport</strong></td>
+	                  <td align="center" class="normalblack_12" width="12%">&nbsp;<strong>Stars</strong></td>
+	                  <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>School and/or AAU Team</strong></td>
+	              </tr>
+	                    
+	              <?php foreach ($athletes as $athlete): ?>
+	              	 <tr>
+	                      <td align="center" class="normalblack_12">
+	                      		<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$athlete['Athlete']['id']));?>">
+	                      			<?php echo $athlete['Athlete']['firstname']." ".$athlete['Athlete']['lastname']?>
+	                      		</a>
+	                      </td>
+	                      <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['city'].", ".$athlete['Athlete']['state'];?></td>
+	                      <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['height'];?></td>
+	                      <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['weight'];?></td>
+	                      <td align="center" class="normalblack_12"><?php echo $athlete['Sport']['name']; ?></td>
+	                      <td align="center" class="normalblack_12">
+	                      		<span class="multiField" id="<?php echo "athlete_".$athlete['Athlete']['id'];?>">
+	                      			<?php echo $this->Form->input("rating",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options));?>
+	                      		</span>	
+	                      		
+	                      		<script type="text/javascript">
+	                      			 jQuery(document).ready(function(){
+									 	jQuery("#<?php echo "athlete_".$athlete['Athlete']['id'];?>").stars("select", <?php echo (int)($athlete['Athlete']['avg_rating']/2);?>);
+	                      			 });
+								</script>
+	                      </td>
+	                      <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['school_name'];?></td>
+	                 </tr>
+		          <?php endforeach; ?>
+		     </table>
+	   </div>	
+	   
+	   <div style="clear:both;"></div>
+	   <?php echo $this->Element('pagination');?>
+	   
+	   <?php if(count(@$youMayAlsoLike) > 0):?>
+	   		<br /><br />
+	   		
+	   		<h3>You May Also Like</h3>
+	   		
+	   		<div style="background:#fff;">
 		         <table cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" width="100%" class="tablePadd" style="border-collapse: collapse;">
 		         	  <tr>
 		                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Name</strong></td>
@@ -146,17 +199,17 @@ $values = array('leadership','work_ethic','primacy_go_to_guy','mental_toughness'
 		                  <td align="center" class="normalblack_12" width="10%">&nbsp;<strong>Weight</strong></td>
 		                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Sport</strong></td>
 		                  <td align="center" class="normalblack_12" width="12%">&nbsp;<strong>Stars</strong></td>
-		                  <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>School</strong></td>
+		                  <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>School and/or AAU Team</strong></td>
 		              </tr>
 		                    
-		              <?php foreach ($athletes as $athlete): ?>
+		              <?php foreach ($youMayAlsoLike as $athlete): ?>
 		              	 <tr>
 		                      <td align="center" class="normalblack_12">
 		                      		<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$athlete['Athlete']['id']));?>">
 		                      			<?php echo $athlete['Athlete']['firstname']." ".$athlete['Athlete']['lastname']?>
 		                      		</a>
 		                      </td>
-		                      <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['city']." , ".$athlete['Athlete']['state'];?></td>
+		                      <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['city'].", ".$athlete['Athlete']['state'];?></td>
 		                      <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['height'];?></td>
 		                      <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['weight'];?></td>
 		                      <td align="center" class="normalblack_12"><?php echo $athlete['Sport']['name']; ?></td>
@@ -175,12 +228,8 @@ $values = array('leadership','work_ethic','primacy_go_to_guy','mental_toughness'
 		                 </tr>
 			          <?php endforeach; ?>
 			     </table>
-		     <?php endif;?> 	
-	   </div>	
-	     
-	   <div style="clear:both;"></div>
-	     
-	   <?php echo $this->Element('pagination');?>
+	   		</div>	
+	   <?php endif;?> 
 	     
      <?php endif;?> 	  
    </div>	   

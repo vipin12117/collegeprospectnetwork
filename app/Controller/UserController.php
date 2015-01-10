@@ -32,7 +32,7 @@ class UserController extends AppController{
 		}
 	}
 
-	public function getAddressInfo(){
+	public function getAddressInfo($state_id = false){
 		$this->autoLayout = false;
 		$this->autoRender = false;
 
@@ -53,6 +53,8 @@ class UserController extends AppController{
 			$this->redirect(array("controller"=>"Home","action"=>"index"));
 			exit;
 		}
+		
+		$this->set("state_id",$state_id);
 
 		if($hs_aau_team_id != 'Other'){
 			$this->loadModel('HsAauTeam');
@@ -111,6 +113,7 @@ class UserController extends AppController{
 		}
 
 		$this->loadModel('HsAauTeam');
+		$this->set("state_id",$state_id);
 
 		$colleges = $this->HsAauTeam->find("list",array("conditions"=>"state='$state_id'","fields"=>"id,school_name","order"=>"school_name ASC"));
 		$colleges['Other'] = array("Other"=>"Add your school");
@@ -146,7 +149,7 @@ class UserController extends AppController{
 		$this->set("title_for_layout","Athlete Registration");
 
 		if(isset($this->request->data['Athlete'])){
-			if($this->request->data['Athlete']['code'] == $this->Session->read('Catcha.code')){
+			if($this->request->data['Athlete']['code'] == $this->Session->read('Captcha.code')){
 				$username = strtolower($this->request->data['Athlete']['username']);
 				$email = strtolower($this->request->data['Athlete']['email']);
 
@@ -190,6 +193,8 @@ class UserController extends AppController{
 			}
 			else{
 				$this->Session->setFlash("Please enter the correct code.");
+				
+				unset($this->request->data['Athlete']['state_id']);
 			}
 		}
 
@@ -198,7 +203,7 @@ class UserController extends AppController{
 		        'images_url'=>'/img/captcha/',
 		        'images_path'=>WWW_ROOT.DS.'img/captcha/',
 		        'assets_path'=>WWW_ROOT.DS.'img/'));
-		$this->Session->write('Catcha.code',$this->Captcha->code());
+		$this->Session->write('Captcha.code',$this->Captcha->code());
 		$this->set('captcha_url',$this->Captcha->store());
 
 		$this->render("/User/registerAthlete");
@@ -208,7 +213,7 @@ class UserController extends AppController{
 		$this->set("title_for_layout","High School / AAU Coach Registration");
 
 		if(isset($this->request->data['HsAauCoach'])){
-			if($this->request->data['HsAauCoach']['code'] == $this->Session->read('Catcha.code')){
+			if($this->request->data['HsAauCoach']['code'] == $this->Session->read('Captcha.code')){
 				$username = strtolower($this->request->data['HsAauCoach']['username']);
 				$email = strtolower($this->request->data['HsAauCoach']['email']);
 
@@ -245,6 +250,7 @@ class UserController extends AppController{
 					$this->request->data['HsAauCoach']['sport_id'] = $this->request->data['HsAauCoach']['sport_id'][0];
 					$this->request->data['HsAauCoach']['position'] = $this->request->data['HsAauCoach']['position'][0];
 
+					$this->request->data['HsAauCoach']['status'] = 1;
 					$this->HsAauCoach->save($this->request->data);
 					$hs_aau_coach_id = $this->HsAauCoach->getLastInsertID();
 
@@ -283,6 +289,8 @@ class UserController extends AppController{
 			}
 			else{
 				$this->Session->setFlash("Please enter the correct code.");
+				
+				unset($this->request->data['HsAauCoach']['state_id']);
 			}
 		}
 
@@ -291,7 +299,7 @@ class UserController extends AppController{
 		        'images_url'=>'/img/captcha/',
 		        'images_path'=>WWW_ROOT.DS.'img/captcha/',
 		        'assets_path'=>WWW_ROOT.DS.'img/'));
-		$this->Session->write('Catcha.code',$this->Captcha->code());
+		$this->Session->write('Captcha.code',$this->Captcha->code());
 		$this->set('captcha_url',$this->Captcha->store());
 
 		$this->render("/User/registerHSCoach");
@@ -301,7 +309,7 @@ class UserController extends AppController{
 		$this->set("title_for_layout","College Coach Registration");
 
 		if(isset($this->request->data['CollegeCoach'])){
-			if($this->request->data['CollegeCoach']['code'] == $this->Session->read('Catcha.code')){
+			if($this->request->data['CollegeCoach']['code'] == $this->Session->read('Captcha.code')){
 				$username = strtolower($this->request->data['CollegeCoach']['username']);
 				$email = strtolower($this->request->data['CollegeCoach']['email']);
 
@@ -341,6 +349,8 @@ class UserController extends AppController{
 			}
 			else{
 				$this->Session->setFlash("Please enter the correct code.");
+				
+				unset($this->request->data['CollegeCoach']['state_id']);
 			}
 		}
 
@@ -349,7 +359,7 @@ class UserController extends AppController{
 		        'images_url'=>'/img/captcha/',
 		        'images_path'=>WWW_ROOT.DS.'img/captcha/',
 		        'assets_path'=>WWW_ROOT.DS.'img/'));
-		$this->Session->write('Catcha.code',$this->Captcha->code());
+		$this->Session->write('Captcha.code',$this->Captcha->code());
 		$this->set('captcha_url',$this->Captcha->store());
 
 		$this->render("/User/registerCollegeCoach");

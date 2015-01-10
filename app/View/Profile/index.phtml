@@ -128,7 +128,7 @@
 		    <div class="subscriptionbox">
 			    <h2>Your Subscription</h2>
 					   
-				<?php if ($profileDetail['CollegeCoach']['subscription_id'] == 0 || $is_trial_mode):?>
+				<?php if ($is_trial_mode):?>
 					  <p style="color:#222;margin-bottom:15px;">
 						   You currently have limited access to Athletes & HS/AAU Coaches. please <a href="<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"index"));?>" class="underline">Purchase a Subscription</a> to gain full access.
 					  </p>
@@ -182,11 +182,14 @@
 			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Network","action"=>"index","college"));?>">My College Coaches</a></p>
 
 			<h2>Athlete Section</h2>
-			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"search"));?>">Athlete Search</a></p>
+			<?php if(!$is_trial_mode):?>
+				<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"search"));?>">Athlete Search</a></p>
+			<?php endif;?>
+				
             <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"index"));?>">Browse All Athletes</a></p>
 
-			<h2>HS / AAU Coach  Section</h2>
 
+			<h2>HS / AAU Coach  Section</h2>
 			<p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"HsAauCoach","action"=>"index"));?>">Browse  HS / AAU Coaches</a></p>
 
 			<h2>Manage Subscription</h2>

@@ -21,9 +21,12 @@
 	</span>
 </p>
 
-<p>
+<p style="display:none;">
 	<label>State:</label>
 	<span>
+		<?php if(!@$hsAauTeamDetail['HsAauTeam']['state']):?>
+					<?php $hsAauTeamDetail['HsAauTeam']['state'] = $state_id; ?>
+		<?php endif;?>
 		<?php echo $this->Form->input("HsAauTeam.state",array("div"=>false,"label"=>false,"required"=>"true","selected"=>@$hsAauTeamDetail['HsAauTeam']['state'],"options"=>$this->Register->getStates(),"empty"=>"Select One"));?>
 	</span>
 </p>
