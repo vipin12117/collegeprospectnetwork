@@ -235,7 +235,7 @@
 		   </div>
 		   
 		   <div class="full-col">
-				<h3 style="float:left;">Comments From My Coach</h3>
+				<h3 style="float:left;">Comments From My Coaches</h3>
 
 				<div style="float:left;padding:4px 0 0 30px;">
 				
@@ -243,7 +243,13 @@
 		   
 		  	   <div class="clear"></div>
 			   <div class="boxes">
-			   		<?php echo $profileDetail['Athlete']['comments'];?>
+			   		<p><?php echo $profileDetail['Athlete']['comments'];?></p>
+			   		
+			   		<?php if($otherComments):?>
+			   				<?php foreach($otherComments as $comment):?>
+			   						<p><?php echo $comment['AthleteTeam']['comments'];?></p>
+			   				<?php endforeach;?>
+			   		<?php endif;?>
 			   </div>
 		   </div>
 		   

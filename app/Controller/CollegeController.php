@@ -434,5 +434,4 @@ class CollegeController extends AppController{
 			$this->Session->setFlash('Do not exits this Athlete.', 'flash_error');
 		}
 	}
-
 }

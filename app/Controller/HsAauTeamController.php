@@ -213,5 +213,4 @@ class HsAauTeamController extends AppController{
 			}
 		}
 	}
-	
 }

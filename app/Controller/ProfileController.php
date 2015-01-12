@@ -6,7 +6,7 @@ class ProfileController extends AppController{
 
 	public $user_type = false;
 
-	public $uses = array('Mail','Network','CollegeCoach','Athlete','HsAauCoach','Event','Banner','AthleteVideo','Note','AthleteStat','HsAauCoachSportposition');
+	public $uses = array('Mail','Network','CollegeCoach','Athlete','HsAauCoach','Event','Banner','Note','AthleteStat','HsAauCoachSportposition');
 
 	public $components = array('Email','Session','Image');
 
@@ -44,12 +44,18 @@ class ProfileController extends AppController{
 			$hs_aau_team_id = $profileDetail['HsAauCoach']['hs_aau_team_id'];
 			$sports = $this->HsAauCoachSportposition->find("list",array("conditions"=>"hs_aau_coach_id = '$user_id'","fields"=>"sport_id"));
 			if($sports){
-				$athleteApproval = $this->Athlete->find("count",array("conditions"=>array("Athlete.sport_id"=>$sports,"Athlete.status"=>0,"Athlete.hs_aau_team_id"=>$hs_aau_team_id)));
+				$this->loadModel('AthleteTeam');
+				$extraAthleteList = $this->AthleteTeam->getAthleteList($hs_aau_team_id);
+
+				$conditions1 = array("Athlete.sport_id"=>$sports,"Athlete.status"=>0,"Athlete.hs_aau_team_id"=>$hs_aau_team_id);
+				$conditions2 = array("Athlete.id"=>$extraAthleteList);
+					
+				$athleteApproval = $this->Athlete->find("count",array("conditions"=>array("OR" => array($conditions1 , $conditions2))));
 			}
 			else{
 				$athleteApproval = 0;
 			}
-			
+
 			$athleteStat = $this->AthleteStat->find("first",array("conditions"=>"AthleteStat.hs_aau_coach_id = '$user_id' AND AthleteStat.status = 0 and event_id > 0",
 																		  "group"=>"event_id","fields"=> "event_id"));
 			$athleteStatApproval = count($athleteStat);
@@ -77,6 +83,7 @@ class ProfileController extends AppController{
 		$banners = $this->Banner->getBannerByPosition('bottom-left');
 		$this->set("banners",$banners);
 
+		$this->loadModel('AthleteVideo');
 		$video = $this->AthleteVideo->getVideo($user_id);
 		$this->set("video",$video);
 
@@ -88,6 +95,10 @@ class ProfileController extends AppController{
 
 		$hsAauCoach = $this->HsAauCoach->getByHsAauTeamId($profileDetail['Athlete']['hs_aau_team_id']);
 		$this->set("hsAauCoach",$hsAauCoach);
+		
+		$this->loadModel('AthleteTeam');
+		$otherComments = $this->AthleteTeam->getTeamList($user_id);
+		$this->set("otherComments",$otherComments);
 
 		$this->render("/Profile/athleteProfile");
 	}
@@ -160,7 +171,7 @@ class ProfileController extends AppController{
 
 			$this->request->data['HsAauCoach']['sport_id'] = $this->request->data['HsAauCoach']['sport_id'][0];
 			$this->request->data['HsAauCoach']['position'] = $this->request->data['HsAauCoach']['position'][0];
-				
+
 			if(isset($this->request->data['Athlete']['hs_aau_team_id'])){
 				$this->request->data['HsAauCoach']['hs_aau_team_id'] = $this->request->data['Athlete']['hs_aau_team_id'];
 			}
@@ -243,7 +254,7 @@ class ProfileController extends AppController{
 		}
 		else{
 			$this->request->data = $this->CollegeCoach->getById($user_id);
-				
+
 			$this->loadModel('College');
 			$state_id = $this->request->data['CollegeCoach']['state'];
 			$this->request->data['CollegeCoach']['state_id'] = $state_id;
@@ -251,7 +262,7 @@ class ProfileController extends AppController{
 			$colleges = $this->College->find("list",array("conditions"=>"state='$state_id'","fields"=>"id,name","order"=>"name ASC"));
 			$colleges['Other'] = array("Other"=>"Add your college");
 			$this->set("colleges",$colleges);
-				
+
 			$this->render("/Profile/editCollegeCoachProfile");
 		}
 	}
@@ -281,5 +292,43 @@ class ProfileController extends AppController{
 		}
 
 		$this->render("/Profile/changePassword");
+	}
+
+	public function getHsAauSchools($id = 1){
+		$this->autoLayout = false;
+		$this->autoRender = false;
+
+		$state_id = @$this->request->query['data']['AthleteTeam']['state_id1'];
+		if(!$state_id){
+			$state_id = @$this->request->query['data']['AthleteTeam']['state_id2'];
+		}
+
+		if(!$state_id){
+			return false;
+		}
+
+		if(!$this->RequestHandler->isAjax()){
+			$this->redirect(array("controller"=>"Home","action"=>"index"));
+			exit;
+		}
+
+		$this->loadModel('HsAauTeam');
+		$colleges = $this->HsAauTeam->find("list",array("conditions"=>"state='$state_id'","fields"=>"id,school_name","order"=>"school_name ASC"));
+		$this->set("colleges",$colleges);
+
+		if($id == 1){
+			$this->set("column","hs_aau_team_id1");
+			$this->set("hs_aau_team_col","hs_aau_team_id1");
+			$this->set("school_address_col","school_address1");
+			$this->set("col_title","High School");
+		}
+		else{
+			$this->set("column","hs_aau_team_id2");
+			$this->set("hs_aau_team_col","hs_aau_team_id2");
+			$this->set("school_address_col","school_address2");
+			$this->set("col_title","High School/AAU Team");
+		}
+
+		$this->render("/Profile/getSchools","ajax");
 	}
 }

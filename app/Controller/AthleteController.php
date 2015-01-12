@@ -57,7 +57,13 @@ class AthleteController extends AppController{
 
 		$sports = $this->HsAauCoachSportposition->find("list",array("conditions"=>"hs_aau_coach_id = '$userId'","fields"=>"sport_id"));
 		if($sports){
-			$this->paginate = array("Athlete" => array("conditions"=>array("Athlete.sport_id"=>$sports,"Athlete.status"=>0,"Athlete.hs_aau_team_id"=>$hs_aau_team_id)));
+			$this->loadModel('AthleteTeam');
+			$extraAthleteList = $this->AthleteTeam->getAthleteList($hs_aau_team_id);
+
+			$conditions1 = array("Athlete.sport_id"=>$sports,"Athlete.status"=>0,"Athlete.hs_aau_team_id"=>$hs_aau_team_id);
+			$conditions2 = array("Athlete.id"=>$extraAthleteList);
+
+			$this->paginate = array("Athlete" => array("conditions"=>array("OR" => array($conditions1 , $conditions2))));
 			$athletes = $this->paginate("Athlete");
 			$this->set("athletes",$athletes);
 		}
@@ -121,8 +127,27 @@ class AthleteController extends AppController{
 		}
 
 		if(isset($this->request->data['Athlete'])){
-			$this->Athlete->id = $athlete_id;
-			$this->Athlete->save($this->request->data);
+			$user_id = $this->Session->read('user_id');
+
+			$approve_hs_aau_coach_id = $this->Athlete->field("approve_hs_aau_coach_id","id = '$athlete_id'");
+			if($approve_hs_aau_coach_id){
+				$athleteTeam = array();
+				$athleteTeam['hs_aau_coach_id'] = $user_id;
+				$athleteTeam['division'] = "'". $this->request->data['Athlete']['division'] ."'";
+				$athleteTeam['comments'] = "'". $this->request->data['Athlete']['comments'] ."'";
+
+				$this->loadModel('HsAauCoach');
+				$this->loadModel('AthleteTeam');
+
+				$hsAauCoach = $this->HsAauCoach->read(null,$user_id);
+				$hs_aau_team_id = $hsAauCoach['HsAauCoach']['hs_aau_team_id'];
+				$this->AthleteTeam->updateAll($athleteTeam,array("AthleteTeam.athlete_id" =>$athlete_id,
+											  "AthleteTeam.hs_aau_team_id"=>$hs_aau_team_id));
+			}
+			else{
+				$this->Athlete->id = $athlete_id;
+				$this->Athlete->save($this->request->data);
+			}
 
 			$this->Session->setFlash("Athlete's Division Projection and Comment has been succesfully posted.");
 			$this->redirect(array('controller' => 'Athlete', 'action' => 'approval'));
@@ -423,6 +448,53 @@ class AthleteController extends AppController{
 			$ratingExist = $this->Rating->find("first",array("conditions"=>"Rating.athlete_id = '$athlete_id' AND Rating.hs_aau_coach_id = '$userId'"));
 			$this->set("ratingExist",$ratingExist);
 			$this->set("athlete_id",$athlete_id);
+		}
+	}
+
+	public function addEditTeams($athlete_id = false){
+		$athlete_id = (int)$athlete_id;
+		if(!$athlete_id){
+			$this->redirect(array('controller' => 'Profile', 'action' => 'index'));
+			exit;
+		}
+
+		$this->loadModel('AthleteTeam');
+
+		if(isset($this->request->data['AthleteTeam'])){
+			$this->AthleteTeam->deleteAll(array("AthleteTeam.athlete_id" => $athlete_id));
+
+			for($i=1; $i <= 2; $i++){
+				$newRecord = array();
+				$newRecord['athlete_id'] = $athlete_id;
+				$newRecord['state_id']   = $this->request->data['AthleteTeam']['state_id'.$i];
+				$newRecord['hs_aau_team_id'] = $this->request->data['AthleteTeam']['hs_aau_team_id'.$i];
+				$newRecord['date_modified']  = date('Y-m-d H:i:s');
+					
+				$this->AthleteTeam->create();
+				$this->AthleteTeam->save(array("AthleteTeam" => $newRecord));
+			}
+
+			$this->Session->setFlash("Teams updated successfully to your profile.");
+			$this->redirect(array('controller' => 'Athlete', 'action' => 'addEditTeams',$athlete_id));
+		}
+
+		$teams = $this->AthleteTeam->find("all",array("conditions"=>"AthleteTeam.athlete_id = '$athlete_id'"));
+		$this->set("teams",$teams);
+
+		if($teams){
+			$this->loadModel('HsAauTeam');
+
+			$this->request->data['AthleteTeam']['state_id1'] = $teams[0]['AthleteTeam']['state_id'];
+			$this->request->data['AthleteTeam']['hs_aau_team_id1'] = $teams[0]['AthleteTeam']['hs_aau_team_id'];
+			$teams1 = $this->HsAauTeam->find("list",array("conditions"=>"state='".$teams[0]['AthleteTeam']['state_id']."'",
+											 "fields"=>"id,school_name","order"=>"school_name ASC"));
+			$this->set("teams1",$teams1);
+
+			$this->request->data['AthleteTeam']['state_id2'] = $teams[1]['AthleteTeam']['state_id'];
+			$this->request->data['AthleteTeam']['hs_aau_team_id2'] = $teams[1]['AthleteTeam']['hs_aau_team_id'];
+			$teams2 = $this->HsAauTeam->find("list",array("conditions"=>"state='".$teams[1]['AthleteTeam']['state_id']."'",
+											 "fields"=>"id,school_name","order"=>"school_name ASC"));
+			$this->set("teams2",$teams2);
 		}
 	}
 
