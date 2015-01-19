@@ -164,7 +164,9 @@ class AthleteController extends AppController{
 			$athlete = $this->Athlete->read(null,$id);
 
 			$this->Athlete->saveField("status",2);
-			$this->Session->setFlash("You have rejected this Athlete and Notification Email send to ".$athlete['Athlete']['email']);
+			$this->Session->setFlash("You have successfully rejected this athlete's application. 
+									  He/she will be notified that CPN is not accepting the application.
+									  There will be no mention of your involvement in the decision.");
 
 			$template = 'athlete_reject_notification';
 			$cakeEmail = new CakeEmail();

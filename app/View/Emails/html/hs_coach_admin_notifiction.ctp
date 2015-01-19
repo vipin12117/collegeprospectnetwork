@@ -21,7 +21,7 @@ New HS Coach Registration:<br />
 		
 <br /><br /><b>Sport(s):</b>
 <?php	foreach($sportPositions as $sportPosition){?>
-			<?php echo $sportPosition['sport_id']. ": " . $sportPosition['position']?><br />
+			<?php echo $sportPosition['sport_name']. ": " . $sportPosition['position']?><br />
 <?php   } ?>
 				
 <br /><br /><?php echo $httpUserAgent?>

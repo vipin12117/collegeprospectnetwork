@@ -1,6 +1,6 @@
-Congratulations &nbsp;<?php echo $athlete['Athlete']['firstname']. " ".$athlete['Athlete']['lastname']; ?>,<br /><br />
+Congratulations <?php echo $athlete['Athlete']['firstname']. " ".$athlete['Athlete']['lastname']; ?>,<br /><br />
 
-You're application to College Prospect Network has been approved. <br /><br />You can now edit your profile, upload your stats, 
+Your application to join College Prospect Network has been approved. <br /><br />You can now edit your profile, upload your stats, 
 post some game tape and start finding college programs. Go to <a href='www.CollegeProspectNetwork.com'>www.CollegeProspectNetwork.com </a> 
 and get started today. <br /><br />
 

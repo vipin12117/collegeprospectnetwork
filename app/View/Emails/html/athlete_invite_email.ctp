@@ -1,6 +1,5 @@
 Hello,<br/><br/>
-Your coach, <?php echo $HsAauCoach['HsAauCoach']['firstname']." ".$HsAauCoach['HsAauCoach']['lastname'];?> 
-has referred you to join College Prospect Network. 
+Your coach, <?php echo $HsAauCoach['HsAauCoach']['firstname']." ".$HsAauCoach['HsAauCoach']['lastname'];?>, has referred you to join College Prospect Network. 
 Our website is designed to help high school athletes get recruited to play sports in college and your coach thinks you deserve the opportunity to be seen.
 <br/><br/>
 
@@ -10,6 +9,6 @@ If you have any questions, please use the Contact Us page located on the website
 <br/><br/>
 
 Welcome to the site,<br/><br/>
-Thadd Fifer<br/> 
+Jacob Harris<br/> 
 President<br/> 
 College Prospect Network

@@ -10,4 +10,9 @@ class Sport extends AppModel{
 		parent::__construct();
 		$this->primaryKey = 'id';
 	}
+	
+	public function getSportList(){
+		$rows = $this->find("list",array("fields"=>"id,name"));
+		return $rows;
+	}
 }
