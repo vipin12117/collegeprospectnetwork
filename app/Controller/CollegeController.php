@@ -280,7 +280,7 @@ class CollegeController extends AppController{
 			$searchName =  $this->request->data['searchname'];
 				
 			if (!empty($searchName)){
-				$conditions = array('CollegeCoach.name LIKE ' => '%'.$searchName.'%');
+				$conditions = array('CollegeCoach.firstname LIKE ' => '%'.$searchName.'%');
 			} else {
 				$conditions = array();
 			}
@@ -316,6 +316,7 @@ class CollegeController extends AppController{
 					$path = 'files/' .md5(microtime()) . '.' . $extension;
 					if(move_uploaded_file($scouting_report['tmp_name'],WWW_ROOT.$path)){
 						$this->request->data['scouting_report'] = $path;
+						$this->request->data['scouting_report_name'] = $scouting_report['name'];
 					}
 				}
 				else{

@@ -1,16 +1,6 @@
 <div class="cantener">
 	<div class="register-main">
 		<div class="registerPage">
-			<h2>Download Flyers</h2>
-			
-			<a href="<?php echo $this->Html->url("/files/Flyer for Coaches to Give to Players.pdf")?>">Flyer for Coaches to Give to Players</a>
-			
-			<br /><br />
-			
-			<a href="<?php echo $this->Html->url("/files/Flyer for Players to Give to Coaches.pdf")?>">Flyer for Players to Give to Coaches</a>
-			
-			<br /><br /><br />
-			
 			<h1>User Registration - Select Account Type</h1>
 			
 			<?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"User","action"=>"register"),"type"=>"post"));?>

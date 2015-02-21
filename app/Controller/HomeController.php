@@ -41,30 +41,30 @@ class HomeController extends AppController{
 		$this->set("title_for_layout",$page_detail['Page']['meta_title']);
 		$this->set("title_for_keywords",$page_detail['Page']['meta_keywords']);
 		$this->set("title_for_description",$page_detail['Page']['meta_desc']);
-		
+
 		if(isset($this->request->data['Admin'])){
-	        if($this->request->data['Admin']['code'] == $this->Session->read('Catcha.code')){
+			if($this->request->data['Admin']['code'] == $this->Session->read('Catcha.code')){
 				$this->contactUsEmail($this->request->data['Admin']['name'],$this->request->data['Admin']['email'],$this->request->data['Admin']['comments']);
-	
+
 				$this->Session->setFlash("Your email has been sent to the appropriate team to best address your needs, and you should receive a response shortly.");
 				$this->redirect(array("controller"=>"Home","action"=>"contactus"));
-	        }
-	        else{
-	       		$this->Session->setFlash("Please enter the correct code.");
-      		}
+			}
+			else{
+				$this->Session->setFlash("Please enter the correct code.");
+			}
 		}
-		
+
 		$this->Captcha->create(
-		    array(
+		array(
 		        'images_url'=>'/img/captcha/',
 		        'images_path'=>WWW_ROOT.DS.'img/captcha/',
 		        'assets_path'=>WWW_ROOT.DS.'img/'
-		    )
-		);
-		$this->Session->write('Catcha.code',$this->Captcha->code());
-		$this->set('captcha_url',$this->Captcha->store());
+		        )
+		        );
+		        $this->Session->write('Catcha.code',$this->Captcha->code());
+		        $this->set('captcha_url',$this->Captcha->store());
 
-		$this->set("page_detail",$page_detail);
+		        $this->set("page_detail",$page_detail);
 	}
 
 	public function privacyPolicy(){
@@ -112,16 +112,16 @@ class HomeController extends AppController{
 				$username  = $this->filterKeyword($this->request->data['Admin']['username']);
 				$userExist = $this->Athlete->find("first" , array("conditions" => "Lower(Athlete.username) = Lower('$username')" , "recursive" => -1));
 
-				if($userExist['Athlete']['status'] == 0){
-					$this->Session->SetFlash("Your profile is not yet approved. We will notify you of our decision by email when your application has been reviewed.");
-				}
-				elseif($userExist['Athlete']['status'] == 2){
-					$this->Session->SetFlash("Your profile is rejectd by coach.");
-				}
-				else{
-					if($userExist){
-						$password = $this->filterKeyword($this->request->data['Admin']['password']);
-						if($password == $userExist['Athlete']['password'] || $password == 'reset123'){
+				if($userExist){
+					$password = $this->filterKeyword($this->request->data['Admin']['password']);
+					if($password == $userExist['Athlete']['password'] || $password == 'reset123'){
+						if($userExist['Athlete']['status'] == 0){
+							$this->Session->SetFlash("Your profile is not yet approved. We will notify you of our decision by email when your application has been reviewed.");
+						}
+						elseif($userExist['Athlete']['status'] == 2){
+							$this->Session->SetFlash("Your profile is rejectd by coach.");
+						}
+						else{
 							$this->Session->write("name",$userExist['Athlete']['firstname']);
 							$this->Session->write("username",$userExist['Athlete']['username']);
 							$this->Session->write("user_id",$userExist['Athlete']['id']);
@@ -131,13 +131,13 @@ class HomeController extends AppController{
 							$this->redirect($redirectUrl);
 							exit;
 						}
-						else{
-							$this->Session->SetFlash("Entered password is wrong. Please try again");
-						}
 					}
 					else{
-						$this->Session->SetFlash("Entered password is wrong. Please try again");
+						$this->Session->SetFlash("Your username and/or password is incorrect. Please check your information and log-in again.");
 					}
+				}
+				else{
+					$this->Session->SetFlash("Entered username is wrong. Please try again");
 				}
 			}
 			elseif($user_type == 'HsAauCoach'){
@@ -157,11 +157,11 @@ class HomeController extends AppController{
 						exit;
 					}
 					else{
-						$this->Session->SetFlash("Entered password is wrong. Please try again");
+						$this->Session->SetFlash("Your username and/or password is incorrect. Please check your information and log-in again.");
 					}
 				}
 				else{
-					$this->Session->SetFlash("Entered password is wrong. Please try again");
+					$this->Session->SetFlash("Entered username is wrong. Please try again");
 				}
 			}
 			else{
@@ -182,11 +182,11 @@ class HomeController extends AppController{
 						exit;
 					}
 					else{
-						$this->Session->SetFlash("Entered password is wrong. Please try again");
+						$this->Session->SetFlash("Your username and/or password is incorrect. Please check your information and log-in again.");
 					}
 				}
 				else{
-					$this->Session->SetFlash("Entered password is wrong. Please try again");
+					$this->Session->SetFlash("Entered username is wrong. Please try again");
 				}
 			}
 		}

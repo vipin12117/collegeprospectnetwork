@@ -55,6 +55,7 @@ class UserController extends AppController{
 		}
 
 		$this->set("state_id",$state_id);
+		$this->set("hs_aau_team_id",$hs_aau_team_id);
 
 		if($hs_aau_team_id != 'Other'){
 			$this->loadModel('HsAauTeam');
@@ -91,6 +92,8 @@ class UserController extends AppController{
 		else{
 			$CollegeDetail['College']['state'] = $state_id;
 		}
+		
+		$this->set("college_id",$college_id);
 		
 		$this->set("CollegeDetail",$CollegeDetail);
 		$this->render("/User/getCollegeInfo","ajax");
@@ -187,6 +190,12 @@ class UserController extends AppController{
 					$message = "Thank you for submitting your application. Your profile will be reviewed by the College Prospect Network staff and you will be notified via email whether you are approved. Please allow 10 business days for us to process your request before contacting us.<br /><br />
 								Please print this page and take it to your coach. We will need him/her to answer two quick questions as part of your application process.			
 								<br /><br />From, <br />College Prospect Network.";
+					$message .= '<h2>Download Flyers</h2>
+								<a href="'.Router::url("/files/Flyer for Coaches to Give to Players.pdf",true).'">Flyer for Coaches to Give to Players</a>
+								<br /><br />
+								<a href="'.Router::url("/files/Flyer for Players to Give to Coaches.pdf",true).'">Flyer for Players to Give to Coaches</a>
+								<br /><br /><br />';
+					
 					$this->Session->setFlash($message);
 
 					$this->athleteRegisterEmail($this->request->data['Athlete'],$this->request->data['HsAauTeam'],$newSchool);
@@ -358,6 +367,8 @@ class UserController extends AppController{
 				unset($this->request->data['CollegeCoach']['state_id']);
 			}
 		}
+		
+		unset($this->request->data['CollegeCoach']['state_id']);
 
 		$this->Captcha->create(
 		array(

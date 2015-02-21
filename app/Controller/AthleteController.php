@@ -332,6 +332,10 @@ class AthleteController extends AppController{
 		if($sportsList){
 			$default_conditions[] = " Athlete.sport_id IN (".implode(",",$sportsList).") ";
 		}
+		else{
+			$collegeSportId = $this->CollegeCoach->field("sport_id"," id = '$college_coach_id'");
+			$default_conditions[] = " Athlete.sport_id = '$collegeSportId'";
+		}
 
 		if(!@($this->request->data['Athlete']['class'])){
 			$default_conditions[] = " ( abs(Athlete.class) > '".(date('Y') - 1)."' ) ";
