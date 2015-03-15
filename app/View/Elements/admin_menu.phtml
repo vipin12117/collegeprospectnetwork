@@ -1,125 +1,74 @@
 <?php $s_image = $this->Html->webroot("/img/spacer.gif");?>
 
-<!--<table
-	style="position: fixed; top: 0; left: 0; width: 100%; background-color: #FF0000">
-
+<table width="100%" border="0" cellpadding="1" cellspacing="0" 	bgcolor="#808080" style="width: 180px;">
 	<tr>
-
-		<td align="center"
-			style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: 18px; color: #FFFFFF;">Authorize.net
-		payment is in test mode. <a href="make_live.php" class="test_mode">Make
-		It Live</a></td>
-
-	</tr>
-
-</table>
--->
-
-<table width="100%" border="0" cellpadding="1" cellspacing="0"
-	bgcolor="#808080" style="width: 180px;">
-
-	<tr>
-
 		<td>
-
-		<table cellSpacing=0 cellPadding=0 bgColor=#CCCCCC border=0>
-
+		  <table cellSpacing=0 cellPadding=0 bgColor=#CCCCCC border=0>
 			<tr>
-
 				<td width="15" align=right bgColor=#ffffff class=normalbrown>&nbsp;</td>
 
-				<td width="180" height=22 align=left bgColor=#ffffff
-					class=normalbrown><br>
-				<span class="smallgrey_10"><?=date("l, jS M, Y");?></span> </strong>
-
+				<td width="180" height=22 align=left bgColor=#ffffff class=normalbrown><br>
+						<span class="smallgrey_10"><?=date("l, jS M, Y");?></span> </strong>
 				</td>
-
 			</tr>
-
 			<tr bgcolor="#FFFFFF">
-
 				<td height="22" colspan="2" align=middle class=normalbrown></td>
-
 			</tr>
-
-
-
 			<!--MANAGE Atheletes BEGIN-->
 
 			<tr>
-
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
-				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage
-				Athletes</td>
-
+				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage Athletes</td>
 			</tr>
 			
 			<tr>
-			
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
 				<td height=22 bgColor=#ffffff class="normalwhite_12">
-					<a href="/admin/Athlete/list" class="linkgrey_12"> <strong>View Athletes</strong></a>
+					<a href="<?php echo $this->Html->url('/admin/Athlete/list')?>" class="linkgrey_12"> <strong>View Athletes</strong></a>
 				</td>
-
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Athlete/stateList" class="linkgrey_12"><strong>View
-				Athlete Stats</strong></a>
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Athlete/stateList')?>" class="linkgrey_12"><strong>View Athlete Stats</strong></a>
 				</td>
-
 			</tr>
 
 			<tr>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Athlete/categoryAdd" class="linkgrey_12"> <strong>Add
-				Stats Category</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Athlete/categoryAdd')?>" class="linkgrey_12"> <strong>Add Stats Category</strong></a>
+				</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Athlete/categoryList" class="linkgrey_12"> <strong>View
-				Stats Category</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Athlete/categoryList')?>" class="linkgrey_12"> <strong>View	Stats Category</strong></a>
+				</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Athlete/classList" class="linkgrey_12"> <strong>View
-				Class Category</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Athlete/classList')?>" class="linkgrey_12"> <strong>View Class Category</strong></a>
+				</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Athlete/classAdd" class="linkgrey_12"> <strong>Add Class
-				Category</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Athlete/classAdd')?>" class="linkgrey_12"> <strong>Add Class Category</strong></a>
+				</td>
 			</tr>
 
 			<!--MANAGE Atheletes EMD -->
@@ -127,558 +76,404 @@
 			<!--MANAGE Messageing BEGIN-->
 
 			<tr>
-
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
-				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage
-				Messages System</td>
-
+				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage Messages System</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Mail/listMessage" class="linkgrey_12"> <strong>View Messages</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Mail/listMessage')?>" class="linkgrey_12"> <strong>View Messages</strong></a>
+				</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Mail/addBlockMessage" class="linkgrey_12"> <strong>Add Block
-				Messages</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Mail/addBlockMessage')?>" class="linkgrey_12"> <strong>Add Block Messages</strong></a>
+				</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Mail/listBlockMessage" class="linkgrey_12"> <strong>List
-				Block Messages</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Mail/listBlockMessage')?>" class="linkgrey_12"> <strong>List Block Messages</strong></a>
+				</td>
 			</tr>
 
 			<!--MANAGE Sport BEGIN-->
 
 			<tr>
-
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
-				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage
-				Sports</td>
-
+				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage Sports</td>
 			</tr>
 		
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Sport/addSport" class="linkgrey_12"> <strong> Add Sports</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Sport/addSport')?>" class="linkgrey_12"> <strong> Add Sports</strong></a>
+				</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Sport/sportList" class="linkgrey_12"><strong>View Sports</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Sport/sportList')?>" class="linkgrey_12"><strong>View Sports</strong></a>
+				</td>
 			</tr>
 
 			<!--MANAGE sport EMD -->
 
 			<tr>
-
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
-				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage
-				HS / AAU Team</td>
-
+				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage HS / AAU Team</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/HsAauTeam/addSchool" class="linkgrey_12"> <strong> Add HS / AAU
-				Team</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/HsAauTeam/addSchool')?>" class="linkgrey_12"> <strong> Add HS / AAU Team</strong></a>
+				</td>
 			</tr>
 		
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/HsAauTeam/schoolList" class="linkgrey_12"><strong>View HS / AAU
-				Team</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/HsAauTeam/schoolList')?>" class="linkgrey_12"><strong>View HS / AAU Team</strong></a>
+				</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/HsAauTeam/otherList" class="linkgrey_12"><strong>View HS / AAU
-				Team Other</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/HsAauTeam/otherList')?>" class="linkgrey_12"><strong>View HS / AAU Team Other</strong></a>
+				</td>
 			</tr>
 
 			<!--MANAGE Coach BEGIN-->
 
 			<tr>
-
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
-				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage
-				HS / AAU Coach</td>
-
+				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage HS / AAU Coach</td>
 			</tr>
 
-			
-
-
-
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/HsAauCoach/addCoach" class="linkgrey_12"> <strong> Add HS / AAU
-				Coach</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/HsAauCoach/addCoach')?>" class="linkgrey_12"> <strong> Add HS / AAU	Coach</strong></a>
+				</td>
 			</tr>
 
-			
-
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/HsAauCoach/coachList" class="linkgrey_12"><strong>View HS / AAU
-				Coach</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/HsAauCoach/coachList')?>" class="linkgrey_12"><strong>View HS / AAU Coach</strong></a>
+				</td>
 			</tr>
 
 			<!--MANAGE coach EMD -->
 
-
 			<!--MANAGE School BEGIN-->
 
-
 			<!--MANAGE School EMD -->
-
 
 			<!--MANAGE School BEGIN-->
 
 			<tr>
-
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
-				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage
-				College Coach</td>
-
+				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage College Coach</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/College/listCoach" class="linkgrey_12"><strong>View
-				Colleges Coach</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/College/listCoach')?>" class="linkgrey_12"><strong>View Colleges Coach</strong></a>
+				</td>
 			</tr>
 
 			<!--MANAGE School EMD -->
-
 
 			<!--MANAGE TEAM BEGIN-->
 
 			<tr>
-
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
-				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage
-				College</td>
-
+				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage College</td>
 			</tr>
 		
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/College/addCollege" class="linkgrey_12"> <strong> Add College </strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/College/addCollege')?>" class="linkgrey_12"> <strong> Add College </strong></a>
+				</td>
 			</tr>
 		
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/College/listCollege" class="linkgrey_12"><strong>View College </strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a 	href="<?php echo $this->Html->url('/admin/College/listCollege')?>" class="linkgrey_12"><strong>View College </strong></a>
+				</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/College/listOther" class="linkgrey_12"><strong>View Other
-				College List </strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/College/listOther')?>" class="linkgrey_12"><strong>View Other College List </strong></a>
+				</td>
 			</tr>
-
-
 
 			<!--MANAGE TEAM EMD -->
 
 			<!--MANAGE Event BEGIN-->
 
 			<tr>
-
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
-				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage
-				Event</td>
-
+				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage Event</td>
 			</tr>
 		
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Event/addEvent" class="linkgrey_12"> <strong> Add Event</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Event/addEvent')?>" class="linkgrey_12"> <strong> Add Event</strong></a>
+				</td>
 			</tr>
 		
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Event/eventList" class="linkgrey_12"><strong>View Event</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Event/eventList')?>" class="linkgrey_12"><strong>View Event</strong></a>
+				</td>
 			</tr>
 
 			<!-- START SPECIAL EVENT -->
 
 			<tr>
-
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
-				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage
-				Special Event</td>
-
+				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage Special Event</td>
 			</tr>
 		
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/SpecialEvent/addSpecialEvent" class="linkgrey_12"> <strong> Add Special
-				Event</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/SpecialEvent/addSpecialEvent')?>" class="linkgrey_12"> <strong> Add Special Event</strong></a>
+				</td>
 			</tr>
 		
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/SpecialEvent/specialEventList" class="linkgrey_12"><strong>View
-				Special Event</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/SpecialEvent/specialEventList')?>" class="linkgrey_12"><strong>View Special Event</strong></a>
+				</td>
 			</tr>
 		
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/SpecialEvent/specialEventUserList" class="linkgrey_12"><strong>View
-				Special Event Registration</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/SpecialEvent/specialEventUserList')?>" class="linkgrey_12"><strong>View Special Event Registration</strong></a>
+				</td>
 			</tr>
 
 			<!--transportation-->
 		
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/TransportationDiscount/addTransportationDiscount" class="linkgrey_12"><strong>Add
-				Transportation</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/TransportationDiscount/addTransportationDiscount')?>" class="linkgrey_12"><strong>Add Transportation</strong></a>
+				</td>
 			</tr>
 		
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/TransportationDiscount/transportationDiscountList" class="linkgrey_12"><strong>View
-				Transportation</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/TransportationDiscount/transportationDiscountList')?>" class="linkgrey_12"><strong>View Transportation</strong></a>
+				</td>
 			</tr>
 
 			<!--coupon-->
 
 			<tr>
-
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
-				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage
-				Coupon</td>
-
+				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage Coupon</td>
 			</tr>
 	
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Coupon/addCoupon" class="linkgrey_12"> <strong> Add Coupon</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Coupon/addCoupon')?>" class="linkgrey_12"> <strong> Add Coupon</strong></a>
+				</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Coupon/couponList" class="linkgrey_12"> <strong> View Coupon</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Coupon/couponList')?>" class="linkgrey_12"> <strong> View Coupon</strong></a>
+				</td>
 			</tr>
-
-
 
 			<!--end coupon-->
 
 			<!-- END SPECIAL EVENT -->
-
-
-
 			<tr>
-
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
-				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage
-				Subsription</td>
-
-			</tr>
-
-
-			<tr>
-
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Subscription/addSubscription" class="linkgrey_12"> <strong> Add
-				Subsription</strong></a></td>
-
+				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage Subsription</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Subscription/subscriptionList" class="linkgrey_12"><strong>View
-				Subsription</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Subscription/addSubscription')?>" class="linkgrey_12"> <strong> Add Subsription</strong></a>
+				</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Subscription/subscriptionList')?>" class="linkgrey_12"><strong>View Subsription</strong></a>
+				</td>
+			</tr>
+
+			<tr>
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
-				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage
-				Static Page</td>
-
+				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage Static Page</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Page/addPage" class="linkgrey_12"><strong>Add Static Page</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Page/addPage')?>" class="linkgrey_12"><strong>Add Static Page</strong></a>
+				</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Page/pageList')?>" class="linkgrey_12"><strong>View Static Page</strong></a>
+				</td>
+			</tr>
+			
+			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Page/pageList" class="linkgrey_12"><strong>View Static Page</strong></a></td>
-
-				<tr>
-
-					<td bgColor=#ffffff class="normalwhite_12" align=right><img
-						src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-					<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-						href="/admin/Page/homeContentList" class="linkgrey_12"><strong>View Home
-					Content</strong></a></td>
-
-				</tr>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a 	href="<?php echo $this->Html->url('/admin/Page/homeContentList')?>" class="linkgrey_12"><strong>View Home Content</strong></a>
+				</td>
 			</tr>
 
 			<!--
-
-Manage Home page Content-->
-
+				Manage Home page Content-->
 			<!--Mange Banner-->
 
 			<tr>
-
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
-				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage
-				Banner</td>
-
+				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage Banner</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Banner/addBanner" class="linkgrey_12"><strong>Add Banner</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Banner/addBanner')?>" class="linkgrey_12"><strong>Add Banner</strong></a>
+				</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Banner/bannerList" class="linkgrey_12"><strong>View Banner</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Banner/bannerList')?>" class="linkgrey_12"><strong>View Banner</strong></a>
+				</td>
 			</tr>
 
 			<!--Mange Notes-->
-
 			<tr>
-
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
-				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage
-				Notes</td>
-
+				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Manage Notes</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Note/addNote" class="linkgrey_12"><strong>Add Notes</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Note/addNote')?>" class="linkgrey_12"><strong>Add Notes</strong></a>
+				</td>
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admin/Note/noteList" class="linkgrey_12"><strong>View Notes</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admin/Note/noteList')?>" class="linkgrey_12"><strong>View Notes</strong></a>
+				</td>
 			</tr>
 
 			<tr>
-
 				<td align="center" bgColor=#808080 class=normalwhite_12>&nbsp;</td>
 
 				<td height=22 align="left" bgColor=#808080 class=normalwhite_12>Miscellaneous</td>
-
 			</tr>
 
 			<tr>
+				<td bgColor=#ffffff class="normalwhite_12" align=right><img src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
 
-				<td bgColor=#ffffff class="normalwhite_12" align=right><img
-					src="<?php echo $s_image?>" width="5" height="9" border="0"></img></td>
-
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admins/changePassword" class="linkgrey_12"><strong>Change
-				Password</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admins/changePassword')?>" class="linkgrey_12"><strong>Change Password</strong></a>
+				</td>
 			</tr>
 
 			<tr bgColor=#ffffff class="normalwhite_12">
 				<td>&nbsp;</td>
 				<td>
-				<hr size="1">
+					<hr size="1">
 				</td>
 			</tr>
 
 			<tr>
-
 				<td bgColor=#ffffff class="normalwhite_12">&nbsp;</td>
 
-				<td height=22 bgColor=#ffffff class="normalwhite_12"><a
-					href="/admins/logout" class="linkgrey_12"><img src="/img/spacer.gif"
-					border="0"></img><strong> Logout</strong></a></td>
-
+				<td height=22 bgColor=#ffffff class="normalwhite_12">
+					<a href="<?php echo $this->Html->url('/admins/logout')?>" class="linkgrey_12"><img src="<?php echo $s_image?>" border="0"></img><strong> Logout</strong></a>
+				</td>
 			</tr>
-
-			<!--MANAGE MICELLANEOUS EMD -->
-
 		</table>
-
-		</td>
-
-	</tr>
-
+	</td>
+ </tr>
 </table>

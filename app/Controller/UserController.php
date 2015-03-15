@@ -323,6 +323,8 @@ class UserController extends AppController{
 	public function registerCollegeCoach(){
 		$this->set("title_for_layout","College Coach Registration");
 
+		$this->loadModel('College');
+		
 		if(isset($this->request->data['CollegeCoach'])){
 			if($this->request->data['CollegeCoach']['code'] == $this->Session->read('Captcha.code')){
 				$username = strtolower($this->request->data['CollegeCoach']['username']);
@@ -364,7 +366,15 @@ class UserController extends AppController{
 			}
 			else{
 				$this->Session->setFlash("Please enter the correct code.");
-				unset($this->request->data['CollegeCoach']['state_id']);
+				
+				$state_id = $this->request->data['CollegeCoach']['state_id'];
+				$colleges = $this->College->find("list",array("conditions"=>"state='$state_id'","fields"=>"id,name","order"=>"name ASC"));
+				$colleges['Other'] = array("Other"=>"Add your college");
+				$this->set("colleges",$colleges);
+				
+				$college_id = $this->request->data['CollegeCoach']['college_id'];
+				$this->set("college_id",$college_id);
+				$this->set("state_id",$state_id);
 			}
 		}
 		

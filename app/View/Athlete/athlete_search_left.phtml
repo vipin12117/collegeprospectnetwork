@@ -2,9 +2,16 @@
 <p class="alt">
     <label>Sport:</label>
     <span>
-        <?php echo $this->Form->input("sport_id",array("div"=>false,"label"=>false,"options"=>$this->Register->getSports($user_id),"empty"=>"Select Sport"));?>
+        <?php echo $this->Form->input("sport_id",array("div"=>false,"id"=>"sport_id","label"=>false,"options"=>$this->Register->getSports($user_id),"empty"=>"Select Sport"));?>
     </span>
 </p>
+
+<?php $this->Js->get("#sport_id"); ?>
+<?php $this->Js->event('change',$this->Js->request(array('controller' => 'Athlete','action' => 'getSportPositions'),
+		array('async' => true,'update' => '#positions','data' => '$("#sport_id").serialize()','dataExpression' => true,
+			'complete' => 'getSportStats($("#sport_id").val())'
+      ))); 
+?>
 
 <!-- Graduating Class -->
 <p class="alt">
@@ -51,7 +58,7 @@
 </p>
 
 <!-- Positions -->
-<p class="alt">
+<p class="alt" id="positions">
     <label>Sport Position:</label>
     <span>
         <?php echo $this->Form->input("primary_position",array("div"=>false,"label"=>false,"options"=>$this->Register->getPositions(),"empty"=>"Select Primary Position"));?>

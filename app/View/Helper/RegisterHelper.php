@@ -67,7 +67,16 @@ class RegisterHelper extends AppHelper{
 			$this->CollegeSubscription = new CollegeSubscription();
 
 			$sports = $this->CollegeSubscription->find("list",array("conditions"=>"college_coach_id = '$college_coach_id'","fields"=>"sport_id"));
-			$options = $this->Sport->find("list",array("fields"=>"id,name","conditions"=>array("Sport.id"=>$sports)));
+			if($sports){
+				$options = $this->Sport->find("list",array("fields"=>"id,name","conditions"=>array("Sport.id"=>$sports)));
+			}
+			else{
+				App::import("Model","CollegeCoach");
+				$this->CollegeCoach = new CollegeCoach();
+				
+				$CollegeCoach = $this->CollegeCoach->find("first", array("conditions" => "CollegeCoach.id = '$college_coach_id'"));
+				$options = array($CollegeCoach['Sport']['id'] => $CollegeCoach['Sport']['name']);
+			}
 		}
 		else{
 			$options = $this->Sport->find("list",array("fields"=>"id,name"));

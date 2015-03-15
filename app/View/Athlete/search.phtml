@@ -35,6 +35,15 @@ $values = array('leadership','work_ethic','primacy_go_to_guy','mental_toughness'
 		    disabled : true
 		});
 	});
+
+	function getSportStats(sport_id){
+	    jQuery.ajax({
+			 url: '<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"getSportStats"));?>/'+sport_id,
+			 success: function(html){
+				 jQuery("#stats_category_filter").html(html);
+			 }
+		});
+	}
 </script>
 <div class="cantener">
   <div class="register-main">
@@ -105,32 +114,47 @@ $values = array('leadership','work_ethic','primacy_go_to_guy','mental_toughness'
 		  </fieldset>
 		  
 		  <div class="col-fieldset-left">
-	         <fieldset>
+	          <fieldset>
 	             <legend>Academic Stats</legend>
 	             
 				 <?php include_once ROOT. '/app/View/Athlete/athlete_search_acadstats.phtml'; ?>
-	         </fieldset>
-	       </div>
-	
-	       <div class="col-fieldset-right">
-	           <fieldset>
-	               <legend>Stats Category</legend>
-				   <p id="statsBtn">
-				   	  <label>Stats Category:</label> 
-					  <span>
-					      <?php echo $this->Form->input("athlete_stat_category_id",array("div"=>false,"label"=>false,"options"=>$this->Register->getStatsCategories(),"empty"=>"Select One"));?>
-					  </span>
-				   </p>	     
-	           </fieldset>
-	           
-	           <fieldset>
+	          </fieldset>
+	         
+	          <fieldset>
 	              <legend>Location</legend>
 	
 				  <?php include_once ROOT. '/app/View/Athlete/athlete_search_location.phtml'; ?>
-	           </fieldset>
+	          </fieldset>
+	       </div>
+	
+	       <div class="col-fieldset-right" >
+           		<fieldset>
+           			 <legend>Game Stats</legend>
+           			 <div id="stats_category_filter">
+           			 		<?php if(@$sportsStats):?>
+								<?php foreach($sportsStats as $id => $label):?>
+										<p>
+											<label style="width: 200px;"><?php echo $label;?></label>
+											<span>
+												<?php $value = @$this->request->data['Athlete']['athlete_stat_category_id'][$id];?>
+												<?php echo $this->Form->input("athlete_stat_category_id",array("name"=>"data[Athlete][athlete_stat_category_id][$id]","value"=>$value,"label"=>false,"div"=>false,"type"=>"text"));?>
+											</span>
+										</p>
+								<?php endforeach;?>
+							
+							<?php else:?>
+								<p>
+									<br />
+									<span>
+										Select a sport to add game stats
+									</span>
+								</p
+						    <?php endif;?>
+           			 </div>
+           		</fieldset>
 	       </div>
 	       
-	       <div class="clear"></div>
+	       <div class="clear"><br clear="all" /></div>
 	
 	       <p style="padding-bottom:10px;"> 
 	       	  <span>
@@ -144,11 +168,39 @@ $values = array('leadership','work_ethic','primacy_go_to_guy','mental_toughness'
 	<?php if(count(@$athletes) > 0):?>
 		<div style="background:#fff;">
 	         <table cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" width="100%" class="tablePadd" style="border-collapse: collapse;">
-	         	  <tr>
-	                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Name</strong></td>
-	                  <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>Location</strong></td>
-	                  <td align="center" class="normalblack_12" width="5%">&nbsp;<strong>Height</strong></td>
-	                  <td align="center" class="normalblack_12" width="10%">&nbsp;<strong>Weight</strong></td>
+	         	  <tr style="background-color:#e5e5e5;">
+	                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>
+	                  	  <?php 
+								echo $this->Paginator->sort('firstname', 'Name',array("title"=>__("Sort",true)));
+								if(isset($this->params['named']['sort']) && $this->params['named']['sort'] == "firstname"){
+									echo "&nbsp;&nbsp;".$this->Html->image(strtoupper($this->params['named']['direction']).'.gif',array('alt'=>"" ,'border'=>0));
+								}
+						  ?>
+	                  </strong></td>
+	                  <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>
+	                  	  <?php 
+								echo $this->Paginator->sort('city', 'Location',array("title"=>__("Sort",true)));
+								if(isset($this->params['named']['sort']) && $this->params['named']['sort'] == "city"){
+									echo "&nbsp;&nbsp;".$this->Html->image(strtoupper($this->params['named']['direction']).'.gif',array('alt'=>"" ,'border'=>0));
+								}
+						  ?>
+	                  </strong></td>
+	                  <td align="center" class="normalblack_12" width="10%">&nbsp;<strong>
+	                  	  <?php 
+								echo $this->Paginator->sort('height', 'Height',array("title"=>__("Sort",true)));
+								if(isset($this->params['named']['sort']) && $this->params['named']['sort'] == "height"){
+									echo "&nbsp;&nbsp;".$this->Html->image(strtoupper($this->params['named']['direction']).'.gif',array('alt'=>"" ,'border'=>0));
+								}
+						  ?>
+	                  </strong></td>
+	                  <td align="center" class="normalblack_12" width="10%">&nbsp;<strong>
+	                  	  <?php 
+								echo $this->Paginator->sort('weight', 'Weight',array("title"=>__("Sort",true)));
+								if(isset($this->params['named']['sort']) && $this->params['named']['sort'] == "weight"){
+									echo "&nbsp;&nbsp;".$this->Html->image(strtoupper($this->params['named']['direction']).'.gif',array('alt'=>"" ,'border'=>0));
+								}
+						  ?>
+	                  </strong></td>
 	                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Sport</strong></td>
 	                  <td align="center" class="normalblack_12" width="12%">&nbsp;<strong>Stars</strong></td>
 	                  <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>School and/or AAU Team</strong></td>

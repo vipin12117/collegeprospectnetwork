@@ -1,0 +1,18 @@
+<?php if($sportsStats):?>
+
+	<?php foreach($sportsStats as $id => $label):?>
+			<p>
+				<label style="width: 200px;"><?php echo $label;?></label>
+				<span>
+					<?php echo $this->Form->input("athlete_stat_category_id",array("name"=>"data[Athlete][athlete_stat_category_id][$id]","value"=>"","label"=>false,"div"=>false,"type"=>"text"));?>
+				</span>
+			</p>
+	<?php endforeach;?>
+
+<?php else:?>
+	<p>
+		<span>
+			Select a sport to add game stats
+		</span>
+	</p
+<?php endif;?>

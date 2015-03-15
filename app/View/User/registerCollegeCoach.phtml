@@ -97,7 +97,7 @@
 				<p>
 					<label>State:</label>
 					<span>
-						<?php echo $this->Form->input("state_id",array("id"=>"state_id","div"=>false,"label"=>false,"required"=>"true","options"=>$this->Register->getStates(),"empty"=>"Select One"));?>
+						<?php echo $this->Form->input("state_id",array("id"=>"state_id","div"=>false,"selected"=>@$state_id,"label"=>false,"required"=>"true","options"=>$this->Register->getStates(),"empty"=>"Select One"));?>
 					</span>
 					<font color="#0000ff">&nbsp;*</font>
 				</p>
@@ -109,12 +109,52 @@
 		     	?>
 				
 				<div id="schools">
-				
+					<p>
+					   <label>College:</label>
+					   <span>
+					   		<?php echo $this->Form->input("CollegeCoach.college_id",array("id"=>"college_id","div"=>false,"label"=>false,"required"=>"true","options"=>@$colleges,"empty"=>"Select One"));?>
+					   </span>
+					   <font color="#0000ff">*</font>
+					</p>  
 		     	</div>
 		     	
 		     	<div id="school_address">
-		     	
-		     	
+		     		<?php if(@$college_id == 'Other'):?>
+						<p>
+							<label>College Name:</label>
+							<span>
+								<?php echo $this->Form->input("College.name",array("div"=>false,"label"=>false,"required"=>"true",'pattern=".{3,}"','title'=>'Please enter correct name.'));?>
+							</span>
+						</p>
+					<?php endif;?>
+					
+					<p>
+						<label>Address:</label>
+						<span>
+							<?php echo $this->Form->input("College.address",array("div"=>false,"label"=>false,"required"=>"true","value"=>@$CollegeDetail['College']['address_1'],'pattern=".{3,}"','title'=>'Please enter correct address.'));?>
+						</span>
+					</p>
+					
+					<p>
+						<label>City:</label>
+						<span>
+							<?php echo $this->Form->input("College.city",array("div"=>false,"label"=>false,"required"=>"true","value"=>@$CollegeDetail['College']['city'],'pattern=".{3,}"','title'=>'Please enter correct city.'));?>
+						</span>
+					</p>
+					
+					<p style="display:none;">
+						<label>State:</label>
+						<span>
+							<?php echo $this->Form->input("College.state",array("div"=>false,"label"=>false,"required"=>"true","selected"=>@$CollegeDetail['College']['state'],"options"=>$this->Register->getStates(),"empty"=>"Select One"));?>
+						</span>
+					</p>
+					
+					<p>
+						<label>Zip Code:</label>
+						<span>
+							<?php echo $this->Form->input("College.zip",array("div"=>false,"label"=>false,"required"=>"true","value"=>@$CollegeDetail['College']['zip']));?>
+						</span>
+					</p>
 		     	</div>
 		     	
 				<p>

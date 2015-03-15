@@ -5,13 +5,13 @@ require_once 'sdk-php-master/autoload.php';
 class Authnet {
 
 	public function __construct(){
-		//define("AUTHORIZENET_API_LOGIN_ID",     "24u2SUseP");
-		//define("AUTHORIZENET_TRANSACTION_KEY",  "43U485fA9ySEq38K");
-		//define("AUTHORIZENET_SANDBOX",          false);
+		define("AUTHORIZENET_API_LOGIN_ID",     "24u2SUseP");
+		define("AUTHORIZENET_TRANSACTION_KEY",  "43U485fA9ySEq38K");
+		define("AUTHORIZENET_SANDBOX",          false);
 
-		define("AUTHORIZENET_API_LOGIN_ID",     "2hfYT85W");
-		define("AUTHORIZENET_TRANSACTION_KEY",  "23m2qL9tW7f43TUV");
-		define("AUTHORIZENET_SANDBOX",          true);
+		//define("AUTHORIZENET_API_LOGIN_ID",     "2hfYT85W");
+		//define("AUTHORIZENET_TRANSACTION_KEY",  "23m2qL9tW7f43TUV");
+		//define("AUTHORIZENET_SANDBOX",          true);
 	}
 
 	public function createProfile($data , $customer_profile_id = false){

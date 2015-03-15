@@ -355,7 +355,7 @@ class AthleteController extends AppController{
 						//$conditions[] = "Athlete.weight >= '$value'";
 					}
 					elseif($key == 'athlete_stat_category_id'){
-						//$conditions[] = "Athlete.weight >= '$value'";
+						
 					}
 					elseif($key == 'state'){
 						$cond = array();
@@ -372,6 +372,16 @@ class AthleteController extends AppController{
 						$conditions[] = "Athlete.$key = '$value'";
 					}
 				}
+				elseif($key == 'athlete_stat_category_id' && is_array($value)){
+					$statConditions = array();
+					foreach($value as $id => $val){
+						$statConditions[] = " ( Athlete.id IN ( select athlete_id from athlete_stats where athlete_stat_category_id = '$id' and value = '$val') ) ";
+					}
+					
+					if($statConditions){
+						$conditions[] = " (" .implode(" OR ", $statConditions) . ") ";
+					}
+				}
 			}
 
 			$this->Session->write("athlete_conditions",$conditions);
@@ -381,6 +391,16 @@ class AthleteController extends AppController{
 			$conditions = $this->Session->read("athlete_conditions");
 			$this->request->data['Athlete'] = $this->Session->read("athlete_conditions_data");;
 		}
+		
+		if(@$this->request->data['Athlete']['sport_id']){
+			$sport_id = $this->request->data['Athlete']['sport_id'];
+			$this->loadModel('AthleteStatCategory');
+				
+			$sportsStats = $this->AthleteStatCategory->find("list",array("conditions"=>"AthleteStatCategory.parent_id  = '$sport_id'","fields"=>array("id","name")));
+			$this->set("sportsStats",$sportsStats);
+		}
+		
+		//print_r($this->request->data['Athlete']); exit;
 
 		if($conditions){
 			$conditions = array_merge($conditions,$default_conditions);
@@ -392,7 +412,7 @@ class AthleteController extends AppController{
 			$this->paginate = array('Athlete'=>array("limit"=>10,"conditions"=>$conditions_str,));
 		}
 
-		if($this->Session->read('user_type') == 'college' AND !$this->Session->read("is_trial_mode")){
+		if($this->Session->read('user_type') == 'college'){
 			$this->set("user_id",$this->Session->read('user_id'));
 		}
 		else{
@@ -410,9 +430,17 @@ class AthleteController extends AppController{
 
 		// find you may also like
 		if($conditions){
+			if($sportsList){
+				$default_condition = " Athlete.sport_id IN (".implode(",",$sportsList).") ";
+			}
+			else{
+				$collegeSportId = $this->CollegeCoach->field("sport_id"," id = '$college_coach_id'");
+				$default_condition = " Athlete.sport_id = '$collegeSportId'";
+			}
+			
 			$conditions_str = "(". implode(" OR ",$conditions) .")";
 			if($conditions_str){
-				$conditions_str .= " AND ( Athlete.id not in (".implode(",", $ids).") )";
+				$conditions_str .= " AND ( Athlete.id not in (".implode(",", $ids).") ) AND $default_condition ";
 			}
 
 			$youMayAlsoLike = $this->Athlete->find("all",array("conditions"=>$conditions_str,"limit"=>5));
@@ -1071,5 +1099,36 @@ class AthleteController extends AppController{
 		} else {
 			$this->Session->setFlash('Do not exits this Athlete.', 'flash_error');
 		}
+	}
+	
+	public function getSportPositions(){
+		$this->layout = false;
+		
+		$sport_id = 10;
+		if(@$this->request->data['Athlete']['sport_id'] != 10){
+			$sport_id = 11;
+		}
+		
+		if($sport_id == 10){
+			$this->loadModel('FootballPosition');
+			$options = $this->FootballPosition->find("list",array("fields"=>"position,position","order"=>"position ASC","group"=>"position"));
+		}
+		else{
+			$this->loadModel('BasketballPosition');
+			$options = $this->BasketballPosition->find("list",array("fields"=>"position,position","order"=>"position ASC","group"=>"position"));
+		}
+		
+		$this->set("options",$options);
+		$this->render("/Athlete/sport_positions");
+	}
+	
+	public function getSportStats($sport_id = 10){
+		 $this->layout = false;
+		 $this->loadModel('AthleteStatCategory');
+		 
+		 $sportsStats = $this->AthleteStatCategory->find("list",array("conditions"=>"AthleteStatCategory.parent_id  = '$sport_id'","fields"=>array("id","name")));
+		 $this->set("sportsStats",$sportsStats);
+		 
+		 $this->render("/Athlete/stats_category_filter");
 	}
 }
