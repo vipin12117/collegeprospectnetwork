@@ -31,6 +31,8 @@
 	<script type="text/javascript">
 		//setTimeout(function(){jQuery('#flashMessage').hide();},10000);
 	</script>
+	
+	<?php echo $this->Html->css("blur.css");?>
 </head>
 <body>
    <div id="main">
@@ -61,5 +63,7 @@
 			echo $this->element('sql_dump'); 
 		}
 	?>
+	
+	<?php echo $this->Html->script(array("index.js","modernizer.js","prefixfree.min.js"));?>
 </body>
 </html>

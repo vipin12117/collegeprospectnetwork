@@ -2,6 +2,8 @@
 
 App::uses('CakeEmail', 'Network/Email');
 
+require_once ROOT.'/app/Lib/sdk-php-master/autoload.php';
+
 class CronController extends AppController{
 
 	public $name = "Cron";
@@ -16,6 +18,19 @@ class CronController extends AppController{
 	}
 
 	public function index(){
+		exit;
+	}
+	
+	public function mondayCron(){
+		$this->statsNeededAlert();
+		
+		$this->athleteNotification();
+		
+		$this->pendingApprovalAlert();
+		
+		$this->sendNeedAlert();
+		
+		echo "success";
 		exit;
 	}
 
@@ -98,6 +113,101 @@ class CronController extends AppController{
 		catch (Exception $e){
 			//$this->Session->setFlash('Error while sending email');
 		}
+	}
+	
+	public function setAthletePoints(){
+		$this->loadModel('Event');
+		$this->loadModel('Mail');
+		$this->loadModel('Network');
+		$this->loadModel('Athlete');
+		$this->loadModel('OpponentComment');
+		$this->loadModel('ManagePoint');
+	
+		//adding_game_stat
+		$conditions = "( (Event.start_date < now() AND Event.start_date >= DATE_SUB(now() , Interval 8 day)) OR (Event.end_date >= DATE_SUB(now() , Interval 8 day)) ) AND user_type = 'athlete'";
+		$results = $this->Event->find("all",array("conditions"=>$conditions,"fields"=>"Event.username"));
+		if($results){
+			foreach($results as $result){
+				$athleteInfo = $this->Athlete->getByUsername($result['Event']['username']);
+				if($athleteInfo){
+					$user_id = $athleteInfo['Athlete']['id'];
+					$this->ManagePoint->setAtheleteRating($user_id , 'adding_game_stat' , 1 , 1);
+				}
+			}
+		}
+		
+		//responding_to_emails
+		$conditions = "(date(Mail.sent_date) >= (DATE_SUB(now(), INTERVAL 8 day)) AND date(Mail.sent_date)< (now())) AND usertype_to = 'athlete'";
+		$results = $this->Mail->find("all",array("conditions"=>$conditions,"fields"=>"Mail.receiver"));
+		if($results){
+			foreach($results as $result){
+				$athleteInfo = $this->Athlete->getByUsername($result['Mail']['receiver']);
+				if($athleteInfo){
+					$user_id = $athleteInfo['Athlete']['id'];
+					$this->ManagePoint->setAtheleteRating($user_id , 'responding_to_emails' , 1 , 1);
+				}
+			}
+		}
+		
+		//send_network_request
+		$conditions = "(date(Network.date_added) >= (DATE_SUB(now(), INTERVAL 8 day)) AND date(Network.date_added)< (now())) and  sender_type ='athlete' and receiver_type ='college'";
+		$results = $this->Network->find("all",array("conditions"=>$conditions,"fields"=>"Network.sender_id"));
+		if($results){
+			foreach($results as $result){
+				if($result['Network']['sender_id']){
+					$this->ManagePoint->setAtheleteRating($result['Network']['sender_id'] , 'send_network_request' , 1 , 1);
+				}
+			}
+		}
+		
+		//responding_network_request
+		$conditions = "(date(Network.modify_date) >= (DATE_SUB(now(), INTERVAL 8 day)) AND date(Network.modify_date)< (now())) AND receiver_type ='athlete' AND status ='Active'";
+		$results = $this->Network->find("all",array("conditions"=>$conditions,"fields"=>"Network.receiver_id"));
+		if($results){
+			foreach($results as $result){
+				if($result['Network']['receiver_id']){
+					$this->ManagePoint->setAtheleteRating($result['Network']['receiver_id'] , 'responding_network_request' , 1 , 1);
+				}
+			}
+		}
+		
+		//adding_links_to_highlight_film_on_youtube
+		$conditions = "(date(youtube_modifydate) >= (DATE_SUB(now(), INTERVAL 8 day)) AND date(youtube_modifydate)< (now())) AND Athlete.status=1";
+		$results = $this->Athlete->find("all",array("conditions"=>$conditions,"fields"=>"Athlete.id"));
+		if($results){
+			foreach($results as $result){
+				$user_id = $result['Athlete']['id'];
+				if($user_id){
+					$this->ManagePoint->setAtheleteRating($user_id , 'adding_links_to_highlight_film_on_youtube' , 1 , 1);
+				}
+			}
+		}
+		
+		//feedback_from_opposing_coach
+		$conditions = "(date(added_date) >= (DATE_SUB(now(), INTERVAL 8 day)) AND date(added_date)< (now()))";
+		$results = $this->OpponentComment->find("all",array("conditions"=>$conditions,"group"=>"athlete_id,college_coach_id","fields"=>"OpponentComment.athlete_id"));
+		if($results){
+			foreach($results as $result){
+				$user_id = $result['OpponentComment']['athlete_id'];
+				if($user_id){
+					$this->ManagePoint->setAtheleteRating($user_id , 'feedback_from_opposing_coach' , 1 , 1);
+				}
+			}
+		}
+		
+		//most_profile_view
+		$results = $this->Athlete->find("all",array("order"=>"weekly_counter DESC","fields"=>"Athlete.id"));
+		if($results){
+			foreach($results as $result){
+				$user_id = $result['Athlete']['id'];
+				if($user_id > 0){
+					$this->ManagePoint->setAtheleteRating($user_id , 'most_profile_view' , 1 , 1);
+				}
+			}
+		}
+		
+		echo "success";
+		exit;
 	}
 
 	public function statsNeededAlert(){
