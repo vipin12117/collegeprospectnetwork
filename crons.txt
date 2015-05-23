@@ -1,0 +1,5 @@
+/usr/bin/php /home/142079/domains/collegeprospectnetwork.com/html/cron_athlete_rating_weekly.php
+
+/usr/bin/php /home/142079/domains/collegeprospectnetwork.com/html/cron_monday_reminder.php
+
+harish.bhatt@meticul.com

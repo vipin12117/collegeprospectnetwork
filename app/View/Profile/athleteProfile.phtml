@@ -281,10 +281,12 @@
               <h3>HS / AAU Coach Quick Glance:</h3>
 
               <div class="right-boxes">
-                    <?php if (!$is_trial_mode): ?>
+                    <?php if ($is_trial_mode): ?>
                    			<?php include_once ROOT. '/app/View/Profile/athleteProfileQuickGlance.phtml'; ?>
                     <?php else: ?>
-                             Sorry, this feature is disabled in Trial Mode, please <a href="<?php echo $this->Html->url(array("controller"=>"Subscribe","action"=>"index"));?>">Purchase a Subscription</a>.
+                    		<?php include_once ROOT. '/app/View/Profile/athleteProfileQuickGlance.phtml'; ?>
+                    		
+                             <!-- Sorry, this feature is disabled in Trial Mode, please <a href="<?php //echo $this->Html->url(array("controller"=>"Subscribe","action"=>"index"));?>">Purchase a Subscription</a>. -->
                     <?php endif; ?>
              </div>
           </div>

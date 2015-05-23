@@ -22,3 +22,26 @@ text.find("span:nth-child(" + (Math.floor(Math.random()*numLetters)+1) + ")")
 setTimeout(randomBlurize, 100);
 } // Call once
 randomBlurize();
+
+
+
+
+//Disable right and left click
+
+var event = $(document).click(function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+});
+
+// disable right click
+$(document).bind('contextmenu', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    e.stopImmediatePropagation();
+});
+
+$("#test").click(function() {
+   
+});
