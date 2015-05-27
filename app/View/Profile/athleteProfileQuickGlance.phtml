@@ -20,12 +20,12 @@ for ($i = 0; $i < $numCoaches; $i++) {
         </tr>
         <?php if ($approveCoach): ?>
 	        <tr>
-	            <td valign="middle"  align="left" class="normalblack_12_stat"> 
+	            <td valign="middle"  align="left" class="normalblack_12_stat <?php if($is_trial_mode):?><?php if($is_trial_mode):?>foreverblur <?php endif;?> <?php endif;?>"> 
 	                <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile",$approveCoach['id']));?>" title="View HS/AAU Coach Profile">
 	                    <?php echo $approveCoach['firstname'] . ' ' . $approveCoach['lastname']; ?>
 	                </a>
 	            </td>
-	            <td valign="middle"  align="left" class="normalblack_12_stat">
+	            <td valign="middle"  align="left" class="normalblack_12_stat <?php if($is_trial_mode):?>foreverblur <?php endif;?>">
 	                <?php echo $approveCoach['phone']; ?>
 	            </td>
 	        </tr>
@@ -33,13 +33,13 @@ for ($i = 0; $i < $numCoaches; $i++) {
 
         <?php foreach ($hsAauCoach as $coach): ?>
 	        <tr>
-            	<td valign="middle"  align="left" class="normalblack_12_stat">
+            	<td valign="middle"  align="left" class="normalblack_12_stat <?php if($is_trial_mode):?>foreverblur <?php endif;?>">
               	  <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"hsAauCoachProfile",$coach['HsAauCoach']['id']));?>" title="View HS/AAU Coach Profile">
                     	<?php echo $coach['HsAauCoach']['firstname'] . ' ' . $coach['HsAauCoach']['lastname']; ?>
                   </a>
 	            </td>
 
-           	    <td valign="middle"  align="left" class="normalblack_12_stat">
+           	    <td valign="middle"  align="left" class="normalblack_12_stat <?php if($is_trial_mode):?>foreverblur <?php endif;?>">
                		 <?php echo $coach['HsAauCoach']['phone']; ?>
            	    </td>
             </tr>
@@ -47,12 +47,12 @@ for ($i = 0; $i < $numCoaches; $i++) {
     <?php endif; ?>
 
     <tr>
-        <td valign="middle"  align="left" class="normalblack_12_stat">
+        <td valign="middle"  align="left" class="normalblack_12_stat <?php if($is_trial_mode):?>foreverblur <?php endif;?>">
             <b>HS/AAU Team:</b>
             <br />
             <?php echo ($profileDetail['HsAauTeam']['school_name']) ? $profileDetail['HsAauTeam']['school_name'] : 'NA'; ?>
         </td>
-        <td valign="middle"  align="left" class="normalblack_12_stat" >
+        <td valign="middle"  align="left" class="normalblack_12_stat <?php if($is_trial_mode):?>foreverblur <?php endif;?>">
             <b>Team Address:</b>
             <br />
             <?php echo ($profileDetail['HsAauTeam']['address']) ? $profileDetail['HsAauTeam']['address'] : 'NA'; ?>
