@@ -322,7 +322,6 @@ class AthleteController extends AppController{
 		$this->set("title_for_layout","College Prospect Network - Athlete Search");
 
 		$this->loadModel('Rating');
-
 		$conditions = array();
 		$default_conditions = array();
 		$college_coach_id = $this->Session->read('user_id');
@@ -336,11 +335,7 @@ class AthleteController extends AppController{
 			$collegeSportId = $this->CollegeCoach->field("sport_id"," id = '$college_coach_id'");
 			$default_conditions[] = " Athlete.sport_id = '$collegeSportId'";
 		}
-
-		if(!@($this->request->data['Athlete']['class'])){
-			$default_conditions[] = " ( abs(Athlete.class) > '".(date('Y') - 1)."' ) ";
-			// AND '".date('Y-m-d')."' <= '".date('Y-09-01')."' ) ";
-		}
+                
 			
 		if(isset($this->request->data['Athlete'])){
 			foreach($this->request->data['Athlete'] as $key => $value){
@@ -386,12 +381,14 @@ class AthleteController extends AppController{
 
 			$this->Session->write("athlete_conditions",$conditions);
 			$this->Session->write("athlete_conditions_data",$this->request->data['Athlete']);
+                        //echo '<pre>';print_r($this->Session->read("athlete_conditions")); exit;
 		}
 		elseif($this->Session->read("athlete_conditions")){
 			$conditions = $this->Session->read("athlete_conditions");
 			$this->request->data['Athlete'] = $this->Session->read("athlete_conditions_data");;
 		}
-		
+
+
 		if(@$this->request->data['Athlete']['sport_id']){
 			$sport_id = $this->request->data['Athlete']['sport_id'];
 			$this->loadModel('AthleteStatCategory');
@@ -400,16 +397,22 @@ class AthleteController extends AppController{
 			$this->set("sportsStats",$sportsStats);
 		}
 		
-		//print_r($this->request->data['Athlete']); exit;
 
 		if($conditions){
-			$conditions = array_merge($conditions,$default_conditions);
+                  	$conditions = array_merge($conditions,$default_conditions);
 			$conditions_str = implode(" AND ",$conditions);
-			$this->paginate = array('Athlete'=>array("conditions"=>$conditions_str,"limit"=>10));
+			if(strpos($conditions_str ,'Athlete.class') !== false){
+                        }else{
+                            $conditions_str .= " AND ( abs(Athlete.class) > '".(date('Y') - 1)."' ) " ;
+                        }
+                         $this->paginate = array('Athlete'=>array("conditions"=>$conditions_str,"limit"=>10));
 		}
 		else{
+                    if(!@($this->request->data['Athlete']['class'])){
+			$default_conditions[] = " ( abs(Athlete.class) > '".(date('Y') - 1)."' ) ";
+		     }
 			$conditions_str = implode(" AND ",$default_conditions);
-			$this->paginate = array('Athlete'=>array("limit"=>10,"conditions"=>$conditions_str,));
+			$this->paginate = array('Athlete'=>array("conditions"=>$conditions_str,"limit"=>10));
 		}
 
 		if($this->Session->read('user_type') == 'college'){
@@ -419,7 +422,7 @@ class AthleteController extends AppController{
 			$this->set("user_id",0);
 		}
 
-		$athletes = $this->paginate('Athlete');
+                $athletes = $this->paginate('Athlete');
 		$ids = array();
 		if($athletes){
 			foreach($athletes as $index => $athlete){
@@ -439,8 +442,8 @@ class AthleteController extends AppController{
 			}
 			
 			$conditions_str = "(". implode(" OR ",$conditions) .")";
-			if($conditions_str){
-				$conditions_str .= " AND ( Athlete.id not in (".implode(",", $ids).") ) AND $default_condition ";
+			if($conditions_str && $ids){
+				$conditions_str .= "  AND ( Athlete.id not in (".implode(",", $ids).") )  AND $default_condition ";
 			}
 
 			$youMayAlsoLike = $this->Athlete->find("all",array("conditions"=>$conditions_str,"limit"=>5));

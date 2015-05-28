@@ -19,7 +19,7 @@
 									<option value =<?php echo "'".$coachList[$i]['HsAauCoach']['username']."'" ?> >
 										<?php echo ucfirst($coachList[$i]['HsAauCoach']['lastname']) ?>, <?php echo ucfirst($coachList[$i]['HsAauCoach']['firstname'])?>
 									</option>
-								<? } ?>
+								<?php } ?>
 							</select></span></p>
 				<?php   } elseif ($value == 'athlete') { ?>
 							<h2 style='padding-left:160px;'>Send Message to an Athlete</h2><br>
@@ -30,7 +30,7 @@
 									<option value =<?php echo "'".$coachList[$i]['Athlete']['username']."'" ?> >
 										<?php echo ucfirst($coachList[$i]['Athlete']['lastname']) ?>, <?php echo ucfirst($coachList[$i]['Athlete']['firstname'])?>
 									</option>
-								<? } ?>
+								<?php } ?>
 							</select></span></p>
 				<?php   } elseif ($value == 'college') { ?>
 							<h2 style='padding-left:160px;'>Send Message to College Coach</h2><br>
@@ -41,7 +41,7 @@
 									<option value =<?php echo "'".$coachList[$i]['CollegeCoach']['username']."'" ?> >
 										<?php echo ucfirst($coachList[$i]['CollegeCoach']['lastname']) ?>, <?php echo ucfirst($coachList[$i]['CollegeCoach']['firstname'])?>
 									</option>
-								<? } ?>
+								<?php } ?>
 							</select></span></p>							
 				<?php   } ?>
 														
