@@ -13,8 +13,8 @@
 						if ($value == 'coach') {?>
 							<h2 style='padding-left:160px;'>Send Message to HS/AAU Coach</h2><br>
                                                         <input type="hidden" name="flag" value="to_coach">
-							<p><label>To:</label><span>
-                                                                <div class="ui-widget" >  <input type="text" name="to" id="to_coach" > </div>
+							<p><label>To:</label><span class="ui-widget">
+                                                                 <input type="text" name="to" id="to_coach" >
 							<!--<select name="to" style="width:276px" id="to">
 								<option value="">----- Please Select -----</option>
 								<?php for ($i=0;$i< count($coachList);$i++) {?>
@@ -27,8 +27,8 @@
 				<?php   } elseif ($value == 'athlete') { ?>
 							<h2 style='padding-left:160px;'>Send Message to an Athlete</h2><br>
                                                         <input type="hidden" name="flag" value="to_athlete">
-							<p><label>To:</label><span>
-                                                                <div class="ui-widget" >  <input type="text" name="to" id="to" > </div>
+							<p><label>To:</label><span class="ui-widget">
+                                                                <input type="text" name="to" id="to" >
 							<!--<select name="to" style="width:276px" id="to">
 								<option value="">----- Please Select -----</option>
 								<?php for ($i=0;$i< count($coachList);$i++) {?>
@@ -41,8 +41,8 @@
 				<?php   } elseif ($value == 'college') { ?>
 							<h2 style='padding-left:160px;'>Send Message to College Coach</h2><br>
                                                         <input type="hidden" name="flag" value="to_college">
-							<p><label>To:</label><span>
-                                                                <div class="ui-widget" >  <input type="text" name="to" id="to_college" > </div>
+							<p><label>To:</label><span class="ui-widget">
+                                                                <input type="text" name="to" id="to_college" >
 							<!--<select name="to" style="width:276px" id="to">
 								<option value="">----- Please Select -----</option>
 								<?php for ($i=0;$i< count($coachList);$i++) {?>
@@ -98,6 +98,8 @@
 $(".btn").click(function(){
 
 	var to = $('#to').val();
+        var to_coach = $('#to_coach').val();
+        var to_college = $('#to_college').val();
 	var subject = $('#subject').val();
 	var message = $('.ta2').val();
 
@@ -105,6 +107,16 @@ $(".btn").click(function(){
 		alert("Please select the Receiver (To)");
 		$('#to').focus();
 		return false;	
+	}
+        if (to_coach == ""){
+		alert("Please select the Receiver (To)");
+		$('#to_coach').focus();
+		return false;
+	}
+        if (to_college == ""){
+		alert("Please select the Receiver (To)");
+		$('#to_college').focus();
+		return false;
 	}
 	
 	if (subject == ""){
