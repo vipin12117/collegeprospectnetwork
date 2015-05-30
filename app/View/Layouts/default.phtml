@@ -26,11 +26,13 @@
 	<?php echo $this->Html->meta('keywords', @$keywords_for_layout);?>
 	<?php echo $this->Html->meta('description', @$description_for_layout);?>
 	
-	<link type="text/css" rel="stylesheet" href="<?php echo Router::fullBaseUrl().$this->base;?>/css.php?file=style.css" />
-	<script type="text/javascript" src="<?php echo Router::fullBaseUrl().$this->base;?>/js.php?file=jquery-1.10.1.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="<?php echo Router::fullBaseUrl().$this->base;?>/css.php?file=style.css,jquery-ui.css" />
+	<script type="text/javascript" src="<?php echo Router::fullBaseUrl().$this->base;?>/js.php?file=jquery-1.10.1.min.js,jquery-ui.js"></script>
 	<script type="text/javascript">
 		//setTimeout(function(){jQuery('#flashMessage').hide();},10000);
 	</script>
+        
+
 	
 	<?php echo $this->Html->css("blur.css");?>
 </head>

@@ -12,37 +12,46 @@
 					if (isset($value)) { 
 						if ($value == 'coach') {?>
 							<h2 style='padding-left:160px;'>Send Message to HS/AAU Coach</h2><br>
+                                                        <input type="hidden" name="flag" value="to_coach">
 							<p><label>To:</label><span>
-							<select name="to" style="width:276px" id="to">
+                                                                <div class="ui-widget" >  <input type="text" name="to" id="to_coach" > </div>
+							<!--<select name="to" style="width:276px" id="to">
 								<option value="">----- Please Select -----</option>
 								<?php for ($i=0;$i< count($coachList);$i++) {?>
 									<option value =<?php echo "'".$coachList[$i]['HsAauCoach']['username']."'" ?> >
 										<?php echo ucfirst($coachList[$i]['HsAauCoach']['lastname']) ?>, <?php echo ucfirst($coachList[$i]['HsAauCoach']['firstname'])?>
 									</option>
 								<?php } ?>
-							</select></span></p>
+							</select>-->
+                                                            </span></p>
 				<?php   } elseif ($value == 'athlete') { ?>
 							<h2 style='padding-left:160px;'>Send Message to an Athlete</h2><br>
+                                                        <input type="hidden" name="flag" value="to_athlete">
 							<p><label>To:</label><span>
-							<select name="to" style="width:276px" id="to">
+                                                                <div class="ui-widget" >  <input type="text" name="to" id="to" > </div>
+							<!--<select name="to" style="width:276px" id="to">
 								<option value="">----- Please Select -----</option>
 								<?php for ($i=0;$i< count($coachList);$i++) {?>
 									<option value =<?php echo "'".$coachList[$i]['Athlete']['username']."'" ?> >
 										<?php echo ucfirst($coachList[$i]['Athlete']['lastname']) ?>, <?php echo ucfirst($coachList[$i]['Athlete']['firstname'])?>
 									</option>
 								<?php } ?>
-							</select></span></p>
+							</select>-->
+                                                            </span></p>
 				<?php   } elseif ($value == 'college') { ?>
 							<h2 style='padding-left:160px;'>Send Message to College Coach</h2><br>
+                                                        <input type="hidden" name="flag" value="to_college">
 							<p><label>To:</label><span>
-							<select name="to" style="width:276px" id="to">
+                                                                <div class="ui-widget" >  <input type="text" name="to" id="to_college" > </div>
+							<!--<select name="to" style="width:276px" id="to">
 								<option value="">----- Please Select -----</option>
 								<?php for ($i=0;$i< count($coachList);$i++) {?>
 									<option value =<?php echo "'".$coachList[$i]['CollegeCoach']['username']."'" ?> >
 										<?php echo ucfirst($coachList[$i]['CollegeCoach']['lastname']) ?>, <?php echo ucfirst($coachList[$i]['CollegeCoach']['firstname'])?>
 									</option>
 								<?php } ?>
-							</select></span></p>							
+							</select> -->
+                                                            </span></p>
 				<?php   } ?>
 														
 						<p><label>Subject:</label><span><input type=text name=subject size=40 id=subject></span></p>
@@ -66,6 +75,24 @@
 				
 	</div>			
 </div>
+
+<style>
+  .ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+  }
+  /* IE 6 doesn't support max-height
+   * we use height instead, but this forces the menu to always be this tall
+   */
+  * html .ui-autocomplete {
+    height: 100px;
+  }
+  .ui-autocomplete-loading {
+    background: white url("<?php echo $this->Html->url('/img/loading.gif')?>") right center no-repeat;
+  }
+  </style>
 
 <script type="text/javascript">
 $(".btn").click(function(){
@@ -93,3 +120,61 @@ $(".btn").click(function(){
 	}
 });
 </script>
+
+
+
+<script>
+  $(function() {
+    var url = '<?php echo $this->Html->url('autoComplete'); ?>' ;
+    $( "#to" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax({
+          url: url ,
+          dataType: "json",
+          data: {
+            q: request.term
+          },
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 2
+    });
+
+    var url1 = '<?php echo $this->Html->url('autoComplete_coach'); ?>' ;
+    $( "#to_coach" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax({
+          url: url1 ,
+          dataType: "json",
+          data: {
+            q: request.term
+          },
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 2
+    });
+
+    var url2 = '<?php echo $this->Html->url('autoComplete_college'); ?>' ;
+    $( "#to_college" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax({
+          url: url2 ,
+          dataType: "json",
+          data: {
+            q: request.term
+          },
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 2
+    });
+
+  });
+  </script>
