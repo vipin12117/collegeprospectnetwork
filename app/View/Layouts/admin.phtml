@@ -1,25 +1,15 @@
-<?php
-
-//
-// This is the layout page for the admin section. It's much simpler than the rest of the site!
-//
-
-	echo $this->Html->css('admin/styles');
-	echo $this->Html->css('zapatec/zpcal/themes/aqua.css');
-	echo $this->Html->script('functions.js');
-	echo $this->Html->script('zapatec/utils/zapatec.js');
-	echo $this->Html->script('zapatec/zpcal/src/calendar.js');
-	echo $this->Html->script('zapatec/zpcal/lang/calendar-en.js');
-
-?>
 <!DOCTYPE html>
 <html>
     <head>
-		
-        <title>			
-            College Prospect Network
-            &bull; Admin Panel
-        </title>
+        <title>College Prospect Network &bull; Admin Panel</title>
+        <?php 
+        	echo $this->Html->css('admin/styles');
+			echo $this->Html->css('zapatec/zpcal/themes/aqua.css');
+			echo $this->Html->script('functions.js');
+			echo $this->Html->script('zapatec/utils/zapatec.js');
+			echo $this->Html->script('zapatec/zpcal/src/calendar.js');
+			echo $this->Html->script('zapatec/zpcal/lang/calendar-en.js');
+        ?>
     </head>
     <body>    
     	<?php if($this->Session->check('Message.flash')):?> 
@@ -33,5 +23,4 @@
 			<?php echo $content_for_layout; ?>			
         </div>
     </body>
-	
 </html>
