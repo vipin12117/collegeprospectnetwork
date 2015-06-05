@@ -99,16 +99,23 @@
 				</p>
 				
 				<?php $this->Js->get("#state_id1"); ?>
-		    	<?php $this->Js->event('change',$this->Js->request(array('controller' => 'Event','action' => 'getHsAauSchools',1),
-		    					   array('async' => true,'update' => '#schools1','data' => '$("#state_id1").serialize()','dataExpression' => true
-		               		 ))); 
+		    	<?php
+//                        $this->Js->event('change',$this->Js->request(array('controller' => 'Event','action' => 'getHsAauSchools',1),
+//		    					   array('async' => true,'update' => '#schools1','data' => '$("#state_id1").serialize()','dataExpression' => true
+//		               		 )));
 		     	?>
 		     	
 		     	<div id="schools1">
-				
+				<p>
+					<label>High School</label>
+					<span>
+						<?php echo $this->Form->input("hs_aau_team_id1",array("id"=>"hs_aau_team_id1","div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
 		     	</div>
 		     	
-		     	<p>
+                                <p>
 					<label>AAU Coach Name:</label>
 					<span>
 						<?php echo $this->Form->input("hs_aau_coach_name",array("div"=>false,"label"=>false,"required"=>"true"));?>
@@ -125,20 +132,27 @@
 				</p>
 				
 				<?php $this->Js->get("#state_id2"); ?>
-		    	<?php $this->Js->event('change',$this->Js->request(array('controller' => 'Event','action' => 'getHsAauSchools',2),
-		    					   array('async' => true,'update' => '#schools2','data' => '$("#state_id2").serialize()','dataExpression' => true
-		               		 ))); 
+		    	<?php
+//                        $this->Js->event('change',$this->Js->request(array('controller' => 'Event','action' => 'getHsAauSchools',2),
+//		    					   array('async' => true,'update' => '#schools2','data' => '$("#state_id2").serialize()','dataExpression' => true
+//		               		 )));
 		     	?>
 		     	
 		     	<div id="schools2">
-				
+				<p>
+					<label>High School/AAU Team:</label>
+					<span>
+						<?php echo $this->Form->input("hs_aau_team_id2",array("id"=>"hs_aau_team_id2","div"=>false,"label"=>false,"required"=>"true"));?>
+					</span>
+					<font color="#0000ff">&nbsp;*</font>
+				</p>
 		     	</div>
 		     	
 	     		<hr />
 				<p>
 					<label>Event:</label>
 					<span>
-						<?php echo $this->Form->input("special_event_id",array("id"=>"special_event_id","div"=>false,"label"=>false,"required"=>"true","options"=>$events,"empty"=>"Select One"));?>
+						<?php echo $this->Form->input("special_event_id",array("id"=>"special_event_id","div"=>false,"label"=>false,"options"=>$events,"empty"=>"Select One"));?>
 					</span>
 					<font color="#0000ff">&nbsp;*</font>
 				</p>	
@@ -196,4 +210,71 @@
 		
 		<?php echo $this->Form->end();?>
 	</div>
-</div>	
+</div>
+<style>
+    .ui-autocomplete {
+        max-height: 100px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+    }
+    /* IE 6 doesn't support max-height
+     * we use height instead, but this forces the menu to always be this tall
+    */
+    * html .ui-autocomplete {
+        height: 100px;
+    }
+    .ui-autocomplete-loading {
+        background: white url("<?php echo $this->Html->url('/img/loading.gif')?>") right center no-repeat;
+    }
+</style>
+
+
+<script>
+  $(function() {
+      $("#state_id1").change(function(){
+          $( "#hs_aau_team_id1" ).val('');
+      });
+    var url = '<?php echo $this->Html->url('autoCompleteHS'); ?>' ;
+    $( "#hs_aau_team_id1" ).autocomplete({
+      source: function( request, response ) {
+        if($("#state_id1").val() != ''){
+        $.ajax({
+          url: url ,
+          dataType: "json",
+          data: {
+            q: request.term,
+            state_id : $("#state_id1").val()
+          },
+          success: function( data ) {
+            response( data );
+          }
+        });
+        }
+      },
+      minLength: 1
+    });
+    $("#state_id2").change(function(){
+          $( "#hs_aau_team_id2" ).val('');
+      });
+    $( "#hs_aau_team_id2" ).autocomplete({
+      source: function( request, response ) {
+        if($("#state_id2").val() != ''){
+        $.ajax({
+          url: url ,
+          dataType: "json",
+          data: {
+            q: request.term,
+            state_id : $("#state_id2").val()
+          },
+          success: function( data ) {
+            response( data );
+          }
+        });
+        }
+      },
+      minLength: 1
+    });
+
+  });
+  </script>

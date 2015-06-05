@@ -204,6 +204,10 @@
 </style>
 <script>
     $(function() {
+        $("#state_id").change(function(){
+          $( "#AthleteTeam" ).val('');
+          $("#school_address").html('');
+      });
         var url = '<?php echo $this->Html->url('autoCompleteHS'); ?>' ;
         $("#AthleteTeam").autocomplete({
             source: function( request, response ) {

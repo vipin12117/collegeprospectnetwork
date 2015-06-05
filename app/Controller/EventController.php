@@ -28,6 +28,9 @@ class EventController extends AppController{
 		$this->set("title_for_layout","College Prospect Network - Event Registration");
 
 		if(isset($this->request->data['SpecialEventUser'])){
+                    //echo '<pre>';print_r($this->request->data);exit;
+                    if(isset($this->request->data['SpecialEventUser']['special_event_id']) && !empty($this->request->data['SpecialEventUser']['special_event_id']))
+                    {
 			if($this->request->data['SpecialEventUser']['code'] == $this->Session->read('Captcha.code')){
 				if(isset($_FILES['transcript']['tmp_name'])){
 					$file_parts = explode(".",$_FILES['transcript']['name']);
@@ -41,6 +44,19 @@ class EventController extends AppController{
 						unset($this->request->data['SpecialEventUser']['transcript']);
 					}
 				}
+                                $this->loadModel('HsAauTeam');
+                                $school1 = $this->request->data['SpecialEventUser']['hs_aau_team_id1'] ;
+                                $hsAauTeamDetail = $this->HsAauTeam->find("first",array("conditions"=>"HsAauTeam.school_name = '$school1'"));
+                                if($hsAauTeamDetail) {
+                                   $this->request->data['SpecialEventUser']['hs_aau_team_id'] =  $hsAauTeamDetail['HsAauTeam']['id'] ;
+                                }
+
+                                $school2 = $this->request->data['SpecialEventUser']['hs_aau_team_id2'] ;
+                                $hsAauTeamDetail1 = $this->HsAauTeam->find("first",array("conditions"=>"HsAauTeam.school_name = '$school2'"));
+                                if($hsAauTeamDetail1) {
+                                    $this->request->data['SpecialEventUser']['hs_aau_team_id'] = $hsAauTeamDetail1['HsAauTeam']['id'] ;
+                                }
+
 
 				$this->SpecialEventUser->save($this->request->data);
 				$event_user_id = $this->SpecialEventUser->getLastInsertId();
@@ -55,6 +71,9 @@ class EventController extends AppController{
 				unset($this->request->data['SpecialEventUser']['state_id1']);
 				unset($this->request->data['SpecialEventUser']['state_id2']);
 			}
+                    }else{
+                        $this->Session->setFlash("Please Select Event.");
+                    }
 		}
 
 		$events = $this->SpecialEvent->find("list",array("fields"=>"id,event_name","conditions"=>"start_date > '".date('Y-m-d')."'"));
@@ -429,4 +448,21 @@ class EventController extends AppController{
 
 		$this->render("/Event/getSchools","ajax");
 	}
+
+        public function autoCompleteHS() {
+        $this->autoRender = false;
+        $this->layout = 'ajax';
+        $colleges = array() ;
+        $this->loadModel('HsAauTeam');
+        if(isset($_GET['state_id']) && !empty($_GET['state_id'])) {
+            $term = $_GET['q'] ;
+            $state_id = $_GET['state_id'] ;
+            $colleges = $this->HsAauTeam->find("list",array("conditions"=>array('state'=>$state_id ,'school_name LIKE '=> "%$term%" ),"fields"=>"id,school_name","order"=>"school_name ASC"));
+        }else {
+            $term = $_GET['q'] ;
+            $colleges = $this->HsAauTeam->find("list",array("conditions"=>array('school_name LIKE '=> "%$term%"),"fields"=>"id,school_name","order"=>"school_name ASC"));
+        }
+        echo json_encode($colleges); die;
+    }
+
 }

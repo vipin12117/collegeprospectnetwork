@@ -244,6 +244,12 @@
 </style>
 <script>
     $(function() {
+        $("#state_id").change(function(){
+          $( "#college" ).val('');
+          $("#CollegeAddress").val('');
+          $("#CollegeCity").val('');
+          $("#CollegeZip").val('');
+      });
         var url = '<?php echo $this->Html->url('autoCompleteCollege'); ?>' ;
         $("#college").autocomplete({
             source: function( request, response ) {
