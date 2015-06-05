@@ -155,7 +155,6 @@ class UserController extends AppController {
         $this->set("title_for_layout","Athlete Registration");
 
         if(isset($this->request->data['Athlete'])) {
-            //echo '<pre>';print_r($this->request->data['Athlete']);exit;
             if($this->request->data['Athlete']['code'] == $this->Session->read('Captcha.code')) {
                 $username = strtolower($this->request->data['Athlete']['username']);
                 $email = strtolower($this->request->data['Athlete']['email']);
@@ -367,7 +366,6 @@ class UserController extends AppController {
         $this->loadModel('College');
 
         if(isset($this->request->data['CollegeCoach'])) {
-            //echo '<pre>'; print_r($this->request->data);exit;
             if($this->request->data['CollegeCoach']['code'] == $this->Session->read('Captcha.code')) {
                 $username = strtolower($this->request->data['CollegeCoach']['username']);
                 $email = strtolower($this->request->data['CollegeCoach']['email']);
@@ -644,7 +642,6 @@ class UserController extends AppController {
             $this->loadModel('HsAauTeam');
             $school = $_GET['schoolname'] ;
             $hsAauTeamDetail = $this->HsAauTeam->find("first",array("conditions"=>"HsAauTeam.school_name = '$school'"));
-            //echo '<pre>';print_r($hsAauTeamDetail);exit;
             $this->set("state_id",$_GET['state_id']);
             if($hsAauTeamDetail) {
                 $this->set("hs_aau_team_id",$hsAauTeamDetail['HsAauTeam']['id']);
@@ -680,7 +677,6 @@ class UserController extends AppController {
             $this->loadModel('College');
             $college = $_GET['collegename'] ;
             $CollegeDetail = $this->College->find("first",array("conditions"=>array("College.name" => "$college" , "College.state" => $_GET['state_id'] )));
-            //echo '<pre>';print_r($CollegeDetail);exit;
             $this->set("state_id",$_GET['state_id']);
             if($CollegeDetail) {
                 $this->set("college_id",$CollegeDetail['College']['id']);
