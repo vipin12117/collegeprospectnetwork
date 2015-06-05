@@ -310,7 +310,7 @@ class MailController extends AppController {
                             $this->request->data['receiver'] = $reciver[0]['Athlete']['username'] ;
                         }
                     }
-                }elseif(isset($this->request->data['flag']) && $this->request->data['flag'] == "to_college"){
+                }elseif(isset($this->request->data['flag']) && $this->request->data['flag'] == "to_college") {
                     $break_arr = explode("," , $this->request->data['to']) ;
                     if(count($break_arr) >= 2) {
                         $this->loadModel('CollegeCoach');
@@ -319,7 +319,7 @@ class MailController extends AppController {
                             $this->request->data['receiver'] = $reciver[0]['CollegeCoach']['username'] ;
                         }
                     }
-                }elseif(isset($this->request->data['flag']) && $this->request->data['flag'] == "to_coach"){
+                }elseif(isset($this->request->data['flag']) && $this->request->data['flag'] == "to_coach") {
                     $this->loadModel('HsAauCoach');
                     $break_arr = explode("," , $this->request->data['to']) ;
                     if(count($break_arr) >= 2) {
@@ -683,33 +683,40 @@ class MailController extends AppController {
         }
     }
 
-    public function autoComplete($term = '') {
+    public function autoComplete() {
         $this->autoRender = false;
         $this->layout = 'ajax';
         $response = array() ;
         $this->loadModel('Athlete');
-        $coachList = $this->Athlete->query('SELECT Athlete.id, Athlete.firstname, Athlete.lastname, Athlete.username FROM athletes as Athlete Where Athlete.status = 1 and ( Athlete.lastname LIKE "%'. $term . '%" or Athlete.firstname LIKE "%'. $term . '%" ) Order By Athlete.lastname ');
+        if(isset($_GET['q'])) {
+            $term = $_GET['q'] ;
+            $coachList = $this->Athlete->query('SELECT Athlete.id, Athlete.firstname, Athlete.lastname, Athlete.username FROM athletes as Athlete Where Athlete.status = 1 and ( Athlete.lastname LIKE "%'. $term . '%" or Athlete.firstname LIKE "%'. $term . '%" ) Order By Athlete.lastname ');
+        }else {
+            $coachList = $this->Athlete->query('SELECT Athlete.id, Athlete.firstname, Athlete.lastname, Athlete.username FROM athletes as Athlete Where Athlete.status = 1 Order By Athlete.lastname ');
+        }
         foreach($coachList as $coach) {
             $response[] = $coach['Athlete']['lastname'] . "," . $coach['Athlete']['firstname'] ;
         }
         echo json_encode($response);
     }
 
-    public function autoComplete_coach($term = '') {
+    public function autoComplete_coach() {
         $this->autoRender = false;
         $this->layout = 'ajax';
         $response = array() ;
         $this->loadModel('HsAauCoach');
-        if ($this->Session->read('user_type') == 'coach' || $this->Session->read('user_type') == 'college') {
-            $coachList = $this->HsAauCoach->query('SELECT HsAauCoach.id, HsAauCoach.firstname, HsAauCoach.lastname, HsAauCoach.username FROM hs_aau_coach as HsAauCoach Where HsAauCoach.lastname LIKE "%'. $term . '%" or HsAauCoach.firstname LIKE "%'. $term . '%"  Order By HsAauCoach.lastname ');
-        } else {
-            $username = $this->Session->read("username");
-            $this->loadModel('Athlete');
-            $this->loadModel('HsAauCoachSportposition');
-            $this->Athlete->recursive = -1;
-            $athlete = $this->Athlete->findByUsername($username);
-            if (isset($athlete)) {
-                $q =   'SELECT
+        if(isset($_GET['q'])) {
+            $term = $_GET['q'] ;
+            if ($this->Session->read('user_type') == 'coach' || $this->Session->read('user_type') == 'college') {
+                $coachList = $this->HsAauCoach->query('SELECT HsAauCoach.id, HsAauCoach.firstname, HsAauCoach.lastname, HsAauCoach.username FROM hs_aau_coach as HsAauCoach Where HsAauCoach.lastname LIKE "%'. $term . '%" or HsAauCoach.firstname LIKE "%'. $term . '%"  Order By HsAauCoach.lastname ');
+            } else {
+                $username = $this->Session->read("username");
+                $this->loadModel('Athlete');
+                $this->loadModel('HsAauCoachSportposition');
+                $this->Athlete->recursive = -1;
+                $athlete = $this->Athlete->findByUsername($username);
+                if (isset($athlete)) {
+                    $q =   'SELECT
 					HsAauCoach.id,
 					HsAauCoach.firstname,
 					HsAauCoach.lastname,
@@ -721,9 +728,10 @@ class MailController extends AppController {
 					(HsAauCoach.id = HsAauCoachSportposition.hs_aau_coach_id AND HsAauCoachSportposition.sport_id = '.$athlete['Athlete']['sport_id'].' and ( HsAauCoach.lastname LIKE "%'. $term .'%" or HsAauCoach.firstname LIKE "%'. $term .'%" ))
 				GROUP BY
 					HsAauCoach.lastname';
-                $coachList = $this->HsAauCoach->query($q);
-            } else {
-                $coachList = array();
+                    $coachList = $this->HsAauCoach->query($q);
+                } else {
+                    $coachList = array();
+                }
             }
         }
         foreach($coachList as $coach) {
@@ -732,12 +740,17 @@ class MailController extends AppController {
         echo json_encode($response);
     }
 
-    public function autoComplete_college($term = '') {
+    public function autoComplete_college() {
         $this->autoRender = false;
         $this->layout = 'ajax';
         $response = array() ;
         $this->loadModel('CollegeCoach');
-        $coachList = $this->CollegeCoach->query('SELECT CollegeCoach.id, CollegeCoach.firstname, CollegeCoach.lastname, CollegeCoach.username FROM college_coaches as CollegeCoach Where  CollegeCoach.lastname LIKE "%'. $term . '%" or CollegeCoach.firstname LIKE "%'. $term . '%"  Order By CollegeCoach.lastname ');
+        if(isset($_GET['q'])) {
+            $term = $_GET['q'] ;
+            $coachList = $this->CollegeCoach->query('SELECT CollegeCoach.id, CollegeCoach.firstname, CollegeCoach.lastname, CollegeCoach.username FROM college_coaches as CollegeCoach Where  CollegeCoach.lastname LIKE "%'. $term . '%" or CollegeCoach.firstname LIKE "%'. $term . '%"  Order By CollegeCoach.lastname ');
+        }else {
+            $coachList = $this->CollegeCoach->query('SELECT CollegeCoach.id, CollegeCoach.firstname, CollegeCoach.lastname, CollegeCoach.username FROM college_coaches as CollegeCoach Order By CollegeCoach.lastname ');
+        }
         foreach($coachList as $coach) {
             $response[] = $coach['CollegeCoach']['lastname'] . "," . $coach['CollegeCoach']['firstname'] ;
         }
