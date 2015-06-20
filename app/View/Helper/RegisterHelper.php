@@ -268,4 +268,16 @@ class RegisterHelper extends AppHelper{
 		$options = $this->Wingspan->getValues();
 		return $options;
 	}
+
+        public function getHsScout($state){
+		App::import("Model","HsAauTeam");
+		$this->HsAauTeam = new HsAauTeam();
+                $options =array();
+                if($state){
+
+                $options = $this->HsAauTeam->find("list",array("conditions"=>"state='$state'","fields"=>"id,school_name","order"=>"school_name ASC"));
+
+                           }
+		return $options;
+	}
 }

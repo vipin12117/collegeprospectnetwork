@@ -1,0 +1,311 @@
+<table width="100%" cellpadding="3" cellspacing="5">
+	<tr>
+		<td width="100%" align="center">
+		<table width="95%" cellpadding="0" cellspacing="3">
+			<tr>
+				<td width="100%" class="SearchHead"><b>Scout Report Details</b></td>
+			</tr>
+			<tr>
+				<td width="100%" class="GeneralFont">&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="100%">
+				<table width="100%" cellspacing="0" cellpadding="2">
+					<tr>
+						<td width="100%" valign="top">
+						<table width="100%" cellspacing="0" cellpadding="3">
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Picture</b>
+								</td>
+								<td class="normalblack_12" valign="top">
+                                                                    <?php if($ScoutReport['ScoutReport']['picture'] != '') { ?>
+                                                                    <img src="<?php echo $this->webroot . "/app/webroot/img/scoutreport/" . $ScoutReport['ScoutReport']['picture'] ; ?>" alt="<?php echo $ScoutReport['ScoutReport']['firstname'] . " " . $ScoutReport['ScoutReport']['lastname'] ; ?>" width="150" height="150" >
+                                                                    <?php } ?>
+                                                                </td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Name</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['firstname'] . " " . $ScoutReport['ScoutReport']['lastname'] ; ?>
+                                                                </td>
+							</tr>
+
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Email</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['email']?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Graduating Class</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['class']?></td>
+							</tr>
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Phone Number</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['phone_number']?></td>
+							</tr>
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Street Address</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['street_address']?></td>
+							</tr>
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>City</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['city']?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>state</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['state']?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Zip
+								Code</b></td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['zip_code']?></td>
+							</tr>
+
+
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Primary Position</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['primary_position'] ; ?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Secondary Postion</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['secondary_position']?></td>
+							</tr>
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>High School</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['high_school']?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Primary AAU Team</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['primary_aau_team']?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Secondary AAU Team</b></td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['secondary_aau_team']?></td>
+							</tr>
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Description</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['description']?></td>
+							</tr>
+
+
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Height</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['height']?></td>
+							</tr>
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Weight</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['weight']?></td>
+							</tr>
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Reach</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['reach']?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Wingspan</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['wingspan_id']?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Lane Agility</b></td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['lane_agility']?></td>
+							</tr>
+
+
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Strenghts</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['strengths'] ; ?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Weaknesses</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['weakness']?></td>
+							</tr>
+							
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Jersey Number</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['jersey_number']?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Best Game</b></td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['best_game']?></td>
+							</tr>
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Other Game</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['other_game']?></td>
+							</tr>
+
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>GPA</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['gpa'] ; ?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Sat Score</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['sat_score']?></td>
+							</tr>
+
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Act Score</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['act_score']?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>High School Coach Name</b></td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['high_school_coach_name']?></td>
+							</tr>
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>High School Coach Phone</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['high_school_coach_phone']?></td>
+							</tr>
+
+
+
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>High School Coach Email</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['high_school_coach_email']?></td>
+							</tr>
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Primary AAU Coach Name</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['primary_aau_coach_name']?></td>
+							</tr>
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Primary AAU Coach Phone</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['primary_aau_coach_phone']?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Primary AAU Coach Email</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['primary_aau_coach_email']?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Secondary AAU Coach Name</b></td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_name']?></td>
+							</tr>
+
+
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Secondary AAU Coach Phone</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_phone'] ; ?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Secondary AAU Coach Email</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_email']?></td>
+							</tr>
+
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Twitter</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['twitter']?></td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Facebook</b></td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['facebook']?></td>
+							</tr>
+							
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Father`s Name</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['father_firstname'] . " " . $ScoutReport['ScoutReport']['father_lastname'] ; ?></td>
+							</tr>
+
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Father`s Phone</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['father_phone'] ; ?></td>
+							</tr>
+
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Mother`s Name</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['mother_firstname'] . " " . $ScoutReport['ScoutReport']['mother_lastname'] ; ?></td>
+							</tr>
+
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Mother`s Phone</b>
+								</td>
+								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['mother_phone']?></td>
+							</tr>
+
+
+
+							<tr>
+								<td class="normalblack_12" valign="top" colspan="2">&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"
+									colspan="2"><input type=button value="Close"
+									onClick="javascript:window.close();"></td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td width="100%" align="center">&nbsp;</td>
+	</tr>
+</table>
