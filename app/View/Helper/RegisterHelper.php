@@ -280,4 +280,14 @@ class RegisterHelper extends AppHelper{
                            }
 		return $options;
 	}
+
+        public function getgames(){
+            $today = date("Y-m-d 00:00:00") ;
+            App::import("Model","Event");
+            $this->Event = new Event();
+            $options =array();
+            $options = $this->Event->find("list",array("conditions"=>"end_date < '$today'","fields"=>"id,event_name","order"=>"end_date DESC"));
+            return $options ;
+
+        }
 }

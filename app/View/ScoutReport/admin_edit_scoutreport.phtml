@@ -52,7 +52,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">First Name<font color="red">*</font></td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="firstname" id="firstname" required="required" value="<?php echo $ScoutReport['ScoutReport']['firstname'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="firstname" id="firstname" required value="<?php echo $ScoutReport['ScoutReport']['firstname'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -106,10 +106,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Height<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Height</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                        <select name="height" id="height" required style="width: 220px">
+                                                                                                        <select name="height" id="height"  style="width: 220px">
                                                                                                             <?php $heights = $this->Register->getHeights() ; ?>
                                                                                                             <option value="">Select Height</option>
                                                                                                             <?php foreach($heights as $key=>$height){ ?>
@@ -124,10 +124,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Weight<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Weight</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                        <select name="weight" id="weight" required style="width: 220px">
+                                                                                                        <select name="weight" id="weight"  style="width: 220px">
                                                                                                             <?php $Weights = $this->Register->getWeights() ; ?>
                                                                                                             <option value="">Select Weight</option>
                                                                                                             <?php foreach($Weights as $key=>$Weight){ ?>
@@ -142,10 +142,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Primary Position<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Primary Position</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="primary_position" id="primary_position" required style="width: 220px">
+                                                                                                    <select name="primary_position" id="primary_position"  style="width: 220px">
                                                                                                             <?php $pri_positions = $this->Register->getPositions() ; ?>
                                                                                                             <option value="">Select Primary Positions</option>
                                                                                                             <?php foreach($pri_positions as $key=>$primary){ ?>
@@ -160,10 +160,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Secondary Position<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Secondary Position</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="secondary_position" id="secondary_position" required style="width: 220px">
+                                                                                                    <select name="secondary_position" id="secondary_position"  style="width: 220px">
                                                                                                             <?php $sec_positions = $this->Register->getPositions() ; ?>
                                                                                                             <option value="">Select Secondary Positions</option>
                                                                                                             <?php foreach($sec_positions as $key=>$secondary){ ?>
@@ -178,12 +178,12 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Wingspan<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Wingspan</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="wingspan_id" id="wingspan_id" required style="width: 220px">
+                                                                                                    <select name="wingspan_id" id="wingspan_id"  style="width: 220px">
                                                                                                             <?php $wingspans = $this->Register->getWingspans() ; ?>
-                                                                                                            <option value="">Select Wingspan</option>
+                                                                                                            <option value=0>Select Wingspan</option>
                                                                                                             <?php foreach($wingspans as $key=>$wingspan){ ?>
                                                                                                             <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['wingspan_id'] == $key){ ?> selected <?php } ?> ><?php echo $wingspan ; ?></option>
                                                                                                             <?php } ?>
@@ -197,10 +197,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">GPA<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">GPA</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="gpa" id="gpa" required style="width: 220px">
+                                                                                                    <select name="gpa" id="gpa"  style="width: 220px">
                                                                                                             <?php $gpas = $this->Register->getGPA() ; ?>
                                                                                                             <option value="">Select Gpa</option>
                                                                                                             <?php foreach($gpas as $key=>$gpa){ ?>
@@ -216,10 +216,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Sat Score<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Sat Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="sat_score" id="sat_score" required style="width: 220px">
+                                                                                                    <select name="sat_score" id="sat_score"  style="width: 220px">
                                                                                                             <?php $sats = $this->Register->getSatScore() ; ?>
                                                                                                             <option value="">Select Sat Score</option>
                                                                                                             <?php foreach($sats as $key=>$sat){ ?>
@@ -235,10 +235,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Act Score<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Act Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="act_score" id="act_score" required style="width: 220px">
+                                                                                                    <select name="act_score" id="act_score"  style="width: 220px">
                                                                                                             <?php $acts = $this->Register->getActScore() ; ?>
                                                                                                             <option value="">Select Act Score</option>
                                                                                                             <?php foreach($acts as $key=>$act){ ?>
@@ -256,10 +256,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Street Address<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Street Address</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="street_address" id="street_address" required value="<?php echo $ScoutReport['ScoutReport']['street_address'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="street_address" id="street_address"  value="<?php echo $ScoutReport['ScoutReport']['street_address'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -269,10 +269,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">City<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">City</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="city" id="city" required value="<?php echo $ScoutReport['ScoutReport']['city'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="city" id="city"  value="<?php echo $ScoutReport['ScoutReport']['city'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -283,10 +283,10 @@
 
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Zip Code<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Zip Code</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="zip_code" id="zip_code" required value="<?php echo $ScoutReport['ScoutReport']['zip_code'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="number" name="zip_code" id="zip_code"  value="<?php echo $ScoutReport['ScoutReport']['zip_code'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -384,10 +384,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Jersey Number<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Jersey Number</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="jersey_number" id="jersey_number" required value="<?php echo $ScoutReport['ScoutReport']['jersey_number'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="number" name="jersey_number" id="jersey_number"  value="<?php echo $ScoutReport['ScoutReport']['jersey_number'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -401,7 +401,7 @@
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
                                                                                                     <select name="best_game" id="best_game" required style="width: 220px">
-                                                                                                            <?php $games = $this->Register->getSports() ; ?>
+                                                                                                            <?php $games = $this->Register->getgames() ; ?>
                                                                                                             <option value="">Select Best game</option>
                                                                                                             <?php foreach($games as $key=>$game){ ?>
                                                                                                             <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['best_game'] == $key){ ?> selected <?php } ?> ><?php echo $game ; ?></option>
@@ -421,7 +421,7 @@
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
                                                                                                     <select name="other_game" id="other_game" required style="width: 220px">
-                                                                                                            <?php $games = $this->Register->getSports() ; ?>
+                                                                                                            <?php $games = $this->Register->getgames() ; ?>
                                                                                                             <option value="">Select Other game</option>
                                                                                                             <?php foreach($games as $key=>$game){ ?>
                                                                                                             <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['other_game'] == $key){ ?> selected <?php } ?> ><?php echo $game ; ?></option>
@@ -436,10 +436,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Reach<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Reach</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="reach" id="reach" required value="<?php echo $ScoutReport['ScoutReport']['reach'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="reach" id="reach"  value="<?php echo $ScoutReport['ScoutReport']['reach'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -448,23 +448,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Strengths<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Strengths</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="strengths" id="strengths" required value="<?php echo $ScoutReport['ScoutReport']['strengths'] ; ?>" maxlength="50" style="width: 220px">
-                                                                                                    </td>
-                                                                                            </tr>
-
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Weakness<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="weakness" id="weakness" required value="<?php echo $ScoutReport['ScoutReport']['weakness'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="strengths" id="strengths"  value="<?php echo $ScoutReport['ScoutReport']['strengths'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -474,22 +461,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Phone Number<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Weakness</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="phone_number" id="phone_number" required value="<?php echo $ScoutReport['ScoutReport']['phone_number'] ; ?>" maxlength="50" style="width: 220px">
-                                                                                                    </td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Father First Name<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="father_firstname" id="father_firstname" required value="<?php echo $ScoutReport['ScoutReport']['father_firstname'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="weakness" id="weakness"  value="<?php echo $ScoutReport['ScoutReport']['weakness'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -499,10 +474,22 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Father Last Name<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Phone Number</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="father_lastname" id="father_lastname" required value="<?php echo $ScoutReport['ScoutReport']['father_lastname'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="number" name="phone_number" id="phone_number"  value="<?php echo $ScoutReport['ScoutReport']['phone_number'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                    </td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Father First Name</td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                            <input type="text" name="father_firstname" id="father_firstname"  value="<?php echo $ScoutReport['ScoutReport']['father_firstname'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -512,22 +499,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Father Phone Number<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Father Last Name</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="father_phone" id="father_phone" required value="<?php echo $ScoutReport['ScoutReport']['father_phone'] ; ?>" maxlength="50" style="width: 220px">
-                                                                                                    </td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Mother First Name<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="mother_firstname" id="mother_firstname" required value="<?php echo $ScoutReport['ScoutReport']['mother_firstname'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="father_lastname" id="father_lastname"  value="<?php echo $ScoutReport['ScoutReport']['father_lastname'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -537,24 +512,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Mother Last Name<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Father Phone Number</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="mother_lastname" id="mother_lastname" required value="<?php echo $ScoutReport['ScoutReport']['mother_lastname'] ; ?>" maxlength="50" style="width: 220px">
-                                                                                                    </td>
-                                                                                            </tr>
-
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Mother Phone Number<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="mother_phone" id="mother_phone" required value="<?php echo $ScoutReport['ScoutReport']['mother_phone'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="number" name="father_phone" id="father_phone"  value="<?php echo $ScoutReport['ScoutReport']['father_phone'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -563,10 +524,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">High School Coach Name<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Mother First Name</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="high_school_coach_name" id="high_school_coach_name" required value="<?php echo $ScoutReport['ScoutReport']['high_school_coach_name'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="mother_firstname" id="mother_firstname"  value="<?php echo $ScoutReport['ScoutReport']['mother_firstname'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -576,87 +537,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">High School Coach  Phone Number<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Mother Last Name</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="high_school_coach_phone" id="high_school_coach_phone" required value="<?php echo $ScoutReport['ScoutReport']['high_school_coach_phone'] ; ?>" maxlength="50" style="width: 220px">
-                                                                                                    </td>
-                                                                                            </tr>
-
-
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">High School Coach  Email<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="email" name="high_school_coach_email" id="high_school_coach_email" required value="<?php echo $ScoutReport['ScoutReport']['high_school_coach_email'] ; ?>" maxlength="50" style="width: 220px">
-                                                                                                    </td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Primary AAU Coach Name<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="primary_aau_coach_name" id="primary_aau_coach_name" required value="<?php echo $ScoutReport['ScoutReport']['primary_aau_coach_name'] ; ?>" maxlength="50" style="width: 220px">
-                                                                                                    </td>
-                                                                                            </tr>
-
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Primary AAU Coach Phone<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="primary_aau_coach_phone" id="primary_aau_coach_phone" required value="<?php echo $ScoutReport['ScoutReport']['primary_aau_coach_phone'] ; ?>" maxlength="50" style="width: 220px">
-                                                                                                    </td>
-                                                                                            </tr>
-
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Primary AAU Coach Email<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="email" name="primary_aau_coach_email" id="primary_aau_coach_email" required value="<?php echo $ScoutReport['ScoutReport']['primary_aau_coach_email'] ; ?>" maxlength="50" style="width: 220px">
-                                                                                                    </td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Secondary AAU Coach Name<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="secondary_aau_coach_name" id="secondary_aau_coach_name" required value="<?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_name'] ; ?>" maxlength="50" style="width: 220px">
-                                                                                                    </td>
-                                                                                            </tr>
-
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Secondary AAU Coach Phone<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="secondary_aau_coach_phone" id="secondary_aau_coach_phone" required value="<?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_phone'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="mother_lastname" id="mother_lastname"  value="<?php echo $ScoutReport['ScoutReport']['mother_lastname'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -667,10 +551,126 @@
 
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Secondary AAU Coach Email<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Mother Phone Number</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="email" name="secondary_aau_coach_email" id="secondary_aau_coach_email" required value="<?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_email'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="number" name="mother_phone" id="mother_phone"  value="<?php echo $ScoutReport['ScoutReport']['mother_phone'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                    </td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">High School Coach Name</td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                            <input type="text" name="high_school_coach_name" id="high_school_coach_name"  value="<?php echo $ScoutReport['ScoutReport']['high_school_coach_name'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                    </td>
+                                                                                            </tr>
+
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">High School Coach  Phone Number</td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                            <input type="number" name="high_school_coach_phone" id="high_school_coach_phone"  value="<?php echo $ScoutReport['ScoutReport']['high_school_coach_phone'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                    </td>
+                                                                                            </tr>
+
+
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">High School Coach  Email</td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                            <input type="email" name="high_school_coach_email" id="high_school_coach_email"  value="<?php echo $ScoutReport['ScoutReport']['high_school_coach_email'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                    </td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Primary AAU Coach Name</td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                            <input type="text" name="primary_aau_coach_name" id="primary_aau_coach_name"  value="<?php echo $ScoutReport['ScoutReport']['primary_aau_coach_name'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                    </td>
+                                                                                            </tr>
+
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Primary AAU Coach Phone</td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                            <input type="number" name="primary_aau_coach_phone" id="primary_aau_coach_phone"  value="<?php echo $ScoutReport['ScoutReport']['primary_aau_coach_phone'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                    </td>
+                                                                                            </tr>
+
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Primary AAU Coach Email</td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                            <input type="email" name="primary_aau_coach_email" id="primary_aau_coach_email"  value="<?php echo $ScoutReport['ScoutReport']['primary_aau_coach_email'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                    </td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Secondary AAU Coach Name</td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                            <input type="text" name="secondary_aau_coach_name" id="secondary_aau_coach_name"  value="<?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_name'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                    </td>
+                                                                                            </tr>
+
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Secondary AAU Coach Phone</td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                            <input type="number" name="secondary_aau_coach_phone" id="secondary_aau_coach_phone"  value="<?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_phone'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                    </td>
+                                                                                            </tr>
+
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Secondary AAU Coach Email</td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                            <input type="email" name="secondary_aau_coach_email" id="secondary_aau_coach_email"  value="<?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_email'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -681,10 +681,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Facebook<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Facebook</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="facebook" id="facebook" required value="<?php echo $ScoutReport['ScoutReport']['facebook'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="facebook" id="facebook"  value="<?php echo $ScoutReport['ScoutReport']['facebook'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -694,10 +694,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Twitter<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Twitter</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="twitter" id="twitter" required value="<?php echo $ScoutReport['ScoutReport']['twitter'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="twitter" id="twitter"  value="<?php echo $ScoutReport['ScoutReport']['twitter'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -707,10 +707,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Lane Agility<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Lane Agility</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="lane_agility" id="lane_agility" required value="<?php echo $ScoutReport['ScoutReport']['lane_agility'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="lane_agility" id="lane_agility"  value="<?php echo $ScoutReport['ScoutReport']['lane_agility'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
