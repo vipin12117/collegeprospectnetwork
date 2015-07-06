@@ -103,3 +103,16 @@
 	</tr>
 	<?php echo $this->element('admin_footer');?>
 </table>
+
+<script>
+function ShowDetails(pageURL, windowName) {
+    var nLeft, nTop, nWidth, nHeight;
+    nWidth = 700;
+    nHeight = 600;
+    nLeft = screen.width - nWidth - 50;
+    nTop = screen.height - nHeight - 100;
+    Window1 = window.open(pageURL, windowName, "dependent=yes,height=" + nHeight + ",width=" + nWidth + ",left=" + nLeft + ",top=" + nTop + ",location=no,menubar=no,resizable=yes,scrollbars=yes");
+    Window1.focus();
+}
+
+</script>

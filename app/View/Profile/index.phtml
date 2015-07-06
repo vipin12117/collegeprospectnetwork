@@ -124,6 +124,19 @@
 	    		<?php else:?>
 					<p>No report uploaded yet</p>
 				<?php endif;?>
+                                        <form action="<?php echo $this->webroot . 'ScoutReport/view' ?>" method="post">
+                                    <select name="best_game" id="best_game" required style="width: 220px">
+                                            <?php $games = $this->Register->getgames() ; ?>
+                                            <option value="">Select Best game</option>
+                                            <?php foreach($games as $key=>$game){ ?>
+                                            <option value="<?php echo $key ; ?>"><?php echo $game ; ?></option>
+                                            <?php } ?>
+                                    </select> 
+                                            <input type="submit" value="submit" name="submit">
+                                  </form>
+
+
+                                       <?php //echo $this->Html->link(__('PDF'), array("controller"=>"ScoutReport",'action' => 'view', 'ext' => 'pdf', 207)); ?>
 	    	</div>
 	    	
 		    <div class="subscriptionbox">
