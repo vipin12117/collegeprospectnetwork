@@ -164,7 +164,7 @@ class ScoutReportController extends AppController {
                 $this->loadModel('Wingspan');
                 $this->loadModel('HsAauTeam');
                 $this->loadModel('Event');
-                
+
                 require_once(APP . 'Vendor' . DS . 'tcpdf' . DS . 'tcpdf.php');
 
                 // create new PDF document
@@ -235,15 +235,26 @@ class ScoutReportController extends AppController {
                     $pdf->AddPage();
                     foreach($atheletes as $i=>$athelete) {
 
-                        if($i != 0 && $i%2 == 0){
-                           $pdf->AddPage();
+                        if($i != 0 && $i%2 == 0) {
+                            $pdf->AddPage();
                         }
-
+                        $school_name = $priaauteam_name = $bestgame_name = $othergame_name = '' ;
                         $school = $this->HsAauTeam->find("list",array("conditions"=>array('id'=>$athelete['ScoutReport']['high_school']),"fields"=>"id,school_name"));
                         $priaauteam = $this->HsAauTeam->find("list",array("conditions"=>array('id'=>$athelete['ScoutReport']['primary_aau_team']),"fields"=>"id,school_name"));
                         $bestgame = $this->Event->find("list",array("conditions"=>array("id"=>$athelete['ScoutReport']['best_game']),"fields"=>"id,event_name"));
                         $othergame = $this->Event->find("list",array("conditions"=>array("id"=>$athelete['ScoutReport']['other_game']),"fields"=>"id,event_name"));
-//echo '<pre>';print_r($othergame);exit;
+                        if($school) {
+                            $school_name = $school[$athelete['ScoutReport']['high_school']] ;
+                        }
+                        if($priaauteam) {
+                            $priaauteam_name = $priaauteam[$athelete['ScoutReport']['primary_aau_team']] ;
+                        }
+                        if($bestgame) {
+                            $bestgame_name = $bestgame[$athelete['ScoutReport']['best_game']] ;
+                        }
+                        if($othergame) {
+                            $othergame_name = $othergame[$athelete['ScoutReport']['other_game']] ;
+                        }
                         if($athelete['ScoutReport']['picture']) {
                             $img1 = WWW_ROOT .  DS . 'img' . DS . 'scoutreport'. DS . $athelete['ScoutReport']['picture'] ;
                         }else {
@@ -258,8 +269,8 @@ class ScoutReportController extends AppController {
                         $athelete_html .=  '</td>
                                    <td>' . $athelete['ScoutReport']['description'] . '</td>
                                    <td><b>Strengths: </b>' . $athelete['ScoutReport']['strengths'] .'<br><b>Weakness : </b> ' . $athelete['ScoutReport']['weakness'] . '<br><b>HM :</b> <br><b>MM :</b> <br><b>LM :</b><br><b>Other :</b> </td>
-                                   <td><b>Jersy Number :</b>'.$athelete['ScoutReport']['jersey_number'].' <br><b>Best Game:</b>'.$bestgame[$athelete['ScoutReport']['best_game']].' <br><b>Other Game:</b>'.$othergame[$athelete['ScoutReport']['other_game']].' <br><b>Academics: </b> <br><b>GPA:</b> '.$athelete['ScoutReport']['gpa'].'<b>Sat :</b>'.$athelete['ScoutReport']['sat_score'] .'<b>Act : </b>'.$athelete['ScoutReport']['act_score']
-                            .'<br><b>Coach Info : </b> ' . $school[$athelete['ScoutReport']['high_school']] . ' : ' . $athelete['ScoutReport']['high_school_coach_name'] . ' , ' . $athelete['ScoutReport']['high_school_coach_phone']  .' <br> ' . $priaauteam[$athelete['ScoutReport']['primary_aau_team']] . ' : ' . $athelete['ScoutReport']['primary_aau_coach_name'] . ' , ' . $athelete['ScoutReport']['primary_aau_coach_phone']  .' </td>
+                                   <td><b>Jersy Number :</b>'.$athelete['ScoutReport']['jersey_number'].' <br><b>Best Game:</b>'.$bestgame_name.' <br><b>Other Game:</b>'.$othergame_name.' <br><b>Academics: </b> <br><b>GPA:</b> '.$athelete['ScoutReport']['gpa'].'<b>Sat :</b>'.$athelete['ScoutReport']['sat_score'] .'<b>Act : </b>'.$athelete['ScoutReport']['act_score']
+                        .'<br><b>Coach Info : </b> ' . $school_name . ' : ' . $athelete['ScoutReport']['high_school_coach_name'] . ' , ' . $athelete['ScoutReport']['high_school_coach_phone']  .' <br> ' . $priaauteam_name . ' : ' . $athelete['ScoutReport']['primary_aau_coach_name'] . ' , ' . $athelete['ScoutReport']['primary_aau_coach_phone']  .' </td>
                                    </tr>' ;
                         $athelete_html .= '<tr>
                                    <td><b>' .$athelete['ScoutReport']['firstname'] . " " . $athelete['ScoutReport']['lastname'] . '</b></td>
@@ -270,11 +281,11 @@ class ScoutReportController extends AppController {
                         $athelete_html .= '<tr>
                                    <td>Class: ' .$athelete['ScoutReport']['class'] . ' &nbsp; Pos : ' . $athelete['ScoutReport']['primary_position'] .' , ' . $athelete['ScoutReport']['secondary_position'] .'</td>
                                    <td>Reach : ' .$athelete['ScoutReport']['reach'] . ' &nbsp; Wingspan : ' . $athelete['ScoutReport']['wingspan_id'] .'</td>
-                                   <td>' . $school[$athelete['ScoutReport']['high_school']] .'</td>
+                                   <td>' . $school_name .'</td>
                                    <td><b>Facebook :</b>'.$athelete['ScoutReport']['facebook'].'</td>
                                    </tr>' ;
                         $athelete_html .= '<tr>
-                                   <td>'.$school[$athelete['ScoutReport']['high_school']].' / '.$priaauteam[$athelete['ScoutReport']['primary_aau_team']] . '</td>
+                                   <td>'.$school_name.' / '.$priaauteam_name . '</td>
                                    <td>Agility : ' .$athelete['ScoutReport']['lane_agility'] . ' &nbsp; 0:60 3s : ' . $athelete['ScoutReport']['60_seconds_of_threes'] .'</td>
                                    <td>'.$athelete['ScoutReport']['phone_number'].'</td>
                                    <td><b>Email :</b>'.$athelete['ScoutReport']['email'].'</td>
