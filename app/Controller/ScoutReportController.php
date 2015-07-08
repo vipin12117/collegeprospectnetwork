@@ -210,9 +210,10 @@ class ScoutReportController extends AppController {
                 $html .= '<h1 style="text-align:center;">50 to Follow Showcase</h1>';
                 $html .= '<h2 style="text-align:center;">October 20, 2013</h2>';
                 $html .= '<h3 style="text-align:center;">Houston, TX</h3>';
-                $img = file_get_contents(WWW_ROOT . DS . 'img/logo.jpg');
-                $html .= '<br><p>' ;
-                $pdf->Image('@' . $img, '' , 50, 30, 30, '', '', '', false, 300, '', false, false, 0, false, false, false);
+                $img = WWW_ROOT . DS . 'img/logo.jpg' ;
+                $html .= '<br><p style="text-align:center;">' ;
+                $html .= '<img src="' . WWW_ROOT . DS . 'img' . DS . 'logo.jpg" alt="test alt attribute" width="200" height="150" border="0" />' ;
+                //$pdf->Image('@' . $img, 'C' , '', 30, 30, '', '', 'C', false, 300, 'C', false, false, 1, false, false, false);
                 $html .= '</p>' ;
                 $html .= '<h5><strong>Full Scouting Report: Complete with Video Links, Contact Information and Stats</strong></h5>' ;
                 $html .= '<p>You can see the highlight tape from the event here: http://www.youtube.com/watch?v=pgnexlqQNPU</p>' ;
@@ -230,7 +231,7 @@ class ScoutReportController extends AppController {
                     $pdf->AddPage();
                     foreach($atheletes as $i=>$athelete) {
                         if($athelete['ScoutReport']['picture']) {
-                            $img1 = file_get_contents(WWW_ROOT .  '/img/scoutreport/'. $athelete['ScoutReport']['picture']);
+                            $img1 = WWW_ROOT .  DS . 'img' . DS . 'scoutreport'. DS . $athelete['ScoutReport']['picture'] ;
                         }else {
                             $img1 = $img ;
                         }
@@ -238,8 +239,7 @@ class ScoutReportController extends AppController {
                         $athelete_html = '<table border="1">' ;
                         $athelete_html .= '<tr><th colspan="4">#'.$i.'</th></tr>';
                         $athelete_html .= '<tr>
-                                   <td>';
-                        $pdf->Image('@' . $img1, 20, '', 30, 30, '', '', '', false, 300, '', false, false, 1, false, false, false) ;
+                                   <td style="text-align:center;"><img src="' .$img1 . '" alt="athelete pic" width="130" height="150" border="0" />';
                         $athelete_html .=  '</td>
                                    <td>' . $athelete['ScoutReport']['description'] . '</td>
                                    <td><b>Strengths: </b>' . $athelete['ScoutReport']['strengths'] .'<br><b>Weakness : </b> ' . $athelete['ScoutReport']['weakness'] . '<br><b>HM :</b> <br><b>MM :</b> <br><b>LM :</b><br><b>Other :</b> </td>
