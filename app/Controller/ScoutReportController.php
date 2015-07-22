@@ -149,6 +149,7 @@ class ScoutReportController extends AppController {
     }
 
     public function view() {
+        require_once(APP . 'Vendor' . DS . 'mpdf' . DS . 'mpdf.php');
 
         $this->loadModel('ScoutReport');
         $atheletes = array();
@@ -165,58 +166,17 @@ class ScoutReportController extends AppController {
                 $this->loadModel('HsAauTeam');
                 $this->loadModel('Event');
 
-                require_once(APP . 'Vendor' . DS . 'tcpdf' . DS . 'tcpdf.php');
+                $mpdf = new mpdf();
 
-                // create new PDF document
-                $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
-                // set document information
-                $pdf->SetCreator(PDF_CREATOR);
-                //        $pdf->SetAuthor('Nicola Asuni');
-                //        $pdf->SetTitle('TCPDF Example 006');
-                //        $pdf->SetSubject('TCPDF Tutorial');
-                //        $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
-
-                // set default header data
-                //        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 006', PDF_HEADER_STRING);
-
-                // set header and footer fonts
-                $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-                $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-                // set default monospaced font
-                $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-                // set margins
-                $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-                $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-                $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
-                // set auto page breaks
-                $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-                // set image scale factor
-                $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-                // set some language-dependent strings (optional)
-                if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-                    require_once(dirname(__FILE__).'/lang/eng.php');
-                    $pdf->setLanguageArray($l);
-                }
-                // set font
-                $pdf->SetFont('helvetica', '', 10);
-
-
-                $pdf->AddPage();
-
-                $html = '<h5 style="text-align:center;">College Prospect Network’s</h5>';
+                $html = '<style>@page{style="border: 3px solid blue;}</style>' ;
+                $html .= '<h5 style="text-align:center;">College Prospect Network’s</h5>';
                 $html .= '' ;
                 $html .= '<h1 style="text-align:center;">50 to Follow Showcase</h1>';
                 $html .= '<h2 style="text-align:center;">October 20, 2013</h2>';
                 $html .= '<h3 style="text-align:center;">Houston, TX</h3>';
                 $img = WWW_ROOT . DS . 'img/logo.jpg' ;
                 $html .= '<br><p style="text-align:center;">' ;
-                $html .= '<img src="' . WWW_ROOT . DS . 'img' . DS . 'logo.jpg" alt="test alt attribute" width="200" height="150" border="0" />' ;
+                $html .= '<img src="' . WWW_ROOT .  'img' . DS . 'logo.jpg" alt="test alt attribute" width="200" height="150" border="0" />' ;
                 //$pdf->Image('@' . $img, 'C' , '', 30, 30, '', '', 'C', false, 300, 'C', false, false, 1, false, false, false);
                 $html .= '</p></br></br>' ;
                 $html .= '<h5><strong>Full Scouting Report: Complete with Video Links, Contact Information and Stats</strong></h5>' ;
@@ -226,17 +186,14 @@ class ScoutReportController extends AppController {
                 $html .= '<p>Note: Most PC users will need to hold ‘Ctrl’ on their keyboard while clicking the provided links in order for them to work. If you have printed this sheet and want to watch the videos, simply look at the name of the best game for the given player, then go to YouTube and search “50 to Follow: (name of the game)”. For example, if the player you want to see played best on Court 3 – Game 1, you will go to YouTube and type “50 to Follow: Court 3 – Game 1”. The jersey numbers are listed above the game links so it should be easy to identify the desired player. </p>' ;
                 $html .= '<p>We hope you enjoy the report and we look forward to helping you in any way we can.</p>';
                 // output the HTML content
-                $pdf->writeHTML($html, true, false, true, false, '');
-
-                // reset pointer to the last page
-                $pdf->lastPage();
+                $mpdf->writeHTML($html);
 
                 if($atheletes) {
-                    $pdf->AddPage();
+                    $mpdf->AddPage();
                     foreach($atheletes as $i=>$athelete) {
 
                         if($i != 0 && $i%2 == 0) {
-                            $pdf->AddPage();
+                            $mpdf->AddPage();
                         }
                         $school_name = $priaauteam_name = $bestgame_name = $othergame_name = '' ;
                         $school = $this->HsAauTeam->find("list",array("conditions"=>array('id'=>$athelete['ScoutReport']['high_school']),"fields"=>"id,school_name"));
@@ -256,21 +213,22 @@ class ScoutReportController extends AppController {
                             $othergame_name = $othergame[$athelete['ScoutReport']['other_game']] ;
                         }
                         if($athelete['ScoutReport']['picture']) {
-                            $img1 = WWW_ROOT .  DS . 'img' . DS . 'scoutreport'. DS . $athelete['ScoutReport']['picture'] ;
+                            $img1 = WWW_ROOT . 'img' . DS . 'scoutreport'. DS . $athelete['ScoutReport']['picture'] ;
                         }else {
                             $img1 = $img ;
                         }
                         $i = $i +1 ;
-                        $athelete_html = '<table border="1">' ;
-                        $athelete_html .= '<tr><th colspan="4">#'.$i.'</th></tr>';
+                        $athelete_html = "<p># " . $i ."</p>" ;
+                        $athelete_html .= '<table border="1" cellspacing="0">' ;
+                        //$athelete_html .= '<tr><th colspan="4">#'.$i.'</th></tr>';
                         $athelete_html .= '<tr>
-                                   <td style="text-align:center;"><img src="' .$img1 . '" alt="athelete pic" width="130" height="150" border="0" />';
+                                   <td style="text-align:center;"><img src="' .$img1 . '" alt="athelete pic" width="150" height="180" border="0" />';
 
                         $athelete_html .=  '</td>
                                    <td>' . $athelete['ScoutReport']['description'] . '</td>
                                    <td><b>Strengths: </b>' . $athelete['ScoutReport']['strengths'] .'<br><b>Weakness : </b> ' . $athelete['ScoutReport']['weakness'] . '<br><b>HM :</b> <br><b>MM :</b> <br><b>LM :</b><br><b>Other :</b> </td>
                                    <td><b>Jersy Number :</b>'.$athelete['ScoutReport']['jersey_number'].' <br><b>Best Game:</b>'.$bestgame_name.' <br><b>Other Game:</b>'.$othergame_name.' <br><b>Academics: </b> <br><b>GPA:</b> '.$athelete['ScoutReport']['gpa'].'<b>Sat :</b>'.$athelete['ScoutReport']['sat_score'] .'<b>Act : </b>'.$athelete['ScoutReport']['act_score']
-                        .'<br><b>Coach Info : </b> ' . $school_name . ' : ' . $athelete['ScoutReport']['high_school_coach_name'] . ' , ' . $athelete['ScoutReport']['high_school_coach_phone']  .' <br> ' . $priaauteam_name . ' : ' . $athelete['ScoutReport']['primary_aau_coach_name'] . ' , ' . $athelete['ScoutReport']['primary_aau_coach_phone']  .' </td>
+                            .'<br><b>Coach Info : </b> ' . $school_name . ' : ' . $athelete['ScoutReport']['high_school_coach_name'] . ' , ' . $athelete['ScoutReport']['high_school_coach_phone']  .' <br> ' . $priaauteam_name . ' : ' . $athelete['ScoutReport']['primary_aau_coach_name'] . ' , ' . $athelete['ScoutReport']['primary_aau_coach_phone']  .' </td>
                                    </tr>' ;
                         $athelete_html .= '<tr>
                                    <td><b>' .$athelete['ScoutReport']['firstname'] . " " . $athelete['ScoutReport']['lastname'] . '</b></td>
@@ -295,15 +253,10 @@ class ScoutReportController extends AppController {
                                    <td colspan="2">Offers:' . $athelete['ScoutReport']['colleges_offered_scholarship'] .'</td>
                                    </tr>' ;
                         $athelete_html .= '</table>' ;
-                        $pdf->writeHTML($athelete_html, true, false, true, false, '');
+                        $mpdf->writeHTML($athelete_html);
                     }
                 }
-
-                // reset pointer to the last page
-                $pdf->lastPage();
-
-                //Close and output PDF document
-                $pdf->Output('scoureport.pdf', 'I');
+                $mpdf->output("scoutreport","D") ;
                 exit;
 
             }else {
