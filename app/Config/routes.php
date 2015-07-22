@@ -68,12 +68,14 @@ Router::connect('/subscribe.php/*', array('controller' => 'Subscribe', 'action' 
 //college coaches urls
 Router::connect('/college-coach-profile.php/*', array('controller' => 'Profile', 'action' => 'collegeCoachProfile'));
 Router::connect('/edit-college-coach-profile.php/*', array('controller' => 'Profile', 'action' => 'editCollegeCoachProfile'));
+Router::connect('/pdf', array('controller' => 'ScoutReport', 'action' => 'view'));
 
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
  */
+ Router::parseExtensions('pdf');
 CakePlugin::routes();
 
 /**
