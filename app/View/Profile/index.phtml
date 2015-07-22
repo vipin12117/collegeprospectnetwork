@@ -124,7 +124,7 @@
 	    		<?php else:?>
 					<p>No report uploaded yet</p>
 				<?php endif;?>
-                                 <form action="<?php echo $this->webroot . 'ScoutReport/view' ?>" method="post">
+                                 <form name="pdfform" action="<?php echo $this->webroot . 'pdf' ?>" method="post">
                                     <select name="best_game" id="best_game" required style="width: 220px">
                                             <?php $games = $this->Register->getgames() ; ?>
                                             <option value="">Select Best game</option>
