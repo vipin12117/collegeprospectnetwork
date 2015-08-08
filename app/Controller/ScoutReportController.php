@@ -111,7 +111,6 @@ class ScoutReportController extends AppController {
                     $this->Session->setFlash('Picture Not Uploaded due to some error', 'flash_error');
                 }
             }
-
             if ($this->ScoutReport->save($this->request->data)) {
                 $this->Session->setFlash('Scout Report is Added Successfully', 'flash_success');
                 $this->redirect(array('controller' => 'ScoutReport', 'action' => 'scoutreportList'));
@@ -130,6 +129,59 @@ class ScoutReportController extends AppController {
         }
     }
 
+    public function admin_search() {
+        $schools = array() ;
+        if ($this->request->is('post')) {
+            $this->loadModel('HsAauTeam');
+            if(isset($_POST['hsaauteam']) && !empty($_POST['hsaauteam'])) {
+                $schools = $this->HsAauTeam->find("all",array("conditions"=>array('school_name LIKE '=> "%" . $_POST['hsaauteam'] . "%" ),"fields"=>"id,school_name","order"=>"school_name ASC"));
+            }
+        }
+        $this->set('schools', $schools);
+    }
+
+    public function admin_atheletesearch() {
+        $athelets = array();
+        if ($this->request->is('post')) {
+            $this->loadModel('Athlete');
+            if(isset($_POST) && !empty($_POST)) {
+                $hsaauteamid = key($_POST) ;
+                if($hsaauteamid > 0) {
+                    $athelets = $this->Athlete->find("all",array("conditions"=>"hs_aau_team_id = $hsaauteamid","limit"=>5));
+                }
+            }
+        }
+        $Reports = $this->ScoutReport->find("list",array("fields"=>"id , athlete","order"=>" id desc"));
+        $this->set('athelets', $athelets);
+        $this->set('Reports', $Reports);
+    }
+
+    public function admin_addmultiplereport() {
+        if ($this->request->is('post')) {
+
+            if(isset($this->request->data['report']) && !empty($this->request->data['report'])) {
+                foreach($this->request->data['report'] as $i=>$report) {
+                    if(isset($_FILES['picture']) && !empty($_FILES['picture'])) {
+                        if($_FILES['picture']['error'][$i] == 0 && $_FILES['picture']['size'][$i] > 0 && $_FILES['picture']['name'][$i] != '') {
+                            $filename = '' ;
+                            if (!empty($_FILES['picture']['tmp_name'][$i]) && is_uploaded_file($_FILES['picture']['tmp_name'][$i])) {
+                            // Strip path information
+                                $filename = mt_rand() . "_" . $_FILES['picture']['name'][$i] ;
+                                move_uploaded_file( $_FILES['picture']['tmp_name'][$i] , WWW_ROOT . DS . 'img/scoutreport' . DS . $filename);
+                                $report['picture'] = $filename ;
+                            }
+                        }
+                    }
+                    $this->ScoutReport->create();
+                    $this->ScoutReport->save($report) ;
+                }
+                $this->Session->setFlash('Scout Report is Added Successfully', 'flash_success');
+                $this->redirect(array('controller' => 'ScoutReport', 'action' => 'scoutreportList'));
+            }
+        }
+    }
+
+
     public function admin_getHSScout() {
         $this->autoRender = false;
         $this->layout = 'ajax';
@@ -144,8 +196,6 @@ class ScoutReportController extends AppController {
             }
         }
         echo $html ;die ;
-    //echo'<pre>';print_r($html);exit;
-    // echo json_encode($colleges); die;
     }
 
     public function view() {

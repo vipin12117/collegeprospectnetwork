@@ -1,0 +1,1132 @@
+<?php $error_msg = '';?>
+<table cellSpacing=0 cellPadding=0 width="100%" border=0>
+
+    <tr>
+        <td height=120><?php echo $this->element('admin_header');?></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td class="heading">
+            <table cellSpacing=0 cellPadding=1 width="95%" align=center border=0>
+                <tr>
+                    <td>
+                        <table cellSpacing=0 cellPadding=1 width=780 border=0>
+                            <tr>
+                                <td bgColor=#ffffff>
+                                    <table cellSpacing=0 cellPadding=0 width=900 border=0>
+                                        <tr>
+                                            <td vAlign=top width=20%><?php echo $this->element('admin_menu');?></td>
+                                            <td valign=top width=1%>&nbsp;</td>
+                                            <?php $s_image = "/img/spacer.gif"; ?>
+                                            <td width=10><img src="<?php echo $s_image?>" height="1" width="1"></td>
+                                            <td valign=top width=""><!-- MAin Content Starts From Here -->
+
+                                                <?php if($athelets): ?>
+
+                                                <form name="frmaddscoutreport" action="<?php echo $this->Html->url('/admin/ScoutReport/addmultiplereport')?>" method="post" enctype="multipart/form-data">
+                                                    <table width="100%" border="1" cellpadding="1" cellspacing="0" bordercolor="#808080" style="border-collapse: collapse">
+                                                        <tr height="20">
+                                                            <td align="center" class="normalblack_12" width="90%" valign="top">
+                                                                <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                                                        <?php foreach($athelets as $i=>$athelete): ?>
+
+                                                                            <?php $athelte_data = array() ;
+                                                                            if(in_array($athelete['Athlete']['id'] , $Reports)) {
+                                                                                $athelte_data = $this->Register->getAthleteReportData($athelete['Athlete']['id']) ;
+                                                                                $athelte_data = $athelte_data['ScoutReport'] ;
+                                                                                
+                                                                            }
+                                                                            //print_r($athelte_data);
+                                                                            ?>
+
+
+                                                                    <input type="hidden" name="report[<?php echo $i ; ?>][athlete]" value="<?php echo $athelete['Athlete']['id'] ; ?>" />
+                                                                    <tr>
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 bgcolor="#808080" align="center"><b>Add Scout Report Info</b></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td valign="top" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td valign="top" colspan=3 align="center"
+                                                                            class="normalblack_12"><font color="Red"></font>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td height="35" colspan="3" align="right"
+                                                                            class="normalblack_12"><FONT color="Red">Fields marked with * are mandatory&nbsp;</FONT></td>
+                                                                    </tr>
+
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Title<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][title]" id="title" required value="<?php if(isset($athelte_data['title'])) { echo $athelte_data['title'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=4 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">First Name<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][firstname]" id="firstname" required value="<?php if(isset($athelte_data['firstname'])) { echo $athelte_data['firstname'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Last Name<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][lastname]" id="lastname" required value="<?php if(isset($athelte_data['lastname'])) { echo $athelte_data['lastname'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Email<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="email" name="report[<?php echo $i ; ?>][email]" id="email" required value="<?php if(isset($athelte_data['email'])) { echo $athelte_data['email'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Graduating Class<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][class]" id="class" required style="width: 220px" >
+                                                                                        <?php $Classes = $this->Register->getClasses() ; ?>
+                                                                                <option value="">Select Class</option>
+                                                                                        <?php foreach($Classes as $key=>$Class) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['class']) && $athelte_data['class']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $Class ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Height</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][height]" id="height" style="width: 220px">
+                                                                                        <?php $heights = $this->Register->getHeights() ; ?>
+                                                                                <option value="">Select Height</option>
+                                                                                        <?php foreach($heights as $key=>$height) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['height']) && $athelte_data['height']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $height ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Weight</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][weight]" id="weight" style="width: 220px">
+                                                                                        <?php $Weights = $this->Register->getWeights() ; ?>
+                                                                                <option value="">Select Weight</option>
+                                                                                        <?php foreach($Weights as $key=>$Weight) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['weight']) && $athelte_data['weight']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $Weight ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Primary Position</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][primary_position]" id="primary_position" style="width: 220px">
+                                                                                        <?php $pri_positions = $this->Register->getPositions() ; ?>
+                                                                                <option value="">Select Primary Positions</option>
+                                                                                        <?php foreach($pri_positions as $key=>$primary) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['primary_position']) && $athelte_data['primary_position']== $key) { echo "Selected='Selected'" ; } ?>><?php echo $primary ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Secondary Position</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][secondary_position]" id="secondary_position" style="width: 220px">
+                                                                                        <?php $sec_positions = $this->Register->getPositions() ; ?>
+                                                                                <option value="">Select Secondary Positions</option>
+                                                                                        <?php foreach($sec_positions as $key=>$secondary) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['secondary_position']) && $athelte_data['secondary_position']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $secondary ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Wingspan</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][wingspan_id]" id="wingspan_id" style="width: 220px">
+                                                                                        <?php $wingspans = $this->Register->getWingspans() ; ?>
+                                                                                <option value=0>Select Wingspan</option>
+                                                                                        <?php foreach($wingspans as $key=>$wingspan) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['wingspan_id']) && $athelte_data['wingspan_id']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $wingspan ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">GPA</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][gpa]" id="gpa" style="width: 220px">
+                                                                                        <?php $gpas = $this->Register->getGPA() ; ?>
+                                                                                <option value="">Select Gpa</option>
+                                                                                        <?php foreach($gpas as $key=>$gpa) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['gpa']) && $athelte_data['gpa']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $gpa ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Sat Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][sat_score]" id="sat_score" style="width: 220px">
+                                                                                        <?php $sats = $this->Register->getSatScore() ; ?>
+                                                                                <option value="">Select Sat Score</option>
+                                                                                        <?php foreach($sats as $key=>$sat) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['sat_score']) && $athelte_data['sat_score']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $sat ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Act Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][act_score]" id="act_score" style="width: 220px">
+                                                                                        <?php $acts = $this->Register->getActScore() ; ?>
+                                                                                <option value="">Select Act Score</option>
+                                                                                        <?php foreach($acts as $key=>$act) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['act_score']) && $athelte_data['act_score']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $act ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+
+
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Street Address</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][street_address]" id="street_address" value="<?php if(isset($athelte_data['street_address'])) { echo $athelte_data['street_address'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">City</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][city]" id="city" value="<?php if(isset($athelte_data['city'])) { echo $athelte_data['city'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Zip Code</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="number" name="report[<?php echo $i ; ?>][zip_code]" id="zip_code" value="<?php if(isset($athelte_data['zip_code'])) { echo $athelte_data['zip_code'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">State<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][state]" id="state<?php echo $i ; ?>" onchange="javascript:updateteams( this.value , '<?php echo $i ; ?>');" required style="width: 220px">
+                                                                                        <?php $states = $this->Register->getStates() ; ?>
+                                                                                <option value="">Select State</option>
+                                                                                        <?php foreach($states as $key=>$state) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['state']) && $athelte_data['state']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $state ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">High School<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][high_school]" id="high_school<?php echo $i ; ?>" required style="width: 220px">
+                                                                                <option value="">Select High School</option>
+                                                                                <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['high_school'])){
+                                                                                $schools = $this->Register->getHsScout($athelte_data['state']) ;
+                                                                                if($schools){
+                                                                                 foreach($schools as $key=>$school){ ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['high_school']) && $athelte_data['high_school']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
+                                                                                        <?php }
+                                                                            } } ?>
+                                                                            </select>
+                                                                                <!--<input type="text" name="high_school" id="high_school" required value="" maxlength="50" style="width: 220px">-->
+                                                                        </td>
+
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Primary Aau Team<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][primary_aau_team]" id="primary_aau_team<?php echo $i ; ?>" required  style="width: 220px">
+                                                                                <option value="">Select Primary Team</option>
+                                                                                <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['primary_aau_team'])){
+                                                                                $schools = $this->Register->getHsScout($athelte_data['state']) ;
+                                                                                if($schools){
+                                                                                 foreach($schools as $key=>$school){ ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['primary_aau_team']) && $athelte_data['primary_aau_team']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
+                                                                                        <?php }
+                                                                            } } ?>
+                                                                            </select>
+                                                                            <!--    <input type="text" name="primary_aau_team" id="primary_aau_team" required value="" maxlength="50" style="width: 220px">-->
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Secondary Aau Team<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][secondary_aau_team]" id="secondary_aau_team<?php echo $i ; ?>" required  style="width: 220px">
+                                                                                <option value="">Select Secondary Team</option>
+                                                                                <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['secondary_aau_team'])){
+                                                                                $schools = $this->Register->getHsScout($athelte_data['state']) ;
+                                                                                if($schools){
+                                                                                 foreach($schools as $key=>$school){ ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['secondary_aau_team']) && $athelte_data['secondary_aau_team']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
+                                                                                        <?php }
+                                                                            } } ?>
+                                                                            </select>
+                                                                            <!--    <input type="text" name="secondary_aau_team" id="secondary_aau_team" required value="" maxlength="50" style="width: 220px">-->
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Jersey Number</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="number" name="report[<?php echo $i ; ?>][jersey_number]"  value="<?php if(isset($athelte_data['jersey_number'])) { echo $athelte_data['jersey_number'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Best Game<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][best_game]" id="best_game" required style="width: 220px">
+                                                                                        <?php $games = $this->Register->getgames() ; ?>
+                                                                                <option value="">Select Best game</option>
+                                                                                        <?php foreach($games as $key=>$game) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['best_game']) && $athelte_data['best_game']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $game ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Other Game<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][other_game]" id="other_game" required style="width: 220px">
+                                                                                        <?php $games = $this->Register->getgames() ; ?>
+                                                                                <option value="">Select Other game</option>
+                                                                                        <?php foreach($games as $key=>$game) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['other_game']) && $athelte_data['other_game']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $game ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Reach</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][reach]" id="reach" value="<?php if(isset($athelte_data['reach'])) { echo $athelte_data['reach'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Strengths</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][strengths]" id="strengths"  value="<?php if(isset($athelte_data['strengths'])) { echo $athelte_data['strengths'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Weakness</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][weakness]"   value="<?php if(isset($athelte_data['weakness'])) { echo $athelte_data['weakness'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">60 seconds of threes</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][60_seconds_of_threes]" value="<?php if(isset($athelte_data['60_seconds_of_threes'])) { echo $athelte_data['60_seconds_of_threes'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Ncca Elite High Major Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][ncca_elite_high_major_score]" value="<?php if(isset($athelte_data['ncca_elite_high_major_score'])) { echo $athelte_data['ncca_elite_high_major_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Ncca High Major Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][ncca_high_major_score]"   value="<?php if(isset($athelte_data['ncca_high_major_score'])) { echo $athelte_data['ncca_high_major_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Ncca Mid Major Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][ncca_mid_major_score]"  value="<?php if(isset($athelte_data['ncca_mid_major_score'])) { echo $athelte_data['ncca_mid_major_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Ncca Low Major Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][ncca_low_major_score]"  value="<?php if(isset($athelte_data['ncca_low_major_score'])) { echo $athelte_data['ncca_low_major_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Ncca Division II Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][ncca_division_II_score]"  value="<?php if(isset($athelte_data['ncca_division_II_score'])) { echo $athelte_data['ncca_division_II_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Ncca Division III Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][ncca_division_III_score]" value="<?php if(isset($athelte_data['ncca_division_III_score'])) { echo $athelte_data['ncca_division_III_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Junior College Division I Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][junior_college_division_I_score]"  value="<?php if(isset($athelte_data['junior_college_division_I_score'])) { echo $athelte_data['junior_college_division_I_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Junior College Division II Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][junior_college_division_II_score]" value="<?php if(isset($athelte_data['junior_college_division_II_score'])) { echo $athelte_data['junior_college_division_II_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Junior College Division III Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][junior_college_division_III_score]" value="<?php if(isset($athelte_data['junior_college_division_III_score'])) { echo $athelte_data['junior_college_division_III_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Naia Division I Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][naia_division_I_score]" value="<?php if(isset($athelte_data['naia_division_I_score'])) { echo $athelte_data['naia_division_I_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Naia Division II Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][naia_division_II_score]" value="<?php if(isset($athelte_data['naia_division_II_score'])) { echo $athelte_data['naia_division_II_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Naia Division III Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][naia_division_III_score]" value="<?php if(isset($athelte_data['naia_division_III_score'])) { echo $athelte_data['naia_division_III_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Nccaa Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][nccaa_score]" value="<?php if(isset($athelte_data['nccaa_score'])) { echo $athelte_data['nccaa_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Club Level Score</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][club_level_score]" value="<?php if(isset($athelte_data['club_level_score'])) { echo $athelte_data['club_level_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Colleges Shown Interest(Enter College Name with comma seprated)</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][colleges_shown_interest]" value="<?php if(isset($athelte_data['colleges_shown_interest'])) { echo $athelte_data['colleges_shown_interest'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Colleges Offered Scholarship(Enter College Name with comma seprated)</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][colleges_offered_scholarship]" value="<?php if(isset($athelte_data['colleges_offered_scholarship'])) { echo $athelte_data['colleges_offered_scholarship'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Phone Number</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="number" name="report[<?php echo $i ; ?>][phone_number]" value="<?php if(isset($athelte_data['phone_number'])) { echo $athelte_data['phone_number'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Father First Name</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][father_firstname]" value="<?php if(isset($athelte_data['father_firstname'])) { echo $athelte_data['father_firstname'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Father Last Name</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][father_lastname]"  value="<?php if(isset($athelte_data['father_lastname'])) { echo $athelte_data['father_lastname'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Father Phone Number</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="number" name="report[<?php echo $i ; ?>][father_phone]" value="<?php if(isset($athelte_data['father_phone'])) { echo $athelte_data['father_phone'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Mother First Name</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][mother_firstname]" value="<?php if(isset($athelte_data['mother_firstname'])) { echo $athelte_data['mother_firstname'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Mother Last Name</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][mother_lastname]" value="<?php if(isset($athelte_data['mother_lastname'])) { echo $athelte_data['mother_lastname'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Mother Phone Number</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="number" name="report[<?php echo $i ; ?>][mother_phone]" value="<?php if(isset($athelte_data['mother_phone'])) { echo $athelte_data['mother_phone'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">High School Coach Name</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][high_school_coach_name]" value="<?php if(isset($athelte_data['high_school_coach_name'])) { echo $athelte_data['high_school_coach_name'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">High School Coach  Phone Number</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="number" name="report[<?php echo $i ; ?>][high_school_coach_phone]" value="<?php if(isset($athelte_data['high_school_coach_phone'])) { echo $athelte_data['high_school_coach_phone'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">High School Coach  Email</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="email" name="report[<?php echo $i ; ?>][high_school_coach_email]" value="<?php if(isset($athelte_data['high_school_coach_email'])) { echo $athelte_data['high_school_coach_email'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Primary AAU Coach Name</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][primary_aau_coach_name]" value="<?php if(isset($athelte_data['primary_aau_coach_name'])) { echo $athelte_data['primary_aau_coach_name'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Primary AAU Coach Phone</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="number" name="report[<?php echo $i ; ?>][primary_aau_coach_phone]"  value="<?php if(isset($athelte_data['primary_aau_coach_phone'])) { echo $athelte_data['primary_aau_coach_phone'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Primary AAU Coach Email</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="email" name="report[<?php echo $i ; ?>][primary_aau_coach_email]" value="<?php if(isset($athelte_data['primary_aau_coach_email'])) { echo $athelte_data['primary_aau_coach_email'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Secondary AAU Coach Name</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][secondary_aau_coach_name]" value="<?php if(isset($athelte_data['secondary_aau_coach_name'])) { echo $athelte_data['secondary_aau_coach_name'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Secondary AAU Coach Phone</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="number" name="report[<?php echo $i ; ?>][secondary_aau_coach_phone]" value="<?php if(isset($athelte_data['secondary_aau_coach_phone'])) { echo $athelte_data['secondary_aau_coach_phone'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Secondary AAU Coach Email</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="email" name="report[<?php echo $i ; ?>][secondary_aau_coach_email]" value="<?php if(isset($athelte_data['secondary_aau_coach_email'])) { echo $athelte_data['secondary_aau_coach_email'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Facebook</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][facebook]" value="<?php if(isset($athelte_data['facebook'])) { echo $athelte_data['facebook'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Twitter</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][twitter]"  value="<?php if(isset($athelte_data['twitter'])) { echo $athelte_data['twitter'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Lane Agility</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="text" name="report[<?php echo $i ; ?>][lane_agility]" value="<?php if(isset($athelte_data['lane_agility'])) { echo $athelte_data['lane_agility'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Description</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <textarea name="report[<?php echo $i ; ?>][description]" style="width: 220px" ><?php if(isset($athelte_data['description'])) { echo $athelte_data['description'] ; } ?></textarea>
+                                                                        </td>
+                                                                    </tr>
+
+
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Picture</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <input type="file" name="picture[<?php echo $i ; ?>]" id="picture">
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Notes</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <textarea name="report[<?php echo $i ; ?>][notes]" style="width: 220px" ><?php if(isset($athelte_data['notes'])) { echo $athelte_data['notes'] ; } ?></textarea>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+                                                                    <tr height="20">
+                                                                        <td valign="top" colspan=3 align="center" class="normalblack_12">&nbsp;</td>
+                                                                    </tr>
+
+                                                                        <?php endforeach; ?>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+                                                                    <tr height="20">
+                                                                        <td valign="top" colspan=3 align="center" class="normalblack_12">&nbsp;</td>
+                                                                    </tr>
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">&nbsp</td>
+                                                                        <td valign="top" align="center" class="normalblack_12">&nbsp</td>
+                                                                        <td valign="top" align="left" class="normalblack_12">
+                                                                            <input type="hidden" name="isSubmit" value="save">
+                                                                            <input type="submit" name="submit" value="Submit">&nbsp;&nbsp;
+                                                                            <input type="reset" name="Submit2" value="Reset">&nbsp;&nbsp;
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr height="20">
+                                                                        <td valign="top" colspan=3 align="center" class="normalblack_12">&nbsp;</td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </form>
+                                                <?php else: ?>
+
+                                                <table width="100%" border="1" cellpadding="1" cellspacing="0" bordercolor="#808080" style="border-collapse: collapse">
+                                                    <tr height="20">
+                                                        <td valign="top" colspan=3 align="center" class="normalblack_12">No Athletes found ! </td>
+                                                    </tr>
+                                                </table>
+
+                                                <?php endif; ?>
+                                                <!--Main Center Content END --></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <?php echo $this->element('admin_footer');?>
+</table>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+<script type="text/javascript">
+    function validate(){
+        var error_msg = "";
+        if(trimString(document.frmaddscoutreport.firstname.value) == ""){
+            error_msg += "Please Enter Scout First Name! \n";
+        }
+        else{
+            if(hasSpecialCharaters(document.frmaddscoutreport.firstname.value)){
+                error_msg += "Don`t enter special characters in Scout First Name! \n";
+            }
+        }
+        if(trimString(document.frmaddscoutreport.lastname.value) == ""){
+            error_msg += "Please Enter Scout Last Name! \n";
+        }
+        else{
+            if(hasSpecialCharaters(document.frmaddscoutreport.lastname.value)){
+                error_msg += "Don`t enter special characters in Scout Last Name! \n";
+            }
+        }
+        if(error_msg!=''){
+            alert(error_msg);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    /*   $(function(){
+        var url = '<?php echo $this->webroot . "admin/ScoutReport/getHSScout" ; ?>' ;
+        $("#state").change(function(){
+            var state = $("#state").val() ;
+            if(state != ''){
+                $.ajax({
+                    url: url ,
+                    //dataType: "json",
+                    data: {
+                        state_id : $("#state").val()
+                    },
+                    success: function( data ) {
+                        $("#high_school").html(data) ;
+                        $("#primary_aau_team").html(data) ;
+                        $("#secondary_aau_team").html(data) ;
+                    }
+                });
+            }
+        });
+    });
+     */
+    function updateteams(state,index) {
+        var url = '<?php echo $this->webroot . "admin/ScoutReport/getHSScout" ; ?>' ;
+        //alert(state);alert(index);
+        if(state != '' && index != ''){
+            $.ajax({
+                url: url ,
+                //dataType: "json",
+                data: {
+                    state_id : state
+                },
+                success: function( data ) {
+                    $("#high_school"+index+"").html(data) ;
+                    $("#primary_aau_team"+index+"").html(data) ;
+                    $("#secondary_aau_team"+index+"").html(data) ;
+                }
+            });
+        }
+    }
+
+
+</script>

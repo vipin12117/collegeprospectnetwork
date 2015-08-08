@@ -20,7 +20,7 @@
 								</td>
 								<td class="normalblack_12" valign="top">
                                                                     <?php if($ScoutReport['ScoutReport']['picture'] != '') { ?>
-                                                                    <img src="<?php echo $this->webroot . "/app/webroot/img/scoutreport/" . $ScoutReport['ScoutReport']['picture'] ; ?>" alt="<?php echo $ScoutReport['ScoutReport']['firstname'] . " " . $ScoutReport['ScoutReport']['lastname'] ; ?>" width="150" height="150" >
+                                                                    <img src="<?php echo $this->Html->url("/app/webroot/img/scoutreport/" . $ScoutReport['ScoutReport']['picture']) ;?>" alt="<?php echo $ScoutReport['ScoutReport']['firstname'] . " " . $ScoutReport['ScoutReport']['lastname'] ; ?>" width="150" height="150" >
                                                                     <?php } ?>
                                                                 </td>
 							</tr>

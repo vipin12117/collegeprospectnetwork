@@ -290,4 +290,11 @@ class RegisterHelper extends AppHelper{
             return $options ;
 
         }
+        public function getAthleteReportData($athelete_id = ''){
+            App::import("Model","ScoutReport");
+            $this->ScoutReport = new ScoutReport();
+            $data = $this->ScoutReport->find("first",array("conditions"=>"athlete = $athelete_id " ,"order"=>" id desc","limit"=>1));
+            return $data ;
+
+        }
 }
