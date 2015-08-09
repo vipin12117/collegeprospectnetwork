@@ -4,7 +4,7 @@ class ScoutReportController extends AppController {
 
     public $name = 'ScoutReport';
 
-    public $components = array('Email','RequestHandler');
+    public $components = array('Email','RequestHandler' , 'Session');
 
     public $helpers = array('Html','Form','Js' => array('Jquery'));
 
@@ -142,24 +142,45 @@ class ScoutReportController extends AppController {
 
     public function admin_atheletesearch() {
         $athelets = array();
+        $limit = 5 ;
+        $this->loadModel('Athlete');
+        $hsaauteamid = $this->Session->read('ScoutReport.hsaauteamid');
+        $athlete_condn = $this->Session->read('ScoutReport.athlete_condn');
         if ($this->request->is('post')) {
-            $this->loadModel('Athlete');
             if(isset($_POST) && !empty($_POST)) {
                 $hsaauteamid = key($_POST) ;
                 if($hsaauteamid > 0) {
-                    $athelets = $this->Athlete->find("all",array("conditions"=>"hs_aau_team_id = $hsaauteamid","limit"=>5));
+                    $this->Session->write('ScoutReport.hsaauteamid', $hsaauteamid);
+                    $athelets = $this->Athlete->find("all",array("conditions"=>"hs_aau_team_id = $hsaauteamid"));
+                    $this->Session->write('ScoutReport.total_report_add', count($athelets));
+                    $this->paginate = array('Athlete' => array("conditions"=>"hs_aau_team_id = $hsaauteamid", 'limit' => $limit));
+                    $athelets = $this->paginate('Athlete');
                 }
             }
-        }
+        }else if(!empty($athlete_condn)) {
+                $this->paginate = array('Athlete' => array("conditions"=>$athlete_condn , 'limit' => $limit));
+                $athelets = $this->paginate('Athlete');
+            } else {
+                if($hsaauteamid > 0 && $hsaauteamid != '') {
+                    $this->paginate = array('Athlete' => array("conditions"=>array("hs_aau_team_id" => $hsaauteamid) , 'limit' => $limit));
+                    $athelets = $this->paginate('Athlete');
+                }
+            }
         $Reports = $this->ScoutReport->find("list",array("fields"=>"id , athlete","order"=>" id desc"));
-        $this->set('athelets', $athelets);
+        $this->set(compact('athelets','limit'));
         $this->set('Reports', $Reports);
     }
 
     public function admin_addmultiplereport() {
-        if ($this->request->is('post')) {
-
+        $athelte_conditions =array();
+        $total_reports_add = $this->Session->read('ScoutReport.total_report_add');
+        $hsaauteamid = $this->Session->read('ScoutReport.hsaauteamid');
+        if ($this->request->is('post') && $total_reports_add > 0) {
             if(isset($this->request->data['report']) && !empty($this->request->data['report'])) {
+                $now_reports_remain = $total_reports_add - count($this->request->data['report']) ;
+                $this->Session->write('ScoutReport.total_report_add', $now_reports_remain);
+                $athelte_conditions = array("hs_aau_team_id" => $hsaauteamid);
+
                 foreach($this->request->data['report'] as $i=>$report) {
                     if(isset($_FILES['picture']) && !empty($_FILES['picture'])) {
                         if($_FILES['picture']['error'][$i] == 0 && $_FILES['picture']['size'][$i] > 0 && $_FILES['picture']['name'][$i] != '') {
@@ -172,11 +193,26 @@ class ScoutReportController extends AppController {
                             }
                         }
                     }
+                    $athelte_conditions['Athlete.id != '] = $report['athlete'] ;
                     $this->ScoutReport->create();
                     $this->ScoutReport->save($report) ;
                 }
-                $this->Session->setFlash('Scout Report is Added Successfully', 'flash_success');
-                $this->redirect(array('controller' => 'ScoutReport', 'action' => 'scoutreportList'));
+                if($now_reports_remain > 0) {
+                    if($hsaauteamid > 0 && $hsaauteamid != '' && $athelte_conditions) {
+                        $this->Session->write('ScoutReport.athlete_condn', $athelte_conditions);
+                        $this->Session->setFlash('Scout Reports are Added Successfully , and now add remain ones ', 'flash_success');
+                        $this->redirect(array('controller' => 'ScoutReport', 'action' => 'atheletesearch'));
+                    } else {
+                        $this->Session->setFlash('Sorry Team Information lost , So you can`t allow to add more reports !', 'flash_error');
+                        $this->redirect(array('controller' => 'ScoutReport', 'action' => 'scoutreportList'));
+                    }
+                }else {
+                    $this->Session->delete('ScoutReport.hsaauteamid');
+                    $this->Session->delete('ScoutReport.total_report_add');
+                    $this->Session->delete('ScoutReport.athlete_condn');
+                    $this->Session->setFlash('All Scout Reports are Added Successfully', 'flash_success');
+                    $this->redirect(array('controller' => 'ScoutReport', 'action' => 'scoutreportList'));
+                }
             }
         }
     }

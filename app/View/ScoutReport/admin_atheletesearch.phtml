@@ -36,7 +36,7 @@
                                                                             if(in_array($athelete['Athlete']['id'] , $Reports)) {
                                                                                 $athelte_data = $this->Register->getAthleteReportData($athelete['Athlete']['id']) ;
                                                                                 $athelte_data = $athelte_data['ScoutReport'] ;
-                                                                                
+
                                                                             }
                                                                             //print_r($athelte_data);
                                                                             ?>
@@ -349,13 +349,13 @@
                                                                         <td valign="top" align="left" class="normalblack_12" colspan=2>
                                                                             <select name="report[<?php echo $i ; ?>][high_school]" id="high_school<?php echo $i ; ?>" required style="width: 220px">
                                                                                 <option value="">Select High School</option>
-                                                                                <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['high_school'])){
-                                                                                $schools = $this->Register->getHsScout($athelte_data['state']) ;
-                                                                                if($schools){
-                                                                                 foreach($schools as $key=>$school){ ?>
+                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['high_school'])) {
+                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
+                                                                                            if($schools) {
+                                                                                                foreach($schools as $key=>$school) { ?>
                                                                                 <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['high_school']) && $athelte_data['high_school']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
-                                                                                        <?php }
-                                                                            } } ?>
+                                                                                                <?php }
+                                                                                            } } ?>
                                                                             </select>
                                                                                 <!--<input type="text" name="high_school" id="high_school" required value="" maxlength="50" style="width: 220px">-->
                                                                         </td>
@@ -373,13 +373,13 @@
                                                                         <td valign="top" align="left" class="normalblack_12" colspan=2>
                                                                             <select name="report[<?php echo $i ; ?>][primary_aau_team]" id="primary_aau_team<?php echo $i ; ?>" required  style="width: 220px">
                                                                                 <option value="">Select Primary Team</option>
-                                                                                <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['primary_aau_team'])){
-                                                                                $schools = $this->Register->getHsScout($athelte_data['state']) ;
-                                                                                if($schools){
-                                                                                 foreach($schools as $key=>$school){ ?>
+                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['primary_aau_team'])) {
+                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
+                                                                                            if($schools) {
+                                                                                                foreach($schools as $key=>$school) { ?>
                                                                                 <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['primary_aau_team']) && $athelte_data['primary_aau_team']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
-                                                                                        <?php }
-                                                                            } } ?>
+                                                                                                <?php }
+                                                                                            } } ?>
                                                                             </select>
                                                                             <!--    <input type="text" name="primary_aau_team" id="primary_aau_team" required value="" maxlength="50" style="width: 220px">-->
                                                                         </td>
@@ -396,13 +396,13 @@
                                                                         <td valign="top" align="left" class="normalblack_12" colspan=2>
                                                                             <select name="report[<?php echo $i ; ?>][secondary_aau_team]" id="secondary_aau_team<?php echo $i ; ?>" required  style="width: 220px">
                                                                                 <option value="">Select Secondary Team</option>
-                                                                                <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['secondary_aau_team'])){
-                                                                                $schools = $this->Register->getHsScout($athelte_data['state']) ;
-                                                                                if($schools){
-                                                                                 foreach($schools as $key=>$school){ ?>
+                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['secondary_aau_team'])) {
+                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
+                                                                                            if($schools) {
+                                                                                                foreach($schools as $key=>$school) { ?>
                                                                                 <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['secondary_aau_team']) && $athelte_data['secondary_aau_team']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
-                                                                                        <?php }
-                                                                            } } ?>
+                                                                                                <?php }
+                                                                                            } } ?>
                                                                             </select>
                                                                             <!--    <input type="text" name="secondary_aau_team" id="secondary_aau_team" required value="" maxlength="50" style="width: 220px">-->
                                                                         </td>
@@ -1034,8 +1034,12 @@
                                                                 </table>
                                                             </td>
                                                         </tr>
+                                                        <tr height="20">
+                                                               <td valign="top" colspan="3" align="center" class="normalblack_12"><?php echo $this->element('pagination');?></td>
+                                                        </tr>
                                                     </table>
                                                 </form>
+                                                
                                                 <?php else: ?>
 
                                                 <table width="100%" border="1" cellpadding="1" cellspacing="0" bordercolor="#808080" style="border-collapse: collapse">
@@ -1045,8 +1049,12 @@
                                                 </table>
 
                                                 <?php endif; ?>
-                                                <!--Main Center Content END --></td>
+                                                <!--Main Center Content END -->
+                                            </td>
+                                            
                                         </tr>
+
+                                                                    
                                     </table>
                                 </td>
                             </tr>
