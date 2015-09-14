@@ -69,6 +69,8 @@ Router::connect('/subscribe.php/*', array('controller' => 'Subscribe', 'action' 
 Router::connect('/college-coach-profile.php/*', array('controller' => 'Profile', 'action' => 'collegeCoachProfile'));
 Router::connect('/edit-college-coach-profile.php/*', array('controller' => 'Profile', 'action' => 'editCollegeCoachProfile'));
 Router::connect('/pdf', array('controller' => 'ScoutReport', 'action' => 'view'));
+Router::connect('/pdfbyathelete/*', array('controller' => 'ScoutReport', 'action' => 'pdfbyathelete'));
+Router::connect('/pdfbyatheletegroup', array('controller' => 'ScoutReport', 'action' => 'pdfbyatheletegroup'));
 
 
 /**

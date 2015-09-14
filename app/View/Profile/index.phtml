@@ -124,7 +124,7 @@
 	    		<?php else:?>
 					<p>No report uploaded yet</p>
 				<?php endif;?>
-                                 <form name="pdfform" action="<?php echo $this->webroot . 'pdf' ?>" method="post">
+                                <!-- <form name="pdfform" action="<?php echo $this->webroot . 'pdf' ?>" method="post">
                                     <select name="best_game" id="best_game" required style="width: 220px">
                                             <?php $games = $this->Register->getgames() ; ?>
                                             <option value="">Select Best game</option>
@@ -133,7 +133,7 @@
                                             <?php } ?>
                                     </select> 
                                             <input type="submit" value="Generate Pdf" name="submit">
-                                 </form>
+                                 </form>-->
 
 
                                        <?php //echo $this->Html->link(__('PDF'), array("controller"=>"ScoutReport",'action' => 'view', 'ext' => 'pdf', 207)); ?>

@@ -1,9 +1,9 @@
 <script type="text/javascript" src="<?php echo Router::fullBaseUrl().$this->base;?>/fancybox/jquery.fancybox.js"></script>
 <link type="text/css" rel="stylesheet" href="<?php echo Router::fullBaseUrl().$this->base;?>/fancybox/jquery.fancybox.css" />
 <script type="text/javascript">
-   jQuery(document).ready(function() {
-	   jQuery(".fancybox").fancybox({fitToView:true,width:'600px',height:'100%',autoSize:true});
-   });
+    jQuery(document).ready(function() {
+        jQuery(".fancybox").fancybox({fitToView:true,width:'600px',height:'100%',autoSize:true});
+    });
 </script>
 
 <?php echo $this->Html->css("jquery.ui.stars.css?v=3.0.0b38");?>   
@@ -11,279 +11,324 @@
 <?php echo $this->Html->script("jquery.ui.stars.js?v=3.0.0b38");?>
 
 <?php 
-  $options = array();
-  for($i=1;$i<=5;$i++){
-  	  if($i == 1){
-  	  	 $options[$i] = " (Lowest)";
-  	  }	
-  	  elseif($i == 5){
-  	  	 $options[$i] = " (Highest)";
-  	  }
-  	  else{
-  	   	 $options[$i] = $i; 
-  	  }
-  }
+$options = array();
+for($i=1;$i<=5;$i++) {
+    if($i == 1) {
+        $options[$i] = " (Lowest)";
+    }
+    elseif($i == 5) {
+        $options[$i] = " (Highest)";
+    }
+    else {
+        $options[$i] = $i;
+    }
+}
 $values = array('leadership','work_ethic','primacy_go_to_guy','mental_toughness','composure','awareness','instincts','vision','conditioning','physical_toughness','tenacity','hustle','strength');  
 ?>
 <script type="text/javascript">
-	jQuery(function(){
-		jQuery(".multiField")
-		.stars({
-		    inputType: "select",
-		    cancelValue: 0,
-		    cancelShow: false,
-		    disabled : true
-		});
-	});
+    jQuery(function(){
+        jQuery(".multiField")
+        .stars({
+            inputType: "select",
+            cancelValue: 0,
+            cancelShow: false,
+            disabled : true
+        });
+    });
 
-	function getSportStats(sport_id){
-	    jQuery.ajax({
-			 url: '<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"getSportStats"));?>/'+sport_id,
-			 success: function(html){
-				 jQuery("#stats_category_filter").html(html);
-			 }
-		});
-	}
+    function getSportStats(sport_id){
+        jQuery.ajax({
+            url: '<?php echo $this->Html->url(array("controller"=>"Athlete","action"=>"getSportStats"));?>/'+sport_id,
+            success: function(html){
+                jQuery("#stats_category_filter").html(html);
+            }
+        });
+    }
 </script>
 <div class="cantener">
-  <div class="register-main">
-    <div class="registerPage advancedsearch">
-       
-      <?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Athlete","action"=>"search")));?>  
-	      <h1 style="float:left;margin-bottom:15px;">Athlete Search</h1>
-	
-	      <div class="form-footnote" style="float:right;color:#777;font-size:13px;margin-left:15px;padding-top:7px;"> * All Search Fields are optional </div>
-	
-	      <div class="clear"></div>
-	
-		  <div class="col-fieldset-left" style="width:100%">
-			  <fieldset style="width:96%;">
-					<legend>Basic Details</legend>
-					<p class="alt">
-						 <label>Athlete First Name:</label>
-						 <span>
-						 	  <?php echo $this->Form->input("firstname",array("div"=>false,"label"=>false,"style"=>"width:80px;margin-right:3px;"));?>
-						 </span>
-						 
-						 
-						 <label>Athlete Last Name:</label>
-						 <span>
-						 	  <?php echo $this->Form->input("lastname",array("div"=>false,"label"=>false,"style"=>"width:80px;margin-right:3px;"));?>
-						 </span>
-					</p>
-			  </fieldset>
-		  </div>
-	
-	      <fieldset>
-	          <legend>Athletic Stats</legend>
-	          <div class="formarea">
-	              <div class="col-left">
-	                  <?php include_once ROOT. '/app/View/Athlete/athlete_search_left.phtml'; ?>
-	              </div>
-	              
-	              <div class="col-right">
-	                  <?php include_once ROOT. '/app/View/Athlete/athlete_search_right.phtml'; ?>
-	              </div>
-	
-	              <div class="clear"></div>
-	          </div>
-	     </fieldset>
-	
-	     <fieldset>
-	         <legend>Athletic Points and Intangible Ratings</legend>
-	         <div class="formarea">
-	             <div class="col-left">
-				    <p>
-	                  <label>Points:</label>
-	                  <span>
-	                  	 <?php echo $this->Form->input("total_points",array("div"=>false,"label"=>false,"options"=>$this->Register->getPoints(),"empty"=>"Select One"));?>
-					  </span>
-				   </p>	     
-				 </div>
-				 
-				 <div class="col-right">
-	                <p>
-	                   <label>Ratings:</label>
-	
-	                    <span style="padding-top:3px;">
-	                    	<?php echo $this->Form->input("rating",array("div"=>false,"label"=>false,"options"=>$this->Register->getRatings(),"empty"=>"Select One"));?>
-	                    </span>
-	                </p>
-	             </div>
-		     </div>
-		  </fieldset>
-		  
-		  <div class="col-fieldset-left">
-	          <fieldset>
-	             <legend>Academic Stats</legend>
-	             
-				 <?php include_once ROOT. '/app/View/Athlete/athlete_search_acadstats.phtml'; ?>
-	          </fieldset>
-	         
-	          <fieldset>
-	              <legend>Location</legend>
-	
-				  <?php include_once ROOT. '/app/View/Athlete/athlete_search_location.phtml'; ?>
-	          </fieldset>
-	       </div>
-	
-	       <div class="col-fieldset-right" >
-           		<fieldset>
-           			 <legend>Game Stats</legend>
-           			 <div id="stats_category_filter">
-           			 		<?php if(@$sportsStats):?>
-								<?php foreach($sportsStats as $id => $label):?>
-										<p>
-											<label style="width: 200px;"><?php echo $label;?></label>
-											<span>
-												<?php $value = @$this->request->data['Athlete']['athlete_stat_category_id'][$id];?>
-												<?php echo $this->Form->input("athlete_stat_category_id",array("name"=>"data[Athlete][athlete_stat_category_id][$id]","value"=>$value,"label"=>false,"div"=>false,"type"=>"text"));?>
-											</span>
-										</p>
-								<?php endforeach;?>
-							
-							<?php else:?>
-								<p>
-									<br />
-									<span>
-										Select a sport to add game stats
-									</span>
-								</p
-						    <?php endif;?>
-           			 </div>
-           		</fieldset>
-	       </div>
-	       
-	       <div class="clear"><br clear="all" /></div>
-	
-	       <p style="padding-bottom:10px;"> 
-	       	  <span>
-	                <input type="submit" name="submit" value="Search"/>
-	                <input type="button" value="Back" onclick='goBack()'>
-	           </span>
-	       </p>
-	<?php echo $this->Form->end();?>
+    <div class="register-main">
+        <div class="registerPage advancedsearch">
 
-	
-	<?php if(count(@$athletes) > 0):?>
-		<div style="background:#fff;">
-	         <table cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" width="100%" class="tablePadd" style="border-collapse: collapse;">
-	         	  <tr style="background-color:#e5e5e5;">
-	                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>
-	                  	  <?php 
-								echo $this->Paginator->sort('firstname', 'Name',array("title"=>__("Sort",true)));
-								if(isset($this->params['named']['sort']) && $this->params['named']['sort'] == "firstname"){
-									echo "&nbsp;&nbsp;".$this->Html->image(strtoupper($this->params['named']['direction']).'.gif',array('alt'=>"" ,'border'=>0));
-								}
-						  ?>
-	                  </strong></td>
-	                  <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>
-	                  	  <?php 
-								echo $this->Paginator->sort('city', 'Location',array("title"=>__("Sort",true)));
-								if(isset($this->params['named']['sort']) && $this->params['named']['sort'] == "city"){
-									echo "&nbsp;&nbsp;".$this->Html->image(strtoupper($this->params['named']['direction']).'.gif',array('alt'=>"" ,'border'=>0));
-								}
-						  ?>
-	                  </strong></td>
-	                  <td align="center" class="normalblack_12" width="10%">&nbsp;<strong>
-	                  	  <?php 
-								echo $this->Paginator->sort('height', 'Height',array("title"=>__("Sort",true)));
-								if(isset($this->params['named']['sort']) && $this->params['named']['sort'] == "height"){
-									echo "&nbsp;&nbsp;".$this->Html->image(strtoupper($this->params['named']['direction']).'.gif',array('alt'=>"" ,'border'=>0));
-								}
-						  ?>
-	                  </strong></td>
-	                  <td align="center" class="normalblack_12" width="10%">&nbsp;<strong>
-	                  	  <?php 
-								echo $this->Paginator->sort('weight', 'Weight',array("title"=>__("Sort",true)));
-								if(isset($this->params['named']['sort']) && $this->params['named']['sort'] == "weight"){
-									echo "&nbsp;&nbsp;".$this->Html->image(strtoupper($this->params['named']['direction']).'.gif',array('alt'=>"" ,'border'=>0));
-								}
-						  ?>
-	                  </strong></td>
-	                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Sport</strong></td>
-	                  <td align="center" class="normalblack_12" width="12%">&nbsp;<strong>Stars</strong></td>
-	                  <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>School and/or AAU Team</strong></td>
-	              </tr>
-	                    
-	              <?php foreach ($athletes as $athlete): ?>
-	              	 <tr>
-	                      <td align="center" class="normalblack_12">
-	                      		<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$athlete['Athlete']['id']));?>">
-	                      			<?php echo $athlete['Athlete']['firstname']." ".$athlete['Athlete']['lastname']?>
-	                      		</a>
-	                      </td>
-	                      <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['city'].", ".$athlete['Athlete']['state'];?></td>
-	                      <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['height'];?></td>
-	                      <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['weight'];?></td>
-	                      <td align="center" class="normalblack_12"><?php echo $athlete['Sport']['name']; ?></td>
-	                      <td align="center" class="normalblack_12">
-	                      		<span class="multiField" id="<?php echo "athlete_".$athlete['Athlete']['id'];?>">
-	                      			<?php echo $this->Form->input("rating",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options));?>
-	                      		</span>	
-	                      		
-	                      		<script type="text/javascript">
-	                      			 jQuery(document).ready(function(){
-									 	jQuery("#<?php echo "athlete_".$athlete['Athlete']['id'];?>").stars("select", <?php echo (int)($athlete['Athlete']['avg_rating']/2);?>);
-	                      			 });
-								</script>
-	                      </td>
-	                      <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['school_name'];?></td>
-	                 </tr>
-		          <?php endforeach; ?>
-		     </table>
-	   </div>	
-	   
-	   <div style="clear:both;"></div>
-	   <?php echo $this->Element('pagination');?>
-	   
-	   <?php if(count(@$youMayAlsoLike) > 0):?>
-	   		<br /><br />
-	   		
-	   		<h3>You May Also Like</h3>
-	   		
-	   		<div style="background:#fff;">
-		         <table cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" width="100%" class="tablePadd" style="border-collapse: collapse;">
-		         	  <tr>
-		                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Name</strong></td>
-		                  <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>Location</strong></td>
-		                  <td align="center" class="normalblack_12" width="5%">&nbsp;<strong>Height</strong></td>
-		                  <td align="center" class="normalblack_12" width="10%">&nbsp;<strong>Weight</strong></td>
-		                  <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Sport</strong></td>
-		                  <td align="center" class="normalblack_12" width="12%">&nbsp;<strong>Stars</strong></td>
-		                  <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>School and/or AAU Team</strong></td>
-		              </tr>
-		                    
-		              <?php foreach ($youMayAlsoLike as $athlete): ?>
-		              	 <tr>
-		                      <td align="center" class="normalblack_12">
-		                      		<a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$athlete['Athlete']['id']));?>">
-		                      			<?php echo $athlete['Athlete']['firstname']." ".$athlete['Athlete']['lastname']?>
-		                      		</a>
-		                      </td>
-		                      <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['city'].", ".$athlete['Athlete']['state'];?></td>
-		                      <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['height'];?></td>
-		                      <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['weight'];?></td>
-		                      <td align="center" class="normalblack_12"><?php echo $athlete['Sport']['name']; ?></td>
-		                      <td align="center" class="normalblack_12">
-		                      		<span class="multiField" id="<?php echo "athlete_".$athlete['Athlete']['id'];?>">
-		                      			<?php echo $this->Form->input("rating",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options));?>
-		                      		</span>	
-		                      		
-		                      		<script type="text/javascript">
-		                      			 jQuery(document).ready(function(){
-										 	jQuery("#<?php echo "athlete_".$athlete['Athlete']['id'];?>").stars("select", <?php echo (int)($athlete['Athlete']['avg_rating']/2);?>);
-		                      			 });
-									</script>
-		                      </td>
-		                      <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['school_name'];?></td>
-		                 </tr>
-			          <?php endforeach; ?>
-			     </table>
-	   		</div>	
-	   <?php endif;?> 
-	     
-     <?php endif;?> 	  
-   </div>	   
-  </div>
-</div>    		     
+            <?php echo $this->Form->create("Athlete",array("url"=>array("controller"=>"Athlete","action"=>"search")));?>
+            <h1 style="float:left;margin-bottom:15px;">Athlete Search</h1>
+
+            <div class="form-footnote" style="float:right;color:#777;font-size:13px;margin-left:15px;padding-top:7px;"> * All Search Fields are optional </div>
+
+            <div class="clear"></div>
+
+            <div class="col-fieldset-left" style="width:100%">
+                <fieldset style="width:96%;">
+                    <legend>Basic Details</legend>
+                    <p class="alt">
+                        <label>Athlete First Name:</label>
+                        <span>
+                            <?php echo $this->Form->input("firstname",array("div"=>false,"label"=>false,"style"=>"width:80px;margin-right:3px;"));?>
+                        </span>
+
+
+                        <label>Athlete Last Name:</label>
+                        <span>
+                            <?php echo $this->Form->input("lastname",array("div"=>false,"label"=>false,"style"=>"width:80px;margin-right:3px;"));?>
+                        </span>
+                    </p>
+                </fieldset>
+            </div>
+
+            <fieldset>
+                <legend>Athletic Stats</legend>
+                <div class="formarea">
+                    <div class="col-left">
+                        <?php include_once ROOT. '/app/View/Athlete/athlete_search_left.phtml'; ?>
+                    </div>
+
+                    <div class="col-right">
+                        <?php include_once ROOT. '/app/View/Athlete/athlete_search_right.phtml'; ?>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Athletic Points and Intangible Ratings</legend>
+                <div class="formarea">
+                    <div class="col-left">
+                        <p>
+                            <label>Points:</label>
+                            <span>
+                                <?php echo $this->Form->input("total_points",array("div"=>false,"label"=>false,"options"=>$this->Register->getPoints(),"empty"=>"Select One"));?>
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="col-right">
+                        <p>
+                            <label>Ratings:</label>
+
+                            <span style="padding-top:3px;">
+                                <?php echo $this->Form->input("rating",array("div"=>false,"label"=>false,"options"=>$this->Register->getRatings(),"empty"=>"Select One"));?>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="col-fieldset-left">
+                <fieldset>
+                    <legend>Academic Stats</legend>
+
+                    <?php include_once ROOT. '/app/View/Athlete/athlete_search_acadstats.phtml'; ?>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Location</legend>
+
+                    <?php include_once ROOT. '/app/View/Athlete/athlete_search_location.phtml'; ?>
+                </fieldset>
+            </div>
+
+            <div class="col-fieldset-right" >
+                <fieldset>
+                    <legend>Game Stats</legend>
+                    <div id="stats_category_filter">
+                        <?php if(@$sportsStats):?>
+                            <?php foreach($sportsStats as $id => $label):?>
+                        <p>
+                            <label style="width: 200px;"><?php echo $label;?></label>
+                            <span>
+                                        <?php $value = @$this->request->data['Athlete']['athlete_stat_category_id'][$id];?>
+                                        <?php echo $this->Form->input("athlete_stat_category_id",array("name"=>"data[Athlete][athlete_stat_category_id][$id]","value"=>$value,"label"=>false,"div"=>false,"type"=>"text"));?>
+                            </span>
+                        </p>
+                            <?php endforeach;?>
+
+                        <?php else:?>
+                        <p>
+                            <br />
+                            <span>
+										Select a sport to add game stats
+                            </span>
+                        </p
+                        <?php endif;?>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="clear"><br clear="all" /></div>
+
+            <p style="padding-bottom:10px;">
+                <span>
+                    <input type="submit" name="submit" value="Search"/>
+                    <input type="button" value="Back" onclick='goBack()'>
+                </span>
+            </p>
+            <?php echo $this->Form->end();?>
+
+
+            <?php if(count(@$athletes) > 0):?>
+            <div style="background:#fff;">
+                <table cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" width="100%" class="tablePadd" style="border-collapse: collapse;">
+                    <tr style="background-color:#e5e5e5;">
+                        <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>
+                                    <?php
+                                    echo $this->Paginator->sort('firstname', 'Name',array("title"=>__("Sort",true)));
+                                    if(isset($this->params['named']['sort']) && $this->params['named']['sort'] == "firstname") {
+                                        echo "&nbsp;&nbsp;".$this->Html->image(strtoupper($this->params['named']['direction']).'.gif',array('alt'=>"" ,'border'=>0));
+                                    }
+                                    ?>
+                            </strong></td>
+                        <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>
+                                    <?php
+                                    echo $this->Paginator->sort('city', 'Location',array("title"=>__("Sort",true)));
+                                    if(isset($this->params['named']['sort']) && $this->params['named']['sort'] == "city") {
+                                        echo "&nbsp;&nbsp;".$this->Html->image(strtoupper($this->params['named']['direction']).'.gif',array('alt'=>"" ,'border'=>0));
+                                    }
+                                    ?>
+                            </strong></td>
+                        <td align="center" class="normalblack_12" width="10%">&nbsp;<strong>
+                                    <?php
+                                    echo $this->Paginator->sort('height', 'Height',array("title"=>__("Sort",true)));
+                                    if(isset($this->params['named']['sort']) && $this->params['named']['sort'] == "height") {
+                                        echo "&nbsp;&nbsp;".$this->Html->image(strtoupper($this->params['named']['direction']).'.gif',array('alt'=>"" ,'border'=>0));
+                                    }
+                                    ?>
+                            </strong></td>
+                        <td align="center" class="normalblack_12" width="10%">&nbsp;<strong>
+                                    <?php
+                                    echo $this->Paginator->sort('weight', 'Weight',array("title"=>__("Sort",true)));
+                                    if(isset($this->params['named']['sort']) && $this->params['named']['sort'] == "weight") {
+                                        echo "&nbsp;&nbsp;".$this->Html->image(strtoupper($this->params['named']['direction']).'.gif',array('alt'=>"" ,'border'=>0));
+                                    }
+                                    ?>
+                            </strong></td>
+                        <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Sport</strong></td>
+                        <td align="center" class="normalblack_12" width="12%">&nbsp;<strong>Stars</strong></td>
+                        <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>School and/or AAU Team</strong></td>
+                        <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>Pdf</strong></td>
+                    </tr>
+                    <form method="post" name="pdfatheltebygrpform" action="<?php echo $this->Html->url('/pdfbyatheletegroup') ; ?>">
+                            <?php foreach ($athletes as $athlete): ?>
+                        <tr>
+                            <td align="center" class="normalblack_12">
+                                <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$athlete['Athlete']['id']));?>">
+                                            <?php echo $athlete['Athlete']['firstname']." ".$athlete['Athlete']['lastname']?>
+                                </a>
+                            </td>
+                            <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['city'].", ".$athlete['Athlete']['state'];?></td>
+                            <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['height'];?></td>
+                            <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['weight'];?></td>
+                            <td align="center" class="normalblack_12"><?php echo $athlete['Sport']['name']; ?></td>
+                            <td align="center" class="normalblack_12">
+                                <span class="multiField" id="<?php echo "athlete_".$athlete['Athlete']['id'];?>">
+                                            <?php echo $this->Form->input("rating",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options));?>
+                                </span>
+
+                                <script type="text/javascript">
+                                    jQuery(document).ready(function(){
+                                        jQuery("#<?php echo "athlete_".$athlete['Athlete']['id'];?>").stars("select", <?php echo (int)($athlete['Athlete']['avg_rating']/2);?>);
+                                    });
+                                </script>
+                            </td>
+                            <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['school_name'];?></td>
+                            <td align="center" class="normalblack_12">
+                                <input type="checkbox" name="athlete[]" value="<?php echo $athlete['Athlete']['id'] ; ?>">
+                                <a href="<?php echo $this->Html->url('/pdfbyathelete/'.$athlete['Athlete']['id']) ; ?>">PDF</a></td>
+                        </tr>
+                            <?php endforeach; ?>
+                        <tr> <td align="center" class="normalblack_12" colspan="8"> <button type="submit"> Genrate Pdf</button> </td></tr>
+                    </form>
+                </table>
+            </div>
+
+            <div style="clear:both;"></div>
+                <?php echo $this->Element('pagination');?>
+
+                <?php if(count(@$youMayAlsoLike) > 0):?>
+            <br /><br />
+
+            <h3>You May Also Like</h3>
+
+            <div style="background:#fff;">
+                <table cellspacing="2" cellpadding="5" bordercolor="#808080" border="0" width="100%" class="tablePadd" style="border-collapse: collapse;">
+                    <tr>
+                        <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Name</strong></td>
+                        <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>Location</strong></td>
+                        <td align="center" class="normalblack_12" width="5%">&nbsp;<strong>Height</strong></td>
+                        <td align="center" class="normalblack_12" width="10%">&nbsp;<strong>Weight</strong></td>
+                        <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Sport</strong></td>
+                        <td align="center" class="normalblack_12" width="12%">&nbsp;<strong>Stars</strong></td>
+                        <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>School and/or AAU Team</strong></td>
+                    </tr>
+
+                            <?php foreach ($youMayAlsoLike as $athlete): ?>
+                    <tr>
+                        <td align="center" class="normalblack_12">
+                            <a href="<?php echo $this->Html->url(array("controller"=>"Profile","action"=>"athleteProfile",$athlete['Athlete']['id']));?>">
+                                            <?php echo $athlete['Athlete']['firstname']." ".$athlete['Athlete']['lastname']?>
+                            </a>
+                        </td>
+                        <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['city'].", ".$athlete['Athlete']['state'];?></td>
+                        <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['height'];?></td>
+                        <td align="center" class="normalblack_12"><?php echo $athlete['Athlete']['weight'];?></td>
+                        <td align="center" class="normalblack_12"><?php echo $athlete['Sport']['name']; ?></td>
+                        <td align="center" class="normalblack_12">
+                            <span class="multiField" id="<?php echo "athlete_".$athlete['Athlete']['id'];?>">
+                                            <?php echo $this->Form->input("rating",array("div"=>false,"label"=>false,"type"=>"select","options"=>$options));?>
+                            </span>
+
+                            <script type="text/javascript">
+                                jQuery(document).ready(function(){
+                                    jQuery("#<?php echo "athlete_".$athlete['Athlete']['id'];?>").stars("select", <?php echo (int)($athlete['Athlete']['avg_rating']/2);?>);
+                                });
+                            </script>
+                        </td>
+                        <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['school_name'];?></td>
+                    </tr>
+                            <?php endforeach; ?>
+                </table>
+            </div>
+                <?php endif;?>
+
+            <?php endif;?>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+var url = '<?php echo $this->Html->url('/ScoutReport/setSessionForathletes'); ?>' ;
+        $("input[name='athlete[]']").click(function(){
+            if($(this).is(':checked')){
+                $.ajax({
+                    url: url ,
+                    dataType: "json",
+                    data: {
+                        athelete_id: $(this).val(),
+                        type : 'add'
+                    },
+                    success: function( data ) {
+                        //response( data );
+                    }
+                });
+            }else{
+                $.ajax({
+                    url: url ,
+                    dataType: "json",
+                    data: {
+                        athelete_id: $(this).val(),
+                        type : 'remove'
+                    },
+                    success: function( data ) {
+                        //response( data );
+                    }
+                });
+            }
+
+            //alert($(this).val()) ;
+
+        });
+
+    });
+
+
+</script>
