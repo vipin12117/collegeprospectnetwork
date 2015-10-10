@@ -129,6 +129,133 @@
                                                                             </select>
                                                                         </td>
                                                                     </tr>
+																	
+																	
+																	<tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">State<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][state]" id="state-<?php echo $i ; ?>" onchange="javascript:updateteams( this.value , '<?php echo $i ; ?>');" required style="width: 220px">
+                                                                                        <?php $states = $this->Register->getStates() ; ?>
+                                                                                <option value="">Select State</option>
+                                                                                        <?php foreach($states as $key=>$state) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['state']) && $athelte_data['state']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $state ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">High School<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][high_school]" id="high_school-<?php echo $i ; ?>" required style="width: 220px">
+                                                                                <option value="">Select High School</option>
+                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['high_school'])) {
+                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
+                                                                                            if($schools) {
+                                                                                                foreach($schools as $key=>$school) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['high_school']) && $athelte_data['high_school']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
+                                                                                                <?php }
+                                                                                            } } ?>
+                                                                            </select>
+                                                                                <!--<input type="text" name="high_school" id="high_school" required value="" maxlength="50" style="width: 220px">-->
+                                                                        </td>
+
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Primary Aau Team<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][primary_aau_team]" id="primary_aau_team-<?php echo $i ; ?>" required  style="width: 220px">
+                                                                                <option value="">Select Primary Team</option>
+                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['primary_aau_team'])) {
+                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
+                                                                                            if($schools) {
+                                                                                                foreach($schools as $key=>$school) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['primary_aau_team']) && $athelte_data['primary_aau_team']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
+                                                                                                <?php }
+                                                                                            } } ?>
+                                                                            </select>
+                                                                            <!--    <input type="text" name="primary_aau_team" id="primary_aau_team" required value="" maxlength="50" style="width: 220px">-->
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Secondary Aau Team<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][secondary_aau_team]" id="secondary_aau_team-<?php echo $i ; ?>" required  style="width: 220px">
+                                                                                <option value="">Select Secondary Team</option>
+                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['secondary_aau_team'])) {
+                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
+                                                                                            if($schools) {
+                                                                                                foreach($schools as $key=>$school) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['secondary_aau_team']) && $athelte_data['secondary_aau_team']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
+                                                                                                <?php }
+                                                                                            } } ?>
+                                                                            </select>
+                                                                            <!--    <input type="text" name="secondary_aau_team" id="secondary_aau_team" required value="" maxlength="50" style="width: 220px">-->
+                                                                        </td>
+                                                                    </tr>
+
+
+																	<tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Best Game<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][best_game]" id="best_game" required style="width: 220px">
+                                                                                        <?php $games = $this->Register->getgames() ; ?>
+                                                                                <option value="">Select Best game</option>
+                                                                                        <?php foreach($games as $key=>$game) { ?>
+                                                                                <option value="<?php echo $key ; ?>" ><?php echo $game ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Other Game<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][other_game]" id="other_game" required style="width: 220px">
+                                                                                        <?php $games = $this->Register->getgames() ; ?>
+                                                                                <option value="">Select Other game</option>
+                                                                                        <?php foreach($games as $key=>$game) { ?>
+                                                                                <option value="<?php echo $key ; ?>" ><?php echo $game ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
 
 
                                                                     <tr height="20">
@@ -326,94 +453,6 @@
                                                                     </tr>
 
                                                                     <tr height="20">
-                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">State<font color="red">*</font></td>
-                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                            <select name="report[<?php echo $i ; ?>][state]" id="state-<?php echo $i ; ?>" onchange="javascript:updateteams( this.value , '<?php echo $i ; ?>');" required style="width: 220px">
-                                                                                        <?php $states = $this->Register->getStates() ; ?>
-                                                                                <option value="">Select State</option>
-                                                                                        <?php foreach($states as $key=>$state) { ?>
-                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['state']) && $athelte_data['state']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $state ; ?></option>
-                                                                                        <?php } ?>
-                                                                            </select>
-                                                                        </td>
-
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                    </tr>
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">High School<font color="red">*</font></td>
-                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                            <select name="report[<?php echo $i ; ?>][high_school]" id="high_school-<?php echo $i ; ?>" required style="width: 220px">
-                                                                                <option value="">Select High School</option>
-                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['high_school'])) {
-                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
-                                                                                            if($schools) {
-                                                                                                foreach($schools as $key=>$school) { ?>
-                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['high_school']) && $athelte_data['high_school']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
-                                                                                                <?php }
-                                                                                            } } ?>
-                                                                            </select>
-                                                                                <!--<input type="text" name="high_school" id="high_school" required value="" maxlength="50" style="width: 220px">-->
-                                                                        </td>
-
-                                                                    </tr>
-
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                    </tr>
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Primary Aau Team<font color="red">*</font></td>
-                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                            <select name="report[<?php echo $i ; ?>][primary_aau_team]" id="primary_aau_team-<?php echo $i ; ?>" required  style="width: 220px">
-                                                                                <option value="">Select Primary Team</option>
-                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['primary_aau_team'])) {
-                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
-                                                                                            if($schools) {
-                                                                                                foreach($schools as $key=>$school) { ?>
-                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['primary_aau_team']) && $athelte_data['primary_aau_team']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
-                                                                                                <?php }
-                                                                                            } } ?>
-                                                                            </select>
-                                                                            <!--    <input type="text" name="primary_aau_team" id="primary_aau_team" required value="" maxlength="50" style="width: 220px">-->
-                                                                        </td>
-                                                                    </tr>
-
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                    </tr>
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Secondary Aau Team<font color="red">*</font></td>
-                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                            <select name="report[<?php echo $i ; ?>][secondary_aau_team]" id="secondary_aau_team-<?php echo $i ; ?>" required  style="width: 220px">
-                                                                                <option value="">Select Secondary Team</option>
-                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['secondary_aau_team'])) {
-                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
-                                                                                            if($schools) {
-                                                                                                foreach($schools as $key=>$school) { ?>
-                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['secondary_aau_team']) && $athelte_data['secondary_aau_team']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
-                                                                                                <?php }
-                                                                                            } } ?>
-                                                                            </select>
-                                                                            <!--    <input type="text" name="secondary_aau_team" id="secondary_aau_team" required value="" maxlength="50" style="width: 220px">-->
-                                                                        </td>
-                                                                    </tr>
-
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                    </tr>
-
-                                                                    <tr height="20">
                                                                         <td valign="top" align="right" class="normalblack_12" width="30%">Jersey Number</td>
                                                                         <td valign="top" align="center" class="normalblack_12">:</td>
                                                                         <td valign="top" align="left" class="normalblack_12" colspan=2>
@@ -422,44 +461,7 @@
                                                                     </tr>
 
 
-                                                                    <tr height="20">
-                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                    </tr>
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Best Game<font color="red">*</font></td>
-                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                            <select name="report[<?php echo $i ; ?>][best_game]" id="best_game" required style="width: 220px">
-                                                                                        <?php $games = $this->Register->getgames() ; ?>
-                                                                                <option value="">Select Best game</option>
-                                                                                        <?php foreach($games as $key=>$game) { ?>
-                                                                                <option value="<?php echo $key ; ?>" ><?php echo $game ; ?></option>
-                                                                                        <?php } ?>
-                                                                            </select>
-                                                                        </td>
-                                                                    </tr>
-
-
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                    </tr>
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Other Game<font color="red">*</font></td>
-                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                            <select name="report[<?php echo $i ; ?>][other_game]" id="other_game" required style="width: 220px">
-                                                                                        <?php $games = $this->Register->getgames() ; ?>
-                                                                                <option value="">Select Other game</option>
-                                                                                        <?php foreach($games as $key=>$game) { ?>
-                                                                                <option value="<?php echo $key ; ?>" ><?php echo $game ; ?></option>
-                                                                                        <?php } ?>
-                                                                            </select>
-                                                                        </td>
-                                                                    </tr>
-
+                                                                    
 
                                                                     <tr height="20">
                                                                         <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
@@ -1103,6 +1105,134 @@
                                                                         </td>
                                                                     </tr>
 
+																	
+																	
+																	<tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">State<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][state]" id="state-<?php echo $i ; ?>" onchange="javascript:updateteams( this.value , '<?php echo $i ; ?>');" required style="width: 220px">
+                                                                                        <?php $states = $this->Register->getStates() ; ?>
+                                                                                <option value="">Select State</option>
+                                                                                        <?php foreach($states as $key=>$state) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['state']) && $athelte_data['state']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $state ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">High School<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][high_school]" id="high_school-<?php echo $i ; ?>" required style="width: 220px">
+                                                                                <option value="">Select High School</option>
+                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['high_school'])) {
+                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
+                                                                                            if($schools) {
+                                                                                                foreach($schools as $key=>$school) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['high_school']) && $athelte_data['high_school']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
+                                                                                                <?php }
+                                                                                            } } ?>
+                                                                            </select>
+                                                                                <!--<input type="text" name="high_school" id="high_school" required value="" maxlength="50" style="width: 220px">-->
+                                                                        </td>
+
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Primary Aau Team<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][primary_aau_team]" id="primary_aau_team-<?php echo $i ; ?>" required  style="width: 220px">
+                                                                                <option value="">Select Primary Team</option>
+                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['primary_aau_team'])) {
+                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
+                                                                                            if($schools) {
+                                                                                                foreach($schools as $key=>$school) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['primary_aau_team']) && $athelte_data['primary_aau_team']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
+                                                                                                <?php }
+                                                                                            } } ?>
+                                                                            </select>
+                                                                            <!--    <input type="text" name="primary_aau_team" id="primary_aau_team" required value="" maxlength="50" style="width: 220px">-->
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Secondary Aau Team<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][secondary_aau_team]" id="secondary_aau_team-<?php echo $i ; ?>" required  style="width: 220px">
+                                                                                <option value="">Select Secondary Team</option>
+                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['secondary_aau_team'])) {
+                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
+                                                                                            if($schools) {
+                                                                                                foreach($schools as $key=>$school) { ?>
+                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['secondary_aau_team']) && $athelte_data['secondary_aau_team']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
+                                                                                                <?php }
+                                                                                            } } ?>
+                                                                            </select>
+                                                                            <!--    <input type="text" name="secondary_aau_team" id="secondary_aau_team" required value="" maxlength="50" style="width: 220px">-->
+                                                                        </td>
+                                                                    </tr>
+
+
+																	<tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Best Game<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][best_game]" id="best_game" required style="width: 220px">
+                                                                                        <?php $games = $this->Register->getgames() ; ?>
+                                                                                <option value="">Select Best game</option>
+                                                                                        <?php foreach($games as $key=>$game) { ?>
+                                                                                <option value="<?php echo $key ; ?>" ><?php echo $game ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+
+
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+
+                                                                    <tr height="20">
+                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Other Game<font color="red">*</font></td>
+                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                            <select name="report[<?php echo $i ; ?>][other_game]" id="other_game" required style="width: 220px">
+                                                                                        <?php $games = $this->Register->getgames() ; ?>
+                                                                                <option value="">Select Other game</option>
+                                                                                        <?php foreach($games as $key=>$game) { ?>
+                                                                                <option value="<?php echo $key ; ?>" ><?php echo $game ; ?></option>
+                                                                                        <?php } ?>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+
 
                                                                     <tr height="20">
                                                                         <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
@@ -1294,94 +1424,7 @@
                                                                     </tr>
 
 
-                                                                    <tr height="20">
-                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                    </tr>
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">State<font color="red">*</font></td>
-                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                            <select name="report[<?php echo $i ; ?>][state]" id="state-<?php echo $i ; ?>" onchange="javascript:updateteams( this.value , '<?php echo $i ; ?>');" required style="width: 220px">
-                                                                                        <?php $states = $this->Register->getStates() ; ?>
-                                                                                <option value="">Select State</option>
-                                                                                        <?php foreach($states as $key=>$state) { ?>
-                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['state']) && $athelte_data['state']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $state ; ?></option>
-                                                                                        <?php } ?>
-                                                                            </select>
-                                                                        </td>
-
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                    </tr>
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">High School<font color="red">*</font></td>
-                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                            <select name="report[<?php echo $i ; ?>][high_school]" id="high_school-<?php echo $i ; ?>" required style="width: 220px">
-                                                                                <option value="">Select High School</option>
-                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['high_school'])) {
-                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
-                                                                                            if($schools) {
-                                                                                                foreach($schools as $key=>$school) { ?>
-                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['high_school']) && $athelte_data['high_school']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
-                                                                                                <?php }
-                                                                                            } } ?>
-                                                                            </select>
-                                                                                <!--<input type="text" name="high_school" id="high_school" required value="" maxlength="50" style="width: 220px">-->
-                                                                        </td>
-
-                                                                    </tr>
-
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                    </tr>
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Primary Aau Team<font color="red">*</font></td>
-                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                            <select name="report[<?php echo $i ; ?>][primary_aau_team]" id="primary_aau_team-<?php echo $i ; ?>" required  style="width: 220px">
-                                                                                <option value="">Select Primary Team</option>
-                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['primary_aau_team'])) {
-                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
-                                                                                            if($schools) {
-                                                                                                foreach($schools as $key=>$school) { ?>
-                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['primary_aau_team']) && $athelte_data['primary_aau_team']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
-                                                                                                <?php }
-                                                                                            } } ?>
-                                                                            </select>
-                                                                            <!--    <input type="text" name="primary_aau_team" id="primary_aau_team" required value="" maxlength="50" style="width: 220px">-->
-                                                                        </td>
-                                                                    </tr>
-
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                    </tr>
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Secondary Aau Team<font color="red">*</font></td>
-                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                            <select name="report[<?php echo $i ; ?>][secondary_aau_team]" id="secondary_aau_team-<?php echo $i ; ?>" required  style="width: 220px">
-                                                                                <option value="">Select Secondary Team</option>
-                                                                                        <?php if(isset($athelte_data['state']) && $athelte_data['state'] != '' && isset($athelte_data['secondary_aau_team'])) {
-                                                                                            $schools = $this->Register->getHsScout($athelte_data['state']) ;
-                                                                                            if($schools) {
-                                                                                                foreach($schools as $key=>$school) { ?>
-                                                                                <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data['secondary_aau_team']) && $athelte_data['secondary_aau_team']== $key) { echo "Selected='Selected'" ; } ?> ><?php echo $school ; ?></option>
-                                                                                                <?php }
-                                                                                            } } ?>
-                                                                            </select>
-                                                                            <!--    <input type="text" name="secondary_aau_team" id="secondary_aau_team" required value="" maxlength="50" style="width: 220px">-->
-                                                                        </td>
-                                                                    </tr>
-
-
+                                                                    
                                                                     <tr height="20">
                                                                         <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
                                                                     </tr>
@@ -1395,44 +1438,7 @@
                                                                     </tr>
 
 
-                                                                    <tr height="20">
-                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                    </tr>
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Best Game<font color="red">*</font></td>
-                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                            <select name="report[<?php echo $i ; ?>][best_game]" id="best_game" required style="width: 220px">
-                                                                                        <?php $games = $this->Register->getgames() ; ?>
-                                                                                <option value="">Select Best game</option>
-                                                                                        <?php foreach($games as $key=>$game) { ?>
-                                                                                <option value="<?php echo $key ; ?>" ><?php echo $game ; ?></option>
-                                                                                        <?php } ?>
-                                                                            </select>
-                                                                        </td>
-                                                                    </tr>
-
-
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                    </tr>
-
-                                                                    <tr height="20">
-                                                                        <td valign="top" align="right" class="normalblack_12" width="30%">Other Game<font color="red">*</font></td>
-                                                                        <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                        <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                            <select name="report[<?php echo $i ; ?>][other_game]" id="other_game" required style="width: 220px">
-                                                                                        <?php $games = $this->Register->getgames() ; ?>
-                                                                                <option value="">Select Other game</option>
-                                                                                        <?php foreach($games as $key=>$game) { ?>
-                                                                                <option value="<?php echo $key ; ?>" ><?php echo $game ; ?></option>
-                                                                                        <?php } ?>
-                                                                            </select>
-                                                                        </td>
-                                                                    </tr>
-
+                                                                    
 
                                                                     <tr height="20">
                                                                         <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>

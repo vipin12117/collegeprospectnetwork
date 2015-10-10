@@ -115,6 +115,136 @@
                                                                                                         </select>
                                                                                                     </td>
                                                                                             </tr>
+																							
+																							
+																							<tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">State<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                        <select name="state" id="state" required style="width: 220px">
+                                                                                                            <?php $states = $this->Register->getStates() ; ?>
+                                                                                                            <option value="">Select State</option>
+                                                                                                            <?php foreach($states as $key=>$state){ ?>
+                                                                                                            <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['state'] == $key){ ?> selected <?php } ?> ><?php echo $state ; ?></option>
+                                                                                                            <?php } ?>
+                                                                                                    </select>
+                                                                                                    </td>
+
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">High School<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                        <select name="high_school" id="high_school" required style="width: 220px">
+                                                                                                            <?php if($ScoutReport['ScoutReport']['high_school'] != '' && $ScoutReport['ScoutReport']['state'] != '' ){ ?>
+                                                                                                            <?php $hschools = $this->Register->getHsScout($ScoutReport['ScoutReport']['state']) ; ?>
+                                                                                                            <?php foreach($hschools as $key=>$hschool){ ?>
+                                                                                                            <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['high_school'] == $key){ ?> selected <?php } ?> ><?php echo $hschool ; ?></option>
+                                                                                                            <?php } ?>
+                                                                                                             <?php }else{ ?>
+                                                                                                            <option value="">Select High School</option>
+                                                                                                            <?php } ?>
+                                                                                                        </select>
+                                                                                                            <!--<input type="text" name="high_school" id="high_school" required value="" maxlength="50" style="width: 220px">-->
+                                                                                                    </td>
+
+                                                                                            </tr>
+
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Primary Aau Team<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                    <select name="primary_aau_team" id="primary_aau_team" required style="width: 220px">
+                                                                                                        <?php if($ScoutReport['ScoutReport']['primary_aau_team'] != '' && $ScoutReport['ScoutReport']['state'] != '' ){ ?>
+                                                                                                            <?php $hschools = $this->Register->getHsScout($ScoutReport['ScoutReport']['state']) ; ?>
+                                                                                                            <?php foreach($hschools as $key=>$hschool){ ?>
+                                                                                                            <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['primary_aau_team'] == $key){ ?> selected <?php } ?> ><?php echo $hschool ; ?></option>
+                                                                                                            <?php } ?>
+                                                                                                             <?php }else{ ?>
+                                                                                                            <option value="">Select Primary Team</option>
+                                                                                                            <?php } ?>
+                                                                                                    </select>
+                                                                                                    <!--    <input type="text" name="primary_aau_team" id="primary_aau_team" required value="" maxlength="50" style="width: 220px">-->
+                                                                                                  </td>
+                                                                                            </tr>
+
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Secondary Aau Team<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                    <select name="secondary_aau_team" id="secondary_aau_team" required style="width: 220px">
+                                                                                                        <?php if($ScoutReport['ScoutReport']['secondary_aau_team'] != '' && $ScoutReport['ScoutReport']['state'] != '' ){ ?>
+                                                                                                            <?php $hschools = $this->Register->getHsScout($ScoutReport['ScoutReport']['state']) ; ?>
+                                                                                                            <?php foreach($hschools as $key=>$hschool){ ?>
+                                                                                                            <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['secondary_aau_team'] == $key){ ?> selected <?php } ?> ><?php echo $hschool ; ?></option>
+                                                                                                            <?php } ?>
+                                                                                                             <?php }else{ ?>
+                                                                                                            <option value="">Select Secondary Team</option>
+                                                                                                            <?php } ?>
+                                                                                                    </select>
+                                                                                                    <!--    <input type="text" name="secondary_aau_team" id="secondary_aau_team" required value="" maxlength="50" style="width: 220px">-->
+                                                                                                  </td>
+                                                                                            </tr>
+																							
+																							
+																							
+																							<tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Best Game<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                    <select name="best_game" id="best_game" required style="width: 220px">
+                                                                                                            <?php $games = $this->Register->getgames() ; ?>
+                                                                                                            <option value="">Select Best game</option>
+                                                                                                            <?php foreach($games as $key=>$game){ ?>
+                                                                                                            <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['best_game'] == $key){ ?> selected <?php } ?> ><?php echo $game ; ?></option>
+                                                                                                            <?php } ?>
+                                                                                                    </select>
+                                                                                                    </td>
+                                                                                            </tr>
+
+
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                            </tr>
+
+                                                                                            <tr height="20">
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Other Game<font color="red">*</font></td>
+                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                    <select name="other_game" id="other_game" required style="width: 220px">
+                                                                                                            <?php $games = $this->Register->getgames() ; ?>
+                                                                                                            <option value="">Select Other game</option>
+                                                                                                            <?php foreach($games as $key=>$game){ ?>
+                                                                                                            <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['other_game'] == $key){ ?> selected <?php } ?> ><?php echo $game ; ?></option>
+                                                                                                            <?php } ?>
+                                                                                                    </select>
+                                                                                                    </td>
+                                                                                            </tr>
+
+
 
 
                                                                                             <tr height="20">
@@ -312,137 +442,10 @@
                                                                                             </tr>
 
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">State<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                        <select name="state" id="state" required style="width: 220px">
-                                                                                                            <?php $states = $this->Register->getStates() ; ?>
-                                                                                                            <option value="">Select State</option>
-                                                                                                            <?php foreach($states as $key=>$state){ ?>
-                                                                                                            <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['state'] == $key){ ?> selected <?php } ?> ><?php echo $state ; ?></option>
-                                                                                                            <?php } ?>
-                                                                                                    </select>
-                                                                                                    </td>
-
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">High School<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                        <select name="high_school" id="high_school" required style="width: 220px">
-                                                                                                            <?php if($ScoutReport['ScoutReport']['high_school'] != '' && $ScoutReport['ScoutReport']['state'] != '' ){ ?>
-                                                                                                            <?php $hschools = $this->Register->getHsScout($ScoutReport['ScoutReport']['state']) ; ?>
-                                                                                                            <?php foreach($hschools as $key=>$hschool){ ?>
-                                                                                                            <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['high_school'] == $key){ ?> selected <?php } ?> ><?php echo $hschool ; ?></option>
-                                                                                                            <?php } ?>
-                                                                                                             <?php }else{ ?>
-                                                                                                            <option value="">Select High School</option>
-                                                                                                            <?php } ?>
-                                                                                                        </select>
-                                                                                                            <!--<input type="text" name="high_school" id="high_school" required value="" maxlength="50" style="width: 220px">-->
-                                                                                                    </td>
-
-                                                                                            </tr>
-
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Primary Aau Team<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="primary_aau_team" id="primary_aau_team" required style="width: 220px">
-                                                                                                        <?php if($ScoutReport['ScoutReport']['primary_aau_team'] != '' && $ScoutReport['ScoutReport']['state'] != '' ){ ?>
-                                                                                                            <?php $hschools = $this->Register->getHsScout($ScoutReport['ScoutReport']['state']) ; ?>
-                                                                                                            <?php foreach($hschools as $key=>$hschool){ ?>
-                                                                                                            <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['primary_aau_team'] == $key){ ?> selected <?php } ?> ><?php echo $hschool ; ?></option>
-                                                                                                            <?php } ?>
-                                                                                                             <?php }else{ ?>
-                                                                                                            <option value="">Select Primary Team</option>
-                                                                                                            <?php } ?>
-                                                                                                    </select>
-                                                                                                    <!--    <input type="text" name="primary_aau_team" id="primary_aau_team" required value="" maxlength="50" style="width: 220px">-->
-                                                                                                  </td>
-                                                                                            </tr>
-
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Secondary Aau Team<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="secondary_aau_team" id="secondary_aau_team" required style="width: 220px">
-                                                                                                        <?php if($ScoutReport['ScoutReport']['secondary_aau_team'] != '' && $ScoutReport['ScoutReport']['state'] != '' ){ ?>
-                                                                                                            <?php $hschools = $this->Register->getHsScout($ScoutReport['ScoutReport']['state']) ; ?>
-                                                                                                            <?php foreach($hschools as $key=>$hschool){ ?>
-                                                                                                            <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['secondary_aau_team'] == $key){ ?> selected <?php } ?> ><?php echo $hschool ; ?></option>
-                                                                                                            <?php } ?>
-                                                                                                             <?php }else{ ?>
-                                                                                                            <option value="">Select Secondary Team</option>
-                                                                                                            <?php } ?>
-                                                                                                    </select>
-                                                                                                    <!--    <input type="text" name="secondary_aau_team" id="secondary_aau_team" required value="" maxlength="50" style="width: 220px">-->
-                                                                                                  </td>
-                                                                                            </tr>
-
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Jersey Number</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
                                                                                                             <input type="number" name="jersey_number" id="jersey_number"  value="<?php echo $ScoutReport['ScoutReport']['jersey_number'] ; ?>" maxlength="50" style="width: 220px">
-                                                                                                    </td>
-                                                                                            </tr>
-
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Best Game<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="best_game" id="best_game" required style="width: 220px">
-                                                                                                            <?php $games = $this->Register->getgames() ; ?>
-                                                                                                            <option value="">Select Best game</option>
-                                                                                                            <?php foreach($games as $key=>$game){ ?>
-                                                                                                            <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['best_game'] == $key){ ?> selected <?php } ?> ><?php echo $game ; ?></option>
-                                                                                                            <?php } ?>
-                                                                                                    </select>
-                                                                                                    </td>
-                                                                                            </tr>
-
-
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Other Game<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="other_game" id="other_game" required style="width: 220px">
-                                                                                                            <?php $games = $this->Register->getgames() ; ?>
-                                                                                                            <option value="">Select Other game</option>
-                                                                                                            <?php foreach($games as $key=>$game){ ?>
-                                                                                                            <option value="<?php echo $key ; ?>" <?php if($ScoutReport['ScoutReport']['other_game'] == $key){ ?> selected <?php } ?> ><?php echo $game ; ?></option>
-                                                                                                            <?php } ?>
-                                                                                                    </select>
                                                                                                     </td>
                                                                                             </tr>
 
