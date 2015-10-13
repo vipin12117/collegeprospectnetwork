@@ -223,9 +223,16 @@
                                                                                                     </td>
                                                                                             </tr>
 
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td colspan="3" align="left" >
+                                                                                                        <a href="javascript:void(0);" style="margin-left:20px;" class="expand"> Show Other Fields </a>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            <tbody class="collapse" style="display:none;">
 
 
-                                                                                            <tr height="20">
+                                                                                                <tr height="20">
                                                                                                     <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
                                                                                             </tr>
 
@@ -415,7 +422,7 @@
                                                                                             </tr>
 
 
-                                                                                            
+
 
                                                                                             <tr height="20">
                                                                                                     <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
@@ -430,7 +437,7 @@
                                                                                             </tr>
 
 
-                                                                                            
+
 
                                                                                             <tr height="20">
                                                                                                     <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
@@ -974,6 +981,14 @@
                                                                                                     </td>
                                                                                             </tr>
 
+
+                                                                                            </tbody>
+                                                                           
+                                                                                            </tbody>
+
+                                                                                            
+
+                                                                                            
                                                                                             <tr height="20">
                                                                                                     <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
                                                                                             </tr>
@@ -1010,8 +1025,9 @@
     </tr>
     <?php echo $this->element('admin_footer');?>
 </table>
+
 <link type="text/css" rel="stylesheet" href="<?php echo Router::fullBaseUrl().$this->base;?>/css.php?file=jquery-ui.css" />
-<script type="text/javascript" src="<?php echo Router::fullBaseUrl().$this->base;?>/js.php?file=jquery-1.10.1.min.js,jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo Router::fullBaseUrl().$this->base;?>/js.php?file=jquery-1.10.1.min.js,jquery-ui.js,expand.js"></script>
 <!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>-->
 
 <style>
@@ -1033,6 +1049,14 @@
   </style>
 
 <script type="text/javascript">
+
+$('.expand').on('click', function (e) {
+    e.preventDefault();
+    $(".collapse").toggle() ;
+    //var elem = $(this).next('.collapse')
+    //elem.toggle('slow');
+});
+
 function validate(){	
     var error_msg = "";
     if(trimString(document.frmaddscoutreport.firstname.value) == ""){

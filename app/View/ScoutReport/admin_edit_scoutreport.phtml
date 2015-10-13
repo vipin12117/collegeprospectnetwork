@@ -246,8 +246,15 @@
 
 
 
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td colspan="3" align="left" >
+                                                                                                        <a href="javascript:void(0);" style="margin-left:20px;" class="expand"> Show Other Fields </a>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            <tbody class="collapse" style="display:none;">
 
-                                                                                            <tr height="20">
+                                                                                                <tr height="20">
                                                                                                     <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
                                                                                             </tr>
 
@@ -912,7 +919,7 @@
                                                                                                     </td>
                                                                                             </tr>
 
-                                                                                           
+
 
                                                                                             <tr height="20">
                                                                                                     <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
@@ -999,6 +1006,11 @@
                                                                                                     </td>
                                                                                             </tr>
 
+
+
+                                                                                            </tbody>
+
+                                                                                            
                                                                                             <tr height="20">
                                                                                                     <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
                                                                                             </tr>
@@ -1058,6 +1070,13 @@
   </style>
 
 <script type="text/javascript">
+    $('.expand').on('click', function (e) {
+    e.preventDefault();
+    $(".collapse").toggle() ;
+    //var elem = $(this).next('.collapse')
+    //elem.toggle('slow');
+});
+
 function validate(){
     var error_msg = "";
     if(trimString(document.frmaddscoutreport.firstname.value) == ""){

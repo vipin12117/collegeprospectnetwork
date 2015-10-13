@@ -256,8 +256,18 @@
                                                                             </select>
                                                                         </td>
                                                                     </tr>
+																	
+																	
+																	
+																	<tbody>
+																		<tr>
+																			<td colspan="3" align="left" >
+																				<a href="javascript:void(0);" style="margin-left:20px;" onclick="ShowHide('<?php echo $i ; ?>')" class="expand"> Show Other Fields </a>
+																			</td>
+																		</tr>
+																	<tbody class="collapse_<?php echo $i ; ?>" style="display:none;">
 
-
+																	
                                                                     <tr height="20">
                                                                         <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
                                                                     </tr>
@@ -1012,6 +1022,17 @@
                                                                         <td valign="top" colspan=3 align="center" class="normalblack_12">&nbsp;</td>
                                                                     </tr>
 
+																	
+																	</tbody>
+
+
+																	                                                                    <tr height="20">
+                                                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                    </tr>
+                                                                    <tr height="20">
+                                                                        <td valign="top" colspan=3 align="center" class="normalblack_12">&nbsp;</td>
+                                                                    </tr>
+
                                                                         <?php endforeach; ?>
 
 
@@ -1234,7 +1255,15 @@
                                                                     </tr>
 
 
-                                                                    <tr height="20">
+																	<tbody>
+																		<tr>
+																			<td colspan="3" align="left" >
+																				<a href="javascript:void(0);" style="margin-left:20px;" onclick="ShowHide('<?php echo $i ; ?>')" class="expand"> Show Other Fields </a>
+																			</td>
+																		</tr>
+																	<tbody class="collapse_<?php echo $i ; ?>" style="display:none;">
+
+																	<tr height="20">
                                                                         <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
                                                                     </tr>
 
@@ -1982,6 +2011,10 @@
                                                                         </td>
                                                                     </tr>
 
+																	
+																	</tbody>
+																	
+                                                                    
                                                                     <tr height="20">
                                                                         <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
                                                                     </tr>
@@ -2074,6 +2107,14 @@
   </style>
   
 <script type="text/javascript">
+
+function ShowHide(index){
+	if(index != ''){
+		$(".collapse_"+index).toggle() ;
+	}
+}
+
+
     function validate(){
         var error_msg = "";
         if(trimString(document.frmaddscoutreport.firstname.value) == ""){
@@ -2144,7 +2185,6 @@
 
 
     $(function(){
-$(".expand").toggler();
       var url1 = '<?php echo $this->Html->url('/admin/ScoutReport/autoComplete_scout_multiple'); ?>' ;
     $(".report").autocomplete({
       source: function( request, response ){ var id = this.element.attr('id');
