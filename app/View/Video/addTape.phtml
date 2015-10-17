@@ -35,6 +35,13 @@
 			</p>
 			
 			<p>
+				<label>Video Type:</label>
+				<span>
+					<?php echo $this->Form->input("video_type",array("div"=>false,"label"=>false,"type"=>"select","options"=>array("Original (not trimmed)"=>"Original (not trimmed)","Highlight Video"=>"Highlight Video"),"empty"=>"Select One","required"));?>
+				</span>
+			</p>
+			
+			<p>
 			    <label>Agree to Terms:</label>
 			    <span style="width:520px;line-height:16px;padding-top:8px;color:#666">In accordance with NCAA regulations, the video you upload may only be from a high school game. No videos from AAU, Select or Traveling team games are allowed. Posting one of these videos may result in the removal of your profile from the website.</span>
 			</p>

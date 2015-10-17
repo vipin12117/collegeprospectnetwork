@@ -14,7 +14,7 @@ class VideoController extends AppController{
 	public function index(){
 		$user_id = $this->Session->read('user_id');
 
-		$this->paginate = array('AthleteVideo'=>array("conditions"=>"AthleteVideo.athlete_id = '$user_id'"));
+		$this->paginate = array('AthleteVideo'=>array("conditions"=>"AthleteVideo.athlete_id = '$user_id'","limit"=>1));
 		$AthleteVideos  = $this->paginate('AthleteVideo');
 		$this->set("AthleteVideos",$AthleteVideos);
 	}
@@ -36,7 +36,7 @@ class VideoController extends AppController{
 				$video_path = $this->AthleteVideo->uniqueCode(20).".$type";
 
 				if(move_uploaded_file($this->request->data['AthleteVideo']['video_path']['tmp_name'],WWW_ROOT."/video/$video_path")){
-					$this->request->data['AthleteVideo']['video_type'] = $this->request->data['AthleteVideo']['video_path']['type'];
+					$this->request->data['AthleteVideo']['video_type'] = $this->request->data['AthleteVideo']['video_type'];
 					$this->request->data['AthleteVideo']['video_path'] = $video_path;
 					$this->request->data['AthleteVideo']['athlete_id'] = $user_id;
 					$this->request->data['AthleteVideo']['added_date'] = date('Y-m-d H:i:s');
@@ -78,7 +78,7 @@ class VideoController extends AppController{
 						$video_path = $this->AthleteVideo->uniqueCode(20).".$type";
 
 						if(move_uploaded_file($this->request->data['AthleteVideo']['video_path']['tmp_name'],WWW_ROOT."/video/$video_path")){
-							$this->request->data['AthleteVideo']['video_type'] = $this->request->data['AthleteVideo']['video_path']['type'];
+							$this->request->data['AthleteVideo']['video_type'] = $this->request->data['AthleteVideo']['video_type'];
 							$this->request->data['AthleteVideo']['video_path'] = $video_path;
 						}
 						else{
@@ -125,6 +125,31 @@ class VideoController extends AppController{
 
 	public function trimTape($id = false){
 		$user_id = $this->Session->read('user_id');
+
+		$user_id = $this->Session->read('user_id');
+		if($user_id and $id){
+			$video_details = $this->AthleteVideo->read(null,$id);
+				
+			App::import("Lib","FlvVideoTrimmer");
+			$FlvVideoTrimmer = new FlvVideoTrimmer();
+			$response = $FlvVideoTrimmer->convert_video($video_details['AthleteVideo']);
+			
+			if($response){
+				unset($video_details['AthleteVideo']['id']);
+				$video_details['AthleteVideo']['video_type'] = 'Highlight Video';
+				
+				$this->AthleteVideo->create();
+				$this->AthleteVideo->save($video_details);
+			}
+			
+			$this->Session->setFlash("Video is trimmed successfully.");
+		}
+		else{
+			$this->Session->setFlash("Please try again.");
+		}
+
+		$this->redirect(array("controller"=>"Video","action"=>"index"));
+		exit;
 	}
 
 	public function request($athlete_id = false){
@@ -151,7 +176,7 @@ class VideoController extends AppController{
 			$this->loadModel('CollegeCoach');
 			$coachDetail = $this->CollegeCoach->getById($user_id);
 			$this->set("CollegeCoach",$coachDetail['CollegeCoach']);
-				
+
 			$this->loadModel('College');
 			$College = $this->College->getById($coachDetail['CollegeCoach']['college_id']);
 			$this->set("College",$College['College']);

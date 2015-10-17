@@ -3,12 +3,10 @@
 <div class="cantener">
   <div class="register-main">
 	 <div class="registerPage">
-		<h1>Manage Game Tape</h1>
+		<h1>Manage Game Tapes</h1>
 		
 		<?php if($AthleteVideos && count($AthleteVideos) > 0):?>
-		
 			  <?php foreach($AthleteVideos as $i => $AthleteVideo):?>
-			  		
 					<div class="videolist">
 						<div class="video-container">
 							<div id="jwplayer<?php echo $i;?>">Loading the Video Player ...</div>                                                            
@@ -79,8 +77,13 @@
                             <?php endif;?>
                         </div>                            
 				  </div>
-		    <?php endforeach;?>
-		    		  
+				  
+				  <br clear="all" />
+				  <br clear="all" />
+		      <?php endforeach;?>
+		      
+		      <?php echo $this->Element('pagination');?>
+		      
 		<?php else:?>
 				<div class="thankyoumessage" style="font-size:16px;font-weight:normal;">
 					No Records Available, please &nbsp;
