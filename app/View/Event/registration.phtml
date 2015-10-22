@@ -114,6 +114,10 @@
 					<font color="#0000ff">&nbsp;*</font>
 				</p>
 		     	</div>
+
+                        <div id="otherschooldiv">
+
+		     	</div>
 		     	
                                 <p>
 					<label>AAU Coach Name:</label>
@@ -244,7 +248,8 @@
           dataType: "json",
           data: {
             q: request.term,
-            state_id : $("#state_id1").val()
+            state_id : $("#state_id1").val(),
+            other_school : 1
           },
           success: function( data ) {
             response( data );
@@ -252,7 +257,23 @@
         });
         }
       },
-      minLength: 1
+      minLength: 1,
+      select: function( event, ui ) {
+      //alert(ui.item.value);
+      if(ui.item.value == 'Add Other school'){
+        var url2 = '<?php echo $this->Html->url('addOtherSchoolsHtml'); ?>' ;
+                    $.ajax({
+                        url: url2 ,
+                        data: {
+                            other: ui.item.value
+                        },
+                        success: function(data) {
+                            var obj = $.parseJSON(data);
+                            $("#otherschooldiv").html(obj.html) ;
+                        }
+                    });
+      }
+            }
     });
     $("#state_id2").change(function(){
           $( "#hs_aau_team_id2" ).val('');

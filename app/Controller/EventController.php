@@ -48,7 +48,15 @@ class EventController extends AppController{
                                 $school1 = $this->request->data['SpecialEventUser']['hs_aau_team_id1'] ;
                                 $hsAauTeamDetail = $this->HsAauTeam->find("first",array("conditions"=>"HsAauTeam.school_name = '$school1'"));
                                 if($hsAauTeamDetail) {
-                                   $this->request->data['SpecialEventUser']['hs_aau_team_id'] =  $hsAauTeamDetail['HsAauTeam']['id'] ;
+                                   $this->request->data['SpecialEventUser']['school'] =  $hsAauTeamDetail['HsAauTeam']['id'] ;
+                                }elseif($school1 == 'Add Other school' && isset($this->request->data['SpecialEventUser']['other_school']) && $this->request->data['SpecialEventUser']['other_school'] != ''){
+                                    $this->request->data['SpecialEventUser']['other_school'] = trim($this->request->data['SpecialEventUser']['other_school']) ;
+                                    $other_school_data['school_name'] = $this->request->data['SpecialEventUser']['other_school'] ;
+                                    $other_school_data['city'] = $this->request->data['SpecialEventUser']['city'] ;
+                                    $other_school_data['state'] = $this->request->data['SpecialEventUser']['state'] ;
+                                    $other_school_data['address'] = $this->request->data['SpecialEventUser']['address_1'] ;
+                                    $other_school_data['zip'] = $this->request->data['SpecialEventUser']['zip'] ;
+                                    $this->HsAauTeam->save($other_school_data);
                                 }
 
                                 $school2 = $this->request->data['SpecialEventUser']['hs_aau_team_id2'] ;
@@ -458,11 +466,35 @@ class EventController extends AppController{
             $term = $_GET['q'] ;
             $state_id = $_GET['state_id'] ;
             $colleges = $this->HsAauTeam->find("list",array("conditions"=>array('state'=>$state_id ,'school_name LIKE '=> "%$term%" ),"fields"=>"id,school_name","order"=>"school_name ASC"));
+            if(isset($_GET['other_school']) && $_GET['other_school'] ==1){
+                 $colleges['other'] = "Add Other school" ;
+            }
         }else {
             $term = $_GET['q'] ;
             $colleges = $this->HsAauTeam->find("list",array("conditions"=>array('school_name LIKE '=> "%$term%"),"fields"=>"id,school_name","order"=>"school_name ASC"));
+            if(isset($_GET['other_school']) && $_GET['other_school'] ==1){
+                 $colleges['other'] = "Add Other school" ;
+            }
         }
         echo json_encode($colleges); die;
+    }
+
+    public function addOtherSchoolsHtml() {
+        $this->autoLayout = false;
+        $this->autoRender = false;
+
+        if(isset($_GET['other']) && !empty($_GET['other'])) {
+            $html = '<p>
+			<label>Other High School</label>
+			<span>
+			<input name="data[SpecialEventUser][other_school]" id="other_school" required="required" type="text">
+                        </span>
+			<font color="#0000ff">&nbsp;*</font>
+		     </p>' ;
+            $response = json_encode(array("html"=>$html));
+            echo $response ;die;
+        }
+
     }
 
 }
