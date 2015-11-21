@@ -15,7 +15,27 @@
 						<td width="100%" valign="top">
 						<table width="100%" cellspacing="0" cellpadding="3">
 
+
                                                         <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Title</b>
+								</td>
+								<td class="normalblack_12" valign="top"><h3><?php echo $ScoutReportMain['ScoutReports']['title']?></h3></td>
+							</tr>
+
+                                                        <tr>
+								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Event Name</b>
+								</td>
+								<td class="normalblack_12" valign="top"><h4><?php echo $EventDetail['SpecialEvent']['event_name']?></h4></td>
+							</tr>
+
+                                                    <?php if($ScoutReports){
+                                                                                            foreach($ScoutReports as $i=>$ScoutReport){ ?>
+
+
+                                                        <tr> <td colspan="2"> <h3><?php echo $i+1 . "-Athelte" ; ?></h3> </td> </tr>
+
+
+                                                      <tr>
 								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Picture</b>
 								</td>
 								<td class="normalblack_12" valign="top">
@@ -25,11 +45,7 @@
                                                                 </td>
 							</tr>
 
-                                                        <tr>
-								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Title</b>
-								</td>
-								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['title']?></td>
-							</tr>
+                                                        
 
 
 
@@ -167,7 +183,7 @@
 								</td>
 								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['weakness']?></td>
 							</tr>
-							
+
 
 							<tr>
 								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Jersey Number</b>
@@ -271,7 +287,7 @@
 								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Facebook</b></td>
 								<td class="normalblack_12" valign="top"><?php echo $ScoutReport['ScoutReport']['facebook']?></td>
 							</tr>
-							
+
 
                                                         <tr>
 								<td class="normalblack_12" valign="top" height="25" width="40%"><b>Father`s Name</b>
@@ -305,6 +321,13 @@
 							<tr>
 								<td class="normalblack_12" valign="top" colspan="2">&nbsp;</td>
 							</tr>
+
+
+                                                    <?php }
+
+                                                      } ?>
+
+                                                      
 
 							<tr>
 								<td class="normalblack_12" valign="top" height="25" width="40%"

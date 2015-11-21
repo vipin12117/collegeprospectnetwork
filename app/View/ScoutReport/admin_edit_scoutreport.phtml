@@ -23,13 +23,56 @@
                                                             <td width=10><img src="<?php echo $s_image?>" height="1" width="1"></td>
                                                             <td valign=top width=""><!-- MAin Content Starts From Here -->
 
-                                                            <form name="frmaddscoutreport" action="" method="post" enctype="multipart/form-data" onsubmit="return validate()">
+                                                            <form name="frmaddscoutreport" action="" method="post" enctype="multipart/form-data">
                                                             <table width="100%" border="1" cellpadding="1" cellspacing="0" bordercolor="#808080" style="border-collapse: collapse">
                                                                     <tr height="20">
                                                                             <td align="center" class="normalblack_12" width="90%" valign="top">
                                                                                     <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
-                                                                                            <tr>
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 bgcolor="#808080" align="center"><b>Add Scout Report Info</b></td>
+
+                                                                                        <tr height="20">
+                                                                                            <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                        </tr>
+
+                                                                                        <tr height="20">
+                                                                                            <td valign="top" align="right" class="normalblack_12" width="30%">Title<font color="red">*</font></td>
+                                                                                            <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                            <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                <input type="text" name="title" id="title" required value="<?php if(isset($ScoutReportMain['ScoutReports']['title'])){ echo $ScoutReportMain['ScoutReports']['title'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                                                <input type="hidden" name="event_id" id="event_id" value="<?php if(isset($ScoutReportMain['ScoutReports']['event_id'])){ echo $ScoutReportMain['ScoutReports']['event_id'] ; }  ?>" />
+                                                                                                <input type="hidden" id="total_reports" value="<?php  echo count($ScoutReports) ;   ?>" />
+                                                                                            </td>
+                                                                                        </tr>
+
+                                                                                        <tr height="20">
+                                                                                            <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                        </tr>
+
+                                                                                        <tr height="20">
+                                                                                            <td valign="top" align="right" class="normalblack_12" width="30%">Event Name</td>
+                                                                                            <td valign="top" align="center" class="normalblack_12">:</td>
+                                                                                            <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                                                                                <input type="text" name="event_name" disabled="disabled" value="<?php if(isset($EventDetail['SpecialEvent']['event_name'])){ echo $EventDetail['SpecialEvent']['event_name'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                                            </td>
+                                                                                        </tr>
+
+                                                                                        <tr height="20">
+                                                                                            <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                        </tr>
+
+                                                                                        <tr height="20">
+                                                                                            <td valign="top" align="left" colspan="3" class="normalblack_12"><a id="add_more" href="javascript:void(0);" style="margin-left:20px;">Add More</a></td>
+                                                                                        </tr>
+
+                                                                                        <tr height="20">
+                                                                                            <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
+                                                                                        </tr>
+
+
+                                                                                        <?php if($ScoutReports){
+                                                                                            foreach($ScoutReports as $i=>$ScoutReport){ ?>
+
+                                                                                        <tr>
+                                                                                                    <td valign="top" class="normalwhite_14" colspan=3 bgcolor="#808080" align="center"><b>Edit Scout Report Info</b></td>
                                                                                             </tr>
                                                                                             <tr>
                                                                                                     <td valign="top" colspan=3 align="center">&nbsp;</td>
@@ -40,26 +83,15 @@
                                                                                                     </td>
                                                                                             </tr>
 
-
-                                                                                            <input type="hidden" name="athlete" id="athlete" value="<?php echo $ScoutReport['ScoutReport']['athlete'] ; ?>" />
+                                                                                            <input type="hidden" name="report[<?php echo $i ; ?>][scout_report_athletes_id]" id="scout_report_athletes_id-<?php echo $i ; ?>" value="<?php echo $ScoutReport['ScoutReport']['id'] ; ?>" />
+                                                                                            <input type="hidden" name="report[<?php echo $i ; ?>][athlete]" id="athlete-<?php echo $i ; ?>" value="<?php echo $ScoutReport['ScoutReport']['athlete'] ; ?>" />
 
                                                                                             <tr>
                                                                                                     <td height="35" colspan="3" align="right"
                                                                                                             class="normalblack_12"><FONT color="Red">Fields marked with * are mandatory&nbsp;</FONT></td>
                                                                                             </tr>
 
-                                                                                           <tr height="20">
-                                                                                                    <td valign="top" class="normalwhite_14" colspan=4 align="center">&nbsp;</td>
-                                                                                            </tr>
-
-                                                                                            <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%">Title<font color="red">*</font></td>
-                                                                                                    <td valign="top" align="center" class="normalblack_12">:</td>
-                                                                                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="title" id="title" required value="<?php echo $ScoutReport['ScoutReport']['title'] ; ?>" maxlength="50" style="width: 220px">
-                                                                                                    </td>
-                                                                                            </tr>
-
+                                                                                           
                                                                                             <tr height="20">
                                                                                                     <td valign="top" class="normalwhite_14" colspan=4 align="center">&nbsp;</td>
                                                                                             </tr>
@@ -68,7 +100,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">First Name<font color="red">*</font></td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="firstname" id="firstname" required value="<?php echo $ScoutReport['ScoutReport']['firstname'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" class="report" name="report[<?php echo $i ; ?>][firstname]" id="firstname-<?php echo $i ; ?>" required value="<?php echo $ScoutReport['ScoutReport']['firstname'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -80,7 +112,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Last Name<font color="red">*</font></td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="lastname" id="lastname" required value="<?php echo $ScoutReport['ScoutReport']['lastname'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][lastname]" id="lastname-<?php echo $i ; ?>" required value="<?php echo $ScoutReport['ScoutReport']['lastname'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -93,7 +125,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Email<font color="red">*</font></td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="email" name="email" id="email" required value="<?php echo $ScoutReport['ScoutReport']['email'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="email" name="report[<?php echo $i ; ?>][email]" id="email-<?php echo $i ; ?>" required value="<?php echo $ScoutReport['ScoutReport']['email'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -106,7 +138,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Graduating Class<font color="red">*</font></td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="class" id="class" required style="width: 220px" required >
+                                                                                                    <select name="report[<?php echo $i ; ?>][class]" id="class-<?php echo $i ; ?>" required style="width: 220px" required >
                                                                                                             <?php $Classes = $this->Register->getClasses() ; ?>
                                                                                                             <option value="">Select Class</option>
                                                                                                             <?php foreach($Classes as $key=>$Class){ ?>
@@ -115,8 +147,8 @@
                                                                                                         </select>
                                                                                                     </td>
                                                                                             </tr>
-																							
-																							
+
+
 																							<tr height="20">
                                                                                                     <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
                                                                                             </tr>
@@ -125,7 +157,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">State<font color="red">*</font></td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                        <select name="state" id="state" required style="width: 220px">
+                                                                                                        <select name="report[<?php echo $i ; ?>][state]" id="state-<?php echo $i ; ?>" required onchange="javascript:updateteams( this.value , '<?php echo $i ; ?>');" style="width: 220px">
                                                                                                             <?php $states = $this->Register->getStates() ; ?>
                                                                                                             <option value="">Select State</option>
                                                                                                             <?php foreach($states as $key=>$state){ ?>
@@ -143,7 +175,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">High School<font color="red">*</font></td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                        <select name="high_school" id="high_school" required style="width: 220px">
+                                                                                                        <select name="report[<?php echo $i ; ?>][high_school]" id="high_school-<?php echo $i ; ?>" required style="width: 220px">
                                                                                                             <?php if($ScoutReport['ScoutReport']['high_school'] != '' && $ScoutReport['ScoutReport']['state'] != '' ){ ?>
                                                                                                             <?php $hschools = $this->Register->getHsScout($ScoutReport['ScoutReport']['state']) ; ?>
                                                                                                             <?php foreach($hschools as $key=>$hschool){ ?>
@@ -167,7 +199,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Primary Aau Team<font color="red">*</font></td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="primary_aau_team" id="primary_aau_team" required style="width: 220px">
+                                                                                                    <select name="report[<?php echo $i ; ?>][primary_aau_team]" id="primary_aau_team-<?php echo $i ; ?>" required style="width: 220px">
                                                                                                         <?php if($ScoutReport['ScoutReport']['primary_aau_team'] != '' && $ScoutReport['ScoutReport']['state'] != '' ){ ?>
                                                                                                             <?php $hschools = $this->Register->getHsScout($ScoutReport['ScoutReport']['state']) ; ?>
                                                                                                             <?php foreach($hschools as $key=>$hschool){ ?>
@@ -190,7 +222,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Secondary Aau Team<font color="red">*</font></td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="secondary_aau_team" id="secondary_aau_team" required style="width: 220px">
+                                                                                                    <select name="report[<?php echo $i ; ?>][secondary_aau_team]" id="secondary_aau_team-<?php echo $i ; ?>" required style="width: 220px">
                                                                                                         <?php if($ScoutReport['ScoutReport']['secondary_aau_team'] != '' && $ScoutReport['ScoutReport']['state'] != '' ){ ?>
                                                                                                             <?php $hschools = $this->Register->getHsScout($ScoutReport['ScoutReport']['state']) ; ?>
                                                                                                             <?php foreach($hschools as $key=>$hschool){ ?>
@@ -203,9 +235,9 @@
                                                                                                     <!--    <input type="text" name="secondary_aau_team" id="secondary_aau_team" required value="" maxlength="50" style="width: 220px">-->
                                                                                                   </td>
                                                                                             </tr>
-																							
-																							
-																							
+
+
+
 																							<tr height="20">
                                                                                                     <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
                                                                                             </tr>
@@ -214,7 +246,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Best Game<font color="red">*</font></td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="best_game" id="best_game" required style="width: 220px">
+                                                                                                    <select name="report[<?php echo $i ; ?>][best_game]" id="best_game-<?php echo $i ; ?>" required style="width: 220px">
                                                                                                             <?php $games = $this->Register->getgames() ; ?>
                                                                                                             <option value="">Select Best game</option>
                                                                                                             <?php foreach($games as $key=>$game){ ?>
@@ -234,7 +266,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Other Game<font color="red">*</font></td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="other_game" id="other_game" required style="width: 220px">
+                                                                                                    <select name="report[<?php echo $i ; ?>][other_game]" id="other_game-<?php echo $i ; ?>" required style="width: 220px">
                                                                                                             <?php $games = $this->Register->getgames() ; ?>
                                                                                                             <option value="">Select Other game</option>
                                                                                                             <?php foreach($games as $key=>$game){ ?>
@@ -249,10 +281,10 @@
                                                                                             <tbody>
                                                                                                 <tr>
                                                                                                     <td colspan="3" align="left" >
-                                                                                                        <a href="javascript:void(0);" style="margin-left:20px;" class="expand"> Show Other Fields </a>
+                                                                                                        <a href="javascript:void(0);" style="margin-left:20px;" onclick="ShowHide('<?php echo $i ; ?>')" class="expand"> Show Other Fields </a>
                                                                                                     </td>
                                                                                                 </tr>
-                                                                                            <tbody class="collapse" style="display:none;">
+                                                                                            <tbody class="collapse_<?php echo $i ; ?>" style="display:none;">
 
                                                                                                 <tr height="20">
                                                                                                     <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
@@ -262,7 +294,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Height</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                        <select name="height" id="height"  style="width: 220px">
+                                                                                                        <select name="report[<?php echo $i ; ?>][height]" id="height-<?php echo $i ; ?>"  style="width: 220px">
                                                                                                             <?php $heights = $this->Register->getHeights() ; ?>
                                                                                                             <option value="">Select Height</option>
                                                                                                             <?php foreach($heights as $key=>$height){ ?>
@@ -280,7 +312,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Weight</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                        <select name="weight" id="weight"  style="width: 220px">
+                                                                                                        <select name="report[<?php echo $i ; ?>][weight]" id="weight-<?php echo $i ; ?>"  style="width: 220px">
                                                                                                             <?php $Weights = $this->Register->getWeights() ; ?>
                                                                                                             <option value="">Select Weight</option>
                                                                                                             <?php foreach($Weights as $key=>$Weight){ ?>
@@ -298,7 +330,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Primary Position</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="primary_position" id="primary_position"  style="width: 220px">
+                                                                                                    <select name="report[<?php echo $i ; ?>][primary_position]" id="primary_position-<?php echo $i ; ?>"  style="width: 220px">
                                                                                                             <?php $pri_positions = $this->Register->getPositions() ; ?>
                                                                                                             <option value="">Select Primary Positions</option>
                                                                                                             <?php foreach($pri_positions as $key=>$primary){ ?>
@@ -316,7 +348,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Secondary Position</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="secondary_position" id="secondary_position"  style="width: 220px">
+                                                                                                    <select name="report[<?php echo $i ; ?>][secondary_position]" id="secondary_position-<?php echo $i ; ?>"  style="width: 220px">
                                                                                                             <?php $sec_positions = $this->Register->getPositions() ; ?>
                                                                                                             <option value="">Select Secondary Positions</option>
                                                                                                             <?php foreach($sec_positions as $key=>$secondary){ ?>
@@ -334,7 +366,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Wingspan</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="wingspan_id" id="wingspan_id"  style="width: 220px">
+                                                                                                    <select name="report[<?php echo $i ; ?>][wingspan_id]" id="wingspan_id-<?php echo $i ; ?>"  style="width: 220px">
                                                                                                             <?php $wingspans = $this->Register->getWingspans() ; ?>
                                                                                                             <option value=0>Select Wingspan</option>
                                                                                                             <?php foreach($wingspans as $key=>$wingspan){ ?>
@@ -353,7 +385,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">GPA</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="gpa" id="gpa"  style="width: 220px">
+                                                                                                    <select name="report[<?php echo $i ; ?>][gpa]" id="gpa-<?php echo $i ; ?>"  style="width: 220px">
                                                                                                             <?php $gpas = $this->Register->getGPA() ; ?>
                                                                                                             <option value="">Select Gpa</option>
                                                                                                             <?php foreach($gpas as $key=>$gpa){ ?>
@@ -372,7 +404,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Sat Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="sat_score" id="sat_score"  style="width: 220px">
+                                                                                                    <select name="report[<?php echo $i ; ?>][sat_score]" id="sat_score-<?php echo $i ; ?>"  style="width: 220px">
                                                                                                             <?php $sats = $this->Register->getSatScore() ; ?>
                                                                                                             <option value="">Select Sat Score</option>
                                                                                                             <?php foreach($sats as $key=>$sat){ ?>
@@ -391,7 +423,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Act Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                    <select name="act_score" id="act_score"  style="width: 220px">
+                                                                                                    <select name="report[<?php echo $i ; ?>][act_score]" id="act_score-<?php echo $i ; ?>"  style="width: 220px">
                                                                                                             <?php $acts = $this->Register->getActScore() ; ?>
                                                                                                             <option value="">Select Act Score</option>
                                                                                                             <?php foreach($acts as $key=>$act){ ?>
@@ -412,7 +444,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Street Address</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="street_address" id="street_address"  value="<?php echo $ScoutReport['ScoutReport']['street_address'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][street_address]" id="street_address-<?php echo $i ; ?>"  value="<?php echo $ScoutReport['ScoutReport']['street_address'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -425,7 +457,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">City</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="city" id="city"  value="<?php echo $ScoutReport['ScoutReport']['city'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][city]" id="city-<?php echo $i ; ?>"  value="<?php echo $ScoutReport['ScoutReport']['city'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -439,7 +471,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Zip Code</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="zip_code" id="zip_code"  value="<?php echo $ScoutReport['ScoutReport']['zip_code'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="number" name="report[<?php echo $i ; ?>][zip_code]" id="zip_code-<?php echo $i ; ?>"  value="<?php echo $ScoutReport['ScoutReport']['zip_code'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -452,7 +484,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Jersey Number</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="jersey_number" id="jersey_number"  value="<?php echo $ScoutReport['ScoutReport']['jersey_number'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="number" name="report[<?php echo $i ; ?>][jersey_number]" id="jersey_number-<?php echo $i ; ?>"  value="<?php echo $ScoutReport['ScoutReport']['jersey_number'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -465,7 +497,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Reach</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="reach" id="reach"  value="<?php echo $ScoutReport['ScoutReport']['reach'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][reach]" id="reach"  value="<?php echo $ScoutReport['ScoutReport']['reach'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -477,7 +509,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Strengths</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="strengths" id="strengths"  value="<?php echo $ScoutReport['ScoutReport']['strengths'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][strengths]" id="strengths"  value="<?php echo $ScoutReport['ScoutReport']['strengths'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -490,7 +522,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Weakness</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="weakness" id="weakness"  value="<?php echo $ScoutReport['ScoutReport']['weakness'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][weakness]" id="weakness"  value="<?php echo $ScoutReport['ScoutReport']['weakness'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -505,7 +537,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">60 seconds of threes</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="60_seconds_of_threes" id="60_seconds_of_threes" value="<?php echo $ScoutReport['ScoutReport']['60_seconds_of_threes'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][60_seconds_of_threes]" id="60_seconds_of_threes" value="<?php echo $ScoutReport['ScoutReport']['60_seconds_of_threes'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -517,7 +549,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Ncca Elite High Major Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="ncca_elite_high_major_score" id="ncca_elite_high_major_score"  value="<?php echo $ScoutReport['ScoutReport']['ncca_elite_high_major_score'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][ncca_elite_high_major_score]" id="ncca_elite_high_major_score"  value="<?php echo $ScoutReport['ScoutReport']['ncca_elite_high_major_score'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -530,7 +562,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Ncca High Major Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="ncca_high_major_score" id="ncca_high_major_score"  value="<?php echo $ScoutReport['ScoutReport']['ncca_high_major_score'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][ncca_high_major_score]" id="ncca_high_major_score"  value="<?php echo $ScoutReport['ScoutReport']['ncca_high_major_score'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -543,7 +575,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Ncca Mid Major Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="ncca_mid_major_score" id="ncca_mid_major_score" value="<?php echo $ScoutReport['ScoutReport']['ncca_mid_major_score'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][ncca_mid_major_score]" id="ncca_mid_major_score" value="<?php echo $ScoutReport['ScoutReport']['ncca_mid_major_score'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -555,7 +587,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Ncca Low Major Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="ncca_low_major_score" id="ncca_low_major_score"  value="<?php echo $ScoutReport['ScoutReport']['ncca_low_major_score'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][ncca_low_major_score]" id="ncca_low_major_score"  value="<?php echo $ScoutReport['ScoutReport']['ncca_low_major_score'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -568,7 +600,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Ncca Division II Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="ncca_division_II_score" id="ncca_division_II_score"  value="<?php echo $ScoutReport['ScoutReport']['ncca_division_II_score'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][ncca_division_II_score]" id="ncca_division_II_score"  value="<?php echo $ScoutReport['ScoutReport']['ncca_division_II_score'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -582,7 +614,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Ncca Division III Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="ncca_division_III_score" id="ncca_division_III_score" value="<?php echo $ScoutReport['ScoutReport']['ncca_division_III_score'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][ncca_division_III_score]" id="ncca_division_III_score" value="<?php echo $ScoutReport['ScoutReport']['ncca_division_III_score'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -594,7 +626,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Junior College Division I Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="junior_college_division_I_score" id="junior_college_division_I_score"  value="<?php if(isset($ScoutReport['ScoutReport']['junior_college_division_I_score'])) { echo $ScoutReport['ScoutReport']['junior_college_division_I_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][junior_college_division_I_score]" id="junior_college_division_I_score"  value="<?php if(isset($ScoutReport['ScoutReport']['junior_college_division_I_score'])) { echo $ScoutReport['ScoutReport']['junior_college_division_I_score'] ; } ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -607,7 +639,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Junior College Division II Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="junior_college_division_II_score" id="junior_college_division_II_score"  value="<?php if(isset($ScoutReport['ScoutReport']['junior_college_division_II_score'])) { echo $ScoutReport['ScoutReport']['junior_college_division_II_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][junior_college_division_II_score]" id="junior_college_division_II_score"  value="<?php if(isset($ScoutReport['ScoutReport']['junior_college_division_II_score'])) { echo $ScoutReport['ScoutReport']['junior_college_division_II_score'] ; } ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -621,7 +653,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Junior College Division III Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="junior_college_division_III_score" id="junior_college_division_III_score" value="<?php if(isset($ScoutReport['ScoutReport']['junior_college_division_III_score'])) { echo $ScoutReport['ScoutReport']['junior_college_division_III_score'] ; } ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][junior_college_division_III_score]" id="junior_college_division_III_score" value="<?php if(isset($ScoutReport['ScoutReport']['junior_college_division_III_score'])) { echo $ScoutReport['ScoutReport']['junior_college_division_III_score'] ; } ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -633,7 +665,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Naia Division I Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="naia_division_I_score" id="naia_division_I_score"  value="<?php echo $ScoutReport['ScoutReport']['naia_division_I_score'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][naia_division_I_score]" id="naia_division_I_score"  value="<?php echo $ScoutReport['ScoutReport']['naia_division_I_score'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -646,7 +678,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Naia Division II Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="naia_division_II_score" id="naia_division_II_score"  value="<?php echo $ScoutReport['ScoutReport']['naia_division_II_score'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][naia_division_II_score]" id="naia_division_II_score"  value="<?php echo $ScoutReport['ScoutReport']['naia_division_II_score'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -659,7 +691,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Naia Division III Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="naia_division_III_score" id="naia_division_III_score" value="<?php echo $ScoutReport['ScoutReport']['naia_division_III_score'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][naia_division_III_score]" id="naia_division_III_score" value="<?php echo $ScoutReport['ScoutReport']['naia_division_III_score'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -671,7 +703,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Nccaa Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="nccaa_score" id="nccaa_score"  value="<?php echo $ScoutReport['ScoutReport']['nccaa_score'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][nccaa_score]" id="nccaa_score"  value="<?php echo $ScoutReport['ScoutReport']['nccaa_score'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -684,7 +716,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Club Level Score</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="club_level_score" id="club_level_score"  value="<?php echo $ScoutReport['ScoutReport']['club_level_score'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][club_level_score]" id="club_level_score"  value="<?php echo $ScoutReport['ScoutReport']['club_level_score'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -697,7 +729,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Colleges Shown Interest(Enter College Name with comma seprated)</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="colleges_shown_interest" id="colleges_shown_interest" value="<?php echo $ScoutReport['ScoutReport']['colleges_shown_interest'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][colleges_shown_interest]" id="colleges_shown_interest" value="<?php echo $ScoutReport['ScoutReport']['colleges_shown_interest'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -709,7 +741,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Colleges Offered Scholarship(Enter College Name with comma seprated)</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="colleges_offered_scholarship" id="colleges_offered_scholarship"  value="<?php echo $ScoutReport['ScoutReport']['colleges_offered_scholarship'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][colleges_offered_scholarship]" id="colleges_offered_scholarship"  value="<?php echo $ScoutReport['ScoutReport']['colleges_offered_scholarship'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -722,7 +754,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Phone Number</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="phone_number" id="phone_number"  value="<?php echo $ScoutReport['ScoutReport']['phone_number'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="number" name="report[<?php echo $i ; ?>][phone_number]" id="phone_number"  value="<?php echo $ScoutReport['ScoutReport']['phone_number'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -734,7 +766,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Father First Name</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="father_firstname" id="father_firstname"  value="<?php echo $ScoutReport['ScoutReport']['father_firstname'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][father_firstname]" id="father_firstname"  value="<?php echo $ScoutReport['ScoutReport']['father_firstname'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -747,7 +779,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Father Last Name</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="father_lastname" id="father_lastname"  value="<?php echo $ScoutReport['ScoutReport']['father_lastname'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][father_lastname]" id="father_lastname"  value="<?php echo $ScoutReport['ScoutReport']['father_lastname'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -760,7 +792,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Father Phone Number</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="father_phone" id="father_phone"  value="<?php echo $ScoutReport['ScoutReport']['father_phone'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="number" name="report[<?php echo $i ; ?>][father_phone]" id="father_phone"  value="<?php echo $ScoutReport['ScoutReport']['father_phone'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -772,7 +804,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Mother First Name</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="mother_firstname" id="mother_firstname"  value="<?php echo $ScoutReport['ScoutReport']['mother_firstname'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][mother_firstname]" id="mother_firstname"  value="<?php echo $ScoutReport['ScoutReport']['mother_firstname'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -785,7 +817,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Mother Last Name</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="mother_lastname" id="mother_lastname"  value="<?php echo $ScoutReport['ScoutReport']['mother_lastname'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][mother_lastname]" id="mother_lastname"  value="<?php echo $ScoutReport['ScoutReport']['mother_lastname'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -799,7 +831,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Mother Phone Number</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="mother_phone" id="mother_phone"  value="<?php echo $ScoutReport['ScoutReport']['mother_phone'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="number" name="report[<?php echo $i ; ?>][mother_phone]" id="mother_phone"  value="<?php echo $ScoutReport['ScoutReport']['mother_phone'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -811,7 +843,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">High School Coach Name</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="high_school_coach_name" id="high_school_coach_name"  value="<?php echo $ScoutReport['ScoutReport']['high_school_coach_name'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][high_school_coach_name]" id="high_school_coach_name"  value="<?php echo $ScoutReport['ScoutReport']['high_school_coach_name'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -824,7 +856,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">High School Coach  Phone Number</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="high_school_coach_phone" id="high_school_coach_phone"  value="<?php echo $ScoutReport['ScoutReport']['high_school_coach_phone'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="number" name="report[<?php echo $i ; ?>][high_school_coach_phone]" id="high_school_coach_phone"  value="<?php echo $ScoutReport['ScoutReport']['high_school_coach_phone'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -838,7 +870,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">High School Coach  Email</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="email" name="high_school_coach_email" id="high_school_coach_email"  value="<?php echo $ScoutReport['ScoutReport']['high_school_coach_email'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="email" name="report[<?php echo $i ; ?>][high_school_coach_email]" id="high_school_coach_email"  value="<?php echo $ScoutReport['ScoutReport']['high_school_coach_email'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -850,7 +882,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Primary AAU Coach Name</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="primary_aau_coach_name" id="primary_aau_coach_name"  value="<?php echo $ScoutReport['ScoutReport']['primary_aau_coach_name'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][primary_aau_coach_name]" id="primary_aau_coach_name"  value="<?php echo $ScoutReport['ScoutReport']['primary_aau_coach_name'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -863,7 +895,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Primary AAU Coach Phone</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="primary_aau_coach_phone" id="primary_aau_coach_phone"  value="<?php echo $ScoutReport['ScoutReport']['primary_aau_coach_phone'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="number" name="report[<?php echo $i ; ?>][primary_aau_coach_phone]" id="primary_aau_coach_phone"  value="<?php echo $ScoutReport['ScoutReport']['primary_aau_coach_phone'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -876,7 +908,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Primary AAU Coach Email</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="email" name="primary_aau_coach_email" id="primary_aau_coach_email"  value="<?php echo $ScoutReport['ScoutReport']['primary_aau_coach_email'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="email" name="report[<?php echo $i ; ?>][primary_aau_coach_email]" id="primary_aau_coach_email"  value="<?php echo $ScoutReport['ScoutReport']['primary_aau_coach_email'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -888,7 +920,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Secondary AAU Coach Name</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="secondary_aau_coach_name" id="secondary_aau_coach_name"  value="<?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_name'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][secondary_aau_coach_name]" id="secondary_aau_coach_name"  value="<?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_name'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -901,7 +933,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Secondary AAU Coach Phone</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="number" name="secondary_aau_coach_phone" id="secondary_aau_coach_phone"  value="<?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_phone'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="number" name="report[<?php echo $i ; ?>][secondary_aau_coach_phone]" id="secondary_aau_coach_phone"  value="<?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_phone'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -915,7 +947,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Secondary AAU Coach Email</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="email" name="secondary_aau_coach_email" id="secondary_aau_coach_email"  value="<?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_email'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="email" name="report[<?php echo $i ; ?>][secondary_aau_coach_email]" id="secondary_aau_coach_email"  value="<?php echo $ScoutReport['ScoutReport']['secondary_aau_coach_email'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -929,7 +961,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Facebook</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="facebook" id="facebook"  value="<?php echo $ScoutReport['ScoutReport']['facebook'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][facebook]" id="facebook"  value="<?php echo $ScoutReport['ScoutReport']['facebook'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -942,7 +974,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Twitter</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="twitter" id="twitter"  value="<?php echo $ScoutReport['ScoutReport']['twitter'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][twitter]" id="twitter"  value="<?php echo $ScoutReport['ScoutReport']['twitter'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -955,7 +987,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Lane Agility</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="text" name="lane_agility" id="lane_agility"  value="<?php echo $ScoutReport['ScoutReport']['lane_agility'] ; ?>" maxlength="50" style="width: 220px">
+                                                                                                            <input type="text" name="report[<?php echo $i ; ?>][lane_agility]" id="lane_agility"  value="<?php echo $ScoutReport['ScoutReport']['lane_agility'] ; ?>" maxlength="50" style="width: 220px">
                                                                                                     </td>
                                                                                             </tr>
 
@@ -968,7 +1000,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Description</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                        <textarea name="description" id="description" style="width: 220px" ><?php echo $ScoutReport['ScoutReport']['description'] ; ?>
+                                                                                                        <textarea name="report[<?php echo $i ; ?>][description]" id="description-<?php echo $i ; ?>" style="width: 220px" ><?php echo $ScoutReport['ScoutReport']['description'] ; ?>
                                                                                                         </textarea>
                                                                                                     </td>
                                                                                             </tr>
@@ -984,7 +1016,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Picture</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                            <input type="file" name="picture" id="picture">
+                                                                                                            <input type="file" name="picture[<?php echo $i ; ?>]" id="picture">
                                                                                                             <?php if($ScoutReport['ScoutReport']['picture'] != '') { ?>
                                                                                                             <img src="<?php echo $this->webroot . "/app/webroot/img/scoutreport/" . $ScoutReport['ScoutReport']['picture'] ; ?>" alt="<?php echo $ScoutReport['ScoutReport']['firstname'] . " " . $ScoutReport['ScoutReport']['lastname'] ; ?>" width="150" height="150" >
                                                                                                             <?php } ?>
@@ -1001,7 +1033,7 @@
                                                                                                     <td valign="top" align="right" class="normalblack_12" width="30%">Notes</td>
                                                                                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                                                                                        <textarea name="notes" id="notes" style="width: 220px" ><?php echo $ScoutReport['ScoutReport']['notes'] ; ?>
+                                                                                                        <textarea name="report[<?php echo $i ; ?>][notes]" id="notes" style="width: 220px" ><?php echo $ScoutReport['ScoutReport']['notes'] ; ?>
                                                                                                         </textarea>
                                                                                                     </td>
                                                                                             </tr>
@@ -1010,6 +1042,19 @@
 
                                                                                             </tbody>
 
+
+
+                                                                                        <?php    }
+
+                                                                                            } ?>
+
+                                                                                            <tr>
+                                                                                                <td  class="normalwhite_14" id="new_form_html" colspan="3" width="100%">
+
+                                                                                                </td>
+                                                                                            </tr>
+
+                                                                                            
                                                                                             
                                                                                             <tr height="20">
                                                                                                     <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
@@ -1023,7 +1068,7 @@
                                                                                                     <td valign="top" align="left" class="normalblack_12">
                                                                                                             <input type="hidden" name="isSubmit" value="save">
                                                                                                             <input type="submit" name="submit" value="Submit">&nbsp;&nbsp;
-                                                                                                            <input type="reset" name="Submit2" value="Reset">&nbsp;&nbsp;
+                                                                                                            
                                                                                                     </td>
                                                                                             </tr>
                                                                                             <tr height="20">
@@ -1070,12 +1115,16 @@
   </style>
 
 <script type="text/javascript">
-    $('.expand').on('click', function (e) {
+  /*  $('.expand').on('click', function (e) {
     e.preventDefault();
     $(".collapse").toggle() ;
-    //var elem = $(this).next('.collapse')
-    //elem.toggle('slow');
-});
+});*/
+
+function ShowHide(index){
+	if(index != ''){
+		$(".collapse_"+index).toggle() ;
+	}
+}
 
 function validate(){
     var error_msg = "";
@@ -1103,51 +1152,35 @@ function validate(){
     }
 }
 
-//function getHs(state){
-//    if(state != ''){
-//        var url = '<?php echo $this->Html->url('getHSScout'); ?>' ;
-//                $.ajax({
-//                        url: url ,
-//                        dataType: "json",
-//                        data: {
-//                            state_id : $("#state").val()
-//                        },
-//                        success: function( data ) {
-//                            alert(data);
-//                        }
-//                    });
-//            }
-//}
 
-$(function(){
-    var url = '<?php echo $this->webroot . "admin/ScoutReport/getHSScout" ; ?>' ;
-        $("#state").change(function(){
-            var state = $("#state").val() ;
-            if(state != ''){
-                $.ajax({
-                        url: url ,
-                        //dataType: "json",
-                        data: {
-                            state_id : $("#state").val()
-                        },
-                        success: function( data ) {
-                            $("#high_school").html(data) ;
-                            $("#primary_aau_team").html(data) ;
-                            $("#secondary_aau_team").html(data) ;
-                        }
-                    });
-            }
-      });
+function updateteams(state,index) {
+        var url = '<?php echo $this->webroot . "admin/ScoutReport/getHSScout" ; ?>' ;
+        //alert(state);alert(index);
+        if(state != '' && index != ''){
+            $.ajax({
+                url: url ,
+                //dataType: "json",
+                data: {
+                    state_id : state
+                },
+                success: function( data ) {
+                    $("#high_school-"+index+"").html(data) ;
+                    $("#primary_aau_team-"+index+"").html(data) ;
+                    $("#secondary_aau_team-"+index+"").html(data) ;
+                }
+            });
+        }
+    }
 
-
-            var url1 = '<?php echo $this->Html->url('/admin/ScoutReport/autoComplete_scout'); ?>' ;
-    $("#firstname").autocomplete({
-      source: function( request, response ) {
+      $(function(){
+      var url1 = '<?php echo $this->Html->url('/admin/ScoutReport/autoComplete_scout_multiple'); ?>' ;
+       $(".report").autocomplete({
+      source: function( request, response ){ var id = this.element.attr('id');
         $.ajax({
           url: url1 ,
           dataType: "json",
           data: {
-            q: request.term
+            q: request.term , tag: id
           },
           success: function( data ) {
             response( data );
@@ -1157,35 +1190,35 @@ $(function(){
       minLength: 1,
       select: function( event, ui ) {
                 if(ui.item){
-                    var url2 = '<?php echo $this->Html->url('/admin/ScoutReport/getAthleteInfo'); ?>' ;
+                    var url2 = '<?php echo $this->Html->url('/admin/ScoutReport/getAthleteInfo_multiple'); ?>' ;
                     $.ajax({
                         url: url2 ,
                         data: {
-                            athlete: ui.item.other
+                            athlete: ui.item.other , tag: ui.item.tag
                         },
                         success: function(data) {
                             var obj = $.parseJSON(data);
-                            //console.log(obj.Athlete);
-                            $("#athlete").val(obj.Athlete.id);
-                            $("#lastname").val(obj.Athlete.lastname);
-                            $("#email").val(obj.Athlete.email);
-                            $("#class").val(obj.Athlete.class);
-                            $("#height").val(obj.Athlete.height);
-                            $("#weight").val(obj.Athlete.weight);
-                            $("#primary_position").val(obj.Athlete.primary_position);
-                            $("#secondary_position").val(obj.Athlete.secondary_position);
-                            $("#gpa").val(obj.Athlete.gpa);
-                            $("#sat_score").val(obj.Athlete.sat_score);
-                            $("#act_score").val(obj.Athlete.act_score);
-                            $("#wingspan_id").val(obj.Athlete.wingspan);
-                            $("#city").val(obj.Athlete.city);
-                            if(obj.Athlete.state != ''){
-                                $("#state").val(obj.Athlete.state);
-                                $("#state").trigger("change");
+                            var split = obj.tag.split('-');
+                            $("#athlete-"+split[1]).val(obj.athleteDetail.Athlete.id);
+                            $("#lastname-"+split[1]).val(obj.athleteDetail.Athlete.lastname);
+                            $("#email-"+split[1]).val(obj.athleteDetail.Athlete.email);
+                            $("#class-"+split[1]).val(obj.athleteDetail.Athlete.class);
+                            $("#height-"+split[1]).val(obj.athleteDetail.Athlete.height);
+                            $("#weight-"+split[1]).val(obj.athleteDetail.Athlete.weight);
+                            $("#primary_position-"+split[1]).val(obj.athleteDetail.Athlete.primary_position);
+                            $("#secondary_position-"+split[1]).val(obj.athleteDetail.Athlete.secondary_position);
+                            $("#gpa-"+split[1]).val(obj.athleteDetail.Athlete.gpa);
+                            $("#sat_score-"+split[1]).val(obj.athleteDetail.Athlete.sat_score);
+                            $("#act_score-"+split[1]).val(obj.athleteDetail.Athlete.act_score);
+                            $("#wingspan_id-"+split[1]).val(obj.athleteDetail.Athlete.wingspan);
+                            $("#city-"+split[1]).val(obj.athleteDetail.Athlete.city);
+                            if(obj.athleteDetail.Athlete.state != ''){
+                                $("#state-"+split[1]).val(obj.athleteDetail.Athlete.state);
+                                $("#state-"+split[1]).trigger("change");
                             }
-                            $("#zip_code").val(obj.Athlete.zip);
-                            $("#jersey_number").val(obj.Athlete.jersey_number);
-                            $("#description").val(obj.Athlete.description);
+                            $("#zip_code-"+split[1]).val(obj.athleteDetail.Athlete.zip);
+                            $("#jersey_number-"+split[1]).val(obj.athleteDetail.Athlete.jersey_number);
+                            $("#description-"+split[1]).val(obj.athleteDetail.Athlete.description);
 
                         }
                     });
@@ -1193,5 +1226,21 @@ $(function(){
             }
     });
 
+
+
+    $("#add_more").click(function(){
+     var index = $("#total_reports").val() ;
+        $.ajax({
+          type:'post',
+          data:{'index':index},
+          url: '<?php echo $this->Html->url('/admin/ScoutReport/getAddMoreHtml'); ?>' ,
+          success: function( data ) {
+            $("#total_reports").val(index+1) ;
+            $("#new_form_html").append(data);
+          }
+        });
+    });
+
       });
+
 </script>

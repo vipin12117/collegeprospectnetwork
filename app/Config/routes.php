@@ -71,6 +71,7 @@ Router::connect('/edit-college-coach-profile.php/*', array('controller' => 'Prof
 Router::connect('/pdf', array('controller' => 'ScoutReport', 'action' => 'view'));
 Router::connect('/pdfbyathelete/*', array('controller' => 'ScoutReport', 'action' => 'pdfbyathelete'));
 Router::connect('/pdfbyatheletegroup', array('controller' => 'ScoutReport', 'action' => 'pdfbyatheletegroup'));
+Router::connect('/download_report/*', array('controller' => 'ScoutReport', 'action' => 'download_report'));
 
 
 /**

@@ -49,7 +49,7 @@
 		     <p><?php echo $this->Html->image('bullet-grey.gif');?><a href="<?php echo $this->Html->url(array("controller"=>"Game","action"=>"upcoming"));?>">View Upcoming Games & Events</a></p>
 		</div>
     </div>
-  <?php elseif($this->Session->read('user_type') == 'coach'):?>	
+  <?php elseif($this->Session->read('user_type') == 'coach'):?>
 	 <div class="register-main myaccount">
 	 	 <h1 class="margin5">My Account</h1>
 
@@ -111,11 +111,19 @@
 	    </div>
     </div>
   <?php else:?>
+    <link type="text/css" rel="stylesheet" href="<?php echo Router::fullBaseUrl().$this->base ; ?>/css/bootstrap.min.css" />
+<script type="text/javascript" src="<?php echo Router::fullBaseUrl().$this->base ; ?>/js/bootstrap.min.js"></script>
+<style>
+.modal-content {
+    height: 580px;
+    overflow-y: scroll;
+}
+</style>
     <div class="register-main myaccount">
 	    <h1 class="margin5">My Account</h1>
 
 	    <div class="registerPage" style="position:relative;">
-	    	<div class="event_scouting">
+                <div class="event_scouting" style="right:90px;">
 	    		<h2>Event Scouting Report</h2>
 	    		
 	    		<?php if(isset($profileDetail['CollegeCoach']['scouting_report'])):?>
@@ -124,22 +132,76 @@
 	    		<?php else:?>
 					<p>No report uploaded yet</p>
 				<?php endif;?>
-                                <!-- <form name="pdfform" action="<?php echo $this->webroot . 'pdf' ?>" method="post">
-                                    <select name="best_game" id="best_game" required style="width: 220px">
-                                            <?php $games = $this->Register->getgames() ; ?>
-                                            <option value="">Select Best game</option>
-                                            <?php foreach($games as $key=>$game){ ?>
-                                            <option value="<?php echo $key ; ?>"><?php echo $game ; ?></option>
-                                            <?php } ?>
-                                    </select> 
-                                            <input type="submit" value="Generate Pdf" name="submit">
-                                 </form>-->
+
+                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" >Show Scout Reports</a>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body text-center">
+
+                    <table border="1" cellpadding="1" cellspacing="0" width="100%" bordercolor="#808080" style="border-collapse: collapse" class="tablePadd">
+                                                <tr>
+                                                        <td align="center" class="normalwhite_14" colspan="10" bgcolor="#808080"><strong>Scout Report Listing</strong></td>
+                                                </tr>
+
+                                                <tr>
+                                                        <td align='center' class='normalblack_12' colspan='10' height='30' valign='middle'><font color='red'></font></td>
+                                                </tr>
+
+                                                        <?php if(sizeof($ScoutReports)>0){ ?>
+                                                        <tr>
+                                                                <td align="left" class="normalblack_12" width="8%">&nbsp;<strong>S.No.</strong></td>
+
+                                                                <td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Title</strong></td>
+
+                                                                <td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Add Date</strong></td>
+
+                                                                <td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Last Modify</strong></td>
+
+                                                                <td class="normalblack_12" width="7%" align="center"><strong>Details</strong></td>
+                                                        </tr>
+                                                        <?php $i = 1 ;?> <?php foreach ($ScoutReports as $ScoutReport) : ?>
+
+                                                        <tr>
+                                                                <td align="left" class="normalblack_12">&nbsp;<?php echo ($i + $limit * ($this->Paginator->current() - 1));?></td>
+
+                                                                <td align="left" class="normalblack_12"><?php echo $ScoutReport['ScoutReports']['title'] ; ?></td>
+
+                                                                <td align="left" class="normalblack_12">
+                                                                        <?php echo date("M d Y",$ScoutReport['ScoutReports']['add_date']) ; ?>
+                                                                </td>
+
+                                                                <td align="left" class="normalblack_12">
+                                                                        <?php if($ScoutReport['ScoutReports']['modify_date'] !=0){ echo date("M d Y",$ScoutReport['ScoutReports']['modify_date']) ; }else{ echo "Not Yet" ; } ?>
+                                                                </td>
+
+                                                                <td  class="normalblack_12" align="center"><a href="<?php echo $this->Html->url('/download_report/'.$ScoutReport['ScoutReports']['id'])  ; ?>">Download</a></td>
+
+                                                        </tr>
+
+                                                        <?php $i++;?> <?php endforeach;?> <?php } else { ?>
+
+                                                        <tr>
+                                                                <td align="center" class="normalblack_12" colspan="11" height="30"><font color="red">No Records Available.</font></td>
+                                                   </tr>
+                                                <?php } ?>
+			</table>
+
+                    <?php echo $this->element('pagination'); ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-                                       <?php //echo $this->Html->link(__('PDF'), array("controller"=>"ScoutReport",'action' => 'view', 'ext' => 'pdf', 207)); ?>
-	    	</div>
+                      	    	</div>
 	    	
-		    <div class="subscriptionbox">
+		    <div class="subscriptionbox"  style="right:90px;top:134px;">
 			    <h2>Your Subscription</h2>
 					   
 				<?php if ($is_trial_mode):?>

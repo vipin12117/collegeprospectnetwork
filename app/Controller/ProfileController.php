@@ -36,6 +36,13 @@ class ProfileController extends AppController{
 		elseif($this->user_type == 'college'){
 			$profileDetail = $this->CollegeCoach->getByUsername($username);
 			$this->set("profileDetail",$profileDetail);
+
+                        $limit = 50;
+                        $this->loadModel('ScoutReports');
+                        $this->paginate = array('ScoutReports' => array('limit' => $limit));
+                        $ScoutReports = $this->paginate('ScoutReports');
+                        $this->set(compact('ScoutReports', 'limit'));
+                        //$this->set("ScoutReports",array());
 		}
 		else{
 			$profileDetail = $this->HsAauCoach->getByUsername($username);

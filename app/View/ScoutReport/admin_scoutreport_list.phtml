@@ -43,13 +43,15 @@
 									<form name="frmScoutReportList" action="" method="post" onsubmit="">
 										<?php if(sizeof($ScoutReports)>0){ ?>
 										<tr>
-											<td align="center" class="normalblack_12" width="4%">&nbsp;</td>
+											<!--<td align="center" class="normalblack_12" width="4%">&nbsp;</td>-->
 	
 											<td align="left" class="normalblack_12" width="8%">&nbsp;<strong>S.No.</strong></td>
 	
-											<td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Athlete Name</strong></td>
+											<td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Title</strong></td>
 											
-											<td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Class</strong></td>
+											<td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Add Date</strong></td>
+
+                                                                                        <td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Last Modify</strong></td>
 	
 											<td class="normalblack_12" width="5%" align="center"><strong>Edit</strong></td>
 	
@@ -60,24 +62,28 @@
 										<?php $i = 1 ;?> <?php foreach ($ScoutReports as $ScoutReport) : ?>
 
 										<tr>
-											<td align="center" class="normalblack_12">&nbsp; <input type="checkbox" id="check_delete[]" name="check_delete[]" value="'.<?php echo $ScoutReport['ScoutReport']['id'];?>.'" onclick="return checkItSelf();"></td>
-											
+											<!--<td align="center" class="normalblack_12">&nbsp; <input type="checkbox" id="check_delete[]" name="check_delete[]" value="'.<?php //echo $ScoutReport['ScoutReports']['id'];?>.'" onclick="return checkItSelf();"></td>
+											-->
 											<td align="left" class="normalblack_12">&nbsp;<?php echo ($i + $limit * ($this->Paginator->current() - 1));?></td>
 	
-											<td align="left" class="normalblack_12"><?php echo wordwrap($ScoutReport['ScoutReport']['firstname'],17,"\n",true) . " " . wordwrap($ScoutReport['ScoutReport']['lastname'],17,"\n",true) ;?></td>
+											<td align="left" class="normalblack_12"><?php echo $ScoutReport['ScoutReports']['title'] ; ?></td>
 	
 											<td align="left" class="normalblack_12">
-												<?php echo $ScoutReport['ScoutReport']['class'] ; ?>
+												<?php echo date("M d Y",$ScoutReport['ScoutReports']['add_date']) ; ?>
+											</td>
+
+                                                                                        <td align="left" class="normalblack_12">
+												<?php if($ScoutReport['ScoutReports']['modify_date'] !=0){ echo date("M d Y",$ScoutReport['ScoutReports']['modify_date']) ; }else{ echo "Not Yet" ; } ?>
 											</td>
 											
 											<td class="normalblack_12" align="center">
-												<?php echo $this->Html->link($this->Html->image('/img/b_edit.png'), array('controller' => 'ScoutReport', 'action' => 'editScoutreport', $ScoutReport['ScoutReport']['id']), array('escape' => false, 'title' => 'Edit'))?>
+												<?php echo $this->Html->link($this->Html->image('/img/b_edit.png'), array('controller' => 'ScoutReport', 'action' => 'editScoutreport', $ScoutReport['ScoutReports']['id']), array('escape' => false, 'title' => 'Edit'))?>
 											</td>
 	
 											<td class="normalblack_12" align="center">
-												<?php echo $this->Html->link($this->Html->image('/img/b_drop.png'), array('controller' => 'ScoutReport', 'action' => 'deleteScoutreport', $ScoutReport['ScoutReport']['id']), array('escape' => false, 'title' => 'Delete'), "Are you sure to delete the Scout Report ?")?>
+												<?php echo $this->Html->link($this->Html->image('/img/b_drop.png'), array('controller' => 'ScoutReport', 'action' => 'deleteScoutreport', $ScoutReport['ScoutReports']['id']), array('escape' => false, 'title' => 'Delete'), "Are you sure to delete the Scout Report?")?>
 											</td>
-                                                                                        <td  class="normalblack_12" align="center"><a href="javascript:ShowDetails('<?php echo $this->Html->url('/admin/ScoutReport/scoutDetails/'.$ScoutReport['ScoutReport']['id']) ; ?>','Scout Details')">View</a></td>
+                                                                                        <td  class="normalblack_12" align="center"><a href="javascript:ShowDetails('<?php  echo $this->Html->url('/admin/ScoutReport/scoutDetails/'.$ScoutReport['ScoutReports']['id']) ; ?>','Scout Details')">View</a></td>
 
 										</tr>
 

@@ -204,7 +204,7 @@ $values = array('leadership','work_ethic','primacy_go_to_guy','mental_toughness'
                         <td align="center" class="normalblack_12" width="15%">&nbsp;<strong>Sport</strong></td>
                         <td align="center" class="normalblack_12" width="12%">&nbsp;<strong>Stars</strong></td>
                         <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>School and/or AAU Team</strong></td>
-                        <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>Pdf</strong></td>
+                       <!-- <td align="center" class="normalblack_12" width="20%">&nbsp;<strong>Pdf</strong></td>-->
                     </tr>
                     <form method="post" name="pdfatheltebygrpform" action="<?php echo $this->Html->url('/pdfbyatheletegroup') ; ?>">
                             <?php foreach ($athletes as $athlete): ?>
@@ -230,12 +230,12 @@ $values = array('leadership','work_ethic','primacy_go_to_guy','mental_toughness'
                                 </script>
                             </td>
                             <td align="center" class="normalblack_12"><?php echo $athlete['HsAauTeam']['school_name'];?></td>
-                            <td align="center" class="normalblack_12">
+                            <!--<td align="center" class="normalblack_12">
                                 <input type="checkbox" name="athlete[]" value="<?php echo $athlete['Athlete']['id'] ; ?>">
-                                <a href="<?php echo $this->Html->url('/pdfbyathelete/'.$athlete['Athlete']['id']) ; ?>">PDF</a></td>
+                                <a href="<?php //echo $this->Html->url('/pdfbyathelete/'.$athlete['Athlete']['id']) ; ?>">PDF</a></td>-->
                         </tr>
                             <?php endforeach; ?>
-                        <tr> <td align="center" class="normalblack_12" colspan="8"> <button type="submit"> Genrate Pdf</button> </td></tr>
+                       <!-- <tr> <td align="center" class="normalblack_12" colspan="8"> <button type="submit"> Genrate Pdf</button> </td></tr>-->
                     </form>
                 </table>
             </div>

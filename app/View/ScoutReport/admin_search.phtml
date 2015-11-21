@@ -35,16 +35,16 @@
                                                                                                     <td valign="top" colspan=3 align="center">&nbsp;</td>
                                                                                             </tr>
 
-                                                                                            <?php if($schools): ?>
-                                                                                            <?php foreach($schools as $team): ?>
+                                                                                            <?php if($events): ?>
+                                                                                            <?php foreach($events as $event): ?>
                                                                                             <tr height="20">
                                                                                                     <td valign="top" colspan=3 align="center" class="normalblack_12">&nbsp;</td>
                                                                                             </tr>
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%"><span><?php echo $team['HsAauTeam']['school_name'] ; ?></span></td>
+                                                                                                    <td valign="top" align="right" class="normalblack_12" width="30%"><span><?php echo $event['SpecialEvent']['event_name'] ; ?></span></td>
                                                                                                     <td valign="top" align="center" class="normalblack_12" width="20%">&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                                                                                     <td valign="top" align="left" class="normalblack_12">
-                                                                                                            <input type="submit" name="<?php echo $team['HsAauTeam']['id'] ; ?>" value="View or Modify Reports">&nbsp;&nbsp;
+                                                                                                            <input type="submit" name="<?php echo $event['SpecialEvent']['id'] ; ?>" value="View or Modify Reports">&nbsp;&nbsp;
                                                                                                     </td>
                                                                                             </tr>
                                                                                             <?php endforeach; ?>
@@ -53,7 +53,7 @@
                                                                                                     <td valign="top" colspan=3 align="center" class="normalblack_12">&nbsp;</td>
                                                                                             </tr>
                                                                                             <tr height="20">
-                                                                                                    <td valign="top" colspan=3 align="center" class="normalblack_12"> No Teams Found !</td>
+                                                                                                    <td valign="top" colspan=3 align="center" class="normalblack_12"> No Events Found !</td>
 
                                                                                             </tr>
                                                                                             <?php endif; ?>
