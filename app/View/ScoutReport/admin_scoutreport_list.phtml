@@ -83,7 +83,9 @@
 											<td class="normalblack_12" align="center">
 												<?php echo $this->Html->link($this->Html->image('/img/b_drop.png'), array('controller' => 'ScoutReport', 'action' => 'deleteScoutreport', $ScoutReport['ScoutReports']['id']), array('escape' => false, 'title' => 'Delete'), "Are you sure to delete the Scout Report?")?>
 											</td>
-                                                                                        <td  class="normalblack_12" align="center"><a href="javascript:ShowDetails('<?php  echo $this->Html->url('/admin/ScoutReport/scoutDetails/'.$ScoutReport['ScoutReports']['id']) ; ?>','Scout Details')">View</a></td>
+                                                                                        <td  class="normalblack_12" align="center"><a href="javascript:ShowDetails('<?php  echo $this->Html->url('/admin/ScoutReport/scoutDetails/'.$ScoutReport['ScoutReports']['id']) ; ?>','Scout Details')">View</a><br>
+                                                                                        <a href="<?php echo $this->Html->url('/admin/ScoutReport/download_report_by_admin/'.$ScoutReport['ScoutReports']['id'])  ; ?>">Download</a>
+                                                                                        </td>
 
 										</tr>
 

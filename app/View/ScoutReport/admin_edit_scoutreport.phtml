@@ -60,7 +60,7 @@
                                                                                         </tr>
 
                                                                                         <tr height="20">
-                                                                                            <td valign="top" align="left" colspan="3" class="normalblack_12"><a id="add_more" href="javascript:void(0);" style="margin-left:20px;">Add More</a></td>
+                                                                                            <td valign="top" align="left" colspan="3" class="normalblack_12"><a id="add_more" href="javascript:void(0);" style="margin-left:20px;">Add more athelete to report</a></td>
                                                                                         </tr>
 
                                                                                         <tr height="20">
@@ -1229,7 +1229,7 @@ function updateteams(state,index) {
 
 
     $("#add_more").click(function(){
-     var index = $("#total_reports").val() ;
+     var index = parseInt($("#total_reports").val()) ;
         $.ajax({
           type:'post',
           data:{'index':index},
@@ -1237,6 +1237,9 @@ function updateteams(state,index) {
           success: function( data ) {
             $("#total_reports").val(index+1) ;
             $("#new_form_html").append(data);
+            $('html, body').animate({
+                scrollTop: $(document).height()}, 'slow'); 
+            return false;
           }
         });
     });
