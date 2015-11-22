@@ -214,20 +214,27 @@ class ScoutReportController extends AppController {
                 $event = $this->SpecialEvent->find("first",array("conditions"=>array('event_name'=> trim($this->request->data['event'])),"fields"=>"id,event_name"));
                 if($event) {
                     $this->loadModel('ScoutReports');
-                    $this->ScoutReports->create();
-                    $report_main_data = array('title'=>trim($this->request->data['title']) , 'event_id'=>$event['SpecialEvent']['id'] , 'add_date'=> time()) ;
-                    $this->ScoutReports->save($report_main_data) ;
-                    $scout_report_id = $this->ScoutReports->getLastInsertID();
-                    if($scout_report_id != 0) {
-                        $insert = $this->request->data ;
-                        unset($insert['title']) ;
-                        unset($insert['event']) ;
-                        $insert['scout_report_id'] = $scout_report_id ;
-                        if($this->ScoutReport->save($insert)) {
-                            $this->Session->setFlash('Scout Report is Added Successfully', 'flash_success');
-                            $this->redirect(array('controller' => 'ScoutReport', 'action' => 'scoutreportList'));
+                    $is_addedReport = $this->ScoutReports->find("first",array("conditions"=>array('event_id'=>$event['SpecialEvent']['id'])),array("fields"=>"id , title"));
+                    if(!empty($is_addedReport)) {
+                        $this->Session->setFlash('Already report added for this event , You can add more atheletes only!', 'flash_error');
+                        $this->redirect(array('controller' => 'ScoutReport', 'action' => 'editScoutreport', $is_addedReport['ScoutReports']['id']));
+                    }else {
+                        $this->ScoutReports->create();
+                        $report_main_data = array('title'=>trim($this->request->data['title']) , 'event_id'=>$event['SpecialEvent']['id'] , 'add_date'=> time()) ;
+                        $this->ScoutReports->save($report_main_data) ;
+                        $scout_report_id = $this->ScoutReports->getLastInsertID();
+                        if($scout_report_id != 0) {
+                            $insert = $this->request->data ;
+                            unset($insert['title']) ;
+                            unset($insert['event']) ;
+                            $insert['scout_report_id'] = $scout_report_id ;
+                            if($this->ScoutReport->save($insert)) {
+                                $this->Session->setFlash('Scout Report is Added Successfully', 'flash_success');
+                                $this->redirect(array('controller' => 'ScoutReport', 'action' => 'scoutreportList'));
+                            }
                         }
                     }
+
                 }else {
                     $this->Session->setFlash('No Such Event found as do you wish for generate report!', 'flash_error');
                 }
@@ -894,7 +901,7 @@ class ScoutReportController extends AppController {
     }
 
 
-    
+
     public function admin_download_report_by_admin($report_id = 0) {
 
         if($report_id != 0 && $report_id != '') {
@@ -1017,6 +1024,26 @@ class ScoutReportController extends AppController {
         }
 
 
+    }
+
+
+
+    public function admin_getEvents() {
+        $this->autoRender = false;
+        $this->layout = 'ajax';
+        $response = array() ;
+        $this->loadModel('SpecialEvent');
+        if(isset($_GET['q'])) {
+            $term = $_GET['q'] ;
+            $athletes = $this->SpecialEvent->find("all",array("conditions"=>"SpecialEvent.event_name LIKE '%$term%'"));
+        }
+        if($athletes) {
+            foreach($athletes as $i=>$athlete) {
+                $response[$i]['label'] = $athlete['SpecialEvent']['event_name'] ;
+                $response[$i]['other'] = $athlete['SpecialEvent']['id'] ;
+            }
+        }
+        echo json_encode($response); die;
     }
 
 

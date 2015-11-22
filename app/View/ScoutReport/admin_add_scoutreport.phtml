@@ -1183,6 +1183,26 @@ $(function(){
             }
     });
 
+
+
+     var url2 = '<?php echo $this->Html->url('/admin/ScoutReport/getEvents'); ?>' ;
+    $("#event").autocomplete({
+      source: function( request, response ) {
+        $.ajax({
+          url: url2 ,
+          dataType: "json",
+          data: {
+            q: request.term
+          },
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 1
+    });
+
+
       });
 
 </script>
