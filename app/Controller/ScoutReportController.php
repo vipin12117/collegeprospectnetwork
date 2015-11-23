@@ -84,7 +84,7 @@ class ScoutReportController extends AppController {
                                 }
 
                                 $Athlete = $this->Athlete->find("first",array("conditions"=>array('firstname'=> trim($report['firstname'])),"fields"=>"id"));
-                                if($Athlete && isset($report['athlete']) && ($report['athlete'] == '' || $report['athlete'] == 0)) {
+                                if($Athlete) {
                                     $report['athlete'] = $Athlete['Athlete']['id'] ;
                                 }elseif(!$Athlete && isset($report['athlete']) && ($report['athlete'] == '' || $report['athlete'] == 0)) {
                                     $this->Athlete->create();
@@ -168,7 +168,7 @@ class ScoutReportController extends AppController {
                     }
                     else {
                         $Athlete = $this->Athlete->find("first",array("conditions"=>array('firstname'=> trim($this->request->data['firstname'])),"fields"=>"id"));
-                        if($Athlete && isset($this->request->data['athlete']) && $this->request->data['athlete'] == '') {
+                        if($Athlete) {
                             $this->request->data['athlete'] = $Athlete['Athlete']['id'] ;
                         }elseif(!$Athlete && isset($this->request->data['athlete']) && $this->request->data['athlete'] == '') {
                             $this->Athlete->create();
@@ -294,7 +294,7 @@ class ScoutReportController extends AppController {
                     //echo '<pre>';print_r($report);exit;
 
                     $Athlete = $this->Athlete->find("first",array("conditions"=>array('firstname'=> trim($report['firstname'])),"fields"=>"id"));
-                    if($Athlete && isset($report['athlete']) && ($report['athlete'] == '' || $report['athlete'] == 0) ) {
+                    if($Athlete) {
                         $report['athlete'] = $Athlete['Athlete']['id'] ;
                     }elseif(!$Athlete && isset($report['athlete']) && ($report['athlete'] == '' || $report['athlete'] == 0)) {
                         $this->Athlete->create();
