@@ -1,119 +1,125 @@
 <table cellSpacing=0 cellPadding=0 width="100%" border=0>
-	<tr>
-		<td height=120><?php echo $this->element('admin_header');?></td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td class="heading">
-		<table cellSpacing=0 cellPadding=1 width="95%" align=center border=0>
-			<tr>
-				<td>
-				<table cellSpacing=0 cellPadding=1 width=780 border=0>
-					<tr>
-						<td bgColor=#ffffff>
-						<table cellSpacing=0 cellPadding=0 width=900 border=0>
-							<tr>
-								<td vAlign=top width=20%><?php echo $this->element('admin_menu');?></td>
-								<td valign=top width=1%>&nbsp;</td>
-								<?php $s_image = "/img/spacer.gif"; ?>
-								<td width=10><img src="<?php echo $s_image?>" height="1" width="1"></td>
-								<td valign=top width=""><!--Main Center Content BEGIN -->
+  <tr>
+    <td height=120>
+      <?php echo $this->element('admin_header');?></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="heading">
+      <table cellSpacing=0 cellPadding=1 width="95%" align=center border=0>
+        <tr>
+          <td>
+            <table cellSpacing=0 cellPadding=1 width=780 border=0>
+              <tr>
+                <td bgColor=#ffffff>
+                  <table cellSpacing=0 cellPadding=0 width=900 border=0>
+                    <tr>
+                      <td vAlign=top width=20%>
+                        <?php echo $this->element('admin_menu');?></td>
+                      <td valign=top width=1%>&nbsp;</td>
+                      <?php $s_image="/img/spacer.gif" ; ?>
+                      <td width=10><img src="<?php echo $s_image?>" height="1" width="1">
+                      </td>
+                      <td valign=top width="">
+                        <table border="1" cellpadding="1" cellspacing="0" width="100%" bordercolor="#808080" style="border-collapse: collapse" class="tablePadd">
+                          <tr>
+                            <td align="center" class="normalwhite_14" colspan="10" bgcolor="#808080"><strong>Scout Report Listing</strong>
+                            </td>
+                          </tr>
 
-								<table border="1" cellpadding="1" cellspacing="0" width="100%" bordercolor="#808080" style="border-collapse: collapse" class="tablePadd">
-									<tr>
-										<td align="center" class="normalwhite_14" colspan="10" bgcolor="#808080"><strong>Scout Report Listing</strong></td>
-									</tr>
+                          <tr>
+                            <td align='center' class='normalblack_12' colspan='10' height='30' valign='middle'><font color='red'></font>
+                            </td>
+                          </tr>
 
-									<tr>
-										<td align='center' class='normalblack_12' colspan='10' height='30' valign='middle'><font color='red'></font></td>
-									</tr>
+                          <form name="frmScoutReportList" action="" method="post" onsubmit="">
+                            <?php if(sizeof($ScoutReports)>0){ ?>
+                            <tr>
+                              <td align="left" class="normalblack_12" width="8%">&nbsp;<strong>S.No.</strong>
+                              </td>
 
-									<tr>
-										<!--<td align='center' class='normalblack_12' colspan='10' height='30' valign='middle'>
-											<form name="searchFrm" id="searchFrm" action="" method="POST">
-												<input type="hidden" name="page" id="page" value="0"> 
-												<input type="text" name="searchname" id="searchname"> 
-												<input type="submit" name="search" id="search" style="width: 180px" value="Search Wingspan By Name">
-											</form>
-										</td>-->
-									</tr>
+                              <td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Title</strong>
+                              </td>
 
-									<form name="frmScoutReportList" action="" method="post" onsubmit="">
-										<?php if(sizeof($ScoutReports)>0){ ?>
-										<tr>
-											<!--<td align="center" class="normalblack_12" width="4%">&nbsp;</td>-->
-	
-											<td align="left" class="normalblack_12" width="8%">&nbsp;<strong>S.No.</strong></td>
-	
-											<td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Title</strong></td>
-											
-											<td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Add Date</strong></td>
+                              <td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Add Date</strong>
+                              </td>
 
-                                                                                        <td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Last Modify</strong></td>
-	
-											<td class="normalblack_12" width="5%" align="center"><strong>Edit</strong></td>
-	
-											<td class="normalblack_12" width="7%" align="center"><strong>Delete</strong></td>
+                              <td align="left" class="normalblack_12" width="25%">&nbsp;<strong>Last Modify</strong>
+                              </td>
 
-                                                                                        <td class="normalblack_12" width="7%" align="center"><strong>Details</strong></td>
-										</tr>
-										<?php $i = 1 ;?> <?php foreach ($ScoutReports as $ScoutReport) : ?>
+                              <td class="normalblack_12" width="5%" align="center"><strong>Edit</strong>
+                              </td>
 
-										<tr>
-											<!--<td align="center" class="normalblack_12">&nbsp; <input type="checkbox" id="check_delete[]" name="check_delete[]" value="'.<?php //echo $ScoutReport['ScoutReports']['id'];?>.'" onclick="return checkItSelf();"></td>
-											-->
-											<td align="left" class="normalblack_12">&nbsp;<?php echo ($i + $limit * ($this->Paginator->current() - 1));?></td>
-	
-											<td align="left" class="normalblack_12"><?php echo $ScoutReport['ScoutReports']['title'] ; ?></td>
-	
-											<td align="left" class="normalblack_12">
-												<?php echo date("M d Y",$ScoutReport['ScoutReports']['add_date']) ; ?>
-											</td>
+                              <td class="normalblack_12" width="7%" align="center"><strong>Delete</strong>
+                              </td>
 
-                                                                                        <td align="left" class="normalblack_12">
-												<?php if($ScoutReport['ScoutReports']['modify_date'] !=0){ echo date("M d Y",$ScoutReport['ScoutReports']['modify_date']) ; }else{ echo "Not Yet" ; } ?>
-											</td>
-											
-											<td class="normalblack_12" align="center">
-												<?php echo $this->Html->link($this->Html->image('/img/b_edit.png'), array('controller' => 'ScoutReport', 'action' => 'editScoutreport', $ScoutReport['ScoutReports']['id']), array('escape' => false, 'title' => 'Edit'))?>
-											</td>
-	
-											<td class="normalblack_12" align="center">
-												<?php echo $this->Html->link($this->Html->image('/img/b_drop.png'), array('controller' => 'ScoutReport', 'action' => 'deleteScoutreport', $ScoutReport['ScoutReports']['id']), array('escape' => false, 'title' => 'Delete'), "Are you sure to delete the Scout Report?")?>
-											</td>
-                                                                                        <td  class="normalblack_12" align="center"><a href="javascript:ShowDetails('<?php  echo $this->Html->url('/admin/ScoutReport/scoutDetails/'.$ScoutReport['ScoutReports']['id']) ; ?>','Scout Details')">View</a><br>
-                                                                                        <a href="<?php echo $this->Html->url('/admin/ScoutReport/download_report_by_admin/'.$ScoutReport['ScoutReports']['id'])  ; ?>">Download</a>
-                                                                                        </td>
+                              <td class="normalblack_12" width="7%" align="center"><strong>Details</strong>
+                              </td>
+                            </tr>
+                            <?php $i=1 ;?>
+                            <?php foreach ($ScoutReports as $ScoutReport) : ?>
 
-										</tr>
+                            <tr>
+                              <td align="left" class="normalblack_12">&nbsp;
+                                <?php echo ($i + $limit * ($this->Paginator->current() - 1));?></td>
 
-										<?php $i++;?> <?php endforeach;?> <?php } else { ?>
-									
-										<tr>
-											<td align="center" class="normalblack_12" colspan="11" height="30"><font color="red">No Records Available.</font></td>
-									   </tr>
-									<?php } ?>
-								  </form>
-								</table>
-								<!--Main Center Content END --> <?php echo $this->element('pagination');?>
-							 </td>
-							</tr>
-						</table>
-						</td>
-					</tr>
-				</table>
-				</td>
-			</tr>
-		</table>
-		</td>
-	</tr>
-	<?php echo $this->element('admin_footer');?>
+                              <td align="left" class="normalblack_12">
+                                <?php echo $ScoutReport[ 'ScoutReports'][ 'title'] ; ?>
+                              </td>
+
+                              <td align="left" class="normalblack_12">
+                                <?php echo date( "M d Y",$ScoutReport[ 'ScoutReports'][ 'add_date']) ; ?>
+                              </td>
+
+                              <td align="left" class="normalblack_12">
+                                <?php if($ScoutReport[ 'ScoutReports'][ 'modify_date'] !=0){ echo date( "M d Y",$ScoutReport[ 'ScoutReports'][ 'modify_date']) ; }else{ echo "Not Yet" ; } ?>
+                              </td>
+
+                              <td class="normalblack_12" align="center">
+                                <?php echo $this->Html->link($this->Html->image('/img/b_edit.png'), array('controller' => 'ScoutReport', 'action' => 'editScoutreport', $ScoutReport['ScoutReports']['id']), array('escape' => false, 'title' => 'Edit'))?>
+                              </td>
+
+                              <td class="normalblack_12" align="center">
+                                <?php echo $this->Html->link($this->Html->image('/img/b_drop.png'), array('controller' => 'ScoutReport', 'action' => 'deleteScoutreport', $ScoutReport['ScoutReports']['id']), array('escape' => false, 'title' => 'Delete'), "Are you sure to delete the Scout Report?")?>
+                              </td>
+                              <td class="normalblack_12" align="center"><a href="javascript:ShowDetails('<?php  echo $this->Html->url('/admin/ScoutReport/scoutDetails/'.$ScoutReport['ScoutReports']['id']) ; ?>','Scout Details')">View</a>
+                                <br>
+                                <a href="<?php echo $this->Html->url('/admin/ScoutReport/download_report_by_admin/'.$ScoutReport['ScoutReports']['id'])  ; ?>">Download</a>
+                              </td>
+
+                            </tr>
+
+                            <?php $i++;?>
+                            <?php endforeach;?>
+                            <?php } else { ?>
+
+                            <tr>
+                              <td align="center" class="normalblack_12" colspan="11" height="30"><font color="red">No Records Available.</font>
+                              </td>
+                            </tr>
+                            <?php } ?>
+                          </form>
+                        </table>
+                        <!--Main Center Content END -->
+                        <?php echo $this->element('pagination');?>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <?php echo $this->element('admin_footer');?>
 </table>
 
 <script>
-function ShowDetails(pageURL, windowName) {
+  function ShowDetails(pageURL, windowName) {
     var nLeft, nTop, nWidth, nHeight;
     nWidth = 700;
     nHeight = 600;
@@ -121,6 +127,5 @@ function ShowDetails(pageURL, windowName) {
     nTop = screen.height - nHeight - 100;
     Window1 = window.open(pageURL, windowName, "dependent=yes,height=" + nHeight + ",width=" + nWidth + ",left=" + nLeft + ",top=" + nTop + ",location=no,menubar=no,resizable=yes,scrollbars=yes");
     Window1.focus();
-}
-
+  }
 </script>
