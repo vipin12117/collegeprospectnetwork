@@ -59,13 +59,24 @@
                                     <td valign="top" colspan=3 align="center" class="normalblack_12">&nbsp;</td>
                                   </tr>
                                   <tr height="20">
-                                    <td valign="top" colspan=3 align="center" class="normalblack_12"> No Events Found !</td>
-
+                                    <td valign="top" colspan=3 align="center" class="normalblack_12"> No events found related your search, Do you want create new event?</td>
                                   </tr>
+                                  <tr height="20">
+                                    <td valign="top" colspan=3 align="center" class="normalblack_12">&nbsp;</td>
+                                  </tr>
+                                  <tr height="20">
+                                    <td valign="top" align="right" class="normalblack_12" widt="30%"><?php if(isset($event_name)){ echo $event_name ; } ?></td>
+                                    <td valign="top" align="center" class="normalblack_12" width="20%">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td valign="top" align="left" class="normalblack_12">
+                                        <input type="hidden" name="new_event" value="<?php if(isset($event_name)){ echo $event_name ; } ?>"/>
+                                        <input type="submit" name="0" value="Create this event and add report">&nbsp;&nbsp;
+                                    </td>
+                                  </tr>
+
                                   <?php endif; ?>
 
                                   <tr height="20">
-                                    <td valign="top" colspan=3 align="center" class="normalblack_12">&nbsp;</td>
+                                    <td valign="top" colspan=3 align="center" class="normalblack_12"></td>
                                   </tr>
                                 </table>
                               </td>

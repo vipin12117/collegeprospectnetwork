@@ -89,6 +89,19 @@
                                   </tr>
 
                                   <tr height="20">
+                                    <td valign="top" align="right" class="normalblack_12" width="30%">Team Name<font color="red">*</font>
+                                    </td>
+                                    <td valign="top" align="center" class="normalblack_12">:</td>
+                                    <td valign="top" align="left" class="normalblack_12" colspan=2>
+                                      <input type="text" class="report_team" name="report[<?php echo $i ; ?>][team_name]" id="team_name-<?php echo $i ; ?>" required value="" maxlength="50" style="width: 220px">
+                                    </td>
+                                  </tr>
+
+                                  <tr height="20">
+                                    <td valign="top" class="normalwhite_14" colspan=4 align="center">&nbsp;</td>
+                                  </tr>
+
+                                  <tr height="20">
                                     <td valign="top" align="right" class="normalblack_12" width="30%">First Name<font color="red">*</font>
                                     </td>
                                     <td valign="top" align="center" class="normalblack_12">:</td>
@@ -226,6 +239,10 @@
                                         </select>
                                         <!--    <input type="text" name="secondary_aau_team" id="secondary_aau_team" required value="" maxlength="50" style="width: 220px">-->
                                       </td>
+                                    </tr>
+
+                                    <tr height="20">
+                                        <td valign="top" class="normalwhite_14" colspan=3 align="center">&nbsp;</td>
                                     </tr>
 
                                     <tr height="20">
@@ -1168,5 +1185,23 @@
         }
       }
     });
+
+    var url3 = '<?php echo $this->Html->url('/admin/ScoutReport/getTeams'); ?>';
+    $(".report_team").autocomplete({
+      source: function(request, response) {
+        $.ajax({
+          url: url3,
+          dataType: "json",
+          data: {
+            q: request.term
+          },
+          success: function(data) {
+            response(data);
+          }
+        });
+      },
+      minLength: 1
+    });
+
   });
 </script>

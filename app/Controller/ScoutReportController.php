@@ -82,7 +82,11 @@ class ScoutReportController extends AppController {
 									}
 								}
 
-								$Athlete = $this->Athlete->find("first",array("conditions"=>array('firstname'=> trim($report['firstname'])),"fields"=>"id"));
+                                                                $scout_report_team_id = $this->ScoutReport->Savescoutreportteam(trim($report['team_name']));
+
+                                                              if($scout_report_team_id){
+                                                              $report['scout_report_team_id'] = $scout_report_team_id ;
+                                                                   $Athlete = $this->Athlete->find("first",array("conditions"=>array('firstname'=> trim($report['firstname'])),"fields"=>"id"));
 								if($Athlete) {
 									$report['athlete'] = $Athlete['Athlete']['id'] ;
 								}
@@ -90,15 +94,15 @@ class ScoutReportController extends AppController {
 									$this->Athlete->create();
 									$var_athlete = trim($report['firstname']) . mt_rand(100,999) ;
 									$athlete_data = array(
-                                        'username'=> $var_athlete,
-                                        'password'=> $var_athlete ,
-                                        'email'=>trim($report['email']) ,
-                                        'firstname'=>trim($report['firstname']) ,
-                                        'lastname'=>trim($report['lastname']) ,
-                                        'class'=>trim($report['class']) ,
-                                        'status'=> 1 ,
-                                        'coach_id'=> 0 ,
-                                        'added_date'=> time()
+                                                                            'username'=> $var_athlete,
+                                                                            'password'=> $var_athlete ,
+                                                                            'email'=>trim($report['email']) ,
+                                                                            'firstname'=>trim($report['firstname']) ,
+                                                                            'lastname'=>trim($report['lastname']) ,
+                                                                            'class'=>trim($report['class']) ,
+                                                                            'status'=> 1 ,
+                                                                            'coach_id'=> 0 ,
+                                                                            'added_date'=> time()
 									) ;
 									$this->Athlete->save($athlete_data) ;
 									$report['athlete'] = $this->Athlete->getLastInsertID();
@@ -111,6 +115,9 @@ class ScoutReportController extends AppController {
 									$this->ScoutReport->create();
 									$this->ScoutReport->save($report) ;
 								}
+                                                            }
+
+								
 
 							}
 							$this->Session->setFlash('Scout Report are updated Successfully', 'flash_success');
@@ -171,15 +178,15 @@ class ScoutReportController extends AppController {
 						$this->Athlete->create();
 						$var_athlete = trim($this->request->data['firstname']) . mt_rand(100,999) ;
 						$athlete_data = array(
-                            'username'=> $var_athlete,
-                            'password'=> $var_athlete ,
-                            'email'=>trim($this->request->data['email']) ,
-                            'firstname'=>trim($this->request->data['firstname']) ,
-                            'lastname'=>trim($this->request->data['lastname']) ,
-                            'class'=>trim($this->request->data['class']) ,
-                            'status'=> 1 ,
-                            'coach_id'=> 0 ,
-                            'added_date'=> time()
+                                                    'username'=> $var_athlete,
+                                                    'password'=> $var_athlete ,
+                                                    'email'=>trim($this->request->data['email']) ,
+                                                    'firstname'=>trim($this->request->data['firstname']) ,
+                                                    'lastname'=>trim($this->request->data['lastname']) ,
+                                                    'class'=>trim($this->request->data['class']) ,
+                                                    'status'=> 1 ,
+                                                    'coach_id'=> 0 ,
+                                                    'added_date'=> time()
 						) ;
 						$this->Athlete->save($athlete_data) ;
 						$this->request->data['athlete'] = $this->Athlete->getLastInsertID();
@@ -243,23 +250,34 @@ class ScoutReportController extends AppController {
 			$this->loadModel('SpecialEvent');
 			if(isset($_POST['hsaauteam']) && !empty($_POST['hsaauteam'])) {
 				$events = $this->SpecialEvent->find("all",array("conditions"=>array('event_name LIKE '=> "%" . trim($_POST['hsaauteam']) . "%" ),"fields"=>"id,event_name","order"=>"event_name ASC"));
-			}
+			$this->set('event_name', $_POST['hsaauteam']);
+                        }
 		}
 		$this->set('events', $events);
 	}
 
 	public function admin_atheletesearch() {
+            $this->loadModel('SpecialEvent');
+            $this->loadModel('ScoutReports');
+            $EventDetail = array();
+            $event_id = 0 ;
 		if ($this->request->is('post')) {
 			if(isset($_POST) && !empty($_POST)) {
-				$event_id = key($_POST) ;
-				$this->loadModel('ScoutReports');
-				if($event_id > 0) {
+                                if(isset($_POST['new_event']) && !empty($_POST['new_event'])){
+                                        $event_in_arr = array('event_name'=>$_POST['new_event'],'event_desc'=>$_POST['new_event']);
+                                        $this->SpecialEvent->create();
+                                        $this->SpecialEvent->save($event_in_arr);
+                                        $event_id = $this->SpecialEvent->id ;
+                                        $EventDetail = $this->SpecialEvent->findById($event_id);
+                                }else{
+                                    $event_id = key($_POST) ;
+                                    if($event_id > 0) {
 					$Report = $this->ScoutReports->find("first",array("conditions"=>array('event_id'=>$event_id)),array("fields"=>"id , title"));
-					$this->loadModel('SpecialEvent');
 					$EventDetail = $this->SpecialEvent->findById($event_id);
-					$this->set('EventDetail', $EventDetail);
-					$this->set('event_id', $event_id);
-				}
+                                    }
+                                }
+                              $this->set('EventDetail', $EventDetail);
+			      $this->set('event_id', $event_id);
 			}
 		}
 	}
@@ -288,8 +306,11 @@ class ScoutReportController extends AppController {
 							}
 						}
 					}
-					//echo '<pre>';print_r($report);exit;
+                                        $scout_report_team_id = $this->ScoutReport->Savescoutreportteam(trim($report['team_name']));
 
+					//echo '<pre>';print_r($scout_report_team_id);exit;
+                                     if($scout_report_team_id){
+                                        $report['scout_report_team_id'] = $scout_report_team_id ;
 					$Athlete = $this->Athlete->find("first",array("conditions"=>array('firstname'=> trim($report['firstname'])),"fields"=>"id"));
 					if($Athlete) {
 						$report['athlete'] = $Athlete['Athlete']['id'] ;
@@ -298,22 +319,24 @@ class ScoutReportController extends AppController {
 						$this->Athlete->create();
 						$var_athlete = trim($report['firstname']) . mt_rand(100,999) ;
 						$athlete_data = array(
-                            'username'=> $var_athlete,
-                            'password'=> $var_athlete ,
-                            'email'=>trim($report['email']) ,
-                            'firstname'=>trim($report['firstname']) ,
-                            'lastname'=>trim($report['lastname']) ,
-                            'class'=>trim($report['class']) ,
-                            'status'=> 1 ,
-                            'coach_id'=> 0 ,
-                            'added_date'=> time()
-						) ;
+                                                    'username'=> $var_athlete,
+                                                    'password'=> $var_athlete ,
+                                                    'email'=>trim($report['email']) ,
+                                                    'firstname'=>trim($report['firstname']) ,
+                                                    'lastname'=>trim($report['lastname']) ,
+                                                    'class'=>trim($report['class']) ,
+                                                    'status'=> 1 ,
+                                                    'coach_id'=> 0 ,
+                                                    'added_date'=> time()
+                                                    ) ;
 						$this->Athlete->save($athlete_data) ;
 						$report['athlete'] = $this->Athlete->getLastInsertID();
 					}
 
 					$this->ScoutReport->create();
 					$this->ScoutReport->save($report) ;
+                                      }
+
 				}
 
 				$this->Session->setFlash('Scout Report are Added Successfully', 'flash_success');
@@ -343,6 +366,24 @@ class ScoutReportController extends AppController {
 			}
 		}
 		echo $html ;die ;
+	}
+
+        public function admin_getTeams() {
+		$this->autoRender = false;
+		$this->layout = 'ajax';
+		$response = array() ;
+		$this->loadModel('HsAauTeam');
+                if(isset($_GET['q'])) {
+			$term = addslashes($_GET['q']);
+			$athletes = $this->HsAauTeam->find("all",array("conditions"=>"Lower(HsAauTeam.school_name) LIKE Lower('%$term%')","order"=>"school_name ASC"));
+		}
+		if($athletes) {
+			foreach($athletes as $i=>$athlete) {
+				$response[$i]['label'] = $athlete['HsAauTeam']['school_name'] ;
+				$response[$i]['other'] = $athlete['HsAauTeam']['id'] ;
+			}
+		}
+		echo json_encode($response); die;
 	}
 
 	public function view() {

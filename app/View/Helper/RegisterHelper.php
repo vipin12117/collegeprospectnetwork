@@ -297,4 +297,12 @@ class RegisterHelper extends AppHelper{
             return $data ;
 
         }
+        public function getScoutreportTeamName($id){
+                $db = ConnectionManager::getDataSource('default');
+		$is_exist = $db->execute('Select name from scout_report_team where id = "'.$id.'" limit 1');
+                $is_exist_arr = $is_exist->fetch(PDO::FETCH_ASSOC) ;
+                if($is_exist_arr){
+                    return $is_exist_arr['name'] ;
+                }
+	}
 }
