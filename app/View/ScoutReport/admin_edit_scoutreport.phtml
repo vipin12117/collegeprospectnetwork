@@ -132,7 +132,7 @@
                                     </td>
                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                      <input type="text" name="report[<?php echo $i ; ?>][lastname]" id="lastname-<?php echo $i ; ?>" required value="<?php echo $ScoutReport['ScoutReport']['lastname'] ; ?>" maxlength="50" style="width: 220px">
+                                      <input type="text" class="reportlastname" name="report[<?php echo $i ; ?>][lastname]" id="lastname-<?php echo $i ; ?>" required value="<?php echo $ScoutReport['ScoutReport']['lastname'] ; ?>" maxlength="50" style="width: 220px">
                                     </td>
                                   </tr>
 
@@ -141,11 +141,11 @@
                                   </tr>
 
                                   <tr height="20">
-                                    <td valign="top" align="right" class="normalblack_12" width="30%">Email<font color="red">*</font>
+                                    <td valign="top" align="right" class="normalblack_12" width="30%">Email
                                     </td>
                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                      <input type="email" name="report[<?php echo $i ; ?>][email]" id="email-<?php echo $i ; ?>" required value="<?php echo $ScoutReport['ScoutReport']['email'] ; ?>" maxlength="50" style="width: 220px">
+                                      <input type="email" name="report[<?php echo $i ; ?>][email]" id="email-<?php echo $i ; ?>" value="<?php echo $ScoutReport['ScoutReport']['email'] ; ?>" maxlength="50" style="width: 220px">
                                     </td>
                                   </tr>
 
@@ -1076,8 +1076,9 @@
                                         <td valign="top" align="right" class="normalblack_12" width="30%">&nbsp</td>
                                         <td valign="top" align="center" class="normalblack_12">&nbsp</td>
                                         <td valign="top" align="left" class="normalblack_12">
-                                          <input type="hidden" name="isSubmit" value="save">
-                                          <input type="submit" name="submit" value="Submit">&nbsp;&nbsp;
+                                           <input type="hidden" value="0" id="btnvalue" name="btnvalue"/>
+                                            <input type="submit" name="issave" onclick="saveforlater()" value="Save For Later">
+                                          <input type="submit" name="submit" onclick="submitform()" value="Submit">&nbsp;&nbsp;
 
                                         </td>
                                       </tr>
@@ -1150,7 +1151,12 @@
       return true;
     }
   }
-
+  function saveforlater(){
+      $("#btnvalue").val(0);
+  }
+  function submitform(){
+      $("#btnvalue").val(1);
+  }
   function updateteams(state, index) {
     var url = '<?php echo $this->webroot . "admin/ScoutReport/getHSScout" ; ?>';
     if (state != '' && index != '') {
@@ -1198,6 +1204,63 @@
               var obj = $.parseJSON(data);
               var split = obj.tag.split('-');
               $("#athlete-" + split[1]).val(obj.athleteDetail.Athlete.id);
+              $("#firstname-" + split[1]).val(obj.athleteDetail.Athlete.firstname);
+              $("#lastname-" + split[1]).val(obj.athleteDetail.Athlete.lastname);
+              $("#email-" + split[1]).val(obj.athleteDetail.Athlete.email);
+              $("#class-" + split[1]).val(obj.athleteDetail.Athlete.class);
+              $("#height-" + split[1]).val(obj.athleteDetail.Athlete.height);
+              $("#weight-" + split[1]).val(obj.athleteDetail.Athlete.weight);
+              $("#primary_position-" + split[1]).val(obj.athleteDetail.Athlete.primary_position);
+              $("#secondary_position-" + split[1]).val(obj.athleteDetail.Athlete.secondary_position);
+              $("#gpa-" + split[1]).val(obj.athleteDetail.Athlete.gpa);
+              $("#sat_score-" + split[1]).val(obj.athleteDetail.Athlete.sat_score);
+              $("#act_score-" + split[1]).val(obj.athleteDetail.Athlete.act_score);
+              $("#wingspan_id-" + split[1]).val(obj.athleteDetail.Athlete.wingspan);
+              $("#city-" + split[1]).val(obj.athleteDetail.Athlete.city);
+              if (obj.athleteDetail.Athlete.state != '') {
+                $("#state-" + split[1]).val(obj.athleteDetail.Athlete.state);
+                $("#state-" + split[1]).trigger("change");
+              }
+              $("#zip_code-" + split[1]).val(obj.athleteDetail.Athlete.zip);
+              $("#jersey_number-" + split[1]).val(obj.athleteDetail.Athlete.jersey_number);
+              $("#description-" + split[1]).val(obj.athleteDetail.Athlete.description);
+            }
+          });
+        }
+      }
+    });
+
+    var urllastname = '<?php echo $this->Html->url('/admin/ScoutReport/getatheletebylastname'); ?>';
+    $(".reportlastname").autocomplete({
+      source: function(request, response) {
+        var id = this.element.attr('id');
+        $.ajax({
+          url: urllastname,
+          dataType: "json",
+          data: {
+            q: request.term,
+            tag: id
+          },
+          success: function(data) {
+            response(data);
+          }
+        });
+      },
+      minLength: 1,
+      select: function(event, ui) {
+        if (ui.item) {
+          var url4 = '<?php echo $this->Html->url('/admin/ScoutReport/getAthleteInfo_multiple'); ?>';
+          $.ajax({
+            url: url4,
+            data: {
+              athlete: ui.item.other,
+              tag: ui.item.tag
+            },
+            success: function(data) {
+              var obj = $.parseJSON(data);
+              var split = obj.tag.split('-');
+              $("#athlete-" + split[1]).val(obj.athleteDetail.Athlete.id);
+              $("#firstname-" + split[1]).val(obj.athleteDetail.Athlete.firstname);
               $("#lastname-" + split[1]).val(obj.athleteDetail.Athlete.lastname);
               $("#email-" + split[1]).val(obj.athleteDetail.Athlete.email);
               $("#class-" + split[1]).val(obj.athleteDetail.Athlete.class);

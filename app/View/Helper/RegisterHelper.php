@@ -305,4 +305,15 @@ class RegisterHelper extends AppHelper{
                     return $is_exist_arr['name'] ;
                 }
 	}
+        public function getTeamName($team_id = false){
+		App::import("Model","HsAauTeam");
+		$this->HsAauTeam = new HsAauTeam();
+                $school = $this->HsAauTeam->find("list",array("conditions"=>array('id'=>$team_id),"fields"=>"id,school_name"));
+		if ($school) {
+                    $options = $school[$team_id] ;
+                } else {
+                    $options = '' ;
+                }
+		return $options;
+	}
 }

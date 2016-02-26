@@ -27,7 +27,7 @@
                       <td valign=top width="">
                         <!-- MAin Content Starts From Here -->
 
-                        <form name="frmaddscoutreport" action="<?php echo $this->Html->url('/admin/ScoutReport/addmultiplereport')?>" method="post" enctype="multipart/form-data">
+                        <form name="frmaddscoutreport" action="<?php echo $this->Html->url('/admin/ScoutReport/addmultiplereport')?>" onsubmit="return validate()" method="post" enctype="multipart/form-data">
                           <table width="100%" border="1" cellpadding="1" cellspacing="0" bordercolor="#808080" style="border-collapse: collapse">
                             <tr height="20">
                               <td align="center" class="normalblack_12" width="90%" valign="top">
@@ -42,7 +42,7 @@
                                     </td>
                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                      <input type="text" name="title" id="title" required value="" maxlength="50" style="width: 220px">
+                                      <input type="text" name="title" id="title" required value="<?php echo date("d-m-Y H:m:s") . " " . $EventDetail['SpecialEvent']['event_name'] ; ?>" maxlength="50" style="width: 220px">
                                       <input type="hidden" name="event_id" id="event_id" value="<?php echo $event_id ; ?>" />
                                     </td>
                                   </tr>
@@ -89,11 +89,11 @@
                                   </tr>
 
                                   <tr height="20">
-                                    <td valign="top" align="right" class="normalblack_12" width="30%">Team Name<font color="red">*</font>
+                                    <td valign="top" align="right" class="normalblack_12" width="30%">Team Name<?php if($i==0){ ?><font color="red">*</font><?php } ?>
                                     </td>
                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                      <input type="text" class="report_team" name="report[<?php echo $i ; ?>][team_name]" id="team_name-<?php echo $i ; ?>" required value="" maxlength="50" style="width: 220px">
+                                      <input type="text" class="report_team" name="report[<?php echo $i ; ?>][team_name]" id="team_name-<?php echo $i ; ?>" <?php if($i==0){ ?>required<?php } ?> value="" maxlength="50" style="width: 220px">
                                     </td>
                                   </tr>
 
@@ -102,11 +102,11 @@
                                   </tr>
 
                                   <tr height="20">
-                                    <td valign="top" align="right" class="normalblack_12" width="30%">First Name<font color="red">*</font>
+                                    <td valign="top" align="right" class="normalblack_12" width="30%">First Name<?php if($i==0){ ?><font color="red">*</font><?php } ?>
                                     </td>
                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                      <input type="text" class="report" name="report[<?php echo $i ; ?>][firstname]" id="firstname-<?php echo $i ; ?>" required value="" maxlength="50" style="width: 220px">
+                                      <input type="text" class="report" name="report[<?php echo $i ; ?>][firstname]" id="firstname-<?php echo $i ; ?>" <?php if($i==0){ ?>required<?php } ?> value="" maxlength="50" style="width: 220px">
                                     </td>
                                   </tr>
 
@@ -115,11 +115,11 @@
                                   </tr>
 
                                   <tr height="20">
-                                    <td valign="top" align="right" class="normalblack_12" width="30%">Last Name<font color="red">*</font>
+                                    <td valign="top" align="right" class="normalblack_12" width="30%">Last Name<?php if($i==0){ ?><font color="red">*</font><?php } ?>
                                     </td>
                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                      <input type="text" name="report[<?php echo $i ; ?>][lastname]" id="lastname-<?php echo $i ; ?>" required value="<?php if(isset($athelte_data['lastname'])) { echo $athelte_data['lastname'] ; } ?>" maxlength="50" style="width: 220px">
+                                      <input type="text" class="reportlastname" name="report[<?php echo $i ; ?>][lastname]" id="lastname-<?php echo $i ; ?>" <?php if($i==0){ ?>required<?php } ?> value="<?php if(isset($athelte_data['lastname'])) { echo $athelte_data['lastname'] ; } ?>" maxlength="50" style="width: 220px">
                                     </td>
                                   </tr>
 
@@ -128,11 +128,11 @@
                                   </tr>
 
                                   <tr height="20">
-                                    <td valign="top" align="right" class="normalblack_12" width="30%">Email<font color="red">*</font>
+                                    <td valign="top" align="right" class="normalblack_12" width="30%">Email
                                     </td>
                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                      <input type="email" name="report[<?php echo $i ; ?>][email]" id="email-<?php echo $i ; ?>" required value="" maxlength="50" style="width: 220px">
+                                      <input type="email" name="report[<?php echo $i ; ?>][email]" id="email-<?php echo $i ; ?>" value="" maxlength="50" style="width: 220px">
                                     </td>
                                   </tr>
 
@@ -141,11 +141,11 @@
                                   </tr>
 
                                   <tr height="20">
-                                    <td valign="top" align="right" class="normalblack_12" width="30%">Graduating Class<font color="red">*</font>
+                                    <td valign="top" align="right" class="normalblack_12" width="30%">Graduating Class<?php if($i==0){ ?><font color="red">*</font><?php } ?>
                                     </td>
                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                      <select name="report[<?php echo $i ; ?>][class]" id="class-<?php echo $i ; ?>" required style="width: 220px">
+                                      <select name="report[<?php echo $i ; ?>][class]" id="class-<?php echo $i ; ?>" <?php if($i==0){ ?>required<?php } ?> style="width: 220px">
                                         <?php $Classes=$this->Register->getClasses() ; ?>
                                         <option value="">Select Class</option>
                                         <?php foreach($Classes as $key=>$Class) { ?>
@@ -162,11 +162,11 @@
                                   </tr>
 
                                   <tr height="20">
-                                    <td valign="top" align="right" class="normalblack_12" width="30%">State<font color="red">*</font>
+                                    <td valign="top" align="right" class="normalblack_12" width="30%">State<?php if($i==0){ ?><font color="red">*</font><?php } ?>
                                     </td>
                                     <td valign="top" align="center" class="normalblack_12">:</td>
                                     <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                      <select name="report[<?php echo $i ; ?>][state]" id="state-<?php echo $i ; ?>" onchange="javascript:updateteams( this.value , '<?php echo $i ; ?>');" required style="width: 220px">
+                                      <select name="report[<?php echo $i ; ?>][state]" id="state-<?php echo $i ; ?>" onchange="javascript:updateteams( this.value , '<?php echo $i ; ?>');" <?php if($i==0){ ?>required<?php } ?> style="width: 220px">
                                         <?php $states=$this->Register->getStates() ; ?>
                                         <option value="">Select State</option>
                                         <?php foreach($states as $key=>$state) { ?>
@@ -182,11 +182,11 @@
                                     </tr>
 
                                     <tr height="20">
-                                      <td valign="top" align="right" class="normalblack_12" width="30%">High School<font color="red">*</font>
+                                      <td valign="top" align="right" class="normalblack_12" width="30%">High School<?php if($i==0){ ?><font color="red">*</font><?php } ?>
                                       </td>
                                       <td valign="top" align="center" class="normalblack_12">:</td>
                                       <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                        <select name="report[<?php echo $i ; ?>][high_school]" id="high_school-<?php echo $i ; ?>" required style="width: 220px">
+                                        <select name="report[<?php echo $i ; ?>][high_school]" id="high_school-<?php echo $i ; ?>" <?php if($i==0){ ?><?php } ?> style="width: 220px">
                                           <option value="">Select High School</option>
                                           <?php if(isset($athelte_data[ 'state']) && $athelte_data[ 'state'] !='' && isset($athelte_data[ 'high_school'])) { $schools=$this->Register->getHsScout($athelte_data['state']) ; if($schools) { foreach($schools as $key=>$school) { ?>
                                           <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data[ 'high_school']) && $athelte_data[ 'high_school']==$key) { echo "Selected='Selected'" ; } ?> >
@@ -204,11 +204,11 @@
                                     </tr>
 
                                     <tr height="20">
-                                      <td valign="top" align="right" class="normalblack_12" width="30%">Primary Aau Team<font color="red">*</font>
+                                      <td valign="top" align="right" class="normalblack_12" width="30%">Primary Aau Team<?php if($i==0){ ?><font color="red">*</font><?php } ?>
                                       </td>
                                       <td valign="top" align="center" class="normalblack_12">:</td>
                                       <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                        <select name="report[<?php echo $i ; ?>][primary_aau_team]" id="primary_aau_team-<?php echo $i ; ?>" required style="width: 220px">
+                                        <select name="report[<?php echo $i ; ?>][primary_aau_team]" id="primary_aau_team-<?php echo $i ; ?>" <?php if($i==0){ ?><?php } ?> style="width: 220px">
                                           <option value="">Select Primary Team</option>
                                           <?php if(isset($athelte_data[ 'state']) && $athelte_data[ 'state'] !='' && isset($athelte_data[ 'primary_aau_team'])) { $schools=$this->Register->getHsScout($athelte_data['state']) ; if($schools) { foreach($schools as $key=>$school) { ?>
                                           <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data[ 'primary_aau_team']) && $athelte_data[ 'primary_aau_team']==$key) { echo "Selected='Selected'" ; } ?> >
@@ -225,11 +225,11 @@
                                     </tr>
 
                                     <tr height="20">
-                                      <td valign="top" align="right" class="normalblack_12" width="30%">Secondary Aau Team<font color="red">*</font>
+                                      <td valign="top" align="right" class="normalblack_12" width="30%">Secondary Aau Team<?php if($i==0){ ?><font color="red">*</font><?php } ?>
                                       </td>
                                       <td valign="top" align="center" class="normalblack_12">:</td>
                                       <td valign="top" align="left" class="normalblack_12" colspan=2>
-                                        <select name="report[<?php echo $i ; ?>][secondary_aau_team]" id="secondary_aau_team-<?php echo $i ; ?>" required style="width: 220px">
+                                        <select name="report[<?php echo $i ; ?>][secondary_aau_team]" id="secondary_aau_team-<?php echo $i ; ?>" <?php if($i==0){ ?><?php } ?> style="width: 220px">
                                           <option value="">Select Secondary Team</option>
                                           <?php if(isset($athelte_data[ 'state']) && $athelte_data[ 'state'] !='' && isset($athelte_data[ 'secondary_aau_team'])) { $schools=$this->Register->getHsScout($athelte_data['state']) ; if($schools) { foreach($schools as $key=>$school) { ?>
                                           <option value="<?php echo $key ; ?>" <?php if(isset($athelte_data[ 'secondary_aau_team']) && $athelte_data[ 'secondary_aau_team']==$key) { echo "Selected='Selected'" ; } ?> >
@@ -1036,8 +1036,9 @@
                                         <td valign="top" align="right" class="normalblack_12" width="30%">&nbsp</td>
                                         <td valign="top" align="center" class="normalblack_12">&nbsp</td>
                                         <td valign="top" align="left" class="normalblack_12">
-                                          <input type="hidden" name="isSubmit" value="save">
-                                          <input type="submit" name="submit" value="Submit">&nbsp;&nbsp;
+                                            <input type="hidden" value="0" id="btnvalue" name="btnvalue"/>
+                                            <input type="submit" name="issave" onclick="saveforlater()" value="Save For Later">
+                                          <input type="submit" name="submit" onclick="submitform()" value="Submit">&nbsp;&nbsp;
 
                                         </td>
                                       </tr>
@@ -1093,19 +1094,8 @@
 
   function validate() {
     var error_msg = "";
-    if (trimString(document.frmaddscoutreport.firstname.value) == "") {
-      error_msg += "Please Enter Scout First Name! \n";
-    } else {
-      if (hasSpecialCharaters(document.frmaddscoutreport.firstname.value)) {
-        error_msg += "Don`t enter special characters in Scout First Name! \n";
-      }
-    }
-    if (trimString(document.frmaddscoutreport.lastname.value) == "") {
-      error_msg += "Please Enter Scout Last Name! \n";
-    } else {
-      if (hasSpecialCharaters(document.frmaddscoutreport.lastname.value)) {
-        error_msg += "Don`t enter special characters in Scout Last Name! \n";
-      }
+    if ($("#high_school-0").val() == "" && $("#primary_aau_team-0").val() == "" && $("#secondary_aau_team-0").val() == "") {
+      error_msg += "Please select team name for High school or Primrary Aau or Secondary Aau!";
     }
     if (error_msg != '') {
       alert(error_msg);
@@ -1113,6 +1103,12 @@
     } else {
       return true;
     }
+  }
+  function saveforlater(){
+      $("#btnvalue").val(0);
+  }
+  function submitform(){
+      $("#btnvalue").val(1);
   }
   function updateteams(state, index) {
     var url = '<?php echo $this->webroot . "admin/ScoutReport/getHSScout" ; ?>';
@@ -1161,6 +1157,63 @@
               var obj = $.parseJSON(data);
               var split = obj.tag.split('-');
               $("#athlete-" + split[1]).val(obj.athleteDetail.Athlete.id);
+              $("#firstname-" + split[1]).val(obj.athleteDetail.Athlete.firstname);
+              $("#lastname-" + split[1]).val(obj.athleteDetail.Athlete.lastname);
+              $("#email-" + split[1]).val(obj.athleteDetail.Athlete.email);
+              $("#class-" + split[1]).val(obj.athleteDetail.Athlete.class);
+              $("#height-" + split[1]).val(obj.athleteDetail.Athlete.height);
+              $("#weight-" + split[1]).val(obj.athleteDetail.Athlete.weight);
+              $("#primary_position-" + split[1]).val(obj.athleteDetail.Athlete.primary_position);
+              $("#secondary_position-" + split[1]).val(obj.athleteDetail.Athlete.secondary_position);
+              $("#gpa-" + split[1]).val(obj.athleteDetail.Athlete.gpa);
+              $("#sat_score-" + split[1]).val(obj.athleteDetail.Athlete.sat_score);
+              $("#act_score-" + split[1]).val(obj.athleteDetail.Athlete.act_score);
+              $("#wingspan_id-" + split[1]).val(obj.athleteDetail.Athlete.wingspan);
+              $("#city-" + split[1]).val(obj.athleteDetail.Athlete.city);
+              if (obj.athleteDetail.Athlete.state != '') {
+                $("#state-" + split[1]).val(obj.athleteDetail.Athlete.state);
+                $("#state-" + split[1]).trigger("change");
+              }
+              $("#zip_code-" + split[1]).val(obj.athleteDetail.Athlete.zip);
+              $("#jersey_number-" + split[1]).val(obj.athleteDetail.Athlete.jersey_number);
+              $("#description-" + split[1]).val(obj.athleteDetail.Athlete.description);
+            }
+          });
+        }
+      }
+    });
+
+    var urllastname = '<?php echo $this->Html->url('/admin/ScoutReport/getatheletebylastname'); ?>';
+    $(".reportlastname").autocomplete({
+      source: function(request, response) {
+        var id = this.element.attr('id');
+        $.ajax({
+          url: urllastname,
+          dataType: "json",
+          data: {
+            q: request.term,
+            tag: id
+          },
+          success: function(data) {
+            response(data);
+          }
+        });
+      },
+      minLength: 1,
+      select: function(event, ui) {
+        if (ui.item) {
+          var url4 = '<?php echo $this->Html->url('/admin/ScoutReport/getAthleteInfo_multiple'); ?>';
+          $.ajax({
+            url: url4,
+            data: {
+              athlete: ui.item.other,
+              tag: ui.item.tag
+            },
+            success: function(data) {
+              var obj = $.parseJSON(data);
+              var split = obj.tag.split('-');
+              $("#athlete-" + split[1]).val(obj.athleteDetail.Athlete.id);
+              $("#firstname-" + split[1]).val(obj.athleteDetail.Athlete.firstname);
               $("#lastname-" + split[1]).val(obj.athleteDetail.Athlete.lastname);
               $("#email-" + split[1]).val(obj.athleteDetail.Athlete.email);
               $("#class-" + split[1]).val(obj.athleteDetail.Athlete.class);

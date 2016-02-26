@@ -140,7 +140,9 @@
                       <td class="normalblack_12" valign="top" height="25" width="40%"><b>High School</b>
                       </td>
                       <td class="normalblack_12" valign="top">
-                        <?php echo $ScoutReport[ 'ScoutReport'][ 'high_school']?>
+                          <?php
+                        $school_name = $this->Register->getTeamName($ScoutReport[ 'ScoutReport'][ 'high_school']) ;
+                        echo $school_name ; ?>
                       </td>
                     </tr>
 
@@ -148,7 +150,9 @@
                       <td class="normalblack_12" valign="top" height="25" width="40%"><b>Primary AAU Team</b>
                       </td>
                       <td class="normalblack_12" valign="top">
-                        <?php echo $ScoutReport[ 'ScoutReport'][ 'primary_aau_team']?>
+                          <?php
+                        $school_name1 = $this->Register->getTeamName($ScoutReport[ 'ScoutReport'][ 'primary_aau_team']) ;
+                        echo $school_name1 ; ?>
                       </td>
                     </tr>
 
@@ -156,7 +160,9 @@
                       <td class="normalblack_12" valign="top" height="25" width="40%"><b>Secondary AAU Team</b>
                       </td>
                       <td class="normalblack_12" valign="top">
-                        <?php echo $ScoutReport[ 'ScoutReport'][ 'secondary_aau_team']?>
+                          <?php
+                        $school_name2 = $this->Register->getTeamName($ScoutReport[ 'ScoutReport'][ 'secondary_aau_team']) ;
+                        echo $school_name2 ; ?>
                       </td>
                     </tr>
                     <tr>

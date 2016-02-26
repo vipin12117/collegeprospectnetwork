@@ -64,7 +64,7 @@ class ScoutReportController extends AppController {
 					if(isset($this->request->data['title']) && isset($this->request->data['event_id']) && $this->request->data['event_id'] != 0 && isset($this->request->data['report']) && !empty($this->request->data['report'])) {
 						//echo '<pre>' ;print_r($this->request->data);exit;
 						$this->ScoutReports->id = $id;
-						$report_main_data = array('title'=>trim($this->request->data['title']) , 'modify_date'=> time()) ;
+						$report_main_data = array('title'=>trim($this->request->data['title']) , 'modify_date'=> time(),'status'=>$this->request->data['btnvalue']) ;
 						$this->ScoutReports->save($report_main_data) ;
 						$scout_report_id = $id ;
 						if($scout_report_id != 0) {
@@ -288,12 +288,15 @@ class ScoutReportController extends AppController {
 			$this->loadModel('ScoutReports');
 			$this->loadModel('Athlete');
 			$this->ScoutReports->create();
-			$report_main_data = array('title'=>trim($this->request->data['title']) , 'event_id'=>$this->request->data['event_id'] , 'add_date'=> time()) ;
+			$report_main_data = array('title'=>trim($this->request->data['title']) , 'event_id'=>$this->request->data['event_id'] , 'add_date'=> time() , 'status'=>$this->request->data['btnvalue']) ;
 			$this->ScoutReports->save($report_main_data) ;
 			$scout_report_id = $this->ScoutReports->getLastInsertID();
 			
 			if($scout_report_id != 0) {
 				foreach($this->request->data['report'] as $i=>$report) {
+                                    if($report['team_name'] == '' && $report['firstname'] == '' ){
+                                        continue ;
+                                    }
 					$report['scout_report_id'] = $scout_report_id ;
 					if(isset($_FILES['picture']) && !empty($_FILES['picture'])) {
 						if($_FILES['picture']['error'][$i] == 0 && $_FILES['picture']['size'][$i] > 0 && $_FILES['picture']['name'][$i] != '') {
@@ -1077,7 +1080,7 @@ class ScoutReportController extends AppController {
 		
 		if($athletes) {
 			foreach($athletes as $i=>$athlete) {
-				$response[$i]['label'] = $athlete['Athlete']['firstname'] ;
+				$response[$i]['label'] = $athlete['Athlete']['firstname'] . " " . $athlete['Athlete']['lastname']  ;
 				$response[$i]['other'] = $athlete['Athlete']['id'] ;
 				$response[$i]['tag'] = $_GET['tag'] ;
 			}
@@ -1122,5 +1125,30 @@ class ScoutReportController extends AppController {
 			echo "No Data found" ;
 			die;
 		}
+	}
+
+        public function admin_getatheletebylastname() {
+		$this->autoRender = false;
+		$this->layout = 'ajax';
+		$response = array() ;
+		$this->loadModel('Athlete');
+		if(isset($_GET['q'])) {
+			$term = $_GET['q'] ;
+			$athletes = $this->Athlete->find("all",array("conditions"=>"Athlete.lastname LIKE '%$term%' and Athlete.status = 1"));
+			//$athletes = $this->Athlete->find("first",array("conditions"=>array('status'=>1 ,'firstname LIKE '=> "%$term%" ),"fields"=>"id,firstname","order"=>"firstname ASC"));
+		}
+		else {
+			$athletes = $this->Athlete->find("all",array("conditions"=>"Athlete.status = 1"));
+			//$athletes = $this->Athlete->find("first",array("conditions"=>array('status'=>1),"fields"=>"id,firstname","order"=>"firstname ASC"));
+		}
+
+		if($athletes) {
+			foreach($athletes as $i=>$athlete) {
+				$response[$i]['label'] = $athlete['Athlete']['lastname'] ;
+				$response[$i]['other'] = $athlete['Athlete']['id'] ;
+				$response[$i]['tag'] = $_GET['tag'] ;
+			}
+		}
+		echo json_encode($response); die;
 	}
 }
